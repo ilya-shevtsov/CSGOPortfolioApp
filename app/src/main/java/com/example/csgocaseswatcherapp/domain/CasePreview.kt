@@ -1,6 +1,6 @@
-package com.example.csgocaseswatcherapp.model
+package com.example.csgocaseswatcherapp.domain
 
-data class Case(
+data class CasePreview(
     val name: String,
     val lowestPrice: Float,
     val volume: Int,

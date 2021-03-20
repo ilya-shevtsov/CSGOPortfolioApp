@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.model
+package com.example.csgocaseswatcherapp.data.api
 
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
@@ -8,7 +8,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 class ApiTools {
-
 
     companion object {
 
