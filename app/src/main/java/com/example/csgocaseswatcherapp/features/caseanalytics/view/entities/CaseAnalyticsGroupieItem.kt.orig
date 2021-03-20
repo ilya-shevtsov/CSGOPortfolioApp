@@ -12,11 +12,19 @@ data class CaseAnalyticsGroupieItem(
         viewBinding.caseImageView.setImageURI(caseAnalyticsModel.imageUrl)
         viewBinding.caseNameTextView.text = caseAnalyticsModel.caseName
         viewBinding.monthlyAvgReturnInPercent.text = viewBinding.root.context.getString(
+<<<<<<< HEAD
+            R.string.monthly_avg_return_in_percent,
+            caseAnalyticsModel.monthlyAvgReturnInPercent.toString()
+        )
+        viewBinding.monthlyAvgReturnInRub.text = viewBinding.root.context.getString(
+            R.string.monthly_avg_return_in_rub,
+=======
             R.string.monthly_avg_return_in_percent_new,
             caseAnalyticsModel.monthlyAvgReturnInPercent.toString()
         )
         viewBinding.monthlyAvgReturnInRub.text = viewBinding.root.context.getString(
             R.string.monthly_avg_return_in_rub_new,
+>>>>>>> e43427f (to-ui-change)
             caseAnalyticsModel.monthlyAvgReturnInRUB.toString()
         )
     }

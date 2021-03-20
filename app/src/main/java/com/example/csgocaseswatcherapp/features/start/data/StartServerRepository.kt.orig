@@ -1,10 +1,15 @@
 package com.example.csgocaseswatcherapp.features.start.data
 
 import com.example.csgocaseswatcherapp.api.ApiTools
+<<<<<<< HEAD
+import com.example.csgocaseswatcherapp.features.start.data.entities.PreferredCurrencyDto
+import com.example.csgocaseswatcherapp.features.start.domain.StartRepository
+=======
 import com.example.csgocaseswatcherapp.features.start.data.entities.PreferredCurrencyDtoMapper
 import com.example.csgocaseswatcherapp.features.start.domain.StartRepository
 import com.example.csgocaseswatcherapp.features.start.domain.entities.PreferredCurrency
 import com.example.csgocaseswatcherapp.features.start.domain.entities.PreferredCurrencyMapper
+>>>>>>> e43427f (to-ui-change)
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -12,6 +17,16 @@ import javax.inject.Inject
 
 class StartServerRepository @Inject constructor() : StartRepository {
 
+<<<<<<< HEAD
+    override suspend fun getPreferredCurrency(): PreferredCurrencyDto {
+        return ApiTools.getApiService().getPreferredCurrency()
+
+    }
+
+    override fun sendPreferredCurrency(preferredCurrency: PreferredCurrencyDto) {
+        CoroutineScope(Dispatchers.IO).launch {
+            ApiTools.getApiService().postPreferredCurrency(preferredCurrency)
+=======
     override suspend fun getPreferredCurrency(): PreferredCurrency {
         val response = ApiTools.getApiService().getPreferredCurrency()
         return PreferredCurrencyMapper.map(response)
@@ -22,6 +37,7 @@ class StartServerRepository @Inject constructor() : StartRepository {
         CoroutineScope(Dispatchers.IO).launch {
             val mappedPreferredCurrency = PreferredCurrencyDtoMapper.map(preferredCurrency)
             ApiTools.getApiService().postPreferredCurrency(mappedPreferredCurrency)
+>>>>>>> e43427f (to-ui-change)
         }
     }
 

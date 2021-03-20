@@ -74,7 +74,11 @@
         android:id="@+id/caseAnalyticsFragment"
         android:name="com.example.csgocaseswatcherapp.features.caseanalytics.view.CaseAnalyticsFragment"
         android:label="Case Analytics "
+<<<<<<< HEAD
+        tools:layout="@layout/fragment_case_analytics">
+=======
         tools:layout="@layout/fragment_case_analytics_old">
+>>>>>>> e43427f (to-ui-change)
         <action
             android:id="@+id/action_caseAnalyticsFragment_to_startFragment"
             app:destination="@id/startFragment" />

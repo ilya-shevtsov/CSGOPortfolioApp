@@ -33,6 +33,10 @@ class StartFragment : Fragment(R.layout.fragment_start) {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+<<<<<<< HEAD
+
+=======
+>>>>>>> e43427f (to-ui-change)
         binding = FragmentStartBinding.inflate(inflater, container, false)
         return binding.root
     }

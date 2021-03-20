@@ -1,9 +1,17 @@
 package com.example.csgocaseswatcherapp.features.portfolio.domain
 
+<<<<<<< HEAD
+import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioCaseItem
+
+interface PortfolioRepository {
+
+    suspend fun getPortfolioData(): List<PortfolioCaseItem>
+=======
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItem
 
 interface PortfolioRepository {
 
     suspend fun getPortfolioData(): List<PortfolioItem>
+>>>>>>> e43427f (to-ui-change)
 
 }

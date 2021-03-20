@@ -2,13 +2,20 @@ package com.example.csgocaseswatcherapp.features.start.domain.usecases
 
 import com.example.csgocaseswatcherapp.features.start.data.entities.PreferredCurrencyDto
 import com.example.csgocaseswatcherapp.features.start.domain.StartRepository
+<<<<<<< HEAD
+=======
 import com.example.csgocaseswatcherapp.features.start.domain.entities.PreferredCurrency
+>>>>>>> e43427f (to-ui-change)
 import javax.inject.Inject
 
-class SendPreferredCurrencyUseCase @Inject constructor(
+class GetPreferredCurrencyUseCase @Inject constructor(
     private val startRepository: StartRepository
 ) {
-    operator fun invoke(preferredCurrency: PreferredCurrency) {
-        return startRepository.sendPreferredCurrency(preferredCurrency)
+<<<<<<< HEAD
+    suspend operator fun invoke(): PreferredCurrencyDto {
+=======
+    suspend operator fun invoke(): PreferredCurrency {
+>>>>>>> e43427f (to-ui-change)
+        return startRepository.getPreferredCurrency()
     }
 }

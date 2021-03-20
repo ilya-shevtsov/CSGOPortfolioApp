@@ -5,5 +5,9 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class PortfolioItemListArgs(
+<<<<<<< HEAD
+    val portfolioItemList: List<PortfolioCaseItem>
+=======
     val portfolioItemList: List<PortfolioItem>
+>>>>>>> e43427f (to-ui-change)
 ): Parcelable

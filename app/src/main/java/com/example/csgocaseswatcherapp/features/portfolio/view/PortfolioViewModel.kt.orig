@@ -4,7 +4,11 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.csgocaseswatcherapp.features.portfolio.domain.usecases.GetPortfolioDataUseCase
+<<<<<<< HEAD
+import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioCaseItem
+=======
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItem
+>>>>>>> e43427f (to-ui-change)
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemListArgs
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemMapper
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioValueItem
@@ -21,7 +25,11 @@ class PortfolioViewModel @Inject constructor(
 ) :
     ViewModel() {
 
+<<<<<<< HEAD
+    var portfolioItemList: List<PortfolioCaseItem> = listOf()
+=======
     var portfolioItemList: List<PortfolioItem> = listOf()
+>>>>>>> e43427f (to-ui-change)
 
     var portfolioValueList: List<PortfolioValueItem> = listOf()
 
@@ -49,8 +57,13 @@ class PortfolioViewModel @Inject constructor(
         }
     }
 
+<<<<<<< HEAD
+    private fun getTotalValue(PortfolioItemList: List<PortfolioCaseItem>): Double {
+        return PortfolioItemList.sumOf { case ->
+=======
     private fun getTotalValue(portfolioItemList: List<PortfolioItem>): Double {
         return portfolioItemList.sumOf { case ->
+>>>>>>> e43427f (to-ui-change)
             case.caseOverallValue.roundToLong().toDouble()
         }
     }
@@ -116,6 +129,17 @@ class PortfolioViewModel @Inject constructor(
     }
 
     fun addAmountAndValue(
+<<<<<<< HEAD
+        addedCase: PortfolioCaseItem,
+        portfolioItem: PortfolioCaseItem
+    ): PortfolioCaseItem {
+        return PortfolioCaseItem(
+            caseImage = portfolioItem.caseImage,
+            caseName = portfolioItem.caseName,
+            caseAmount = portfolioItem.caseAmount + addedCase.caseAmount,
+            casePrice = portfolioItem.casePrice,
+            caseOverallValue = portfolioItem.caseOverallValue + addedCase.caseOverallValue,
+=======
         added: PortfolioItem,
         portfolioItem: PortfolioItem
     ): PortfolioItem {
@@ -125,6 +149,7 @@ class PortfolioViewModel @Inject constructor(
             caseAmount = portfolioItem.caseAmount + added.caseAmount,
             casePrice = portfolioItem.casePrice,
             caseOverallValue = portfolioItem.caseOverallValue + added.caseOverallValue,
+>>>>>>> e43427f (to-ui-change)
             caseProfitLoss = portfolioItem.caseProfitLoss
         )
     }
@@ -151,7 +176,11 @@ class PortfolioViewModel @Inject constructor(
     }
 
     private fun showContent(
+<<<<<<< HEAD
+        portfolioItemList: List<PortfolioCaseItem>, portfolioValueList: List<PortfolioValueItem>
+=======
         portfolioItemList: List<PortfolioItem>, portfolioValueList: List<PortfolioValueItem>
+>>>>>>> e43427f (to-ui-change)
     ) {
         val portfolioBarEntryList = mapToBarEntry(portfolioValueList)
         val totalPortfolioValue = getTotalValue(portfolioItemList)
@@ -163,7 +192,11 @@ class PortfolioViewModel @Inject constructor(
         )
     }
 
+<<<<<<< HEAD
+    private fun createPortfolioUiState(newPortfolioItemList: List<PortfolioCaseItem>) {
+=======
     private fun createPortfolioUiState(newPortfolioItemList: List<PortfolioItem>) {
+>>>>>>> e43427f (to-ui-change)
         val portfolioBarEntryList = mapToBarEntry(portfolioValueList)
         val totalPortfolioValue = getTotalValue(portfolioItemList)
         uiState.value = PortfolioViewState.Content(
@@ -175,6 +208,10 @@ class PortfolioViewModel @Inject constructor(
     }
 
     private suspend fun getPortfolioData() {
+<<<<<<< HEAD
+        portfolioItemList = getPortfolioDataUseCase.invoke()
+=======
         portfolioItemList = getPortfolioDataUseCase()
+>>>>>>> e43427f (to-ui-change)
     }
 }

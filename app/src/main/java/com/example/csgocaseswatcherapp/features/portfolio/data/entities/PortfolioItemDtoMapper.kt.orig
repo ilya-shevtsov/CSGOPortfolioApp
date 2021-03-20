@@ -1,11 +1,20 @@
 package com.example.csgocaseswatcherapp.features.portfolio.data.entities
 
+<<<<<<< HEAD
+import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioCaseItem
+
+object PortfolioItemDtoMapper {
+
+    fun map(portfolioItemDto: PortfolioItemDto): PortfolioCaseItem {
+        return PortfolioCaseItem(
+=======
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItem
 
 object PortfolioItemDtoMapper {
 
     fun map(portfolioItemDto: PortfolioItemDto): PortfolioItem {
         return PortfolioItem(
+>>>>>>> e43427f (to-ui-change)
             caseImage = portfolioItemDto.imageUrl,
             caseName = portfolioItemDto.name,
             caseAmount = portfolioItemDto.amount,

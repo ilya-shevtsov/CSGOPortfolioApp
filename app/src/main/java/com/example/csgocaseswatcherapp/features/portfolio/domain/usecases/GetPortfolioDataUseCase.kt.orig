@@ -1,6 +1,10 @@
 package com.example.csgocaseswatcherapp.features.portfolio.domain.usecases
 
+<<<<<<< HEAD
+import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioCaseItem
+=======
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItem
+>>>>>>> e43427f (to-ui-change)
 import com.example.csgocaseswatcherapp.features.portfolio.domain.PortfolioRepository
 import javax.inject.Inject
 
@@ -8,7 +12,11 @@ class GetPortfolioDataUseCase @Inject constructor(
     private val portfolioRepository: PortfolioRepository
 ) {
 
+<<<<<<< HEAD
+    suspend operator fun invoke(): List<PortfolioCaseItem> {
+=======
     suspend operator fun invoke(): List<PortfolioItem> {
+>>>>>>> e43427f (to-ui-change)
         return portfolioRepository.getPortfolioData()
     }
 }

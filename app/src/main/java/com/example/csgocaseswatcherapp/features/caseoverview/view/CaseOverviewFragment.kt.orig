@@ -50,6 +50,10 @@ class CaseOverviewFragment : Fragment(R.layout.fragment_case_overview) {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                     viewModel.uiState.collect { uiState ->
                         handleState(uiState)
+<<<<<<< HEAD
+
+=======
+>>>>>>> e43427f (to-ui-change)
                     }
                 }
             }

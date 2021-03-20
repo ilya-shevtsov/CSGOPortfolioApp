@@ -6,8 +6,13 @@ import kotlin.math.round
 
 object PortfolioItemMapper {
 
+<<<<<<< HEAD
+    fun map(addedCaseItem: AddedCaseModel): PortfolioCaseItem {
+        return PortfolioCaseItem(
+=======
     fun map(addedCaseItem: AddedCaseModel): PortfolioItem {
         return PortfolioItem(
+>>>>>>> e43427f (to-ui-change)
             caseImage = getCaseImage(addedCaseItem.name),
             caseName = addedCaseItem.name,
             caseAmount = addedCaseItem.amount,

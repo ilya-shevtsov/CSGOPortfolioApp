@@ -34,6 +34,10 @@
         tools:background="@color/black" />
 
     <TextView
+<<<<<<< HEAD
+
+=======
+>>>>>>> e43427f (to-ui-change)
         android:id="@+id/monthlyAvgReturnInPercent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
