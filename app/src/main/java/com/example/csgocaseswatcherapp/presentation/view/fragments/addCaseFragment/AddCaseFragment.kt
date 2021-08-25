@@ -21,14 +21,14 @@ class AddCaseFragment : Fragment(R.layout.fragment_add_case) {
 
         val caseNameArray = resources.getStringArray(R.array.case_name_array)
 
-        val adapter =
+        val caseNameArrayAdapter =
             ArrayAdapter(
                 requireContext(),
                 android.R.layout.simple_list_item_1,
                 caseNameArray
             )
         binding.caseNameEditText.threshold = 1
-        binding.caseNameEditText.setAdapter(adapter)
+        binding.caseNameEditText.setAdapter(caseNameArrayAdapter)
 
         return binding.root
     }
