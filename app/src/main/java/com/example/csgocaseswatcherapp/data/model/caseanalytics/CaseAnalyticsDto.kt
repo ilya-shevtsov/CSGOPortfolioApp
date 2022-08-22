@@ -5,6 +5,9 @@ import com.google.gson.annotations.SerializedName
 
 data class CaseAnalyticsDto(
 
+    //Unresolved Reference because library version, android studio version,
+    //Gradle version or Kotlin version mismatch
+
     @SerializedName("name")
     val name: String,
 
