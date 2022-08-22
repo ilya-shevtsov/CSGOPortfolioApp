@@ -80,11 +80,11 @@
         android:layout_height="0dp"
         android:background="@color/black"
         app:layout_constraintTop_toBottomOf="@id/bottomLine"
-        app:layout_constraintBottom_toTopOf="@id/casePartLine"
+        app:layout_constraintBottom_toTopOf="@id/casePartLineUp"
         app:layout_constraintEnd_toEndOf="@id/detailsButton" />
 
     <View
-        android:id="@+id/casePartLine"
+        android:id="@+id/casePartLineUp"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_marginBottom="280dp"
@@ -92,5 +92,23 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ItemCaseRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="@id/casePartLineUp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_case_portfolio"/>
+
+
+
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
