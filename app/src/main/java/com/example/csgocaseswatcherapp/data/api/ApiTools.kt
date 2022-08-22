@@ -22,7 +22,7 @@ class ApiTools {
 
         private fun getRetrofit(): Retrofit {
             return Retrofit.Builder()
-                .baseUrl("http://casewatcherappservertwo-env.eba-hrmgxgh9.us-east-1.elasticbeanstalk.com/")
+                .baseUrl("http://casewatcherappserver-env.eba-wruzxfct.us-east-1.elasticbeanstalk.com/")
                 .client(getClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
