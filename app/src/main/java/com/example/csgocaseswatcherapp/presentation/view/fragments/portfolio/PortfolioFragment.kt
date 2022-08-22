@@ -8,16 +8,25 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.databinding.FragmentPortfolioBinding
+import com.example.csgocaseswatcherapp.presentation.model.caseoverviewitem.CaseOverviewItem
+import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioItem
+import com.xwray.groupie.GroupieAdapter
+import com.xwray.groupie.Section
 
 class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
 
     private lateinit var binding:FragmentPortfolioBinding
+    private val caseListAdapter = GroupieAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentPortfolioBinding.inflate(inflater, container, false)
+2
+        binding.ItemCaseRecyclerView.adapter = caseListAdapter
+
+        caseListAdapter.update(listOf(PortfolioItem(1)))
 
         binding.homeButton.setOnClickListener {
             findNavController().navigate(R.id.startFragment)
@@ -26,7 +35,6 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
         binding.addCaseButton.setOnClickListener {
             findNavController().navigate(R.id.addCaseFragment)
         }
-
 
 
         return binding.root

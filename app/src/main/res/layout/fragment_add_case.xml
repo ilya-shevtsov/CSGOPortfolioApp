@@ -70,17 +70,19 @@
         app:layout_constraintStart_toStartOf="@id/caseNameEditText"
         app:layout_constraintTop_toBottomOf="@id/caseNameEditText" />
 
-    <AutoCompleteTextView
+    <EditText
         android:id="@+id/numberOfCaseEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:hint="@string/add_case_number_of_cases_hint"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
         app:layout_constraintEnd_toEndOf="@id/numberOfCaseTextView"
         app:layout_constraintStart_toStartOf="@id/numberOfCaseTextView"
-        app:layout_constraintTop_toBottomOf="@id/numberOfCaseTextView" />
+        app:layout_constraintTop_toBottomOf="@id/numberOfCaseTextView"
+        android:hint="@string/add_case_number_of_cases_hint"
+        android:inputType="number"
+        android:importantForAutofill="no" />
 
     <TextView
         android:id="@+id/purchasePriceTextView"
@@ -95,7 +97,7 @@
         app:layout_constraintStart_toStartOf="@id/numberOfCaseEditText"
         app:layout_constraintTop_toBottomOf="@id/numberOfCaseEditText" />
 
-    <AutoCompleteTextView
+    <EditText
         android:id="@+id/purchasePriceEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -103,8 +105,10 @@
         android:hint="@string/add_case_purchase_price_hint"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
+        android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="@id/purchasePriceTextView"
         app:layout_constraintStart_toStartOf="@id/purchasePriceTextView"
-        app:layout_constraintTop_toBottomOf="@id/purchasePriceTextView" />
+        app:layout_constraintTop_toBottomOf="@id/purchasePriceTextView"
+        android:importantForAutofill="no" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
