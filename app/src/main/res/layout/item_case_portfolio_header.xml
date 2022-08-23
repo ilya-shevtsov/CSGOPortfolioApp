@@ -6,17 +6,17 @@
     android:layout_height="wrap_content"
     android:background="@color/casePortfolioHeaderColor">
     <View
-        android:id="@+id/topLine"
+        android:id="@+id/topLineCaseHeader"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@color/black"
-        app:layout_constraintBottom_toTopOf="@id/bottomLine"
+        app:layout_constraintBottom_toTopOf="@id/bottomLineCaseHeader"
         app:layout_constraintEnd_toEndOf="@id/endLine"
         app:layout_constraintStart_toStartOf="@id/startLine"
-        app:layout_constraintTop_toTopOf="@id/topLine" />
+        app:layout_constraintTop_toTopOf="@id/topLineCaseHeader" />
 
     <View
-        android:id="@+id/bottomLine"
+        android:id="@+id/bottomLineCaseHeader"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@color/black"
@@ -27,18 +27,18 @@
         android:layout_width="2dp"
         android:layout_height="35dp"
         android:background="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/bottomLine"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomLineCaseHeader"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/topLine" />
+        app:layout_constraintTop_toTopOf="@id/topLineCaseHeader" />
 
     <View
         android:id="@+id/endLine"
         android:layout_width="2dp"
         android:layout_height="35dp"
         android:background="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/bottomLine"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomLineCaseHeader"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/topLine" />
+        app:layout_constraintTop_toTopOf="@id/topLineCaseHeader" />
 
     <TextView
         android:id="@+id/caseNameHeader"
@@ -48,9 +48,9 @@
         android:textStyle="bold"
         android:gravity="center"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@id/bottomLine"
+        app:layout_constraintBottom_toTopOf="@id/bottomLineCaseHeader"
         app:layout_constraintStart_toEndOf="@id/startLine"
-        app:layout_constraintTop_toBottomOf="@id/topLine"
+        app:layout_constraintTop_toBottomOf="@id/topLineCaseHeader"
         tools:text="Case" />
 
     <View
@@ -59,9 +59,9 @@
         android:layout_height="35dp"
         android:layout_marginEnd="8dp"
         android:background="@color/black"
-        app:layout_constraintBottom_toTopOf="@id/bottomLine"
+        app:layout_constraintBottom_toTopOf="@id/bottomLineCaseHeader"
         app:layout_constraintStart_toEndOf="@id/caseNameHeader"
-        app:layout_constraintTop_toBottomOf="@id/topLine" />
+        app:layout_constraintTop_toBottomOf="@id/topLineCaseHeader" />
 
     <TextView
         android:id="@+id/caseAmountHeader"
@@ -71,9 +71,9 @@
         android:textColor="@color/white"
         android:textSize="11sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/bottomLine"
+        app:layout_constraintBottom_toTopOf="@id/bottomLineCaseHeader"
         app:layout_constraintStart_toEndOf="@id/startAmountLine"
-        app:layout_constraintTop_toBottomOf="@id/topLine"
+        app:layout_constraintTop_toBottomOf="@id/topLineCaseHeader"
         tools:text="Amount" />
 
     <View
@@ -82,9 +82,9 @@
         android:layout_height="35dp"
         android:layout_marginEnd="8dp"
         android:background="@color/black"
-        app:layout_constraintBottom_toTopOf="@id/bottomLine"
+        app:layout_constraintBottom_toTopOf="@id/bottomLineCaseHeader"
         app:layout_constraintStart_toEndOf="@id/caseAmountHeader"
-        app:layout_constraintTop_toBottomOf="@id/topLine" />
+        app:layout_constraintTop_toBottomOf="@id/topLineCaseHeader" />
 
     <TextView
         android:id="@+id/casePriceHeader"
@@ -94,9 +94,9 @@
         android:textColor="@color/white"
         android:textSize="11sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/bottomLine"
+        app:layout_constraintBottom_toTopOf="@id/bottomLineCaseHeader"
         app:layout_constraintStart_toEndOf="@id/startPriceLine"
-        app:layout_constraintTop_toTopOf="@id/topLine"
+        app:layout_constraintTop_toTopOf="@id/topLineCaseHeader"
         tools:text="Price" />
 
     <View
@@ -105,9 +105,9 @@
         android:layout_height="35dp"
         android:layout_marginEnd="8dp"
         android:background="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/bottomLine"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomLineCaseHeader"
         app:layout_constraintStart_toEndOf="@id/casePriceHeader"
-        app:layout_constraintTop_toTopOf="@id/topLine" />
+        app:layout_constraintTop_toTopOf="@id/topLineCaseHeader" />
 
     <TextView
         android:id="@+id/caseOverallValueHeader"
@@ -117,9 +117,9 @@
         android:textColor="@color/white"
         android:textSize="11sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/bottomLine"
+        app:layout_constraintBottom_toTopOf="@id/bottomLineCaseHeader"
         app:layout_constraintStart_toEndOf="@id/startOverallValueLine"
-        app:layout_constraintTop_toTopOf="@id/topLine"
+        app:layout_constraintTop_toTopOf="@id/topLineCaseHeader"
         tools:text="Overall Value" />
 
     <View
@@ -128,9 +128,9 @@
         android:layout_height="35dp"
         android:layout_marginEnd="8dp"
         android:background="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/bottomLine"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomLineCaseHeader"
         app:layout_constraintStart_toEndOf="@id/caseOverallValueHeader"
-        app:layout_constraintTop_toTopOf="@id/topLine" />
+        app:layout_constraintTop_toTopOf="@id/topLineCaseHeader" />
 
     <TextView
         android:id="@+id/caseProfitLossHeader"
@@ -140,10 +140,10 @@
         android:textColor="@color/white"
         android:textSize="11sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/bottomLine"
+        app:layout_constraintBottom_toTopOf="@id/bottomLineCaseHeader"
         app:layout_constraintEnd_toStartOf="@id/endLine"
         app:layout_constraintStart_toEndOf="@id/startProfitLossLine"
-        app:layout_constraintTop_toTopOf="@id/topLine"
+        app:layout_constraintTop_toTopOf="@id/topLineCaseHeader"
         tools:text="Profit / Loss" />
 
 
