@@ -9,10 +9,23 @@
     tools:context=".presentation.view.fragments.portfolio.PortfolioFragment">
 
     <Button
-        android:id="@+id/currencyChangeButton"
+        android:id="@+id/currencyChangeButtonUSD"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:text="USD"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/topLine"
+        android:background="@color/black"
+        app:layout_constraintBottom_toTopOf="@id/bottomLine"/>
+
+    <Button
+        android:id="@+id/currencyChangeButtonRUB"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:text="RUB"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@id/currencyChangeButtonUSD"
         app:layout_constraintTop_toTopOf="@id/topLine"
         android:background="@color/black"
         app:layout_constraintBottom_toTopOf="@id/bottomLine"/>
@@ -38,7 +51,7 @@
         android:textSize="23sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/bottomLine"
-        app:layout_constraintEnd_toStartOf="@id/currencyChangeButton"
+        app:layout_constraintEnd_toStartOf="@id/currencyChangeButtonRUB"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topLine" />
 
