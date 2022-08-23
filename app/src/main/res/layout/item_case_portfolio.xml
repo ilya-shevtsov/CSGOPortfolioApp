@@ -64,12 +64,10 @@
         android:textColor="@color/black"
         android:textSize="11sp"
         android:textStyle="bold"
-
-        app:layout_constraintTop_toBottomOf="@id/topLine"
         app:layout_constraintBottom_toTopOf="@id/bottomLine"
         app:layout_constraintStart_toEndOf="@id/caseImage"
+        app:layout_constraintTop_toBottomOf="@id/topLine"
         tools:text="%s" />
-
 
     <View
         android:id="@+id/startAmountLine"
@@ -77,23 +75,21 @@
         android:layout_height="70dp"
         android:layout_marginEnd="8dp"
         android:background="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/topLine"
         app:layout_constraintBottom_toTopOf="@id/bottomLine"
-        app:layout_constraintStart_toEndOf="@id/caseName"/>
+        app:layout_constraintStart_toEndOf="@id/caseName"
+        app:layout_constraintTop_toBottomOf="@id/topLine" />
 
     <TextView
         android:id="@+id/caseAmount"
         android:layout_width="50dp"
         android:layout_height="35dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:gravity="center"
         android:textColor="@color/black"
         android:textSize="11sp"
         android:textStyle="bold"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/topLine"
         app:layout_constraintBottom_toTopOf="@id/bottomLine"
         app:layout_constraintStart_toEndOf="@id/startAmountLine"
+        app:layout_constraintTop_toBottomOf="@id/topLine"
         tools:text="%s" />
 
     <View
@@ -102,21 +98,18 @@
         android:layout_height="70dp"
         android:layout_marginEnd="8dp"
         android:background="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/topLine"
         app:layout_constraintBottom_toTopOf="@id/bottomLine"
         app:layout_constraintStart_toEndOf="@id/caseAmount"
-        />
+        app:layout_constraintTop_toBottomOf="@id/topLine" />
 
     <TextView
         android:id="@+id/casePrice"
         android:layout_width="50dp"
         android:layout_height="35dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:gravity="center"
         android:textColor="@color/black"
         android:textSize="11sp"
         android:textStyle="bold"
-        android:gravity="center"
         app:layout_constraintBottom_toTopOf="@id/bottomLine"
         app:layout_constraintStart_toEndOf="@id/startPriceLine"
         app:layout_constraintTop_toTopOf="@id/topLine"
@@ -136,12 +129,10 @@
         android:id="@+id/caseOverallValue"
         android:layout_width="50dp"
         android:layout_height="35dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:gravity="center"
         android:textColor="@color/black"
         android:textSize="11sp"
         android:textStyle="bold"
-        android:gravity="center"
         app:layout_constraintBottom_toTopOf="@id/bottomLine"
         app:layout_constraintStart_toEndOf="@id/startOverallValueLine"
         app:layout_constraintTop_toTopOf="@id/topLine"
@@ -161,12 +152,10 @@
         android:id="@+id/caseProfitLoss"
         android:layout_width="50dp"
         android:layout_height="35dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:gravity="center"
         android:textColor="@color/black"
         android:textSize="11sp"
         android:textStyle="bold"
-        android:gravity="center"
         app:layout_constraintBottom_toTopOf="@id/bottomLine"
         app:layout_constraintEnd_toStartOf="@id/endLine"
         app:layout_constraintStart_toEndOf="@id/startProfitLossLine"
