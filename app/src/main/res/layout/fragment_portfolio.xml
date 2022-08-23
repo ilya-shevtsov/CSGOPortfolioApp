@@ -8,6 +8,14 @@
     android:background="@color/frontPageBackground"
     tools:context=".presentation.view.fragments.portfolio.PortfolioFragment">
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/topLine"
+        app:layout_constraintBottom_toTopOf="@id/bottomLine"/>
+
+
     <View
         android:id="@+id/topLine"
         android:layout_width="match_parent"
