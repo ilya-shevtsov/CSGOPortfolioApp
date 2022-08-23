@@ -97,12 +97,19 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
 
         caseListAdapter.add(portfolioItemGroup)
 
-        binding.currencyChangeButton.setOnClickListener {
+        binding.currencyChangeButtonUSD.setOnClickListener {
             val prefCur = PreferredCurrencyDto(1)
-            Log.e("M_PortfolioFragment.post", "Clickd")
-
             CoroutineScope(Dispatchers.IO).launch {
                 getApiService().postPreferredCurrency(prefCur)
+                Log.e("M_PortfolioFragment.post", "USD")
+            }
+
+        }
+        binding.currencyChangeButtonRUB.setOnClickListener {
+            val prefCur = PreferredCurrencyDto(5)
+            CoroutineScope(Dispatchers.IO).launch {
+                getApiService().postPreferredCurrency(prefCur)
+                Log.e("M_PortfolioFragment.post", "RUB")
             }
 
         }
