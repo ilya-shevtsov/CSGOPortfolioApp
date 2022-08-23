@@ -27,6 +27,7 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
         caseListAdapter.update(
             listOf(
                 PortfolioItem(
+                    caseImage = "https://api.steamapis.com/image/item/730/Operation%20Breakout%20Weapon%20Case",
                     caseName = "Operation Breakout Weapon Case",
                     caseAmount = 25,
                     casePrice = 85.3,

@@ -7,6 +7,7 @@ import com.xwray.groupie.viewbinding.BindableItem
 
 
 class PortfolioItem(
+    private val caseImage: String,
     private val caseName: String,
     private val caseAmount: Int,
     private val casePrice: Double,
@@ -15,6 +16,7 @@ class PortfolioItem(
     ) : BindableItem<ItemCasePortfolioBinding>() {
 
     override fun bind(viewBinding: ItemCasePortfolioBinding, position: Int) {
+        viewBinding.caseImage.setImageURI(caseImage)
         viewBinding.caseName.text = caseName
         viewBinding.caseAmount.text = caseAmount.toString()
         viewBinding.casePrice.text = casePrice.toString()
