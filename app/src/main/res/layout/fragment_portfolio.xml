@@ -93,13 +93,147 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <View
+        android:id="@+id/bottomLineCaseHeader"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/startLine" />
 
+    <View
+        android:id="@+id/startLine"
+        android:layout_width="2dp"
+        android:layout_height="35dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomLineCaseHeader"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/casePartLineUp" />
+
+    <View
+        android:id="@+id/endLine"
+        android:layout_width="2dp"
+        android:layout_height="35dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomLineCaseHeader"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/casePartLineUp" />
+
+    <TextView
+        android:id="@+id/caseNameHeader"
+        android:layout_width="164dp"
+        android:layout_height="35dp"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:background="@color/casePortfolioHeaderColor"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/bottomLineCaseHeader"
+        app:layout_constraintStart_toEndOf="@id/startLine"
+        app:layout_constraintTop_toBottomOf="@id/casePartLineUp"
+        android:text="@string/case_portfolio_header_case" />
+
+    <View
+        android:id="@+id/startAmountLine"
+        android:layout_width="2dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toTopOf="@id/bottomLineCaseHeader"
+        app:layout_constraintStart_toEndOf="@id/caseNameHeader"
+        app:layout_constraintTop_toBottomOf="@id/casePartLineUp" />
+
+    <TextView
+        android:id="@+id/caseAmountHeader"
+        android:layout_width="50dp"
+        android:background="@color/casePortfolioHeaderColor"
+        android:layout_height="35dp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/bottomLineCaseHeader"
+        app:layout_constraintStart_toEndOf="@id/startAmountLine"
+        app:layout_constraintTop_toBottomOf="@id/casePartLineUp"
+        android:text="@string/case_portfolio_header_amount" />
+
+    <View
+        android:id="@+id/startPriceLine"
+        android:layout_width="2dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toTopOf="@id/bottomLineCaseHeader"
+        app:layout_constraintStart_toEndOf="@id/caseAmountHeader"
+        app:layout_constraintTop_toBottomOf="@id/casePartLineUp" />
+
+    <TextView
+        android:id="@+id/casePriceHeader"
+        android:layout_width="50dp"
+        android:layout_height="35dp"
+        android:background="@color/casePortfolioHeaderColor"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/bottomLineCaseHeader"
+        app:layout_constraintStart_toEndOf="@id/startPriceLine"
+        app:layout_constraintTop_toBottomOf="@id/casePartLineUp"
+        android:text="@string/case_portfolio_header_price" />
+
+    <View
+        android:id="@+id/startOverallValueLine"
+        android:layout_width="2dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomLineCaseHeader"
+        app:layout_constraintStart_toEndOf="@id/casePriceHeader"
+        app:layout_constraintTop_toTopOf="@id/casePartLineUp" />
+
+    <TextView
+        android:id="@+id/caseOverallValueHeader"
+        android:layout_width="50dp"
+        android:layout_height="35dp"
+        android:background="@color/casePortfolioHeaderColor"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/bottomLineCaseHeader"
+        app:layout_constraintStart_toEndOf="@id/startOverallValueLine"
+        app:layout_constraintTop_toBottomOf="@id/casePartLineUp"
+        android:text="@string/case_portfolio_header_overall_value" />
+
+    <View
+        android:id="@+id/startProfitLossLine"
+        android:layout_width="2dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomLineCaseHeader"
+        app:layout_constraintStart_toEndOf="@id/caseOverallValueHeader"
+        app:layout_constraintTop_toTopOf="@id/casePartLineUp" />
+
+    <TextView
+        android:id="@+id/caseProfitLossHeader"
+        android:layout_width="86dp"
+        android:layout_height="35dp"
+        android:background="@color/casePortfolioHeaderColor"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/bottomLineCaseHeader"
+        app:layout_constraintEnd_toStartOf="@id/endLine"
+        app:layout_constraintStart_toEndOf="@id/startProfitLossLine"
+        app:layout_constraintTop_toBottomOf="@id/casePartLineUp"
+        android:text="@string/case_portfolio_header_profit_loss" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ItemCaseRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="@id/casePartLineUp"
+        app:layout_constraintTop_toBottomOf="@id/bottomLineCaseHeader"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

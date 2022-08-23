@@ -28,13 +28,6 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
 
         val haha = PortfolioItemGroup(
             listOf(
-                PortfolioItemHeader(
-                    "Case",
-                    "Amount",
-                    "Price",
-                    "Overall Value",
-                    "Profit / Loss"
-                ),
                 PortfolioItem(
                     caseImage = "https://api.steamapis.com/image/item/730/Operation%20Breakout%20Weapon%20Case",
                     caseName = "Operation Breakout Weapon Case",

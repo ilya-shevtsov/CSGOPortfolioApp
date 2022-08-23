@@ -77,6 +77,11 @@
     <string name="add_case_name_hint">Type in case name</string>
     <string name="add_case_number_of_cases_hint">Type in number of cases you purchased</string>
     <string name="add_case_purchase_price_hint">Type in purchase price for each case</string>
+    <string name="case_portfolio_header_profit_loss">Profit / Loss</string>
+    <string name="case_portfolio_header_overall_value">Overall Value</string>
+    <string name="case_portfolio_header_price">Price</string>
+    <string name="case_portfolio_header_amount">Amount</string>
+    <string name="case_portfolio_header_case">Case</string>
 
 
 </resources>
