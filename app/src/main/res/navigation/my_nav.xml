@@ -43,6 +43,14 @@
         <action
             android:id="@+id/action_portfolioFragment_to_addCaseFragment"
             app:destination="@id/addCaseFragment" />
+        <action
+            android:id="@+id/action_portfolioFragment_to_currencyChangeFragment"
+            app:destination="@+id/currencyChangeFragment" />
+        <argument
+            android:name="selectedCurrency"
+            app:argType="string"
+            android:defaultValue="USD" />
+
     </fragment>
     <fragment
         android:id="@+id/caseDetailsFragment"
@@ -87,6 +95,16 @@
         tools:layout="@layout/fragment_add_case">
         <action
             android:id="@+id/action_addCaseFragment_to_portfolioFragment"
+            app:destination="@id/portfolioFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/currencyChangeFragment"
+        android:name="com.example.csgocaseswatcherapp.presentation.view.fragments.currencychange.CurrencyChangeFragment"
+        android:label="CurrencyChangeFragment"
+        tools:layout="@layout/fragment_currency_change">
+
+        <action
+            android:id="@+id/action_currencyChangeFragment_to_portfolioFragment"
             app:destination="@id/portfolioFragment" />
     </fragment>
 </navigation>
