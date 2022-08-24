@@ -103,7 +103,7 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
                 getApiService().postPreferredCurrency(prefCur)
                 Log.e("M_PortfolioFragment.post", "USD")
             }
-
+//
         }
         binding.currencyChangeButtonRUB.setOnClickListener {
             val prefCur = PreferredCurrencyDto(5)
