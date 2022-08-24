@@ -6,35 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/frontPageBackground"
-    android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
     tools:context=".presentation.view.fragments.portfolio.PortfolioFragment">
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/currencyChangeDropdown"
-        style="@style/MyTextInputLayout"
-        android:layout_width="100dp"
-        android:layout_height="45dp"
-
-        android:hint="Currency"
-        app:layout_constraintBottom_toTopOf="@+id/bottomLine"
-        app:layout_constraintEnd_toStartOf="@id/endLine"
-        app:layout_constraintStart_toEndOf="@id/totalValue"
-        app:layout_constraintTop_toBottomOf="@id/topLine"
-        app:endIconTint="@color/black">
-
-        <AutoCompleteTextView
-            android:id="@+id/autoCompleteTextView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="2dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_gravity="center"
-            android:inputType="none"
-            android:textSize="15sp"
-            android:text="USD" />
-    </com.google.android.material.textfield.TextInputLayout>
 
 
     <View
@@ -47,17 +19,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/currencyChangeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="@color/frontPageButtonColor"
+        android:text="USD"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/totalValue"
+        app:layout_constraintBottom_toTopOf="@id/bottomLine"
+        app:layout_constraintEnd_toStartOf="@id/endLine"
+        app:layout_constraintTop_toBottomOf="@id/topLine" />
+
     <TextView
         android:id="@+id/totalValue"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_margin="8dp"
         android:text="@string/portfolio_total_value"
         android:textColor="@color/black"
         android:textSize="23sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/bottomLine"
-        app:layout_constraintEnd_toStartOf="@id/currencyChangeDropdown"
+        app:layout_constraintEnd_toStartOf="@id/currencyChangeButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topLine" />
 
