@@ -28,15 +28,15 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentPortfolioBinding.inflate(inflater, container, false)
+
         return binding.root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         with(binding) {
-            val portfolioItemGroup = ItemGroup(
-                listOf(
+
+            val portfolioItemGroup = ItemGroup(listOf(
                     PortfolioItem(
                         caseImage = "https://api.steamapis.com/image/item/730/Operation%20Breakout%20Weapon%20Case",
                         caseName = "Operation Breakout Weapon Case",
@@ -94,8 +94,8 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
                         caseOverallValue = 2132.5,
                         caseProfitLoss = 500.2
                     )
-                )
-            )
+                ))
+
             ItemCaseRecyclerView.adapter = caseListAdapter
             caseListAdapter.add(portfolioItemGroup)
 
@@ -118,6 +118,7 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
             homeButton.setOnClickListener {
                 findNavController().navigate(R.id.startFragment)
             }
+
             addCaseButton.setOnClickListener {
                 findNavController().navigate(R.id.addCaseFragment)
             }
