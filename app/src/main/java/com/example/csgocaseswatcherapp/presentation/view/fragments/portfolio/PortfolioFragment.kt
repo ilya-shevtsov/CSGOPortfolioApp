@@ -28,121 +28,104 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentPortfolioBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        binding.ItemCaseRecyclerView.adapter = caseListAdapter
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        val portfolioItemGroup = ItemGroup(
-            listOf(
-                PortfolioItem(
-                    caseImage = "https://api.steamapis.com/image/item/730/Operation%20Breakout%20Weapon%20Case",
-                    caseName = "Operation Breakout Weapon Case",
-                    caseAmount = 25,
-                    casePrice = 85.3,
-                    caseOverallValue = 2132.5,
-                    caseProfitLoss = 500.2
-                ), PortfolioItem(
-                    caseImage = "https://api.steamapis.com/image/item/730/Operation%20Breakout%20Weapon%20Case",
-                    caseName = "Operation Breakout Weapon Case",
-                    caseAmount = 25,
-                    casePrice = 85.3,
-                    caseOverallValue = 2132.5,
-                    caseProfitLoss = 500.2
-                ), PortfolioItem(
-                    caseImage = "https://api.steamapis.com/image/item/730/Operation%20Breakout%20Weapon%20Case",
-                    caseName = "Operation Breakout Weapon Case",
-                    caseAmount = 25,
-                    casePrice = 85.3,
-                    caseOverallValue = 2132.5,
-                    caseProfitLoss = 500.2
-                ), PortfolioItem(
-                    caseImage = "https://api.steamapis.com/image/item/730/Operation%20Breakout%20Weapon%20Case",
-                    caseName = "Operation Breakout Weapon Case",
-                    caseAmount = 25,
-                    casePrice = 85.3,
-                    caseOverallValue = 2132.5,
-                    caseProfitLoss = 500.2
-                ), PortfolioItem(
-                    caseImage = "https://api.steamapis.com/image/item/730/Operation%20Breakout%20Weapon%20Case",
-                    caseName = "Operation Breakout Weapon Case",
-                    caseAmount = 25,
-                    casePrice = 85.3,
-                    caseOverallValue = 2132.5,
-                    caseProfitLoss = 500.2
-                ), PortfolioItem(
-                    caseImage = "https://api.steamapis.com/image/item/730/Operation%20Breakout%20Weapon%20Case",
-                    caseName = "Operation Breakout Weapon Case",
-                    caseAmount = 25,
-                    casePrice = 85.3,
-                    caseOverallValue = 2132.5,
-                    caseProfitLoss = 500.2
-                ), PortfolioItem(
-                    caseImage = "https://api.steamapis.com/image/item/730/Operation%20Breakout%20Weapon%20Case",
-                    caseName = "Operation Breakout Weapon Case",
-                    caseAmount = 25,
-                    casePrice = 85.3,
-                    caseOverallValue = 2132.5,
-                    caseProfitLoss = 500.2
-                ), PortfolioItem(
-                    caseImage = "https://api.steamapis.com/image/item/730/Operation%20Breakout%20Weapon%20Case",
-                    caseName = "Operation Breakout Weapon Case",
-                    caseAmount = 25,
-                    casePrice = 85.3,
-                    caseOverallValue = 2132.5,
-                    caseProfitLoss = 500.2
+        with(binding) {
+            ItemCaseRecyclerView.adapter = caseListAdapter
+
+            val portfolioItemGroup = ItemGroup(
+                listOf(
+                    PortfolioItem(
+                        caseImage = "https://api.steamapis.com/image/item/730/Operation%20Breakout%20Weapon%20Case",
+                        caseName = "Operation Breakout Weapon Case",
+                        caseAmount = 25,
+                        casePrice = 85.3,
+                        caseOverallValue = 2132.5,
+                        caseProfitLoss = 500.2
+                    ), PortfolioItem(
+                        caseImage = "https://api.steamapis.com/image/item/730/Operation%20Breakout%20Weapon%20Case",
+                        caseName = "Operation Breakout Weapon Case",
+                        caseAmount = 25,
+                        casePrice = 85.3,
+                        caseOverallValue = 2132.5,
+                        caseProfitLoss = 500.2
+                    ), PortfolioItem(
+                        caseImage = "https://api.steamapis.com/image/item/730/Operation%20Breakout%20Weapon%20Case",
+                        caseName = "Operation Breakout Weapon Case",
+                        caseAmount = 25,
+                        casePrice = 85.3,
+                        caseOverallValue = 2132.5,
+                        caseProfitLoss = 500.2
+                    ), PortfolioItem(
+                        caseImage = "https://api.steamapis.com/image/item/730/Operation%20Breakout%20Weapon%20Case",
+                        caseName = "Operation Breakout Weapon Case",
+                        caseAmount = 25,
+                        casePrice = 85.3,
+                        caseOverallValue = 2132.5,
+                        caseProfitLoss = 500.2
+                    ), PortfolioItem(
+                        caseImage = "https://api.steamapis.com/image/item/730/Operation%20Breakout%20Weapon%20Case",
+                        caseName = "Operation Breakout Weapon Case",
+                        caseAmount = 25,
+                        casePrice = 85.3,
+                        caseOverallValue = 2132.5,
+                        caseProfitLoss = 500.2
+                    ), PortfolioItem(
+                        caseImage = "https://api.steamapis.com/image/item/730/Operation%20Breakout%20Weapon%20Case",
+                        caseName = "Operation Breakout Weapon Case",
+                        caseAmount = 25,
+                        casePrice = 85.3,
+                        caseOverallValue = 2132.5,
+                        caseProfitLoss = 500.2
+                    ), PortfolioItem(
+                        caseImage = "https://api.steamapis.com/image/item/730/Operation%20Breakout%20Weapon%20Case",
+                        caseName = "Operation Breakout Weapon Case",
+                        caseAmount = 25,
+                        casePrice = 85.3,
+                        caseOverallValue = 2132.5,
+                        caseProfitLoss = 500.2
+                    ), PortfolioItem(
+                        caseImage = "https://api.steamapis.com/image/item/730/Operation%20Breakout%20Weapon%20Case",
+                        caseName = "Operation Breakout Weapon Case",
+                        caseAmount = 25,
+                        casePrice = 85.3,
+                        caseOverallValue = 2132.5,
+                        caseProfitLoss = 500.2
+                    )
                 )
             )
-        )
-        caseListAdapter.add(portfolioItemGroup)
+            caseListAdapter.add(portfolioItemGroup)
 
+            homeButton.setOnClickListener {
+                findNavController().navigate(R.id.startFragment)
+            }
 
-//        binding.currencyChangeButtonUSD.setOnClickListener {
-//        CoroutineScope(Dispatchers.IO).launch {
-//            getApiService().postPreferredCurrency(PreferredCurrencyDto(1))
-//            Log.e("M_PortfolioFragment.post", "USD")
-//        }
-//            }
-//
-//        }
-//
-//            val prefCur = PreferredCurrencyDto(5)
-//            CoroutineScope(Dispatchers.IO).launch {
-//                getApiService().postPreferredCurrency(prefCur)
-//                Log.e("M_PortfolioFragment.post", "RUB")
-//            }
-//
-//        }
+            addCaseButton.setOnClickListener {
+                findNavController().navigate(R.id.addCaseFragment)
+            }
 
-        binding.homeButton.setOnClickListener {
-            findNavController().navigate(R.id.startFragment)
-        }
-
-        binding.addCaseButton.setOnClickListener {
-            findNavController().navigate(R.id.addCaseFragment)
-        }
-
-        binding.currencyChangeButton.setOnClickListener {
-            findNavController().navigate(R.id.currencyChangeFragment)
-        }
-        setFragmentResultListener("preferredCurrency") { _, bundle ->
-            val preferredCurrency = bundle.getString("bundleKey")
-            binding.currencyChangeButton.text = preferredCurrency
-            when (preferredCurrency) {
-                "USD" -> {
-                    CoroutineScope(Dispatchers.IO).launch {
-                        getApiService().postPreferredCurrency(PreferredCurrencyDto(1))
+            currencyChangeButton.setOnClickListener {
+                findNavController().navigate(R.id.currencyChangeFragment)
+            }
+            setFragmentResultListener("preferredCurrency") { _, bundle ->
+                val preferredCurrency = bundle.getString("bundleKey")
+                binding.currencyChangeButton.text = preferredCurrency
+                when (preferredCurrency) {
+                    "USD" -> {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            getApiService().postPreferredCurrency(PreferredCurrencyDto(1))
+                        }
                     }
-                }
-                "RUB" -> {
-                    CoroutineScope(Dispatchers.IO).launch {
-                        getApiService().postPreferredCurrency(PreferredCurrencyDto(5))
+                    "RUB" -> {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            getApiService().postPreferredCurrency(PreferredCurrencyDto(5))
+                        }
                     }
                 }
             }
         }
-
-
-
-
-        return binding.root
     }
 }
