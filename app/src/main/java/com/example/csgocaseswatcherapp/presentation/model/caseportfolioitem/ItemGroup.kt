@@ -6,7 +6,7 @@ import com.xwray.groupie.Item
 import com.xwray.groupie.viewbinding.BindableItem
 
 
-class PortfolioItemGroup (items: List<BindableItem<*>>) : Group {
+class ItemGroup (items: List<BindableItem<*>>) : Group {
 
     private val items: ArrayList<BindableItem<*>> = ArrayList()
 
