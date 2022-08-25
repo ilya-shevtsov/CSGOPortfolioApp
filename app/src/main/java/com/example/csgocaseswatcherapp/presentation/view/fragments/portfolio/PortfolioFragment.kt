@@ -31,11 +31,10 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         with(binding) {
-            ItemCaseRecyclerView.adapter = caseListAdapter
-
             val portfolioItemGroup = ItemGroup(
                 listOf(
                     PortfolioItem(
@@ -97,35 +96,38 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
                     )
                 )
             )
+            ItemCaseRecyclerView.adapter = caseListAdapter
             caseListAdapter.add(portfolioItemGroup)
 
-            homeButton.setOnClickListener {
-                findNavController().navigate(R.id.startFragment)
-            }
+            setFragmentResultListener("preferredCurrency") { _, bundle ->
 
-            addCaseButton.setOnClickListener {
-                findNavController().navigate(R.id.addCaseFragment)
+                val preferredCurrency = bundle.getString("bundleKey")
+
+                currencyChangeButton.text = preferredCurrency
+
+                when (preferredCurrency) {
+                    "USD" -> { sendPreferredCurrency(PreferredCurrencyDto(1)) }
+                    "RUB" -> { sendPreferredCurrency(PreferredCurrencyDto(5)) }
+                }
             }
 
             currencyChangeButton.setOnClickListener {
                 findNavController().navigate(R.id.currencyChangeFragment)
             }
-            setFragmentResultListener("preferredCurrency") { _, bundle ->
-                val preferredCurrency = bundle.getString("bundleKey")
-                binding.currencyChangeButton.text = preferredCurrency
-                when (preferredCurrency) {
-                    "USD" -> {
-                        CoroutineScope(Dispatchers.IO).launch {
-                            getApiService().postPreferredCurrency(PreferredCurrencyDto(1))
-                        }
-                    }
-                    "RUB" -> {
-                        CoroutineScope(Dispatchers.IO).launch {
-                            getApiService().postPreferredCurrency(PreferredCurrencyDto(5))
-                        }
-                    }
-                }
+
+            homeButton.setOnClickListener {
+                findNavController().navigate(R.id.startFragment)
+            }
+            addCaseButton.setOnClickListener {
+                findNavController().navigate(R.id.addCaseFragment)
             }
         }
     }
+
+    private fun sendPreferredCurrency(preferredCurrency: PreferredCurrencyDto){
+        CoroutineScope(Dispatchers.IO).launch {
+            getApiService().postPreferredCurrency(preferredCurrency)
+        }
+    }
+
 }
