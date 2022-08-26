@@ -33,6 +33,9 @@ class CurrencyChangeFragment : Fragment(R.layout.fragment_currency_change) {
 
         with(binding) {
 
+
+            //PlaceHolder for currencies (later get from database)
+
             val currencyChangeGroup = ItemGroup(listOf(
                 CurrencyChangeItem("USD"),
                 CurrencyChangeItem("RUB")

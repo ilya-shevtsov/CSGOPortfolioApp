@@ -91,7 +91,7 @@
     <fragment
         android:id="@+id/addCaseFragment"
         android:name="com.example.csgocaseswatcherapp.presentation.view.fragments.addCaseFragment.AddCaseFragment"
-        android:label="AddCaseFragment"
+        android:label="Add Case"
         tools:layout="@layout/fragment_add_case">
         <action
             android:id="@+id/action_addCaseFragment_to_portfolioFragment"

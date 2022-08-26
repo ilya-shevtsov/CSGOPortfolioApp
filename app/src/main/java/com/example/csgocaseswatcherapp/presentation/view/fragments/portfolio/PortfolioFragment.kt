@@ -31,58 +31,11 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
 
         with(binding) {
 
+            //PlaceHolder for cases in portfolio overview (later get from database)
+
             val portfolioItemGroup = ItemGroup(
                 listOf(
                     PortfolioItem(
-                        caseImage = "https://api.steamapis.com/image/item/730/Operation%20Breakout%20Weapon%20Case",
-                        caseName = "Operation Breakout Weapon Case",
-                        caseAmount = 25,
-                        casePrice = 85.3,
-                        caseOverallValue = 2132.5,
-                        caseProfitLoss = 500.2
-                    ), PortfolioItem(
-                        caseImage = "https://api.steamapis.com/image/item/730/Operation%20Breakout%20Weapon%20Case",
-                        caseName = "Operation Breakout Weapon Case",
-                        caseAmount = 25,
-                        casePrice = 85.3,
-                        caseOverallValue = 2132.5,
-                        caseProfitLoss = 500.2
-                    ), PortfolioItem(
-                        caseImage = "https://api.steamapis.com/image/item/730/Operation%20Breakout%20Weapon%20Case",
-                        caseName = "Operation Breakout Weapon Case",
-                        caseAmount = 25,
-                        casePrice = 85.3,
-                        caseOverallValue = 2132.5,
-                        caseProfitLoss = 500.2
-                    ), PortfolioItem(
-                        caseImage = "https://api.steamapis.com/image/item/730/Operation%20Breakout%20Weapon%20Case",
-                        caseName = "Operation Breakout Weapon Case",
-                        caseAmount = 25,
-                        casePrice = 85.3,
-                        caseOverallValue = 2132.5,
-                        caseProfitLoss = 500.2
-                    ), PortfolioItem(
-                        caseImage = "https://api.steamapis.com/image/item/730/Operation%20Breakout%20Weapon%20Case",
-                        caseName = "Operation Breakout Weapon Case",
-                        caseAmount = 25,
-                        casePrice = 85.3,
-                        caseOverallValue = 2132.5,
-                        caseProfitLoss = 500.2
-                    ), PortfolioItem(
-                        caseImage = "https://api.steamapis.com/image/item/730/Operation%20Breakout%20Weapon%20Case",
-                        caseName = "Operation Breakout Weapon Case",
-                        caseAmount = 25,
-                        casePrice = 85.3,
-                        caseOverallValue = 2132.5,
-                        caseProfitLoss = 500.2
-                    ), PortfolioItem(
-                        caseImage = "https://api.steamapis.com/image/item/730/Operation%20Breakout%20Weapon%20Case",
-                        caseName = "Operation Breakout Weapon Case",
-                        caseAmount = 25,
-                        casePrice = 85.3,
-                        caseOverallValue = 2132.5,
-                        caseProfitLoss = 500.2
-                    ), PortfolioItem(
                         caseImage = "https://api.steamapis.com/image/item/730/Operation%20Breakout%20Weapon%20Case",
                         caseName = "Operation Breakout Weapon Case",
                         caseAmount = 25,
