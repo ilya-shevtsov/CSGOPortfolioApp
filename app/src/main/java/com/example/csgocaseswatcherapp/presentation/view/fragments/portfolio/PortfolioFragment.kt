@@ -6,12 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.data.api.ApiTools
+import com.example.csgocaseswatcherapp.data.model.prederredcurrencydto.PreferredCurrencyDto
 import com.example.csgocaseswatcherapp.databinding.FragmentPortfolioBinding
+import com.example.csgocaseswatcherapp.presentation.model.AddCaseItem
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.ItemGroup
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioItem
+import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioItemMapper
 import com.xwray.groupie.GroupieAdapter
 
 class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
@@ -49,10 +53,18 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
             ItemCaseRecyclerView.adapter = caseListAdapter
             caseListAdapter.add(portfolioItemGroup)
 
-//            lifecycleScope.launch {
-//                val lastPreferredCurrency = getPreferredCurrency()
-//                currencyChangeButton.text = lastPreferredCurrency.toString()
-//            }
+            setFragmentResultListener("addedCase") { _, bundle ->
+
+                val addedCase = bundle.getSerializable("addedCase") as AddCaseItem
+                val portfolioItem = PortfolioItemMapper.map(addedCase)
+                Log.e("addCase","This is added case: $portfolioItem")
+                val ahha = ItemGroup(
+                    listOf(portfolioItem)
+                )
+                caseListAdapter.add(ahha)
+            }
+
+
 
 
             homeButton.setOnClickListener {
