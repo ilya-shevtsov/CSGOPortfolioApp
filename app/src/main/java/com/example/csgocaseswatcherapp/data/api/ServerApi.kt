@@ -10,7 +10,10 @@ import retrofit2.http.POST
 
 interface ServerApi {
 
-    @POST("/getPreferredCurrency")
+    @GET("/getPreferredCurrency")
+    suspend fun getPreferredCurrency(): PreferredCurrencyDto
+
+    @POST("/postPreferredCurrency")
     suspend fun postPreferredCurrency(@Body preferredCurrency: PreferredCurrencyDto): PreferredCurrencyDto
 
     @GET("getCase")
