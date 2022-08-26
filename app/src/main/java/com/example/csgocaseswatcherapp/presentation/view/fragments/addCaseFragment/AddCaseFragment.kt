@@ -48,11 +48,10 @@ class AddCaseFragment : Fragment(R.layout.fragment_add_case) {
             addCaseButton.setOnClickListener {
 
                 val addedCase = AddCaseItem(
-                    name = addCaseCaseName.toString(),
+                    name = addCaseCaseName.text.toString(),
                     amount = addCaseCaseAmount.text.toString().toInt(),
                     purchasePrice = addCaseCasePurchasePrice.text.toString().toDouble()
                 )
-                Log.e("getOverAllValue","This is the addedCase price: ${addedCase.purchasePrice}")
 
                 setFragmentResult(
                     "addedCase",

@@ -10,7 +10,6 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.data.api.ApiTools
-import com.example.csgocaseswatcherapp.data.model.prederredcurrencydto.PreferredCurrencyDto
 import com.example.csgocaseswatcherapp.databinding.FragmentPortfolioBinding
 import com.example.csgocaseswatcherapp.presentation.model.AddCaseItem
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.ItemGroup
@@ -37,31 +36,17 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
 
             //PlaceHolder for cases in portfolio overview (later get from database)
 
-            val portfolioItemGroup = ItemGroup(
-                listOf(
-                    PortfolioItem(
-                        caseImage = "https://api.steamapis.com/image/item/730/Operation%20Breakout%20Weapon%20Case",
-                        caseName = "Operation Breakout Weapon Case",
-                        caseAmount = 25,
-                        casePrice = 85.3,
-                        caseOverallValue = 2132.5,
-                        caseProfitLoss = 500.2
-                    )
-                )
-            )
-
             ItemCaseRecyclerView.adapter = caseListAdapter
-            caseListAdapter.add(portfolioItemGroup)
 
             setFragmentResultListener("addedCase") { _, bundle ->
 
                 val addedCase = bundle.getSerializable("addedCase") as AddCaseItem
                 val portfolioItem = PortfolioItemMapper.map(addedCase)
-                Log.e("addCase","This is added case: $portfolioItem")
-                val ahha = ItemGroup(
+
+                val portfolioItemGroup = ItemGroup(
                     listOf(portfolioItem)
                 )
-                caseListAdapter.add(ahha)
+                caseListAdapter.add(portfolioItemGroup)
             }
 
 
