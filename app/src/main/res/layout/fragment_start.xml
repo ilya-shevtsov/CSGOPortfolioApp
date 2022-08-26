@@ -6,6 +6,20 @@
     android:layout_height="match_parent"
     android:background="@color/frontPageBackground">
 
+    <Button
+        android:id="@+id/currencyChangeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_background"
+        android:text="Choose Currency"
+        android:padding="8dp"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:layout_margin="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <ImageView
         android:id="@+id/backgroundCyrcle"
         android:layout_width="138dp"

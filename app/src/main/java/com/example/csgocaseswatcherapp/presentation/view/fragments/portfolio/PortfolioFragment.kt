@@ -6,19 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
-import com.example.csgocaseswatcherapp.data.api.ApiTools.Companion.getApiService
-import com.example.csgocaseswatcherapp.data.model.prederredcurrencydto.PreferredCurrencyDto
+import com.example.csgocaseswatcherapp.data.api.ApiTools
 import com.example.csgocaseswatcherapp.databinding.FragmentPortfolioBinding
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.ItemGroup
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioItem
 import com.xwray.groupie.GroupieAdapter
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
 
@@ -102,32 +96,11 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
             ItemCaseRecyclerView.adapter = caseListAdapter
             caseListAdapter.add(portfolioItemGroup)
 
-            lifecycleScope.launch {
-                val lastPreferredCurrency = getPreferredCurrency()
-                currencyChangeButton.text = lastPreferredCurrency.toString()
-            }
+//            lifecycleScope.launch {
+//                val lastPreferredCurrency = getPreferredCurrency()
+//                currencyChangeButton.text = lastPreferredCurrency.toString()
+//            }
 
-            setFragmentResultListener("preferredCurrency") { _, bundle ->
-
-                val preferredCurrency = bundle.getString("bundleKey")
-
-                currencyChangeButton.text = preferredCurrency
-
-                when (preferredCurrency) {
-                    "USD" -> {
-                        sendPreferredCurrency(PreferredCurrencyDto(1))
-                        Log.e("ServerSide", "SendUSD")
-                    }
-                    "RUB" -> {
-                        sendPreferredCurrency(PreferredCurrencyDto(5))
-                        Log.e("ServerSide", "SendRUB")
-                    }
-                }
-            }
-
-            currencyChangeButton.setOnClickListener {
-                findNavController().navigate(R.id.currencyChangeFragment)
-            }
 
             homeButton.setOnClickListener {
                 findNavController().navigate(R.id.startFragment)
@@ -139,14 +112,8 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
         }
     }
 
-    private fun sendPreferredCurrency(preferredCurrency: PreferredCurrencyDto) {
-        CoroutineScope(Dispatchers.IO).launch {
-            getApiService().postPreferredCurrency(preferredCurrency)
-        }
-    }
-
     private suspend fun getPreferredCurrency(): Int {
-        val response = getApiService().getPreferredCurrency()
+        val response = ApiTools.getApiService().getPreferredCurrency()
         val preferredCurrencyValue = response.preferredCurrency
         Log.e("ServerSide", "GetFromServer: $preferredCurrencyValue")
         return preferredCurrencyValue
