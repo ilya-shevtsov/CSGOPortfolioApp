@@ -44,7 +44,7 @@
 
 
     <AutoCompleteTextView
-        android:id="@+id/caseNameEditText"
+        android:id="@+id/addCaseCaseName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -66,12 +66,12 @@
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/caseNameEditText"
-        app:layout_constraintStart_toStartOf="@id/caseNameEditText"
-        app:layout_constraintTop_toBottomOf="@id/caseNameEditText" />
+        app:layout_constraintEnd_toEndOf="@id/addCaseCaseName"
+        app:layout_constraintStart_toStartOf="@id/addCaseCaseName"
+        app:layout_constraintTop_toBottomOf="@id/addCaseCaseName" />
 
     <EditText
-        android:id="@+id/numberOfCaseEditText"
+        android:id="@+id/addCaseCaseAmount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -93,12 +93,12 @@
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/numberOfCaseEditText"
-        app:layout_constraintStart_toStartOf="@id/numberOfCaseEditText"
-        app:layout_constraintTop_toBottomOf="@id/numberOfCaseEditText" />
+        app:layout_constraintEnd_toEndOf="@id/addCaseCaseAmount"
+        app:layout_constraintStart_toStartOf="@id/addCaseCaseAmount"
+        app:layout_constraintTop_toBottomOf="@id/addCaseCaseAmount" />
 
     <EditText
-        android:id="@+id/purchasePriceEditText"
+        android:id="@+id/addCaseCasePurchasePrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -110,5 +110,19 @@
         app:layout_constraintStart_toStartOf="@id/purchasePriceTextView"
         app:layout_constraintTop_toBottomOf="@id/purchasePriceTextView"
         android:importantForAutofill="no" />
+
+    <Button
+        android:id="@+id/addCaseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_background"
+        android:text="@string/add_case_button"
+        android:padding="8dp"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:layout_margin="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
