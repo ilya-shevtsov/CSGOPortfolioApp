@@ -7,13 +7,13 @@ import com.xwray.groupie.viewbinding.BindableItem
 
 
 class PortfolioItem(
-    private val caseImage: String,
+    val caseImage: String,
     private val caseName: String,
     private val caseAmount: Int,
     private val casePrice: Double,
     private val caseOverallValue: Double,
     private val caseProfitLoss: Double
-    ) : BindableItem<ItemCasePortfolioBinding>() {
+) : BindableItem<ItemCasePortfolioBinding>() {
 
     override fun bind(viewBinding: ItemCasePortfolioBinding, position: Int) {
         viewBinding.caseImage.setImageURI(caseImage)

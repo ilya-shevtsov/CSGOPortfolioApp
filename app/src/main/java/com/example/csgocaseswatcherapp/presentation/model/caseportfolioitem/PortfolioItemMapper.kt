@@ -2,6 +2,7 @@ package com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem
 
 import android.util.Log
 import com.example.csgocaseswatcherapp.presentation.model.AddCaseItem
+import kotlin.math.round
 
 object PortfolioItemMapper {
 
@@ -24,7 +25,7 @@ object PortfolioItemMapper {
     fun getOverAllValue(amount: Int, price: Double): Double {
         Log.e("getOverAllValue","This is the amount: $amount")
         Log.e("getOverAllValue","This is the price: $price")
-        return amount * price
+        return round(amount * price)
     }
 
 
@@ -33,6 +34,7 @@ object PortfolioItemMapper {
             .replace(" ", "%20")
             .replace(":", "%3A")
             .replace("&", "%26")
+        Log.e("addCase","This is newName $newName")
         return "https://api.steamapis.com/image/item/730/$newName"
     }
 }
