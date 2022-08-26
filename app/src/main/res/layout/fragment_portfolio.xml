@@ -19,19 +19,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/currencyChangeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:background="@color/frontPageButtonColor"
-        android:text="USD"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/totalValue"
-        app:layout_constraintBottom_toTopOf="@id/bottomLine"
-        app:layout_constraintEnd_toStartOf="@id/endLine"
-        app:layout_constraintTop_toBottomOf="@id/topLine" />
-
     <TextView
         android:id="@+id/totalValue"
         android:layout_width="0dp"
@@ -41,7 +28,7 @@
         android:textSize="23sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/bottomLine"
-        app:layout_constraintEnd_toStartOf="@id/currencyChangeButton"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topLine" />
 

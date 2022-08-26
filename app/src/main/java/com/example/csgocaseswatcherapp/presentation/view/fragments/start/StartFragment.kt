@@ -1,13 +1,21 @@
 package com.example.csgocaseswatcherapp.presentation.view.fragments.start
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
+import com.example.csgocaseswatcherapp.data.api.ApiTools
+import com.example.csgocaseswatcherapp.data.model.prederredcurrencydto.PreferredCurrencyDto
 import com.example.csgocaseswatcherapp.databinding.FragmentStartBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class StartFragment : Fragment(R.layout.fragment_start) {
 
@@ -19,18 +27,51 @@ class StartFragment : Fragment(R.layout.fragment_start) {
     ): View {
 
         binding = FragmentStartBinding.inflate(inflater, container, false)
-
-        binding.caseOverviewButton.setOnClickListener {
-            findNavController().navigate(R.id.caseOverviewFragment)
-        }
-
-        binding.casePortfolioButton.setOnClickListener {
-            findNavController().navigate(R.id.portfolioFragment)
-        }
-        binding.caseAnalyticsButton.setOnClickListener {
-            findNavController().navigate(R.id.caseAnalyticsFragment)
-        }
-
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        with(binding) {
+
+            setFragmentResultListener("preferredCurrency") { _, bundle ->
+
+                val preferredCurrency = bundle.getString("bundleKey")
+
+                currencyChangeButton.text = preferredCurrency
+
+                when (preferredCurrency) {
+                    "USD" -> {
+                        sendPreferredCurrency(PreferredCurrencyDto(1))
+                        Log.e("ServerSide", "SendUSD")
+                    }
+                    "RUB" -> {
+                        sendPreferredCurrency(PreferredCurrencyDto(5))
+                        Log.e("ServerSide", "SendRUB")
+                    }
+                }
+            }
+
+            currencyChangeButton.setOnClickListener {
+                findNavController().navigate(R.id.currencyChangeFragment)
+            }
+
+            binding.caseOverviewButton.setOnClickListener {
+                findNavController().navigate(R.id.caseOverviewFragment)
+            }
+
+            binding.casePortfolioButton.setOnClickListener {
+                findNavController().navigate(R.id.portfolioFragment)
+            }
+            binding.caseAnalyticsButton.setOnClickListener {
+                findNavController().navigate(R.id.caseAnalyticsFragment)
+            }
+        }
+    }
+
+    private fun sendPreferredCurrency(preferredCurrency: PreferredCurrencyDto) {
+        CoroutineScope(Dispatchers.IO).launch {
+            ApiTools.getApiService().postPreferredCurrency(preferredCurrency)
+        }
     }
 }
