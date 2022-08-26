@@ -19,17 +19,26 @@ class AddCaseFragment : Fragment(R.layout.fragment_add_case) {
     ): View {
         binding = FragmentAddCaseBinding.inflate(inflater, container, false)
 
-        val caseNameArray = resources.getStringArray(R.array.case_name_array)
-
-        val caseNameArrayAdapter =
-            ArrayAdapter(
-                requireContext(),
-                android.R.layout.simple_list_item_1,
-                caseNameArray
-            )
-        binding.caseNameEditText.threshold = 1
-        binding.caseNameEditText.setAdapter(caseNameArrayAdapter)
-
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        with(binding) {
+
+
+            val caseNameArray = resources.getStringArray(R.array.case_name_array)
+
+            val caseNameArrayAdapter =
+                ArrayAdapter(
+                    requireContext(),
+                    android.R.layout.simple_list_item_1,
+                    caseNameArray
+                )
+
+            caseNameEditText.threshold = 1
+
+            caseNameEditText.setAdapter(caseNameArrayAdapter)
+        }
     }
 }
