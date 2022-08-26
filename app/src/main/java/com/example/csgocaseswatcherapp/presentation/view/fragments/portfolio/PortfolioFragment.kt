@@ -1,11 +1,13 @@
 package com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.data.api.ApiTools.Companion.getApiService
@@ -28,7 +30,6 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentPortfolioBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
@@ -36,7 +37,8 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
 
         with(binding) {
 
-            val portfolioItemGroup = ItemGroup(listOf(
+            val portfolioItemGroup = ItemGroup(
+                listOf(
                     PortfolioItem(
                         caseImage = "https://api.steamapis.com/image/item/730/Operation%20Breakout%20Weapon%20Case",
                         caseName = "Operation Breakout Weapon Case",
@@ -94,10 +96,16 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
                         caseOverallValue = 2132.5,
                         caseProfitLoss = 500.2
                     )
-                ))
+                )
+            )
 
             ItemCaseRecyclerView.adapter = caseListAdapter
             caseListAdapter.add(portfolioItemGroup)
+
+            lifecycleScope.launch {
+                val lastPreferredCurrency = getPreferredCurrency()
+                currencyChangeButton.text = lastPreferredCurrency.toString()
+            }
 
             setFragmentResultListener("preferredCurrency") { _, bundle ->
 
@@ -106,8 +114,14 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
                 currencyChangeButton.text = preferredCurrency
 
                 when (preferredCurrency) {
-                    "USD" -> { sendPreferredCurrency(PreferredCurrencyDto(1)) }
-                    "RUB" -> { sendPreferredCurrency(PreferredCurrencyDto(5)) }
+                    "USD" -> {
+                        sendPreferredCurrency(PreferredCurrencyDto(1))
+                        Log.e("ServerSide", "SendUSD")
+                    }
+                    "RUB" -> {
+                        sendPreferredCurrency(PreferredCurrencyDto(5))
+                        Log.e("ServerSide", "SendRUB")
+                    }
                 }
             }
 
@@ -125,10 +139,18 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
         }
     }
 
-    private fun sendPreferredCurrency(preferredCurrency: PreferredCurrencyDto){
+    private fun sendPreferredCurrency(preferredCurrency: PreferredCurrencyDto) {
         CoroutineScope(Dispatchers.IO).launch {
             getApiService().postPreferredCurrency(preferredCurrency)
         }
     }
 
+    private suspend fun getPreferredCurrency(): Int {
+        val response = getApiService().getPreferredCurrency()
+        val preferredCurrencyValue = response.preferredCurrency
+        Log.e("ServerSide", "GetFromServer: $preferredCurrencyValue")
+        return preferredCurrencyValue
+    }
 }
+
+
