@@ -3,6 +3,7 @@ package com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioItem
+import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioItemMapper
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -16,7 +17,14 @@ class PortfolioViewModel : ViewModel() {
     fun handleAction(action: PortfolioViewAction) {
         when (action) {
             is PortfolioViewAction.OnAddCaseClicked -> handleOnAddCaseClicked()
+            is PortfolioViewAction.OnCaseAdded -> handleOnCaseAdded(action)
         }
+    }
+
+    private fun handleOnCaseAdded(action: PortfolioViewAction.OnCaseAdded) {
+        val portfolioItem = PortfolioItemMapper.map(action.addedCase)
+        val portfolioItemList = listOf(portfolioItem) + uiState.value.portfolioItemList
+        uiState.value = PortfolioViewState(portfolioItemList)
     }
 
     private fun handleOnAddCaseClicked() {

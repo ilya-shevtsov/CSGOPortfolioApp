@@ -16,10 +16,7 @@ import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.data.api.ApiTools
 import com.example.csgocaseswatcherapp.databinding.FragmentPortfolioBinding
 import com.example.csgocaseswatcherapp.presentation.model.AddCaseItem
-import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.ItemGroup
-import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioItemMapper
 import com.xwray.groupie.GroupieAdapter
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
@@ -47,8 +44,8 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
             lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                     viewModel.uiState.collect{ uiState ->
-                        val currencyChangeItemList = uiState.portfolioItemList
-                        caseListAdapter.update(currencyChangeItemList)
+                        val portfolioCaseItemList = uiState.portfolioItemList
+                        caseListAdapter.update(portfolioCaseItemList)
 
                     }
                 }
@@ -68,12 +65,7 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
             setFragmentResultListener("addedCase") { _, bundle ->
 
                 val addedCase = bundle.getSerializable("addedCase") as AddCaseItem
-                val portfolioItem = PortfolioItemMapper.map(addedCase)
-
-                val portfolioItemGroup = ItemGroup(
-                    listOf(portfolioItem)
-                )
-                caseListAdapter.add(portfolioItemGroup)
+                viewModel.handleAction(PortfolioViewAction.OnCaseAdded(addedCase))
             }
 
             homeButton.setOnClickListener {
@@ -90,13 +82,6 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
         when (uiEvent) {
             PortfolioViewEvent.NavigateToAddCase -> findNavController().navigate(R.id.addCaseFragment)
         }
-    }
-
-    private suspend fun getPreferredCurrency(): Int {
-        val response = ApiTools.getApiService().getPreferredCurrency()
-        val preferredCurrencyValue = response.preferredCurrency
-        Log.e("ServerSide", "GetFromServer: $preferredCurrencyValue")
-        return preferredCurrencyValue
     }
 }
 
