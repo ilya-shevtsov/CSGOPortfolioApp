@@ -61,8 +61,9 @@ class StartFragment : Fragment(R.layout.fragment_start) {
             casePortfolioButton.setOnClickListener {
                 viewModel.handleAction(StartViewAction.OnPortfolioClicked)
             }
+
             caseAnalyticsButton.setOnClickListener {
-                findNavController().navigate(R.id.caseAnalyticsFragment)
+                viewModel.handleAction(StartViewAction.OnAnalyticsClicked)
             }
 
             currencyChangeButton.setOnClickListener {
@@ -75,6 +76,7 @@ class StartFragment : Fragment(R.layout.fragment_start) {
         when (uiEvent) {
             StartViewEvent.NavigateToCaseOverview -> findNavController().navigate(R.id.caseOverviewFragment)
             StartViewEvent.NavigateToPortfolio ->  findNavController().navigate(R.id.portfolioFragment)
+            StartViewEvent.NavigateToAnalytics ->  findNavController().navigate(R.id.caseAnalyticsFragment)
         }
     }
 }

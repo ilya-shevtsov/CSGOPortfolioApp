@@ -10,5 +10,7 @@ sealed class StartViewAction {
 
     object OnPortfolioClicked : StartViewAction()
 
+    object OnAnalyticsClicked : StartViewAction()
+
 
 }
