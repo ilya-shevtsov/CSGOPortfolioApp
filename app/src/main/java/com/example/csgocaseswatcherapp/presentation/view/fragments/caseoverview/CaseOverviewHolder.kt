@@ -5,11 +5,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.databinding.ItemCaseBinding
 import com.example.csgocaseswatcherapp.presentation.model.caseoverviewitem.CaseOverviewItem
-import kotlinx.android.extensions.LayoutContainer
 
-class CaseOverviewHolder(
-    override val containerView: View
-) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+class CaseOverviewHolder(containerView: View
+) : RecyclerView.ViewHolder(containerView) {
 
     private val binding: ItemCaseBinding = ItemCaseBinding.bind(containerView)
 

@@ -59,9 +59,6 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
                 }
             }
 
-            //PlaceHolder for cases in portfolio overview (later get from database)
-
-
             setFragmentResultListener("addedCase") { _, bundle ->
 
                 val addedCase = bundle.getSerializable("addedCase") as AddCaseItem
