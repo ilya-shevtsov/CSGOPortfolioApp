@@ -7,19 +7,27 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.data.api.ApiTools
 import com.example.csgocaseswatcherapp.databinding.FragmentPortfolioBinding
 import com.example.csgocaseswatcherapp.presentation.model.AddCaseItem
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.ItemGroup
-import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioItem
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioItemMapper
 import com.xwray.groupie.GroupieAdapter
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
 
+    private val viewModel: PortfolioViewModel by viewModels()
+
     private lateinit var binding: FragmentPortfolioBinding
+
     private val caseListAdapter = GroupieAdapter()
 
     override fun onCreateView(
@@ -34,9 +42,20 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
 
         with(binding) {
 
+            ItemCaseRecyclerView.adapter = caseListAdapter
+
+            lifecycleScope.launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    viewModel.uiState.collect{ uiState ->
+                        val currencyChangeItemList = uiState.portfolioItemList
+                        caseListAdapter.update(currencyChangeItemList)
+
+                    }
+                }
+            }
+
             //PlaceHolder for cases in portfolio overview (later get from database)
 
-            ItemCaseRecyclerView.adapter = caseListAdapter
 
             setFragmentResultListener("addedCase") { _, bundle ->
 
