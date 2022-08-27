@@ -7,4 +7,6 @@ sealed class StartViewEvent {
     object NavigateToPortfolio : StartViewEvent()
 
     object NavigateToAnalytics : StartViewEvent()
+
+    object NavigateToCurrencyChange : StartViewEvent()
 }

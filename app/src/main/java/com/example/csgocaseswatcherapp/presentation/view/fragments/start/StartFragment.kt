@@ -67,7 +67,7 @@ class StartFragment : Fragment(R.layout.fragment_start) {
             }
 
             currencyChangeButton.setOnClickListener {
-                findNavController().navigate(R.id.currencyChangeFragment)
+                viewModel.handleAction(StartViewAction.OnCurrencyChangeClicked)
             }
         }
     }
@@ -77,6 +77,7 @@ class StartFragment : Fragment(R.layout.fragment_start) {
             StartViewEvent.NavigateToCaseOverview -> findNavController().navigate(R.id.caseOverviewFragment)
             StartViewEvent.NavigateToPortfolio ->  findNavController().navigate(R.id.portfolioFragment)
             StartViewEvent.NavigateToAnalytics ->  findNavController().navigate(R.id.caseAnalyticsFragment)
+            StartViewEvent.NavigateToCurrencyChange ->  findNavController().navigate(R.id.currencyChangeFragment)
         }
     }
 }
