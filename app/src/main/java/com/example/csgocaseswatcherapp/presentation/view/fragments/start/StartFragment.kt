@@ -52,7 +52,8 @@ class StartFragment : Fragment(R.layout.fragment_start) {
 
                 val preferredCurrency = bundle.getString("bundleKey")
 
-                currencyChangeButton.text = preferredCurrency
+                viewModel.handleAction(StartViewAction.OnCurrencySelected(preferredCurrency))
+
 
                 when (preferredCurrency) {
                     "USD" -> {
