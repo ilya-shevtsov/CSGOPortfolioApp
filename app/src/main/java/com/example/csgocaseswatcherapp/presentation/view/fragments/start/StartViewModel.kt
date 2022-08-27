@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.csgocaseswatcherapp.data.api.ApiTools
 import com.example.csgocaseswatcherapp.data.model.prederredcurrencydto.PreferredCurrencyDto
+import com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio.PortfolioViewState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -67,6 +68,21 @@ class StartViewModel : ViewModel() {
         }
     }
 
+
     private fun createInitialState(): StartViewState = StartViewState("Choose Currency")
+
+    suspend fun getPreferredCurrency() {
+        viewModelScope.launch {
+            val response = ApiTools.getApiService().getPreferredCurrency()
+            val preferredCurrency = when (response.preferredCurrency) {
+                1 -> "USD"
+                5 -> "RUB"
+                else -> { "Choose Currency" }
+            }
+            uiState.value = StartViewState(preferredCurrency)
+        }
+
+
+    }
 
 }

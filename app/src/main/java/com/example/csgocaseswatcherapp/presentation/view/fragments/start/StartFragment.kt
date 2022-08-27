@@ -37,6 +37,7 @@ class StartFragment : Fragment(R.layout.fragment_start) {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                     viewModel.uiState.collect { uiState ->
                         currencyChangeButton.text = uiState.currencyButton
+                        viewModel.getPreferredCurrency()
                     }
                 }
             }
