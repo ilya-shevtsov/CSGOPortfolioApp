@@ -84,7 +84,7 @@ class CurrencyChangeFragment : Fragment(R.layout.fragment_currency_change) {
     ) {
         setFragmentResult(
             "preferredCurrency",
-            bundleOf("bundleKey" to uiEvent.currencyName)
+            bundleOf("preferredCurrency" to uiEvent.currencyName)
         )
         findNavController().popBackStack()
     }
