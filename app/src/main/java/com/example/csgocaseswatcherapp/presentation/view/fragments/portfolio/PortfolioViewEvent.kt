@@ -1,4 +1,7 @@
 package com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio
 
-class PortfolioViewEvent {
+sealed class PortfolioViewEvent {
+
+    object NavigateToAddCase : PortfolioViewEvent()
+
 }

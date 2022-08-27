@@ -16,7 +16,6 @@ class CurrencyChangeViewModel : ViewModel() {
         when (action) {
             is CurrencyChangeViewAction.OnCurrencyClicked -> handleCurrencyItemClicked(action.preferredCurrency)
         }
-
     }
 
     private fun handleCurrencyItemClicked(currencyName: String) {
