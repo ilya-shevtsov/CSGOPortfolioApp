@@ -12,5 +12,5 @@ sealed class StartViewAction {
 
     object OnAnalyticsClicked : StartViewAction()
 
-
+    object OnCurrencyChangeClicked : StartViewAction()
 }
