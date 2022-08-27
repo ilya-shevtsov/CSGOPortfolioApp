@@ -1,15 +1,38 @@
 package com.example.csgocaseswatcherapp.presentation.view.fragments.start
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.example.csgocaseswatcherapp.data.api.ApiTools
+import com.example.csgocaseswatcherapp.data.model.prederredcurrencydto.PreferredCurrencyDto
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 
 class StartViewModel() : ViewModel() {
 
     val uiState = MutableStateFlow(value = createInitialState())
 
-    fun handleAction(onCurrencySelected: StartViewAction.OnCurrencySelected) {
-        if (onCurrencySelected.preferredCurrency != null) {
-            uiState.value = StartViewState(onCurrencySelected.preferredCurrency)
+    fun handleAction(action: StartViewAction.OnCurrencySelected) {
+        if (action.preferredCurrency != null) {
+            uiState.value = StartViewState(action.preferredCurrency)
+
+            when (action.preferredCurrency) {
+                "USD" -> {
+                    sendPreferredCurrency(PreferredCurrencyDto(1))
+                    Log.e("ServerSide", "SendUSD")
+                }
+                "RUB" -> {
+                    sendPreferredCurrency(PreferredCurrencyDto(5))
+                    Log.e("ServerSide", "SendRUB")
+                }
+            }
+        }
+    }
+
+    private fun sendPreferredCurrency(preferredCurrency: PreferredCurrencyDto) {
+        CoroutineScope(Dispatchers.IO).launch {
+            ApiTools.getApiService().postPreferredCurrency(preferredCurrency)
         }
     }
 
