@@ -14,6 +14,7 @@ import com.example.csgocaseswatcherapp.*
 import com.example.csgocaseswatcherapp.core.CaseWatcherApplication
 import com.example.csgocaseswatcherapp.core.disposeOnDestroy
 import com.example.csgocaseswatcherapp.databinding.FragmentCaseOverviewBinding
+import com.xwray.groupie.GroupieAdapter
 import javax.inject.Inject
 
 class CaseOverviewFragment : Fragment(R.layout.fragment_case_overview) {
@@ -24,6 +25,8 @@ class CaseOverviewFragment : Fragment(R.layout.fragment_case_overview) {
     private lateinit var binding: FragmentCaseOverviewBinding
 
     private lateinit var viewModel: CaseOverviewViewModel
+
+    private val caseOverViewAdapter = GroupieAdapter()
 
     private val adapter: CaseOverviewAdapter = CaseOverviewAdapter(onItemClicked = { case ->
         val action =
@@ -54,6 +57,7 @@ class CaseOverviewFragment : Fragment(R.layout.fragment_case_overview) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         with(binding) {
+
             caseRecyclerView.layoutManager = LinearLayoutManager(activity)
             caseRecyclerView.adapter = adapter
 

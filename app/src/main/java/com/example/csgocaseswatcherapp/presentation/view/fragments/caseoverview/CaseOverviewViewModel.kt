@@ -10,11 +10,17 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 class CaseOverviewViewModel @Inject constructor(
     private val getCaseListUseCase: GetCaseOverviewListUseCase
 ) : ViewModel() {
+
+    val uiState = MutableStateFlow(value = getCaseList())
+
+//    val uiEvent = MutableSharedFlow<CaseOverViewEvent>()
 
     val viewStateLiveData = MutableLiveData<CaseOverviewViewState>()
 
