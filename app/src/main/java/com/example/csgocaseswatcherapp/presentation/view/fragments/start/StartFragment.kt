@@ -50,7 +50,7 @@ class StartFragment : Fragment(R.layout.fragment_start) {
             }
 
             setFragmentResultListener("preferredCurrency") { _, bundle ->
-                val preferredCurrency = bundle.getString("bundleKey")
+                val preferredCurrency = bundle.getString("preferredCurrency")
                 viewModel.handleAction(StartViewAction.OnCurrencySelected(preferredCurrency))
             }
 

@@ -28,10 +28,9 @@ class CurrencyChangeViewModel : ViewModel() {
         }
     }
 
-
     //PlaceHolder for currencies (later get from database)
 
-    private fun createInitialState(): CurrencyChangeViewState =
-        CurrencyChangeViewState(listOf("USD", "RUB"))
-
+    private fun createInitialState(): CurrencyChangeViewState {
+        return CurrencyChangeViewState(listOf("USD", "RUB"))
+    }
 }
