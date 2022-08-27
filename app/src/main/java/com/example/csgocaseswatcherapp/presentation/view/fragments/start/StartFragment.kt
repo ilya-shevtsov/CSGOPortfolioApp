@@ -40,13 +40,15 @@ class StartFragment : Fragment(R.layout.fragment_start) {
                         currencyChangeButton.text = uiState.currencyButton
                     }
                 }
-
+            }
+            lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                     viewModel.uiEvent.collect { uiEvent ->
                         handleEvent(uiEvent)
                     }
                 }
             }
+
 
 
 
