@@ -54,6 +54,14 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
                 }
             }
 
+            lifecycleScope.launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    viewModel.uiEvent.collect { uiEvent ->
+                        handleEvent(uiEvent)
+                    }
+                }
+            }
+
             //PlaceHolder for cases in portfolio overview (later get from database)
 
 
@@ -73,8 +81,14 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
             }
 
             addCaseButton.setOnClickListener {
-                findNavController().navigate(R.id.addCaseFragment)
+                viewModel.handleAction(PortfolioViewAction.OnAddCaseClicked)
             }
+        }
+    }
+
+    private fun handleEvent(uiEvent: PortfolioViewEvent) {
+        when (uiEvent) {
+            PortfolioViewEvent.NavigateToAddCase -> findNavController().navigate(R.id.addCaseFragment)
         }
     }
 
