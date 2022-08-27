@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
-class StartViewModel() : ViewModel() {
+class StartViewModel : ViewModel() {
 
     val uiState = MutableStateFlow(value = createInitialState())
 

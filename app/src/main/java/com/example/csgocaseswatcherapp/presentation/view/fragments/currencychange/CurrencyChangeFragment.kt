@@ -7,14 +7,22 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.databinding.FragmentCurrencyChangeBinding
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.ItemGroup
 import com.example.csgocaseswatcherapp.presentation.model.currencyChangeItem.CurrencyChangeItem
 import com.xwray.groupie.GroupieAdapter
+import kotlinx.coroutines.launch
 
 class CurrencyChangeFragment : Fragment(R.layout.fragment_currency_change) {
+
+    private val viewModel: CurrencyChangeViewModel by viewModels()
+
 
     private lateinit var binding: FragmentCurrencyChangeBinding
     private val currencyListAdapter = GroupieAdapter()
@@ -25,7 +33,6 @@ class CurrencyChangeFragment : Fragment(R.layout.fragment_currency_change) {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCurrencyChangeBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
@@ -33,17 +40,21 @@ class CurrencyChangeFragment : Fragment(R.layout.fragment_currency_change) {
 
         with(binding) {
 
-
-            //PlaceHolder for currencies (later get from database)
-
-            val currencyChangeGroup = ItemGroup(listOf(
-                CurrencyChangeItem("USD"),
-                CurrencyChangeItem("RUB")
-            ))
-
             currencyChangeRecyclerView.adapter = currencyListAdapter
 
-            currencyListAdapter.add(currencyChangeGroup)
+            lifecycleScope.launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    viewModel.uiState.collect { uiState ->
+
+                        //PlaceHolder for currencies (later get from database)
+
+                        val currencyChangeGroup = uiState.currencyList.map { item ->
+                            CurrencyChangeItem(item)
+                        }
+                        currencyListAdapter.update(currencyChangeGroup)
+                    }
+                }
+            }
 
             currencyListAdapter.setOnItemClickListener { item, _ ->
                 when (item) {

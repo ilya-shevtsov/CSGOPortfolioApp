@@ -49,9 +49,6 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
                 caseListAdapter.add(portfolioItemGroup)
             }
 
-
-
-
             homeButton.setOnClickListener {
                 findNavController().navigate(R.id.startFragment)
             }
