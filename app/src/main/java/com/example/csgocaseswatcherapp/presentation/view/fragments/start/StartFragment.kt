@@ -55,16 +55,7 @@ class StartFragment : Fragment(R.layout.fragment_start) {
                 viewModel.handleAction(StartViewAction.OnCurrencySelected(preferredCurrency))
 
 
-                when (preferredCurrency) {
-                    "USD" -> {
-                        sendPreferredCurrency(PreferredCurrencyDto(1))
-                        Log.e("ServerSide", "SendUSD")
-                    }
-                    "RUB" -> {
-                        sendPreferredCurrency(PreferredCurrencyDto(5))
-                        Log.e("ServerSide", "SendRUB")
-                    }
-                }
+
             }
 
             currencyChangeButton.setOnClickListener {
@@ -81,12 +72,6 @@ class StartFragment : Fragment(R.layout.fragment_start) {
             binding.caseAnalyticsButton.setOnClickListener {
                 findNavController().navigate(R.id.caseAnalyticsFragment)
             }
-        }
-    }
-
-    private fun sendPreferredCurrency(preferredCurrency: PreferredCurrencyDto) {
-        CoroutineScope(Dispatchers.IO).launch {
-            ApiTools.getApiService().postPreferredCurrency(preferredCurrency)
         }
     }
 }
