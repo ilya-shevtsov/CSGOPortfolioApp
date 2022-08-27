@@ -1,7 +1,6 @@
 package com.example.csgocaseswatcherapp.presentation.view.fragments.start
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,11 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
-import com.example.csgocaseswatcherapp.data.api.ApiTools
-import com.example.csgocaseswatcherapp.data.model.prederredcurrencydto.PreferredCurrencyDto
 import com.example.csgocaseswatcherapp.databinding.FragmentStartBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class StartFragment : Fragment(R.layout.fragment_start) {
@@ -36,56 +31,53 @@ class StartFragment : Fragment(R.layout.fragment_start) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         with(binding) {
 
             lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                     viewModel.uiState.collect { uiState ->
                         currencyChangeButton.text = uiState.currencyButton
+                    }
+                }
+            }
 
+            lifecycleScope.launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    viewModel.uiEvent.collect { uiEvent ->
+                        handleEvent(uiEvent)
                     }
                 }
             }
 
             setFragmentResultListener("preferredCurrency") { _, bundle ->
+                val preferredCurrency = bundle.getString("preferredCurrency")
+                viewModel.handleAction(StartViewAction.OnCurrencySelected(preferredCurrency))
+            }
 
-                val preferredCurrency = bundle.getString("bundleKey")
+            caseOverviewButton.setOnClickListener {
+                viewModel.handleAction(StartViewAction.OnCaseOverviewClicked)
+            }
 
-                currencyChangeButton.text = preferredCurrency
+            casePortfolioButton.setOnClickListener {
+                viewModel.handleAction(StartViewAction.OnPortfolioClicked)
+            }
 
-                when (preferredCurrency) {
-                    "USD" -> {
-                        sendPreferredCurrency(PreferredCurrencyDto(1))
-                        Log.e("ServerSide", "SendUSD")
-                    }
-                    "RUB" -> {
-                        sendPreferredCurrency(PreferredCurrencyDto(5))
-                        Log.e("ServerSide", "SendRUB")
-                    }
-                }
+            caseAnalyticsButton.setOnClickListener {
+                viewModel.handleAction(StartViewAction.OnAnalyticsClicked)
             }
 
             currencyChangeButton.setOnClickListener {
-                findNavController().navigate(R.id.currencyChangeFragment)
-            }
-
-            binding.caseOverviewButton.setOnClickListener {
-                findNavController().navigate(R.id.caseOverviewFragment)
-            }
-
-            binding.casePortfolioButton.setOnClickListener {
-                findNavController().navigate(R.id.portfolioFragment)
-            }
-            binding.caseAnalyticsButton.setOnClickListener {
-                findNavController().navigate(R.id.caseAnalyticsFragment)
+                viewModel.handleAction(StartViewAction.OnCurrencyChangeClicked)
             }
         }
     }
 
-    private fun sendPreferredCurrency(preferredCurrency: PreferredCurrencyDto) {
-        CoroutineScope(Dispatchers.IO).launch {
-            ApiTools.getApiService().postPreferredCurrency(preferredCurrency)
+    private fun handleEvent(uiEvent: StartViewEvent) {
+        when (uiEvent) {
+            StartViewEvent.NavigateToCaseOverview -> findNavController().navigate(R.id.caseOverviewFragment)
+            StartViewEvent.NavigateToPortfolio ->  findNavController().navigate(R.id.portfolioFragment)
+            StartViewEvent.NavigateToAnalytics ->  findNavController().navigate(R.id.caseAnalyticsFragment)
+            StartViewEvent.NavigateToCurrencyChange ->  findNavController().navigate(R.id.currencyChangeFragment)
         }
     }
 }
