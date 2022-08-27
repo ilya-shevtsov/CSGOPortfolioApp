@@ -39,7 +39,7 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
 
         with(binding) {
 
-            ItemCaseRecyclerView.adapter = caseListAdapter
+            itemCaseRecyclerView.adapter = caseListAdapter
 
             lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
