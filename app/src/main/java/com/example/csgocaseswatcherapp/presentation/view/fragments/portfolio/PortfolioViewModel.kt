@@ -31,6 +31,8 @@ class PortfolioViewModel : ViewModel() {
         viewModelScope.launch { uiEvent.emit(PortfolioViewEvent.NavigateToAddCase) }
     }
 
+    //PlaceHolder for cases in portfolio overview (later get from database)
+
     private fun createInitialState(): PortfolioViewState {
         return PortfolioViewState(
             listOf(
