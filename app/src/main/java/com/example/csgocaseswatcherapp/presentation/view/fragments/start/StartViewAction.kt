@@ -5,6 +5,8 @@ sealed class StartViewAction {
     data class OnCurrencySelected(
         val preferredCurrency: String?
     ) : StartViewAction()
-    
-    
+
+    object OnCaseOverviewClicked : StartViewAction()
+
+
 }
