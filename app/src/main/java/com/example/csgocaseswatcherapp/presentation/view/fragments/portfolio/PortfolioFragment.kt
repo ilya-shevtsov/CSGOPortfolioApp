@@ -80,6 +80,9 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
             PortfolioViewEvent.NavigateToAddCase -> findNavController().navigate(R.id.addCaseFragment)
         }
     }
+
+
+
 }
 
 
