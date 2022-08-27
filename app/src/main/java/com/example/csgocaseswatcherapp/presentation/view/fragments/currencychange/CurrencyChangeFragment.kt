@@ -14,7 +14,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.databinding.FragmentCurrencyChangeBinding
-import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.ItemGroup
 import com.example.csgocaseswatcherapp.presentation.model.currencyChangeItem.CurrencyChangeItem
 import com.xwray.groupie.GroupieAdapter
 import kotlinx.coroutines.launch
@@ -45,13 +44,18 @@ class CurrencyChangeFragment : Fragment(R.layout.fragment_currency_change) {
             lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                     viewModel.uiState.collect { uiState ->
-
-                        //PlaceHolder for currencies (later get from database)
-
-                        val currencyChangeGroup = uiState.currencyList.map { item ->
+                        val currencyChangeItemList = uiState.currencyList.map { item ->
                             CurrencyChangeItem(item)
                         }
-                        currencyListAdapter.update(currencyChangeGroup)
+                        currencyListAdapter.update(currencyChangeItemList)
+                    }
+                }
+            }
+
+            lifecycleScope.launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    viewModel.uiEvent.collect { uiEvent ->
+                        handleEvent(uiEvent)
                     }
                 }
             }
@@ -59,15 +63,29 @@ class CurrencyChangeFragment : Fragment(R.layout.fragment_currency_change) {
             currencyListAdapter.setOnItemClickListener { item, _ ->
                 when (item) {
                     is CurrencyChangeItem -> {
-                        val preferredCurrency = item.currencyName
-                        setFragmentResult(
-                            "preferredCurrency",
-                            bundleOf("bundleKey" to preferredCurrency)
-                        )
-                        findNavController().popBackStack()
+                       viewModel.handleAction(CurrencyChangeViewAction.OnCurrencyClicked(item.currencyName))
                     }
                 }
             }
         }
+    }
+
+    private fun handleEvent(uiEvent: CurrencyChangeViewEvent) {
+        when(uiEvent){
+            is CurrencyChangeViewEvent.NavigateToStartWithPreferredCurrency -> {
+                navigateToStartWithPreferredCurrency(uiEvent)
+            }
+        }
+
+    }
+
+    private fun navigateToStartWithPreferredCurrency(
+        uiEvent: CurrencyChangeViewEvent.NavigateToStartWithPreferredCurrency
+    ) {
+        setFragmentResult(
+            "preferredCurrency",
+            bundleOf("bundleKey" to uiEvent.currencyName)
+        )
+        findNavController().popBackStack()
     }
 }
