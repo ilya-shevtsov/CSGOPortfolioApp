@@ -2,10 +2,12 @@ package com.example.csgocaseswatcherapp.presentation.view.fragments.start
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.csgocaseswatcherapp.data.api.ApiTools
 import com.example.csgocaseswatcherapp.data.model.prederredcurrencydto.PreferredCurrencyDto
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
@@ -13,7 +15,21 @@ class StartViewModel() : ViewModel() {
 
     val uiState = MutableStateFlow(value = createInitialState())
 
-    fun handleAction(action: StartViewAction.OnCurrencySelected) {
+    val uiEvent = MutableSharedFlow<StartViewEvent>()
+
+    fun handleAction(action: StartViewAction) {
+        when (action) {
+            is StartViewAction.OnCurrencySelected -> handleCurrencySelected(action)
+            is StartViewAction.OnCaseOverviewClicked -> handleOnCaseOverviewClicked()
+        }
+    }
+
+    private fun handleOnCaseOverviewClicked() {
+        viewModelScope.launch { uiEvent.emit(StartViewEvent.NavigateToCaseOverview) }
+
+    }
+
+    private fun handleCurrencySelected(action: StartViewAction.OnCurrencySelected) {
         if (action.preferredCurrency != null) {
             uiState.value = StartViewState(action.preferredCurrency)
 
