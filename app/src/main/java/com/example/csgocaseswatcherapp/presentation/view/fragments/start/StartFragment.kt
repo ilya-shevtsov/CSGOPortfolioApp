@@ -7,7 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.data.api.ApiTools
@@ -18,6 +21,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class StartFragment : Fragment(R.layout.fragment_start) {
+
+    private val viewModel: StartViewModel by viewModels()
 
     private lateinit var binding: FragmentStartBinding
 
@@ -33,6 +38,15 @@ class StartFragment : Fragment(R.layout.fragment_start) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         with(binding) {
+
+            lifecycleScope.launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    viewModel.uiState.collect { uiState ->
+                        currencyChangeButton.text = uiState.currencyButton
+
+                    }
+                }
+            }
 
             setFragmentResultListener("preferredCurrency") { _, bundle ->
 
