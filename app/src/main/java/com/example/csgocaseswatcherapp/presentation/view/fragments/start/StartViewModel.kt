@@ -2,10 +2,17 @@ package com.example.csgocaseswatcherapp.presentation.view.fragments.start
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 
-class StartViewModel(): ViewModel() {
-    private val _uiState = MutableStateFlow(StartViewState("Choose Currency"))
-    val uiState: StateFlow<StartViewState> = _uiState.asStateFlow()
+class StartViewModel() : ViewModel() {
+
+    val uiState = MutableStateFlow(value = createInitialState())
+
+    fun handleAction(onCurrencySelected: StartViewAction.OnCurrencySelected) {
+        if (onCurrencySelected.preferredCurrency != null) {
+            uiState.value = StartViewState(onCurrencySelected.preferredCurrency)
+        }
+    }
+
+    private fun createInitialState(): StartViewState = StartViewState("Choose Currency")
+
 }
