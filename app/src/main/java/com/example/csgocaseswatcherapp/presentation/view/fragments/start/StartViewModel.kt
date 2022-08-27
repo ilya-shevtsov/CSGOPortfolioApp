@@ -21,7 +21,12 @@ class StartViewModel() : ViewModel() {
         when (action) {
             is StartViewAction.OnCurrencySelected -> handleCurrencySelected(action)
             is StartViewAction.OnCaseOverviewClicked -> handleOnCaseOverviewClicked()
+            is StartViewAction.OnPortfolioClicked -> handleOnPortfolioClickedClicked()
         }
+    }
+
+    private fun handleOnPortfolioClickedClicked() {
+        viewModelScope.launch { uiEvent.emit(StartViewEvent.NavigateToPortfolio) }
     }
 
     private fun handleOnCaseOverviewClicked() {

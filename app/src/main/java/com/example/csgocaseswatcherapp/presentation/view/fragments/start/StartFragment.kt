@@ -35,12 +35,12 @@ class StartFragment : Fragment(R.layout.fragment_start) {
 
             lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-
                     viewModel.uiState.collect { uiState ->
                         currencyChangeButton.text = uiState.currencyButton
                     }
                 }
             }
+
             lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                     viewModel.uiEvent.collect { uiEvent ->
@@ -49,19 +49,9 @@ class StartFragment : Fragment(R.layout.fragment_start) {
                 }
             }
 
-
-
-
             setFragmentResultListener("preferredCurrency") { _, bundle ->
                 val preferredCurrency = bundle.getString("bundleKey")
-
                 viewModel.handleAction(StartViewAction.OnCurrencySelected(preferredCurrency))
-            }
-
-
-
-            currencyChangeButton.setOnClickListener {
-                findNavController().navigate(R.id.currencyChangeFragment)
             }
 
             caseOverviewButton.setOnClickListener {
@@ -69,10 +59,14 @@ class StartFragment : Fragment(R.layout.fragment_start) {
             }
 
             casePortfolioButton.setOnClickListener {
-                findNavController().navigate(R.id.portfolioFragment)
+                viewModel.handleAction(StartViewAction.OnPortfolioClicked)
             }
             caseAnalyticsButton.setOnClickListener {
                 findNavController().navigate(R.id.caseAnalyticsFragment)
+            }
+
+            currencyChangeButton.setOnClickListener {
+                findNavController().navigate(R.id.currencyChangeFragment)
             }
         }
     }
@@ -80,6 +74,7 @@ class StartFragment : Fragment(R.layout.fragment_start) {
     private fun handleEvent(uiEvent: StartViewEvent) {
         when (uiEvent) {
             StartViewEvent.NavigateToCaseOverview -> findNavController().navigate(R.id.caseOverviewFragment)
+            StartViewEvent.NavigateToPortfolio ->  findNavController().navigate(R.id.portfolioFragment)
         }
     }
 }

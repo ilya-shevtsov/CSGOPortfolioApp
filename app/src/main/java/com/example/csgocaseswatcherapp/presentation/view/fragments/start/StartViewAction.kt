@@ -8,5 +8,7 @@ sealed class StartViewAction {
 
     object OnCaseOverviewClicked : StartViewAction()
 
+    object OnPortfolioClicked : StartViewAction()
+
 
 }
