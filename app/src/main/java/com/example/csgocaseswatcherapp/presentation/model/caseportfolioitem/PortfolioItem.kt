@@ -16,8 +16,8 @@ class PortfolioItem(
 ) : BindableItem<ItemCasePortfolioBinding>() {
 
     override fun bind(viewBinding: ItemCasePortfolioBinding, position: Int) {
-        viewBinding.caseImage.setImageURI(caseImage)
-        viewBinding.caseName.text = caseName
+        viewBinding.caseImageView.setImageURI(caseImage)
+        viewBinding.caseNameTextView.text = caseName
         viewBinding.caseAmount.text = caseAmount.toString()
         viewBinding.casePrice.text = casePrice.toString()
         viewBinding.caseOverallValue.text = caseOverallValue.toString()

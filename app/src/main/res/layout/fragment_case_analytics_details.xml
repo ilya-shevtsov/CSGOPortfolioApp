@@ -10,7 +10,7 @@
 
 
     <TextView
-        android:id="@+id/caseName"
+        android:id="@+id/caseNameTextView"
         android:textColor="@color/black"
         android:layout_width="0dp"
         android:textStyle="bold"
@@ -19,18 +19,18 @@
         android:textSize="20sp"
         fresco:layout_constraintEnd_toEndOf="parent"
         fresco:layout_constraintHorizontal_bias="0.5"
-        fresco:layout_constraintStart_toStartOf="@id/caseImage"
+        fresco:layout_constraintStart_toStartOf="@id/caseImageView"
         fresco:layout_constraintTop_toTopOf="parent"
         tools:text="CaseName" />
 
     <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/caseImage"
+        android:id="@+id/caseImageView"
         android:layout_width="160dp"
         android:layout_height="160dp"
         fresco:actualImageScaleType="fitCenter"
         android:layout_marginStart="8dp"
         fresco:layout_constraintStart_toStartOf="parent"
-        fresco:layout_constraintTop_toBottomOf="@id/caseName"
+        fresco:layout_constraintTop_toBottomOf="@id/caseNameTextView"
         tools:background="@color/black" />
 
 
@@ -158,7 +158,7 @@
         fresco:layout_constraintBottom_toTopOf="@id/monthlyAvgReturnInPercentDetails"
         fresco:layout_constraintEnd_toEndOf="parent"
         fresco:layout_constraintStart_toStartOf="parent"
-        fresco:layout_constraintTop_toBottomOf="@id/caseImage" />
+        fresco:layout_constraintTop_toBottomOf="@id/caseImageView" />
 
     <View
         android:id="@+id/separatorTwo"
