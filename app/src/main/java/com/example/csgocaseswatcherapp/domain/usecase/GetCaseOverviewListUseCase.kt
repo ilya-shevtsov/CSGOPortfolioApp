@@ -9,7 +9,7 @@ class GetCaseOverviewListUseCase @Inject constructor(
     private val caseRepository: CaseRepository
 ) {
 
-    fun getCaseOverviewList(): Single<List<CaseOverview>> {
+    suspend fun getCaseOverviewList(): List<CaseOverview> {
         return caseRepository.getCaseOverviewList()
     }
 }
