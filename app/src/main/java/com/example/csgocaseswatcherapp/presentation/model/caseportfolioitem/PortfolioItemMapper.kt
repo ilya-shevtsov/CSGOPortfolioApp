@@ -1,7 +1,7 @@
 package com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem
 
 import android.util.Log
-import com.example.csgocaseswatcherapp.presentation.model.AddCaseItem
+import com.example.csgocaseswatcherapp.presentation.model.addcaseitem.AddCaseItem
 import kotlin.math.round
 
 object PortfolioItemMapper {

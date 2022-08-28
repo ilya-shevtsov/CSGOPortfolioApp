@@ -7,5 +7,4 @@ sealed class CaseOverviewViewEvent {
     data class NavigateToCaseDetails(
         val case: CaseOverviewModel
     ) : CaseOverviewViewEvent()
-
 }

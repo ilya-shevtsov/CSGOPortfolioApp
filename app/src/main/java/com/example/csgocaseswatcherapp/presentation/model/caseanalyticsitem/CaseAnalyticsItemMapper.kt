@@ -4,8 +4,8 @@ import com.example.csgocaseswatcherapp.domain.model.caseanalytics.CaseAnalytics
 
 object CaseAnalyticsItemMapper {
 
-    fun map(caseAnalytics: CaseAnalytics): CaseAnalyticsItem {
-        return CaseAnalyticsItem(
+    fun map(caseAnalytics: CaseAnalytics): CaseAnalyticsModel {
+        return CaseAnalyticsModel(
             caseName = caseAnalytics.caseName,
             dailyAvgReturnInPercent = caseAnalytics.dailyAvgReturnInPercent,
             dailyAvgReturnInRUB = caseAnalytics.dailyAvgReturnInRUB,

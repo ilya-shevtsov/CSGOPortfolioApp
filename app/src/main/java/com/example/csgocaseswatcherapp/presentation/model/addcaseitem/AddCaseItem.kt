@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.presentation.model
+package com.example.csgocaseswatcherapp.presentation.model.addcaseitem
 
 import java.io.Serializable
 
