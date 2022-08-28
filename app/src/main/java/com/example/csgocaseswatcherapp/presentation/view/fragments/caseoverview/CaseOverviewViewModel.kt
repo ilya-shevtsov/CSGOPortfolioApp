@@ -6,9 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.csgocaseswatcherapp.domain.model.caseoverview.CaseOverview
 import com.example.csgocaseswatcherapp.domain.usecase.GetCaseOverviewListUseCase
 import com.example.csgocaseswatcherapp.presentation.model.caseoverviewitem.CaseOverviewItemMapper
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -37,7 +34,7 @@ class CaseOverviewViewModel @Inject constructor(
     }
 
     private fun showCaseList(caseList: List<CaseOverview>) {
-        uiState.value = CaseOverviewViewState.Success(
+        uiState.value = CaseOverviewViewState.Content(
             caseOverviewItemList = caseList.map(CaseOverviewItemMapper::map),
         )
     }

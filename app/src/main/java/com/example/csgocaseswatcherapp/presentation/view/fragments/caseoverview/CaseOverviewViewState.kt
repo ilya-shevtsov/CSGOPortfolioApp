@@ -6,7 +6,7 @@ sealed class CaseOverviewViewState {
 
     object Loading : CaseOverviewViewState()
 
-    data class Success(
+    data class Content(
         val caseOverviewItemList: List<CaseOverviewItem>,
     ) : CaseOverviewViewState()
 
