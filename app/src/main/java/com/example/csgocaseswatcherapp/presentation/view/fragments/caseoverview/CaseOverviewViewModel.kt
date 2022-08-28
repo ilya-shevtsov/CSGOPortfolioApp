@@ -1,41 +1,35 @@
 package com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview
 
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.csgocaseswatcherapp.domain.model.caseoverview.CaseOverview
 import com.example.csgocaseswatcherapp.domain.usecase.GetCaseOverviewListUseCase
 import com.example.csgocaseswatcherapp.presentation.model.caseoverviewitem.CaseOverviewItemMapper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CaseOverviewViewModel @Inject constructor(
     private val getCaseListUseCase: GetCaseOverviewListUseCase
 ) : ViewModel() {
 
-    val uiState: MutableStateFlow<CaseOverviewViewState> = MutableStateFlow(value = CaseOverviewViewState.Loading)
+    val uiState: MutableStateFlow<CaseOverviewViewState> =
+        MutableStateFlow(value = CaseOverviewViewState.Loading)
 
-
-//    val viewStateLiveData = MutableLiveData<CaseOverviewViewState>()
-
-    fun getCaseList(): Disposable {
-        return getCaseListUseCase.getCaseOverviewList()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(
-                onSuccess = { caseList ->
-                    showCaseList(caseList)
-                },
-                onError = {
-                    showError()
-                    Log.e("M_CasesOverviewFragment.getCaseList", "$it")
-                }
-            )
+    init {
+        viewModelScope.launch {
+            try {
+                val response = getCaseListUseCase.getCaseOverviewList()
+                showCaseList(response)
+            } catch (throwable: Throwable){
+                showError()
+                Log.e("Logging_CasesOverviewViewModel.getCaseList", "${throwable.message}")
+            }
+        }
     }
 
     private fun showError() {

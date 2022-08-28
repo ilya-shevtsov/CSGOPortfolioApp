@@ -71,7 +71,6 @@ class CaseOverviewFragment : Fragment(R.layout.fragment_case_overview) {
                 }
             }
         }
-        viewModel.getCaseList().disposeOnDestroy(viewLifecycleOwner)
     }
 
     private fun handleState(uiState: CaseOverviewViewState) {

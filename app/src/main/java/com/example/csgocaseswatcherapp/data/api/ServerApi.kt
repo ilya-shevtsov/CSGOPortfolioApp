@@ -17,7 +17,7 @@ interface ServerApi {
     suspend fun postPreferredCurrency(@Body preferredCurrency: PreferredCurrencyDto): PreferredCurrencyDto
 
     @GET("getCase")
-    fun getCaseList(): Single<List<CaseDto>>
+    suspend fun getCaseList(): List<CaseDto>
 
     @GET("getAnalyticalDetails")
     fun getCaseAnalyticsList(): Single<List<CaseAnalyticsDto>>
