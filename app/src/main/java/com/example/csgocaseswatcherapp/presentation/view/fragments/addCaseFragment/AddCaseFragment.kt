@@ -1,7 +1,6 @@
 package com.example.csgocaseswatcherapp.presentation.view.fragments.addCaseFragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +11,7 @@ import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.databinding.FragmentAddCaseBinding
-import com.example.csgocaseswatcherapp.presentation.model.AddCaseItem
-import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioItem
+import com.example.csgocaseswatcherapp.presentation.model.addcaseitem.AddCaseItem
 
 class AddCaseFragment : Fragment(R.layout.fragment_add_case) {
 

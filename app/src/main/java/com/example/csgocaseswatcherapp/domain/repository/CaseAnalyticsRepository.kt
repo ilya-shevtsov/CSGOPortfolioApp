@@ -5,5 +5,5 @@ import com.example.csgocaseswatcherapp.domain.model.caseanalytics.CaseAnalytics
 import io.reactivex.Single
 
 interface CaseAnalyticsRepository {
-    fun getCaseAnalyticsList(): Single<List<CaseAnalytics>>
+    suspend fun getCaseAnalyticsList(): List<CaseAnalytics>
 }

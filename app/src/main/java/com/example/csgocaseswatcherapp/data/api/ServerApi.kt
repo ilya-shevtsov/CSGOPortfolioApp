@@ -20,6 +20,6 @@ interface ServerApi {
     suspend fun getCaseList(): List<CaseDto>
 
     @GET("getAnalyticalDetails")
-    fun getCaseAnalyticsList(): Single<List<CaseAnalyticsDto>>
+    suspend fun getCaseAnalyticsList(): List<CaseAnalyticsDto>
 }
 

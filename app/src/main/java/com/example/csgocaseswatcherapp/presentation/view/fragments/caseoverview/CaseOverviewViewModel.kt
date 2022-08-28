@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.csgocaseswatcherapp.domain.model.caseoverview.CaseOverview
 import com.example.csgocaseswatcherapp.domain.usecase.GetCaseOverviewListUseCase
-import com.example.csgocaseswatcherapp.presentation.model.caseoverviewitem.CaseOverviewModel
 import com.example.csgocaseswatcherapp.presentation.model.caseoverviewitem.CaseOverviewItemMapper
+import com.example.csgocaseswatcherapp.presentation.model.caseoverviewitem.CaseOverviewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -33,8 +33,8 @@ class CaseOverviewViewModel @Inject constructor(
         }
     }
 
-    fun handleAction(action: CaseOverviewViewAction){
-        when(action){
+    fun handleAction(action: CaseOverviewViewAction) {
+        when (action) {
             is CaseOverviewViewAction.OnCaseClicked -> handleOnCaseClicked(action.case)
         }
     }

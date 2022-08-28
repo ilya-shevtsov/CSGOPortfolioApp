@@ -96,10 +96,10 @@ class CaseOverviewFragment : Fragment(R.layout.fragment_case_overview) {
             is CaseOverviewViewState.Loading -> binding.loadingView.root.isVisible = true
             is CaseOverviewViewState.Error -> binding.errorView.root.isVisible = true
             is CaseOverviewViewState.Content -> {
-                val caseOVerViewItemList = uiState.caseOverviewItemList.map { caseOverViewItem ->
+                val caseOverViewItemList = uiState.caseOverviewItemList.map { caseOverViewItem ->
                     CaseOverviewGroupieItem(caseOverViewItem)
                 }
-                caseOverviewListAdapter.update(caseOVerViewItemList)
+                caseOverviewListAdapter.update(caseOverViewItemList)
                 binding.caseRecyclerView.isVisible = true
             }
         }

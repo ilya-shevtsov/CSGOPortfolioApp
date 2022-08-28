@@ -1,7 +1,6 @@
 package com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,9 +12,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
-import com.example.csgocaseswatcherapp.data.api.ApiTools
 import com.example.csgocaseswatcherapp.databinding.FragmentPortfolioBinding
-import com.example.csgocaseswatcherapp.presentation.model.AddCaseItem
+import com.example.csgocaseswatcherapp.presentation.model.addcaseitem.AddCaseItem
 import com.xwray.groupie.GroupieAdapter
 import kotlinx.coroutines.launch
 

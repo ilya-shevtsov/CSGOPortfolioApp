@@ -1,6 +1,6 @@
 package com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio
 
-import com.example.csgocaseswatcherapp.presentation.model.AddCaseItem
+import com.example.csgocaseswatcherapp.presentation.model.addcaseitem.AddCaseItem
 
 sealed class PortfolioViewAction {
 
