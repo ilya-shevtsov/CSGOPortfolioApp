@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -15,7 +16,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.core.CaseWatcherApplication
-import com.example.csgocaseswatcherapp.core.disposeOnDestroy
 import com.example.csgocaseswatcherapp.databinding.FragmentCaseOverviewBinding
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -27,7 +27,7 @@ class CaseOverviewFragment : Fragment(R.layout.fragment_case_overview) {
 
     private lateinit var binding: FragmentCaseOverviewBinding
 
-    private lateinit var viewModel: CaseOverviewViewModel
+    private val viewModel: CaseOverviewViewModel by viewModels { viewModelFactory }
 
     private val adapter: CaseOverviewAdapter = CaseOverviewAdapter(onItemClicked = { case ->
         val action =
@@ -41,9 +41,6 @@ class CaseOverviewFragment : Fragment(R.layout.fragment_case_overview) {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCaseOverviewBinding.inflate(inflater, container, false)
-
-        viewModel = ViewModelProvider(this, viewModelFactory)
-            .get(CaseOverviewViewModel::class.java)
 
         return binding.root
     }
