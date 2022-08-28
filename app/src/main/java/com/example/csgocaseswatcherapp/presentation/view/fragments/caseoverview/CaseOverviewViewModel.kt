@@ -18,11 +18,10 @@ class CaseOverviewViewModel @Inject constructor(
     private val getCaseListUseCase: GetCaseOverviewListUseCase
 ) : ViewModel() {
 
-    val uiState = MutableStateFlow(value = getCaseList())
+    val uiState: MutableStateFlow<CaseOverviewViewState> = MutableStateFlow(value = CaseOverviewViewState.Loading)
 
-//    val uiEvent = MutableSharedFlow<CaseOverViewEvent>()
 
-    val viewStateLiveData = MutableLiveData<CaseOverviewViewState>()
+//    val viewStateLiveData = MutableLiveData<CaseOverviewViewState>()
 
     fun getCaseList(): Disposable {
         return getCaseListUseCase.getCaseOverviewList()
@@ -40,14 +39,12 @@ class CaseOverviewViewModel @Inject constructor(
     }
 
     private fun showError() {
-        val state = CaseOverviewViewState.Error
-        viewStateLiveData.postValue(state)
+        uiState.value = CaseOverviewViewState.Error
     }
 
     private fun showCaseList(caseList: List<CaseOverview>) {
-        val state = CaseOverviewViewState.Success(
+        uiState.value = CaseOverviewViewState.Success(
             caseOverviewItemList = caseList.map(CaseOverviewItemMapper::map),
         )
-        viewStateLiveData.postValue(state)
     }
 }
