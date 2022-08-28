@@ -5,23 +5,23 @@ import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.databinding.ItemCaseBinding
 import com.xwray.groupie.viewbinding.BindableItem
 
-data class CaseOverViewGroupieItem(
-    val caseOverviewItem: CaseOverviewItem
+data class CaseOverviewGroupieItem(
+    val caseOverviewModel: CaseOverviewModel
 ) : BindableItem<ItemCaseBinding>() {
     override fun bind(viewBinding: ItemCaseBinding, position: Int) {
-        viewBinding.caseImage.setImageURI(caseOverviewItem.imageUrl)
-        viewBinding.caseName.text = caseOverviewItem.caseName
+        viewBinding.caseImage.setImageURI(caseOverviewModel.imageUrl)
+        viewBinding.caseName.text = caseOverviewModel.caseName
         viewBinding.lowestPrice.text =
             viewBinding.root.context.getString(
                 R.string.case_lowest_price,
-                caseOverviewItem.lowestPrice.toString()
+                caseOverviewModel.lowestPrice.toString()
             )
         viewBinding.volume.text =
-            viewBinding.root.context.getString(R.string.case_volume, caseOverviewItem.volume.toString())
+            viewBinding.root.context.getString(R.string.case_volume, caseOverviewModel.volume.toString())
         viewBinding.medianPrice.text =
             viewBinding.root.context.getString(
                 R.string.case_median_price,
-                caseOverviewItem.medianPrice.toString()
+                caseOverviewModel.medianPrice.toString()
             )
     }
 

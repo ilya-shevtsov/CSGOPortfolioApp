@@ -4,8 +4,8 @@ import com.example.csgocaseswatcherapp.domain.model.caseoverview.CaseOverview
 
 object CaseOverviewItemMapper {
 
-    fun map(caseOverview: CaseOverview): CaseOverviewItem {
-        return CaseOverviewItem(
+    fun map(caseOverview: CaseOverview): CaseOverviewModel {
+        return CaseOverviewModel(
             caseName = caseOverview.name,
             lowestPrice = caseOverview.lowestPrice,
             volume = caseOverview.volume,

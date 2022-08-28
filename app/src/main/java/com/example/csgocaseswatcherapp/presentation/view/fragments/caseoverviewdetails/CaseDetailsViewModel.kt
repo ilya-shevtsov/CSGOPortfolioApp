@@ -2,7 +2,7 @@ package com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.csgocaseswatcherapp.presentation.model.caseoverviewitem.CaseOverviewItem
+import com.example.csgocaseswatcherapp.presentation.model.caseoverviewitem.CaseOverviewModel
 import javax.inject.Inject
 
 class CaseDetailsViewModel @Inject constructor(
@@ -10,7 +10,7 @@ class CaseDetailsViewModel @Inject constructor(
 
     val viewStateLiveData = MutableLiveData<CaseDetailsViewState>()
 
-    fun onItemProvided(currentCase: CaseOverviewItem) {
+    fun onItemProvided(currentCase: CaseOverviewModel) {
         with(currentCase) {
             val state = CaseDetailsViewState(
                 caseName = caseName,
