@@ -143,10 +143,9 @@
         fresco:layout_constraintTop_toBottomOf="@id/descriptionTextView" />
 
     <include
-            android:id="@+id/loadingView"
-            layout="@layout/loading_view"
-            android:visibility="gone"
-            />
+        android:id="@+id/loadingView"
+        layout="@layout/loading_view"
+        android:visibility="gone" />
 
 
 
