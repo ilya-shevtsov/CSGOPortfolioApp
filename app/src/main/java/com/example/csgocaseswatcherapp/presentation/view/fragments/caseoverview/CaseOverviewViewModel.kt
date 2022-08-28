@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.csgocaseswatcherapp.domain.model.caseoverview.CaseOverview
 import com.example.csgocaseswatcherapp.domain.usecase.GetCaseOverviewListUseCase
+import com.example.csgocaseswatcherapp.presentation.model.caseoverviewitem.CaseOverviewModel
 import com.example.csgocaseswatcherapp.presentation.model.caseoverviewitem.CaseOverviewItemMapper
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,15 +19,29 @@ class CaseOverviewViewModel @Inject constructor(
     val uiState: MutableStateFlow<CaseOverviewViewState> =
         MutableStateFlow(value = CaseOverviewViewState.Loading)
 
+    val uiEvent = MutableSharedFlow<CaseOverviewViewEvent>()
+
     init {
         viewModelScope.launch {
             try {
                 val response = getCaseListUseCase.getCaseOverviewList()
                 showCaseList(response)
-            } catch (throwable: Throwable){
+            } catch (throwable: Throwable) {
                 showError()
                 Log.e("Logging_CasesOverviewViewModel.getCaseList", "${throwable.message}")
             }
+        }
+    }
+
+    fun handleAction(action: CaseOverviewViewAction){
+        when(action){
+            is CaseOverviewViewAction.OnCaseClicked -> handleOnCaseClicked(action.case)
+        }
+    }
+
+    private fun handleOnCaseClicked(case: CaseOverviewModel) {
+        viewModelScope.launch {
+            uiEvent.emit(CaseOverviewViewEvent.NavigateToCaseDetails(case))
         }
     }
 

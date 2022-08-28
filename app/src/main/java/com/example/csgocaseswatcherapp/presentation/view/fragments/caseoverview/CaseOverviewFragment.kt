@@ -16,7 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.core.CaseWatcherApplication
 import com.example.csgocaseswatcherapp.databinding.FragmentCaseOverviewBinding
-import com.example.csgocaseswatcherapp.presentation.model.caseoverviewitem.CaseOverViewGroupieItem
+import com.example.csgocaseswatcherapp.presentation.model.caseoverviewitem.CaseOverviewGroupieItem
 import com.xwray.groupie.GroupieAdapter
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -38,13 +38,12 @@ class CaseOverviewFragment : Fragment(R.layout.fragment_case_overview) {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCaseOverviewBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         with(binding) {
-            
+
             caseRecyclerView.adapter = caseOverviewListAdapter
 
             lifecycleScope.launch {
@@ -55,18 +54,41 @@ class CaseOverviewFragment : Fragment(R.layout.fragment_case_overview) {
                     }
                 }
             }
+
+            lifecycleScope.launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    viewModel.uiEvent.collect { uiEvent ->
+                        handleEvent(uiEvent)
+                    }
+                }
+            }
+
             caseOverviewListAdapter.setOnItemClickListener { caseOverViewListItem, _ ->
                 when (caseOverViewListItem) {
-                    is CaseOverViewGroupieItem -> {
-                        val action =
-                            CaseOverviewFragmentDirections.actionCaseOverviewFragmentToCaseDetailsFragment(
-                                caseOverViewListItem.caseOverviewItem
+                    is CaseOverviewGroupieItem -> {
+                        viewModel.handleAction(
+                            CaseOverviewViewAction.OnCaseClicked(
+                                caseOverViewListItem.caseOverviewModel
                             )
-                        findNavController().navigate(action)
+                        )
                     }
                 }
             }
         }
+    }
+
+    private fun handleEvent(uiEvent: CaseOverviewViewEvent) {
+        when (uiEvent) {
+            is CaseOverviewViewEvent.NavigateToCaseDetails -> navigateToCaseDetails(uiEvent)
+        }
+    }
+
+    private fun navigateToCaseDetails(uiEvent: CaseOverviewViewEvent.NavigateToCaseDetails) {
+        val action =
+            CaseOverviewFragmentDirections.actionCaseOverviewFragmentToCaseDetailsFragment(
+                uiEvent.case
+            )
+        findNavController().navigate(action)
     }
 
     private fun handleState(uiState: CaseOverviewViewState) {
@@ -75,7 +97,7 @@ class CaseOverviewFragment : Fragment(R.layout.fragment_case_overview) {
             is CaseOverviewViewState.Error -> binding.errorView.root.isVisible = true
             is CaseOverviewViewState.Content -> {
                 val caseOVerViewItemList = uiState.caseOverviewItemList.map { caseOverViewItem ->
-                    CaseOverViewGroupieItem(caseOverViewItem)
+                    CaseOverviewGroupieItem(caseOverViewItem)
                 }
                 caseOverviewListAdapter.update(caseOVerViewItemList)
                 binding.caseRecyclerView.isVisible = true

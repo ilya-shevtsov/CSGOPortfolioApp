@@ -62,7 +62,7 @@
             app:destination="@id/caseOverviewFragment" />
         <argument
             android:name="currentCase"
-            app:argType="com.example.csgocaseswatcherapp.presentation.model.caseoverviewitem.CaseOverviewItem" />
+            app:argType="com.example.csgocaseswatcherapp.presentation.model.caseoverviewitem.CaseOverviewModel" />
     </fragment>
     <fragment
         android:id="@+id/caseAnalyticsFragment"
