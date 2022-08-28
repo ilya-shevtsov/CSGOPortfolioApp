@@ -22,8 +22,8 @@ class CurrencyChangeFragment : Fragment(R.layout.fragment_currency_change) {
 
     private val viewModel: CurrencyChangeViewModel by viewModels()
 
-
     private lateinit var binding: FragmentCurrencyChangeBinding
+
     private val currencyListAdapter = GroupieAdapter()
 
     override fun onCreateView(
