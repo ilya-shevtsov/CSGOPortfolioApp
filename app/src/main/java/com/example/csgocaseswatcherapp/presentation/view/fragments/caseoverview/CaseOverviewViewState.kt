@@ -4,9 +4,11 @@ import com.example.csgocaseswatcherapp.presentation.model.caseoverviewitem.CaseO
 
 sealed class CaseOverviewViewState {
 
+    object Loading : CaseOverviewViewState()
+
     data class Success(
         val caseOverviewItemList: List<CaseOverviewItem>,
     ) : CaseOverviewViewState()
 
-    object Error: CaseOverviewViewState()
+    object Error : CaseOverviewViewState()
 }

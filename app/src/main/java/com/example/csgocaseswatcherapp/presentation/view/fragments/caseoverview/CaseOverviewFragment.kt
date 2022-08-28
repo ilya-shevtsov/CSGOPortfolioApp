@@ -7,14 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.csgocaseswatcherapp.*
+import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.core.CaseWatcherApplication
 import com.example.csgocaseswatcherapp.core.disposeOnDestroy
 import com.example.csgocaseswatcherapp.databinding.FragmentCaseOverviewBinding
-import com.xwray.groupie.GroupieAdapter
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CaseOverviewFragment : Fragment(R.layout.fragment_case_overview) {
@@ -25,8 +28,6 @@ class CaseOverviewFragment : Fragment(R.layout.fragment_case_overview) {
     private lateinit var binding: FragmentCaseOverviewBinding
 
     private lateinit var viewModel: CaseOverviewViewModel
-
-    private val caseOverViewAdapter = GroupieAdapter()
 
     private val adapter: CaseOverviewAdapter = CaseOverviewAdapter(onItemClicked = { case ->
         val action =
@@ -61,19 +62,26 @@ class CaseOverviewFragment : Fragment(R.layout.fragment_case_overview) {
             caseRecyclerView.layoutManager = LinearLayoutManager(activity)
             caseRecyclerView.adapter = adapter
 
-            viewModel.viewStateLiveData.observe(viewLifecycleOwner) { state ->
+            lifecycleScope.launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    viewModel.uiState.collect { uiState ->
+                        handleState(uiState)
 
-                caseRecyclerView.isVisible = state is CaseOverviewViewState.Success
-                errorView.root.isVisible = state is CaseOverviewViewState.Error
-
-                when (state) {
-                    is CaseOverviewViewState.Success -> {
-                        adapter.addData(state.caseOverviewItemList, true)
                     }
-                    else -> Unit
                 }
             }
         }
         viewModel.getCaseList().disposeOnDestroy(viewLifecycleOwner)
+    }
+
+    private fun handleState(uiState: CaseOverviewViewState) {
+        when (uiState) {
+            is CaseOverviewViewState.Loading -> binding.loadingView.root.isVisible = true
+            is CaseOverviewViewState.Error -> binding.errorView.root.isVisible = true
+            is CaseOverviewViewState.Success -> {
+                adapter.addData(uiState.caseOverviewItemList, true)
+                binding.caseRecyclerView.isVisible = true
+            }
+        }
     }
 }
