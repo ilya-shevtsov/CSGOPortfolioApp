@@ -8,7 +8,7 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/caseName"
+        android:id="@+id/caseNameTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -22,58 +22,58 @@
         tools:text="CaseName" />
 
     <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/caseImage"
+        android:id="@+id/caseImageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="8dp"
         app:layout_constraintBottom_toTopOf="@id/bottomLine"
-        app:layout_constraintEnd_toStartOf="@id/lowestPrice"
+        app:layout_constraintEnd_toStartOf="@id/lowestPriceTextView"
         app:layout_constraintStart_toStartOf="@id/startLine"
-        app:layout_constraintTop_toBottomOf="@+id/caseName"
+        app:layout_constraintTop_toBottomOf="@+id/caseNameTextView"
         fresco:actualImageScaleType="fitCenter"
         tools:background="@color/black" />
 
 
     <TextView
-        android:id="@+id/lowestPrice"
+        android:id="@+id/lowestPriceTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/volume"
+        app:layout_constraintBottom_toTopOf="@id/volumeTextView"
         app:layout_constraintEnd_toStartOf="@id/endLine"
-        app:layout_constraintStart_toEndOf="@id/caseImage"
-        app:layout_constraintTop_toBottomOf="@+id/caseName"
+        app:layout_constraintStart_toEndOf="@id/caseImageView"
+        app:layout_constraintTop_toBottomOf="@+id/caseNameTextView"
         tools:text="@string/case_lowest_price" />
 
     <TextView
-        android:id="@+id/volume"
+        android:id="@+id/volumeTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/medianPrice"
+        app:layout_constraintBottom_toTopOf="@id/medianPriceTextView"
         app:layout_constraintEnd_toStartOf="@id/endLine"
-        app:layout_constraintStart_toEndOf="@id/caseImage"
-        app:layout_constraintTop_toBottomOf="@+id/lowestPrice"
+        app:layout_constraintStart_toEndOf="@id/caseImageView"
+        app:layout_constraintTop_toBottomOf="@+id/lowestPriceTextView"
         tools:text="@string/case_volume" />
 
     <TextView
-        android:id="@+id/medianPrice"
+        android:id="@+id/medianPriceTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/caseImage"
+        app:layout_constraintBottom_toBottomOf="@id/caseImageView"
         app:layout_constraintEnd_toStartOf="@id/endLine"
-        app:layout_constraintStart_toEndOf="@id/caseImage"
-        app:layout_constraintTop_toBottomOf="@+id/volume"
+        app:layout_constraintStart_toEndOf="@id/caseImageView"
+        app:layout_constraintTop_toBottomOf="@+id/volumeTextView"
         tools:text="@string/case_median_price" />
 
     <View
@@ -86,7 +86,7 @@
         android:background="@color/black"
         app:layout_constraintStart_toStartOf="@id/startLine"
         app:layout_constraintEnd_toEndOf="@id/endLine"
-        app:layout_constraintBottom_toTopOf="@id/caseName" />
+        app:layout_constraintBottom_toTopOf="@id/caseNameTextView" />
 
     <View
         android:id="@+id/bottomLine"
@@ -96,7 +96,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:background="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/caseImage" />
+        app:layout_constraintTop_toBottomOf="@id/caseImageView" />
 
     <View
         android:id="@+id/startLine"

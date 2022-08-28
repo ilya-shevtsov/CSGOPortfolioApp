@@ -9,16 +9,16 @@ data class CaseOverviewGroupieItem(
     val caseOverviewModel: CaseOverviewModel
 ) : BindableItem<ItemCaseBinding>() {
     override fun bind(viewBinding: ItemCaseBinding, position: Int) {
-        viewBinding.caseImage.setImageURI(caseOverviewModel.imageUrl)
-        viewBinding.caseName.text = caseOverviewModel.caseName
-        viewBinding.lowestPrice.text =
+        viewBinding.caseImageView.setImageURI(caseOverviewModel.imageUrl)
+        viewBinding.caseNameTextView.text = caseOverviewModel.caseName
+        viewBinding.lowestPriceTextView.text =
             viewBinding.root.context.getString(
                 R.string.case_lowest_price,
                 caseOverviewModel.lowestPrice.toString()
             )
-        viewBinding.volume.text =
+        viewBinding.volumeTextView.text =
             viewBinding.root.context.getString(R.string.case_volume, caseOverviewModel.volume.toString())
-        viewBinding.medianPrice.text =
+        viewBinding.medianPriceTextView.text =
             viewBinding.root.context.getString(
                 R.string.case_median_price,
                 caseOverviewModel.medianPrice.toString()

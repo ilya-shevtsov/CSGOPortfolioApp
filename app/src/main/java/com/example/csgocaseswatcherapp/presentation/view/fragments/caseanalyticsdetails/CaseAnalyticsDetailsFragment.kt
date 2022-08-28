@@ -48,7 +48,7 @@ class CaseAnalyticsDetailsFragment : Fragment(R.layout.fragment_case_analytics_d
         with(binding) {
 
             viewModel.viewStateLiveData.observe(viewLifecycleOwner) { state ->
-                caseName.text = state.caseName
+                caseNameTextView.text = state.caseName
                 dailyAvgReturnInPercentDetails.text = getString(R.string.daily_avg_return_in_percent, state.dailyAvgReturnInPercent)
                 dailyAvgReturnInRubDetails.text =
                     getString(R.string.daily_avg_return_in_rub, state.dailyAvgReturnInRUB)

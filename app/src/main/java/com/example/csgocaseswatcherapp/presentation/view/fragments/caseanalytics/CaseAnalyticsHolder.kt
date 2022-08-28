@@ -5,11 +5,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.databinding.ItemCaseAnalyticsBinding
 import com.example.csgocaseswatcherapp.presentation.model.caseanalyticsitem.CaseAnalyticsItem
-import kotlinx.android.extensions.LayoutContainer
 
 class CaseAnalyticsHolder(
-    override val containerView: View
-) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    containerView: View
+) : RecyclerView.ViewHolder(containerView) {
 
     private val binding: ItemCaseAnalyticsBinding = ItemCaseAnalyticsBinding.bind(containerView)
 
@@ -18,8 +17,8 @@ class CaseAnalyticsHolder(
         onItemClicked: (case: CaseAnalyticsItem) -> Unit
     ) {
         with(binding) {
-            caseImage.setImageURI("https://i5.walmartimages.com/asr/3d09dd36-7035-4b9f-b965-d4a9a36e5c7b_1.bc4a5060a274c0c2db4970d9075daa90.jpeg?odnWidth=612&odnHeight=612&odnBg=ffffff")
-            caseName.text = case.caseName
+            caseImageView.setImageURI("https://i5.walmartimages.com/asr/3d09dd36-7035-4b9f-b965-d4a9a36e5c7b_1.bc4a5060a274c0c2db4970d9075daa90.jpeg?odnWidth=612&odnHeight=612&odnBg=ffffff")
+            caseNameTextView.text = case.caseName
             monthlyAvgReturnInPercent.text = itemView.context.getString(
                 R.string.monthly_avg_return_in_percent,
                 case.monthlyAvgReturnInPercent.toString()
