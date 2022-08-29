@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -19,7 +20,7 @@ import kotlinx.coroutines.launch
 
 class AddCaseFragment : Fragment(R.layout.fragment_add_case) {
 
-//    private val viewModel: AddCaseViewModel by viewModels()
+    private val viewModel: AddCaseViewModel by viewModels()
 
     private lateinit var binding: FragmentAddCaseBinding
 
@@ -43,15 +44,16 @@ class AddCaseFragment : Fragment(R.layout.fragment_add_case) {
 //                }
 //            }
 
-//            lifecycleScope.launch {
-//                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-//                    viewModel.uiEvent.collect { uiEvent ->
-//                        handleEvent(uiEvent)
-//                    }
-//                }
-//            }
+            lifecycleScope.launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    viewModel.uiEvent.collect { uiEvent ->
+                        handleEvent(uiEvent)
+                    }
+                }
+            }
 
-            val caseNameArray = listOf("Chroma Case",
+            val caseNameList = listOf(
+                "Chroma Case",
                 "Chroma 2",
                 "Chroma 3",
                 "Clutch Case",
@@ -87,14 +89,14 @@ class AddCaseFragment : Fragment(R.layout.fragment_add_case) {
                 "Winter Offensive",
                 "Snakebite Case",
                 "Dreams & Nightmares Case",
-                "Recoil Case")
+                "Recoil Case"
+            )
 
-            val caseNameArrayAdapter =
-                ArrayAdapter(
-                    requireContext(),
-                    android.R.layout.simple_list_item_1,
-                    caseNameArray
-                )
+            val caseNameArrayAdapter = ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_list_item_1,
+                caseNameList
+            )
 
             addCaseCaseName.threshold = 1
 
