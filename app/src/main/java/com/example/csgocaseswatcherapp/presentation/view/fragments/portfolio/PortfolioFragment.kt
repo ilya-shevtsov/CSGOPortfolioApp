@@ -13,7 +13,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.databinding.FragmentPortfolioBinding
-import com.example.csgocaseswatcherapp.presentation.model.addcaseitem.AddCaseItem
+import com.example.csgocaseswatcherapp.presentation.model.addcaseitem.AddedCaseModel
 import com.xwray.groupie.GroupieAdapter
 import kotlinx.coroutines.launch
 
@@ -58,8 +58,7 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
             }
 
             setFragmentResultListener("addedCase") { _, bundle ->
-
-                val addedCase = bundle.getSerializable("addedCase") as AddCaseItem
+                val addedCase = bundle.getSerializable("addedCase") as AddedCaseModel
                 viewModel.handleAction(PortfolioViewAction.OnCaseAdded(addedCase))
             }
 
