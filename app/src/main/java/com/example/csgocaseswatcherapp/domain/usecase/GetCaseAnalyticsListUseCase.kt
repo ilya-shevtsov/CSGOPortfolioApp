@@ -9,7 +9,7 @@ class GetCaseAnalyticsListUseCase @Inject constructor(
     private val caseAnalyticsRepository: CaseAnalyticsRepository
 ) {
 
-    fun getCaseAnalyticsList(): Single<List<CaseAnalytics>> {
+    suspend fun getCaseAnalyticsList(): List<CaseAnalytics> {
         return caseAnalyticsRepository.getCaseAnalyticsList()
     }
 }

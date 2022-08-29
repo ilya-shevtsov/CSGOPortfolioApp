@@ -9,7 +9,7 @@
 
 
     <TextView
-        android:id="@+id/caseName"
+        android:id="@+id/caseNameTextView"
         android:textColor="@color/black"
         android:layout_width="0dp"
         android:textStyle="bold"
@@ -18,89 +18,89 @@
         android:textSize="20sp"
         fresco:layout_constraintEnd_toEndOf="parent"
         fresco:layout_constraintHorizontal_bias="0.5"
-        fresco:layout_constraintStart_toStartOf="@id/caseImage"
+        fresco:layout_constraintStart_toStartOf="@id/caseImageView"
         fresco:layout_constraintTop_toTopOf="parent"
         tools:text="CaseName" />
 
     <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/caseImage"
+        android:id="@+id/caseImageView"
         android:layout_width="160dp"
         android:layout_height="160dp"
         fresco:actualImageScaleType="fitCenter"
         android:layout_marginStart="8dp"
         fresco:layout_constraintStart_toStartOf="parent"
-        fresco:layout_constraintTop_toBottomOf="@id/caseName"
+        fresco:layout_constraintTop_toBottomOf="@id/caseNameTextView"
         tools:background="@color/black" />
 
 
     <TextView
-        android:id="@+id/lowestPrice"
+        android:id="@+id/lowestPriceTextView"
         android:textColor="@color/black"
         android:layout_width="0dp"
         android:textStyle="bold"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:textSize="16sp"
-        fresco:layout_constraintBottom_toTopOf="@id/volume"
+        fresco:layout_constraintBottom_toTopOf="@id/volumeTextView"
         fresco:layout_constraintEnd_toEndOf="parent"
-        fresco:layout_constraintStart_toEndOf="@id/caseImage"
-        fresco:layout_constraintTop_toTopOf="@id/caseImage"
+        fresco:layout_constraintStart_toEndOf="@id/caseImageView"
+        fresco:layout_constraintTop_toTopOf="@id/caseImageView"
         tools:text="@string/case_lowest_price" />
 
     <TextView
-        android:id="@+id/volume"
+        android:id="@+id/volumeTextView"
         android:textColor="@color/black"
         android:layout_width="0dp"
         android:textStyle="bold"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:textSize="16sp"
-        fresco:layout_constraintBottom_toTopOf="@id/medianPrice"
+        fresco:layout_constraintBottom_toTopOf="@id/medianPriceTextView"
         fresco:layout_constraintEnd_toEndOf="parent"
-        fresco:layout_constraintStart_toEndOf="@id/caseImage"
-        fresco:layout_constraintTop_toBottomOf="@id/lowestPrice"
+        fresco:layout_constraintStart_toEndOf="@id/caseImageView"
+        fresco:layout_constraintTop_toBottomOf="@id/lowestPriceTextView"
         tools:text="@string/case_volume" />
 
     <TextView
-        android:id="@+id/medianPrice"
+        android:id="@+id/medianPriceTextView"
         android:layout_width="0dp"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:textSize="16sp"
-        fresco:layout_constraintBottom_toTopOf="@id/releaseDate"
+        fresco:layout_constraintBottom_toTopOf="@id/releaseDateTextView"
         fresco:layout_constraintEnd_toEndOf="parent"
-        fresco:layout_constraintStart_toEndOf="@id/caseImage"
-        fresco:layout_constraintTop_toBottomOf="@id/volume"
+        fresco:layout_constraintStart_toEndOf="@id/caseImageView"
+        fresco:layout_constraintTop_toBottomOf="@id/volumeTextView"
         tools:text="@string/case_median_price" />
 
     <TextView
-        android:id="@+id/releaseDate"
+        android:id="@+id/releaseDateTextView"
         android:layout_width="0dp"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:textSize="16sp"
-        fresco:layout_constraintBottom_toTopOf="@id/dropStatus"
+        fresco:layout_constraintBottom_toTopOf="@id/dropStatusTextView"
         fresco:layout_constraintEnd_toEndOf="parent"
-        fresco:layout_constraintStart_toEndOf="@id/caseImage"
-        fresco:layout_constraintTop_toBottomOf="@id/medianPrice"
+        fresco:layout_constraintStart_toEndOf="@id/caseImageView"
+        fresco:layout_constraintTop_toBottomOf="@id/medianPriceTextView"
         tools:text="@string/case_release_date" />
 
     <TextView
-        android:id="@+id/dropStatus"
+        android:id="@+id/dropStatusTextView"
         android:layout_width="0dp"
         android:textStyle="bold"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:layout_marginStart="8dp"
         android:textSize="16sp"
-        fresco:layout_constraintBottom_toBottomOf="@id/caseImage"
+        fresco:layout_constraintBottom_toBottomOf="@id/caseImageView"
         fresco:layout_constraintEnd_toEndOf="parent"
-        fresco:layout_constraintStart_toEndOf="@id/caseImage"
-        fresco:layout_constraintTop_toBottomOf="@id/releaseDate"
+        fresco:layout_constraintStart_toEndOf="@id/caseImageView"
+        fresco:layout_constraintTop_toBottomOf="@id/releaseDateTextView"
         tools:text="@string/case_drop_status" />
 
     <View
@@ -112,11 +112,11 @@
         android:background="@color/black"
         fresco:layout_constraintEnd_toEndOf="parent"
         fresco:layout_constraintStart_toStartOf="parent"
-        fresco:layout_constraintBottom_toTopOf="@id/description"
-        fresco:layout_constraintTop_toBottomOf="@id/caseImage" />
+        fresco:layout_constraintBottom_toTopOf="@id/descriptionTextView"
+        fresco:layout_constraintTop_toBottomOf="@id/caseImageView" />
 
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/descriptionTextView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:justificationMode="inter_word"
@@ -128,7 +128,7 @@
         fresco:layout_constraintBottom_toTopOf="@+id/descriptionSeparatorTwo"
         fresco:layout_constraintEnd_toEndOf="parent"
         fresco:layout_constraintStart_toStartOf="parent"
-        fresco:layout_constraintTop_toBottomOf="@id/caseImage" />
+        fresco:layout_constraintTop_toBottomOf="@id/caseImageView" />
 
     <View
         android:id="@+id/descriptionSeparatorTwo"
@@ -140,7 +140,12 @@
         fresco:layout_constraintBottom_toBottomOf="parent"
         fresco:layout_constraintEnd_toEndOf="parent"
         fresco:layout_constraintStart_toStartOf="parent"
-        fresco:layout_constraintTop_toBottomOf="@id/description" />
+        fresco:layout_constraintTop_toBottomOf="@id/descriptionTextView" />
+
+    <include
+        android:id="@+id/loadingView"
+        layout="@layout/loading_view"
+        android:visibility="gone" />
 
 
 

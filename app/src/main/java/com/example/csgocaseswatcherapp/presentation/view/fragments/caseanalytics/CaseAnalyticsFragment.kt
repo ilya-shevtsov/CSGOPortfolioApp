@@ -7,13 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.core.CaseWatcherApplication
-import com.example.csgocaseswatcherapp.core.disposeOnDestroy
 import com.example.csgocaseswatcherapp.databinding.FragmentCaseAnalyticsBinding
+import com.example.csgocaseswatcherapp.presentation.model.caseanalyticsitem.CaseAnalyticsGroupieItem
+import com.xwray.groupie.GroupieAdapter
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CaseAnalyticsFragment : Fragment(R.layout.fragment_case_analytics) {
@@ -23,12 +28,9 @@ class CaseAnalyticsFragment : Fragment(R.layout.fragment_case_analytics) {
 
     private lateinit var binding: FragmentCaseAnalyticsBinding
 
-    private lateinit var viewModel: CaseAnalyticsViewModel
+    private val viewModel: CaseAnalyticsViewModel by viewModels { viewModelFactory }
 
-    private val adapter: CaseAnalyticsAdapter = CaseAnalyticsAdapter(onItemClicked = { case ->
-        val action = CaseAnalyticsFragmentDirections.actionCaseAnalyticsFragmentToCaseAnalyticsDetailsFragment(case)
-        findNavController().navigate(action)
-    })
+    private val caseAnalyticsListAdapter = GroupieAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,39 +38,78 @@ class CaseAnalyticsFragment : Fragment(R.layout.fragment_case_analytics) {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCaseAnalyticsBinding.inflate(inflater, container, false)
-
-        viewModel = ViewModelProvider(this, viewModelFactory)
-            .get(CaseAnalyticsViewModel::class.java)
-
         return binding.root
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        (context.applicationContext as CaseWatcherApplication)
-            .getAppComponent()
-            .inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         with(binding) {
-            caseAnalyticsRecyclerView.layoutManager = LinearLayoutManager(activity)
-            caseAnalyticsRecyclerView.adapter = adapter
+            caseAnalyticsRecyclerView.adapter = caseAnalyticsListAdapter
 
-            viewModel.viewStateLiveData.observe(viewLifecycleOwner) { state ->
-                caseAnalyticsRecyclerView.isVisible = state is CaseAnalyticsViewState.Success
-                errorView.root.isVisible = state is CaseAnalyticsViewState.Error
-
-                when (state) {
-                    is CaseAnalyticsViewState.Success -> {
-                        adapter.addData(state.caseAnalyticsItemList, true)
+            lifecycleScope.launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    viewModel.uiState.collect { uiState ->
+                        handleState(uiState)
                     }
-                    else -> Unit
+                }
+            }
+
+            lifecycleScope.launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    viewModel.uiEvent.collect { uiEvent ->
+                        handleEvent(uiEvent)
+                    }
+                }
+            }
+
+            caseAnalyticsListAdapter.setOnItemClickListener { caseOverViewListItem, _ ->
+                when (caseOverViewListItem) {
+                    is CaseAnalyticsGroupieItem -> {
+                        viewModel.handleAction(
+                            CaseAnalyticsViewAction.OnCaseClicked(
+                                caseOverViewListItem.caseAnalyticsModel
+                            )
+                        )
+                    }
                 }
             }
         }
-        viewModel.getCaseAnalyticsList().disposeOnDestroy(viewLifecycleOwner)
     }
 
+    private fun handleEvent(uiEvent: CaseAnalyticsViewEvent) {
+        when (uiEvent) {
+            is CaseAnalyticsViewEvent.NavigateToCaseAnalyticsDetails -> navigateToCaseAnalyticsDetails(
+                uiEvent
+            )
+        }
+    }
+
+    private fun navigateToCaseAnalyticsDetails(uiEvent: CaseAnalyticsViewEvent.NavigateToCaseAnalyticsDetails) {
+        val action =
+            CaseAnalyticsFragmentDirections.actionCaseAnalyticsFragmentToCaseAnalyticsDetailsFragment(
+                uiEvent.case
+            )
+        findNavController().navigate(action)
+    }
+
+    private fun handleState(uiState: CaseAnalyticsViewState) {
+        when (uiState) {
+            is CaseAnalyticsViewState.Loading -> binding.loadingView.root.isVisible = true
+            is CaseAnalyticsViewState.Error -> binding.errorView.root.isVisible = true
+            is CaseAnalyticsViewState.Content -> {
+                val caseAnalyticsViewItemList =
+                    uiState.caseAnalyticsItemList.map { caseAnalyticsItem ->
+                        CaseAnalyticsGroupieItem(caseAnalyticsItem)
+                    }
+                caseAnalyticsListAdapter.update(caseAnalyticsViewItemList)
+                binding.caseAnalyticsRecyclerView.isVisible = true
+            }
+        }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (context.applicationContext as CaseWatcherApplication)
+            .getAppComponent()
+            .inject(this)
+    }
 }

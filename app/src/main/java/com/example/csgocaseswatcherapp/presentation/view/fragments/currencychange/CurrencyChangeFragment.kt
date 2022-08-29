@@ -22,8 +22,8 @@ class CurrencyChangeFragment : Fragment(R.layout.fragment_currency_change) {
 
     private val viewModel: CurrencyChangeViewModel by viewModels()
 
-
     private lateinit var binding: FragmentCurrencyChangeBinding
+
     private val currencyListAdapter = GroupieAdapter()
 
     override fun onCreateView(
@@ -63,7 +63,7 @@ class CurrencyChangeFragment : Fragment(R.layout.fragment_currency_change) {
             currencyListAdapter.setOnItemClickListener { item, _ ->
                 when (item) {
                     is CurrencyChangeItem -> {
-                       viewModel.handleAction(CurrencyChangeViewAction.OnCurrencyClicked(item.currencyName))
+                        viewModel.handleAction(CurrencyChangeViewAction.OnCurrencyClicked(item.currencyName))
                     }
                 }
             }
@@ -71,7 +71,7 @@ class CurrencyChangeFragment : Fragment(R.layout.fragment_currency_change) {
     }
 
     private fun handleEvent(uiEvent: CurrencyChangeViewEvent) {
-        when(uiEvent){
+        when (uiEvent) {
             is CurrencyChangeViewEvent.NavigateToStartWithPreferredCurrency -> {
                 navigateToStartWithPreferredCurrency(uiEvent)
             }

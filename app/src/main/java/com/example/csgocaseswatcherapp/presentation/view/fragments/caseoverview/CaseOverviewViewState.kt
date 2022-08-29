@@ -1,12 +1,14 @@
 package com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview
 
-import com.example.csgocaseswatcherapp.presentation.model.caseoverviewitem.CaseOverviewItem
+import com.example.csgocaseswatcherapp.presentation.model.caseoverviewitem.CaseOverviewModel
 
 sealed class CaseOverviewViewState {
 
-    data class Success(
-        val caseOverviewItemList: List<CaseOverviewItem>,
+    object Loading : CaseOverviewViewState()
+
+    data class Content(
+        val caseOverviewItemList: List<CaseOverviewModel>,
     ) : CaseOverviewViewState()
 
-    object Error: CaseOverviewViewState()
+    object Error : CaseOverviewViewState()
 }

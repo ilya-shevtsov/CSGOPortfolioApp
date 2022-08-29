@@ -1,14 +1,14 @@
 package com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem
 
 import android.util.Log
-import com.example.csgocaseswatcherapp.presentation.model.AddCaseItem
+import com.example.csgocaseswatcherapp.presentation.model.addcaseitem.AddedCaseModel
 import kotlin.math.round
 
 object PortfolioItemMapper {
 
     //PlaceHolder caseProfitLoss and overallValue (right now is just from purchase price)
 
-    fun map(addedCaseItem: AddCaseItem): PortfolioItem {
+    fun map(addedCaseItem: AddedCaseModel): PortfolioItem {
         return PortfolioItem(
             caseImage = getCaseImage(addedCaseItem.name),
             caseName = addedCaseItem.name,
