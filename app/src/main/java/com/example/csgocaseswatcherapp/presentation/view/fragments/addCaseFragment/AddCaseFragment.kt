@@ -108,12 +108,7 @@ class AddCaseFragment : Fragment(R.layout.fragment_add_case) {
                     amount = addCaseCaseAmount.text.toString().toInt(),
                     purchasePrice = addCaseCasePurchasePrice.text.toString().toDouble()
                 )
-                setFragmentResult(
-                    "addedCase",
-                    bundleOf("addedCase" to addedCase)
-                )
-                findNavController().popBackStack()
-
+                viewModel.handleAction(AddCaseViewAction.OnCaseAddedClicked(addedCase))
             }
         }
     }
