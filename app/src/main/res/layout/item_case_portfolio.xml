@@ -10,24 +10,25 @@
     <View
         android:id="@+id/topLine"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+
+        android:layout_height="1dp"
         android:background="@color/black"
         app:layout_constraintBottom_toTopOf="@id/startLine"
         app:layout_constraintEnd_toStartOf="@id/endLine"
         app:layout_constraintStart_toStartOf="@id/startLine"
-        app:layout_constraintTop_toTopOf="@id/startLine" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/bottomLine"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="1dp"
         android:background="@color/black"
         app:layout_constraintTop_toBottomOf="@id/startLine"
         app:layout_constraintEnd_toStartOf="@id/endLine"/>
 
     <View
         android:id="@+id/startLine"
-        android:layout_width="2dp"
+        android:layout_width="1dp"
         android:layout_height="60dp"
         android:background="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/bottomLine"
@@ -36,7 +37,7 @@
 
     <View
         android:id="@+id/endLine"
-        android:layout_width="2dp"
+        android:layout_width="1dp"
         android:layout_height="60dp"
         android:background="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/bottomLine"
@@ -57,7 +58,7 @@
 
     <TextView
         android:id="@+id/caseNameTextView"
-        android:layout_width="80dp"
+        android:layout_width="81dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -71,7 +72,7 @@
 
     <View
         android:id="@+id/startAmountLine"
-        android:layout_width="2dp"
+        android:layout_width="1dp"
         android:layout_height="60dp"
         android:layout_marginEnd="8dp"
         android:background="@color/black"
@@ -94,7 +95,7 @@
 
     <View
         android:id="@+id/startPriceLine"
-        android:layout_width="2dp"
+        android:layout_width="1dp"
         android:layout_height="60dp"
         android:layout_marginEnd="8dp"
         android:background="@color/black"
@@ -104,7 +105,7 @@
 
     <TextView
         android:id="@+id/casePrice"
-        android:layout_width="50dp"
+        android:layout_width="51dp"
         android:layout_height="35dp"
         android:gravity="center"
         android:textColor="@color/black"
@@ -117,7 +118,7 @@
 
     <View
         android:id="@+id/startOverallValueLine"
-        android:layout_width="2dp"
+        android:layout_width="1dp"
         android:layout_height="60dp"
         android:layout_marginEnd="8dp"
         android:background="@color/black"
@@ -140,7 +141,7 @@
 
     <View
         android:id="@+id/startProfitLossLine"
-        android:layout_width="2dp"
+        android:layout_width="1dp"
         android:layout_height="60dp"
         android:layout_marginEnd="8dp"
         android:background="@color/black"
