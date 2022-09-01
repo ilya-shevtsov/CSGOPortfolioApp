@@ -81,8 +81,5 @@ class StartViewModel : ViewModel() {
             }
             uiState.value = StartViewState(preferredCurrency)
         }
-
-
     }
-
 }

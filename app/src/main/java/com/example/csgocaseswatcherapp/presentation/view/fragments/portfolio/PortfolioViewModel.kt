@@ -2,8 +2,10 @@ package com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.csgocaseswatcherapp.data.api.ApiTools
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioItem
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioItemMapper
+import com.example.csgocaseswatcherapp.presentation.view.fragments.start.StartViewState
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -46,5 +48,14 @@ class PortfolioViewModel : ViewModel() {
                 )
             )
         )
+    }
+
+    // This will be in createInitial State right after loading
+
+    suspend fun getPortfolioData() {
+        viewModelScope.launch {
+            val response = ApiTools.getApiService().getPortfolioData()
+            uiState.value = PortfolioViewState(response)
+        }
     }
 }
