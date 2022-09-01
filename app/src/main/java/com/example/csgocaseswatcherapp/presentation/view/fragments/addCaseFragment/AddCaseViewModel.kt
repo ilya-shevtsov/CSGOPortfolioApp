@@ -2,7 +2,11 @@ package com.example.csgocaseswatcherapp.presentation.view.fragments.addCaseFragm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.csgocaseswatcherapp.data.api.ApiTools
+import com.example.csgocaseswatcherapp.data.model.addedcase.AddedCaseDto
 import com.example.csgocaseswatcherapp.presentation.model.addcaseitem.AddedCaseModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -21,12 +25,24 @@ class AddCaseViewModel : ViewModel() {
     }
 
     private fun handleOnCaseAddedClicked(addedCase: AddedCaseModel) {
+        sendAddedCase(addedCase)
         viewModelScope.launch {
             uiEvent.emit(
                 AddCaseViewEvent.NavigateToPortfolioWithAddedCase(
                     addedCase
                 )
             )
+        }
+    }
+
+    private fun sendAddedCase(addedCase: AddedCaseModel) {
+        val addedCaseDto = AddedCaseDto(
+            name = addedCase.name,
+            amount = addedCase.amount,
+            purchasePrice = addedCase.purchasePrice
+        )
+        CoroutineScope(Dispatchers.IO).launch {
+            ApiTools.getApiService().postAddedCase(addedCaseDto)
         }
     }
 }
