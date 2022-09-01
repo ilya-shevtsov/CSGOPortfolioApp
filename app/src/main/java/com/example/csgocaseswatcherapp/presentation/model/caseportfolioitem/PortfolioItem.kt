@@ -8,11 +8,11 @@ import com.xwray.groupie.viewbinding.BindableItem
 
 class PortfolioItem(
     val caseImage: String,
-    private val caseName: String,
-    private val caseAmount: Int,
-    private val casePrice: Double,
-    private val caseOverallValue: Double,
-    private val caseProfitLoss: Double
+    val caseName: String,
+    val caseAmount: Int,
+    val casePrice: Double,
+    val caseOverallValue: Double,
+    val caseProfitLoss: Double
 ) : BindableItem<ItemCasePortfolioBinding>() {
 
     override fun bind(viewBinding: ItemCasePortfolioBinding, position: Int) {

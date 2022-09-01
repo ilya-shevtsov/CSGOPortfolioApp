@@ -10,4 +10,6 @@ sealed class PortfolioViewAction {
 
     object OnAddCaseClicked : PortfolioViewAction()
 
+    object OnCaseNameSortClicked : PortfolioViewAction()
+
 }

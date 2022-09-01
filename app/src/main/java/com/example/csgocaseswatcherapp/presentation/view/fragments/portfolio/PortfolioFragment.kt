@@ -69,6 +69,10 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
             addCaseButton.setOnClickListener {
                 viewModel.handleAction(PortfolioViewAction.OnAddCaseClicked)
             }
+
+            caseNameHeader.setOnClickListener {
+                viewModel.handleAction(PortfolioViewAction.OnCaseNameSortClicked)
+            }
         }
     }
 
@@ -77,9 +81,6 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
             PortfolioViewEvent.NavigateToAddCase -> findNavController().navigate(R.id.addCaseFragment)
         }
     }
-
-
-
 }
 
 

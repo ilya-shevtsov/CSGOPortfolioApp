@@ -118,9 +118,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/casePartLineUp" />
 
-    <TextView
+    <Button
         android:id="@+id/caseNameHeader"
         android:layout_width="164dp"
+        android:textAllCaps="false"
         android:layout_height="35dp"
         android:background="@color/casePortfolioHeaderColor"
         android:gravity="center"
@@ -141,7 +142,7 @@
         app:layout_constraintStart_toEndOf="@id/caseNameHeader"
         app:layout_constraintTop_toBottomOf="@id/casePartLineUp" />
 
-    <TextView
+    <Button
         android:id="@+id/caseAmountHeader"
         android:layout_width="50dp"
         android:layout_height="35dp"
@@ -150,7 +151,7 @@
         android:text="@string/case_portfolio_header_amount"
         android:textColor="@color/white"
         android:textSize="11sp"
-        android:textStyle="bold"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toTopOf="@id/bottomLineCaseHeader"
         app:layout_constraintStart_toEndOf="@id/startAmountLine"
         app:layout_constraintTop_toBottomOf="@id/casePartLineUp" />
@@ -164,12 +165,13 @@
         app:layout_constraintStart_toEndOf="@id/caseAmountHeader"
         app:layout_constraintTop_toBottomOf="@id/casePartLineUp" />
 
-    <TextView
+    <Button
         android:id="@+id/casePriceHeader"
         android:layout_width="50dp"
         android:layout_height="35dp"
         android:background="@color/casePortfolioHeaderColor"
         android:gravity="center"
+        android:textAllCaps="false"
         android:text="@string/case_portfolio_header_price"
         android:textColor="@color/white"
         android:textSize="11sp"
@@ -187,12 +189,13 @@
         app:layout_constraintStart_toEndOf="@id/casePriceHeader"
         app:layout_constraintTop_toTopOf="@id/casePartLineUp" />
 
-    <TextView
+    <Button
         android:id="@+id/caseOverallValueHeader"
         android:layout_width="50dp"
         android:layout_height="35dp"
         android:background="@color/casePortfolioHeaderColor"
         android:gravity="center"
+        android:textAllCaps="false"
         android:text="@string/case_portfolio_header_overall_value"
         android:textColor="@color/white"
         android:textSize="11sp"
@@ -210,9 +213,10 @@
         app:layout_constraintStart_toEndOf="@id/caseOverallValueHeader"
         app:layout_constraintTop_toTopOf="@id/casePartLineUp" />
 
-    <TextView
+    <Button
         android:id="@+id/caseProfitLossHeader"
         android:layout_width="86dp"
+        android:textAllCaps="false"
         android:layout_height="35dp"
         android:background="@color/casePortfolioHeaderColor"
         android:gravity="center"
