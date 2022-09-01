@@ -12,4 +12,12 @@ sealed class PortfolioViewAction {
 
     object OnCaseNameSortClicked : PortfolioViewAction()
 
+    object OnCaseAmountClicked : PortfolioViewAction()
+
+    object OnCasePriceClicked : PortfolioViewAction()
+
+    object OnCaseOverallValueClicked : PortfolioViewAction()
+
+    object OnCaseProfitLossClicked : PortfolioViewAction()
+
 }
