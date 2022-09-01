@@ -4,6 +4,7 @@ import com.example.csgocaseswatcherapp.data.model.addedcase.AddedCaseDto
 import com.example.csgocaseswatcherapp.data.model.caseanalytics.CaseAnalyticsDto
 import com.example.csgocaseswatcherapp.data.model.caseoverview.CaseDto
 import com.example.csgocaseswatcherapp.data.model.prederredcurrencydto.PreferredCurrencyDto
+import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioItem
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -18,6 +19,9 @@ interface ServerApi {
 
     @GET("getAnalyticalDetails")
     suspend fun getCaseAnalyticsList(): List<CaseAnalyticsDto>
+
+    @GET("/getPortfolioData")
+    suspend fun getPortfolioData():List<PortfolioItem>
 
     @POST("/postPreferredCurrency")
     suspend fun postPreferredCurrency(@Body preferredCurrency: PreferredCurrencyDto): PreferredCurrencyDto
