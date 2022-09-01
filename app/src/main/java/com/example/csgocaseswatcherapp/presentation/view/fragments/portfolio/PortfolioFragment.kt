@@ -73,6 +73,22 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
             caseNameHeader.setOnClickListener {
                 viewModel.handleAction(PortfolioViewAction.OnCaseNameSortClicked)
             }
+
+            caseAmountHeader.setOnClickListener {
+                viewModel.handleAction(PortfolioViewAction.OnCaseAmountClicked)
+            }
+
+            casePriceHeader.setOnClickListener {
+                viewModel.handleAction(PortfolioViewAction.OnCasePriceClicked)
+            }
+
+            caseOverallValueHeader.setOnClickListener {
+                viewModel.handleAction(PortfolioViewAction.OnCaseOverallValueClicked)
+            }
+
+            caseProfitLossHeader.setOnClickListener {
+                viewModel.handleAction(PortfolioViewAction.OnCaseProfitLossClicked)
+            }
         }
     }
 

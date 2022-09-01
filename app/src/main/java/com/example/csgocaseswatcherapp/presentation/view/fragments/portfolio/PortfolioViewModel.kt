@@ -20,7 +20,39 @@ class PortfolioViewModel : ViewModel() {
             is PortfolioViewAction.OnAddCaseClicked -> handleOnAddCaseClicked()
             is PortfolioViewAction.OnCaseAdded -> handleOnCaseAdded(action)
             is PortfolioViewAction.OnCaseNameSortClicked -> handleOnCaseNameSortClicked()
+            is PortfolioViewAction.OnCaseAmountClicked -> handleOnCaseAmountClicked()
+            is PortfolioViewAction.OnCasePriceClicked -> handleOnCasePriceClicked()
+            is PortfolioViewAction.OnCaseOverallValueClicked -> handleOnCaseOverallValueClicked()
+            is PortfolioViewAction.OnCaseProfitLossClicked -> handleProfitLossClicked()
         }
+    }
+
+    private fun handleProfitLossClicked() {
+        val portfolioItem = initialList.sortedByDescending { portfolioItem ->
+            portfolioItem.caseProfitLoss
+        }
+        uiState.value = PortfolioViewState(portfolioItem)
+    }
+
+    private fun handleOnCaseOverallValueClicked() {
+        val portfolioItem = initialList.sortedByDescending { portfolioItem ->
+            portfolioItem.caseOverallValue
+        }
+        uiState.value = PortfolioViewState(portfolioItem)
+    }
+
+    private fun handleOnCasePriceClicked() {
+        val portfolioItem = initialList.sortedBy { portfolioItem ->
+            portfolioItem.casePrice
+        }
+        uiState.value = PortfolioViewState(portfolioItem)
+    }
+
+    private fun handleOnCaseAmountClicked() {
+        val portfolioItem = initialList.sortedByDescending { portfolioItem ->
+            portfolioItem.caseAmount
+        }
+        uiState.value = PortfolioViewState(portfolioItem)
     }
 
     private fun handleOnCaseNameSortClicked() {
@@ -29,7 +61,6 @@ class PortfolioViewModel : ViewModel() {
         }
         uiState.value = PortfolioViewState(portfolioItem)
     }
-
 
     private fun handleOnCaseAdded(action: PortfolioViewAction.OnCaseAdded) {
         val portfolioItem = PortfolioItemMapper.map(action.addedCase)
