@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.csgocaseswatcherapp.data.api.ApiTools
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioItem
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioItemMapper
-import com.example.csgocaseswatcherapp.presentation.view.fragments.start.StartViewState
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -20,8 +19,17 @@ class PortfolioViewModel : ViewModel() {
         when (action) {
             is PortfolioViewAction.OnAddCaseClicked -> handleOnAddCaseClicked()
             is PortfolioViewAction.OnCaseAdded -> handleOnCaseAdded(action)
+            is PortfolioViewAction.OnCaseNameSortClicked -> handleOnCaseNameSortClicked()
         }
     }
+
+    private fun handleOnCaseNameSortClicked() {
+        val portfolioItem = initialList.sortedBy { portfolioItem ->
+            portfolioItem.caseName
+        }
+        uiState.value = PortfolioViewState(portfolioItem)
+    }
+
 
     private fun handleOnCaseAdded(action: PortfolioViewAction.OnCaseAdded) {
         val portfolioItem = PortfolioItemMapper.map(action.addedCase)
@@ -33,24 +41,51 @@ class PortfolioViewModel : ViewModel() {
         viewModelScope.launch { uiEvent.emit(PortfolioViewEvent.NavigateToAddCase) }
     }
 
-    //PlaceHolder for cases in portfolio overview (later get from database)
+//PlaceHolder for cases in portfolio overview (later get from database)
+
+    private val initialList = listOf(
+        PortfolioItem(
+            caseImage = "https://api.steamapis.com/image/item/730/Shadow%20Case",
+            caseName = "Shadow Case",
+            caseAmount = 4,
+            casePrice = 20.0,
+            caseOverallValue = 500.0,
+            caseProfitLoss = 500.0
+        ),
+        PortfolioItem(
+            caseImage = "https://api.steamapis.com/image/item/730/Prisma%20Case",
+            caseName = "Prisma Case",
+            caseAmount = 2,
+            casePrice = 30.0,
+            caseOverallValue = 100.0,
+            caseProfitLoss = 100.0
+        )
+    )
 
     private fun createInitialState(): PortfolioViewState {
         return PortfolioViewState(
             listOf(
                 PortfolioItem(
-                    caseImage = "https://api.steamapis.com/image/item/730/Chroma%20Case",
-                    caseName = "Chroma Case",
+                    caseImage = "https://api.steamapis.com/image/item/730/Shadow%20Case",
+                    caseName = "Shadow Case",
                     caseAmount = 4,
                     casePrice = 20.0,
                     caseOverallValue = 500.0,
                     caseProfitLoss = 500.0
+                ),
+                PortfolioItem(
+                    caseImage = "https://api.steamapis.com/image/item/730/Prisma%20Case",
+                    caseName = "Prisma Case",
+                    caseAmount = 2,
+                    casePrice = 30.0,
+                    caseOverallValue = 100.0,
+                    caseProfitLoss = 100.0
                 )
             )
         )
     }
 
-    // This will be in createInitial State right after loading
+// This will be in createInitialState right after loading
 
     suspend fun getPortfolioData() {
         viewModelScope.launch {
