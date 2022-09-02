@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 
 class PortfolioViewModel : ViewModel() {
 
-    private var portfolioItemList: List<PortfolioItem> = listOf()
+    var portfolioItemList: List<PortfolioItem> = listOf()
 
     val uiState: MutableStateFlow<PortfolioViewState> =
         MutableStateFlow(value = PortfolioViewState.Loading)
@@ -50,35 +50,35 @@ class PortfolioViewModel : ViewModel() {
     }
 
     private fun handleProfitLossClicked() {
-        val portfolioItem = initialList.sortedByDescending { portfolioItem ->
+        val portfolioItem = portfolioItemList.sortedByDescending { portfolioItem ->
             portfolioItem.caseProfitLoss
         }
         uiState.value = PortfolioViewState.Content(portfolioItem)
     }
 
     private fun handleOnCaseOverallValueClicked() {
-        val portfolioItem = initialList.sortedByDescending { portfolioItem ->
+        val portfolioItem = portfolioItemList.sortedByDescending { portfolioItem ->
             portfolioItem.caseOverallValue
         }
         uiState.value = PortfolioViewState.Content(portfolioItem)
     }
 
     private fun handleOnCasePriceClicked() {
-        val portfolioItem = initialList.sortedBy { portfolioItem ->
+        val portfolioItem = portfolioItemList.sortedBy { portfolioItem ->
             portfolioItem.casePrice
         }
         uiState.value = PortfolioViewState.Content(portfolioItem)
     }
 
     private fun handleOnCaseAmountClicked() {
-        val portfolioItem = initialList.sortedByDescending { portfolioItem ->
+        val portfolioItem = portfolioItemList.sortedByDescending { portfolioItem ->
             portfolioItem.caseAmount
         }
         uiState.value = PortfolioViewState.Content(portfolioItem)
     }
 
     private fun handleOnCaseNameSortClicked() {
-        val portfolioItem = initialList.sortedBy { portfolioItem ->
+        val portfolioItem = portfolioItemList.sortedBy { portfolioItem ->
             portfolioItem.caseName
         }
         uiState.value = PortfolioViewState.Content(portfolioItem)
@@ -94,7 +94,7 @@ class PortfolioViewModel : ViewModel() {
         viewModelScope.launch { uiEvent.emit(PortfolioViewEvent.NavigateToAddCase) }
     }
 
-    private val initialList = portfolioItemList
+
 
 
     private fun showContent(portfolioItemList: List<PortfolioItem>) {
