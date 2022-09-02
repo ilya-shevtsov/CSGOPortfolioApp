@@ -7,6 +7,7 @@ import com.example.csgocaseswatcherapp.data.api.ApiTools
 import com.example.csgocaseswatcherapp.data.model.portfolioitem.PortfolioItemDtoMapper
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioItem
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioItemMapper
+import com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview.CaseOverviewViewState
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -15,7 +16,8 @@ class PortfolioViewModel : ViewModel() {
 
     private var portfolioItemList: List<PortfolioItem> = listOf()
 
-    val uiState = MutableStateFlow(value = createInitialState())
+    val uiState: MutableStateFlow<PortfolioViewState> =
+        MutableStateFlow(value = PortfolioViewState.Loading)
 
     val uiEvent = MutableSharedFlow<PortfolioViewEvent>()
 
@@ -94,10 +96,6 @@ class PortfolioViewModel : ViewModel() {
 
     private val initialList = portfolioItemList
 
-
-    private fun createInitialState(): PortfolioViewState {
-        return PortfolioViewState.Loading
-    }
 
     private fun showContent(portfolioItemList: List<PortfolioItem>) {
         uiState.value = PortfolioViewState.Content(portfolioItemList)
