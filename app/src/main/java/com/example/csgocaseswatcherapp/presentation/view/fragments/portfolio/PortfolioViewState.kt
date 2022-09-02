@@ -1,9 +1,16 @@
 package com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio
 
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioItem
+import com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview.CaseOverviewViewState
 
-data class PortfolioViewState(
+sealed class PortfolioViewState {
 
-    val portfolioItemList:List<PortfolioItem>
+    data class Content(
+        val portfolioItemList: List<PortfolioItem>
+    ) : PortfolioViewState()
 
-)
+    object Loading : PortfolioViewState()
+
+    object Error : PortfolioViewState()
+}
+

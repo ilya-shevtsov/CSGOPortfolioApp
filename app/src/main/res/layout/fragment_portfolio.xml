@@ -240,5 +240,17 @@
         app:layout_constraintTop_toBottomOf="@id/bottomLineCaseHeader"
         tools:listitem="@layout/item_case_portfolio" />
 
+    <include
+        android:id="@+id/errorView"
+        layout="@layout/error_view"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/loadingView"
+        layout="@layout/loading_view"
+        android:visibility="gone"
+        />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

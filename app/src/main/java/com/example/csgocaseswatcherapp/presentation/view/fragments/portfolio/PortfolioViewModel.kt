@@ -1,8 +1,10 @@
 package com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.csgocaseswatcherapp.data.api.ApiTools
+import com.example.csgocaseswatcherapp.data.model.portfolioitem.PortfolioItemDtoMapper
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioItem
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioItemMapper
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -11,9 +13,27 @@ import kotlinx.coroutines.launch
 
 class PortfolioViewModel : ViewModel() {
 
+    private var portfolioItemList: List<PortfolioItem> = listOf()
+
     val uiState = MutableStateFlow(value = createInitialState())
 
     val uiEvent = MutableSharedFlow<PortfolioViewEvent>()
+
+    init {
+        viewModelScope.launch {
+            try {
+                getPortfolioData()
+                showContent(portfolioItemList)
+            } catch (throwable: Throwable) {
+                showError()
+                Log.e("Logging_getCaseList", "${throwable.message}")
+            }
+        }
+    }
+
+    private fun showError() {
+        uiState.value = PortfolioViewState.Error
+    }
 
     fun handleAction(action: PortfolioViewAction) {
         when (action) {
@@ -31,97 +51,63 @@ class PortfolioViewModel : ViewModel() {
         val portfolioItem = initialList.sortedByDescending { portfolioItem ->
             portfolioItem.caseProfitLoss
         }
-        uiState.value = PortfolioViewState(portfolioItem)
+        uiState.value = PortfolioViewState.Content(portfolioItem)
     }
 
     private fun handleOnCaseOverallValueClicked() {
         val portfolioItem = initialList.sortedByDescending { portfolioItem ->
             portfolioItem.caseOverallValue
         }
-        uiState.value = PortfolioViewState(portfolioItem)
+        uiState.value = PortfolioViewState.Content(portfolioItem)
     }
 
     private fun handleOnCasePriceClicked() {
         val portfolioItem = initialList.sortedBy { portfolioItem ->
             portfolioItem.casePrice
         }
-        uiState.value = PortfolioViewState(portfolioItem)
+        uiState.value = PortfolioViewState.Content(portfolioItem)
     }
 
     private fun handleOnCaseAmountClicked() {
         val portfolioItem = initialList.sortedByDescending { portfolioItem ->
             portfolioItem.caseAmount
         }
-        uiState.value = PortfolioViewState(portfolioItem)
+        uiState.value = PortfolioViewState.Content(portfolioItem)
     }
 
     private fun handleOnCaseNameSortClicked() {
         val portfolioItem = initialList.sortedBy { portfolioItem ->
             portfolioItem.caseName
         }
-        uiState.value = PortfolioViewState(portfolioItem)
+        uiState.value = PortfolioViewState.Content(portfolioItem)
     }
 
     private fun handleOnCaseAdded(action: PortfolioViewAction.OnCaseAdded) {
         val portfolioItem = PortfolioItemMapper.map(action.addedCase)
-        val portfolioItemList = listOf(portfolioItem) + uiState.value.portfolioItemList
-        uiState.value = PortfolioViewState(portfolioItemList)
+        val newPortfolioItemList = portfolioItemList + portfolioItem
+        uiState.value = PortfolioViewState.Content(newPortfolioItemList)
     }
 
     private fun handleOnAddCaseClicked() {
         viewModelScope.launch { uiEvent.emit(PortfolioViewEvent.NavigateToAddCase) }
     }
 
-//PlaceHolder for cases in portfolio overview (later get from database)
+    private val initialList = portfolioItemList
 
-    private val initialList = listOf(
-        PortfolioItem(
-            caseImage = "https://api.steamapis.com/image/item/730/Shadow%20Case",
-            caseName = "Shadow Case",
-            caseAmount = 4,
-            casePrice = 20.0,
-            caseOverallValue = 500.0,
-            caseProfitLoss = 500.0
-        ),
-        PortfolioItem(
-            caseImage = "https://api.steamapis.com/image/item/730/Prisma%20Case",
-            caseName = "Prisma Case",
-            caseAmount = 2,
-            casePrice = 30.0,
-            caseOverallValue = 100.0,
-            caseProfitLoss = 100.0
-        )
-    )
 
     private fun createInitialState(): PortfolioViewState {
-        return PortfolioViewState(
-            listOf(
-                PortfolioItem(
-                    caseImage = "https://api.steamapis.com/image/item/730/Shadow%20Case",
-                    caseName = "Shadow Case",
-                    caseAmount = 4,
-                    casePrice = 20.0,
-                    caseOverallValue = 500.0,
-                    caseProfitLoss = 500.0
-                ),
-                PortfolioItem(
-                    caseImage = "https://api.steamapis.com/image/item/730/Prisma%20Case",
-                    caseName = "Prisma Case",
-                    caseAmount = 2,
-                    casePrice = 30.0,
-                    caseOverallValue = 100.0,
-                    caseProfitLoss = 100.0
-                )
-            )
-        )
+        return PortfolioViewState.Loading
     }
 
-// This will be in createInitialState right after loading
+    private fun showContent(portfolioItemList: List<PortfolioItem>) {
+        uiState.value = PortfolioViewState.Content(portfolioItemList)
+    }
+
 
     suspend fun getPortfolioData() {
-        viewModelScope.launch {
-            val response = ApiTools.getApiService().getPortfolioData()
-            uiState.value = PortfolioViewState(response)
+        val responseDto = ApiTools.getApiService().getPortfolioData()
+        portfolioItemList = responseDto.map { caseDto ->
+            PortfolioItemDtoMapper.map(caseDto)
         }
     }
 }
