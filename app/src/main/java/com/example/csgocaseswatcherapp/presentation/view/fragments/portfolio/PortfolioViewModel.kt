@@ -7,7 +7,6 @@ import com.example.csgocaseswatcherapp.data.api.ApiTools
 import com.example.csgocaseswatcherapp.data.model.portfolioitem.PortfolioItemDtoMapper
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioItem
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioItemMapper
-import com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview.CaseOverviewViewState
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -102,7 +101,7 @@ class PortfolioViewModel : ViewModel() {
     }
 
 
-    suspend fun getPortfolioData() {
+    private suspend fun getPortfolioData() {
         val responseDto = ApiTools.getApiService().getPortfolioData()
         portfolioItemList = responseDto.map { caseDto ->
             PortfolioItemDtoMapper.map(caseDto)

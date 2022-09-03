@@ -93,9 +93,13 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
 
     private fun handleState(uiState: PortfolioViewState) {
         when(uiState){
-            is PortfolioViewState.Loading -> binding.loadingView.root.isVisible = false
-            is PortfolioViewState.Error -> binding.errorView.root.isVisible = true
+            is PortfolioViewState.Loading -> binding.loadingView.root.isVisible = true
+            is PortfolioViewState.Error -> {
+                binding.loadingView.root.isVisible = false
+                binding.errorView.root.isVisible = true
+            }
             is PortfolioViewState.Content -> {
+                binding.loadingView.root.isVisible = false
                 caseListAdapter.update(uiState.portfolioItemList)
                 binding.itemCaseRecyclerView.isVisible = true
             }
