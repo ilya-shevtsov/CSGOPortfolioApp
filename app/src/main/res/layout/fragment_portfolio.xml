@@ -22,6 +22,8 @@
     <TextView
         android:id="@+id/totalValue"
         android:layout_width="0dp"
+        android:layout_marginStart="8dp"
+        android:gravity="center_vertical"
         android:layout_height="50dp"
         android:text="@string/portfolio_total_value"
         android:textColor="@color/black"

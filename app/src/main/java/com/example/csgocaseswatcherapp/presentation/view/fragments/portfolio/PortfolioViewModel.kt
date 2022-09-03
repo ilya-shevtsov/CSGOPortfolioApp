@@ -1,6 +1,5 @@
 package com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio
 
-import android.graphics.Color
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,12 +7,7 @@ import com.example.csgocaseswatcherapp.data.api.ApiTools
 import com.example.csgocaseswatcherapp.data.model.portfolioitem.PortfolioItemDtoMapper
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioItem
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioItemMapper
-import com.github.mikephil.charting.animation.Easing
-import com.github.mikephil.charting.data.PieData
-import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
-import com.github.mikephil.charting.formatter.PercentFormatter
-import com.github.mikephil.charting.utils.ColorTemplate
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -31,7 +25,7 @@ class PortfolioViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 getPortfolioData()
-                showContent(portfolioItemList, mapToPieEntry(portfolioItemList))
+                showContent(portfolioItemList)
             } catch (throwable: Throwable) {
                 showError()
                 Log.e("Logging_getCaseList", "${throwable.message}")
@@ -39,14 +33,22 @@ class PortfolioViewModel : ViewModel() {
         }
     }
 
-    private fun mapToPieEntry(cases: List<PortfolioItem>): List<PieEntry> {
-        return cases.map { case ->
-            PieEntry(case.caseAmount.toFloat(), case.caseName.replace("Operation",""))
+    private fun mapToPieEntry(PortfolioItemList: List<PortfolioItem>): List<PieEntry> {
+        return PortfolioItemList.map { case ->
+            PieEntry(
+                case.caseAmount.toFloat(),
+                case.caseName
+                    .replace("Operation", "")
+                    .replace("Case", "")
+            )
         }
     }
 
-
-
+    private fun getTotalValue(PortfolioItemList: List<PortfolioItem>): Double {
+        return PortfolioItemList.sumOf { case ->
+            case.caseOverallValue
+        }
+    }
 
     private fun showError() {
         uiState.value = PortfolioViewState.Error
@@ -65,44 +67,81 @@ class PortfolioViewModel : ViewModel() {
     }
 
     private fun handleProfitLossClicked() {
-        val portfolioItem = portfolioItemList.sortedByDescending { portfolioItem ->
+        val newPortfolioItemList = portfolioItemList.sortedByDescending { portfolioItem ->
             portfolioItem.caseProfitLoss
         }
-        uiState.value = PortfolioViewState.Content(portfolioItem,mapToPieEntry(portfolioItemList))
+        val portfolioPietEntryList = mapToPieEntry(portfolioItemList)
+        val totalPortfolioValue = getTotalValue(portfolioItemList)
+        uiState.value = PortfolioViewState.Content(
+            newPortfolioItemList,
+            portfolioPietEntryList,
+            totalPortfolioValue
+        )
     }
 
     private fun handleOnCaseOverallValueClicked() {
-        val portfolioItem = portfolioItemList.sortedByDescending { portfolioItem ->
+        val newPortfolioItemList = portfolioItemList.sortedByDescending { portfolioItem ->
             portfolioItem.caseOverallValue
         }
-        uiState.value = PortfolioViewState.Content(portfolioItem,mapToPieEntry(portfolioItemList))
+        val portfolioPietEntryList = mapToPieEntry(portfolioItemList)
+        val totalPortfolioValue = getTotalValue(portfolioItemList)
+        uiState.value = PortfolioViewState.Content(
+            newPortfolioItemList,
+            portfolioPietEntryList,
+            totalPortfolioValue
+        )
     }
 
     private fun handleOnCasePriceClicked() {
-        val portfolioItem = portfolioItemList.sortedBy { portfolioItem ->
+        val newPortfolioItemList = portfolioItemList.sortedBy { portfolioItem ->
             portfolioItem.casePrice
         }
-        uiState.value = PortfolioViewState.Content(portfolioItem,mapToPieEntry(portfolioItemList))
+        val portfolioPietEntryList = mapToPieEntry(portfolioItemList)
+        val totalPortfolioValue = getTotalValue(portfolioItemList)
+        uiState.value = PortfolioViewState.Content(
+            newPortfolioItemList,
+            portfolioPietEntryList,
+            totalPortfolioValue
+        )
     }
 
     private fun handleOnCaseAmountClicked() {
-        val portfolioItem = portfolioItemList.sortedByDescending { portfolioItem ->
+        val newPortfolioItemList = portfolioItemList.sortedByDescending { portfolioItem ->
             portfolioItem.caseAmount
         }
-        uiState.value = PortfolioViewState.Content(portfolioItem,mapToPieEntry(portfolioItemList))
+        val portfolioPietEntryList = mapToPieEntry(portfolioItemList)
+        val totalPortfolioValue = getTotalValue(portfolioItemList)
+        uiState.value = PortfolioViewState.Content(
+            newPortfolioItemList,
+            portfolioPietEntryList,
+            totalPortfolioValue
+        )
     }
 
     private fun handleOnCaseNameSortClicked() {
-        val portfolioItem = portfolioItemList.sortedBy { portfolioItem ->
+        val newPortfolioItemList = portfolioItemList.sortedBy { portfolioItem ->
             portfolioItem.caseName
         }
-        uiState.value = PortfolioViewState.Content(portfolioItem,mapToPieEntry(portfolioItemList))
+        val portfolioPietEntryList = mapToPieEntry(portfolioItemList)
+        val totalPortfolioValue = getTotalValue(portfolioItemList)
+        uiState.value = PortfolioViewState.Content(
+            newPortfolioItemList,
+            portfolioPietEntryList,
+            totalPortfolioValue
+        )
     }
 
     private fun handleOnCaseAdded(action: PortfolioViewAction.OnCaseAdded) {
         val portfolioItem = PortfolioItemMapper.map(action.addedCase)
         val newPortfolioItemList = portfolioItemList + portfolioItem
-        uiState.value = PortfolioViewState.Content(newPortfolioItemList,mapToPieEntry(portfolioItemList))
+        val portfolioPietEntryList = mapToPieEntry(portfolioItemList)
+        val totalPortfolioValue = getTotalValue(portfolioItemList)
+        uiState.value =
+            PortfolioViewState.Content(
+                newPortfolioItemList,
+                portfolioPietEntryList,
+                totalPortfolioValue
+            )
     }
 
     private fun handleOnAddCaseClicked() {
@@ -111,11 +150,14 @@ class PortfolioViewModel : ViewModel() {
 
     private fun showContent(
         portfolioItemList: List<PortfolioItem>,
-        portfolioPietEntryList: List<PieEntry>
     ) {
+        val portfolioPietEntryList = mapToPieEntry(portfolioItemList)
+        val totalPortfolioValue = getTotalValue(portfolioItemList)
         uiState.value = PortfolioViewState.Content(
             portfolioItemList = portfolioItemList,
-            portfolioPietEntryList = portfolioPietEntryList
+            portfolioPietEntryList = portfolioPietEntryList,
+            totalPortfolioValue = totalPortfolioValue
+
         )
     }
 
