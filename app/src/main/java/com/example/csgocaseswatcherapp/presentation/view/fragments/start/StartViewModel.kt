@@ -69,7 +69,7 @@ class StartViewModel : ViewModel() {
     }
 
 
-    private fun createInitialState(): StartViewState = StartViewState("Choose Currency")
+    private fun createInitialState(): StartViewState = StartViewState("USD")
 
     suspend fun getPreferredCurrency() {
         viewModelScope.launch {

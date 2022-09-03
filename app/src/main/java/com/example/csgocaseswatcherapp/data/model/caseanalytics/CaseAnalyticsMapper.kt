@@ -1,5 +1,6 @@
 package com.example.csgocaseswatcherapp.data.model.caseanalytics
 
+import android.util.Log
 import com.example.csgocaseswatcherapp.domain.model.caseanalytics.CaseAnalytics
 
 object CaseAnalyticsMapper {
@@ -17,7 +18,6 @@ object CaseAnalyticsMapper {
             monthlyAvgReturnInRUB = caseAnalyticsDto.monthlyAvgReturnInRUB,
             monthlyStandardDeviation = caseAnalyticsDto.monthlyStandardDeviation,
             monthlySharpRatio = caseAnalyticsDto.monthlySharpRatio,
-
             )
     }
 }

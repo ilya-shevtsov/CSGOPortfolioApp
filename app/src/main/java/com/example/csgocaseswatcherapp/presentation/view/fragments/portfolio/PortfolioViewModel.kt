@@ -93,9 +93,6 @@ class PortfolioViewModel : ViewModel() {
         viewModelScope.launch { uiEvent.emit(PortfolioViewEvent.NavigateToAddCase) }
     }
 
-
-
-
     private fun showContent(portfolioItemList: List<PortfolioItem>) {
         uiState.value = PortfolioViewState.Content(portfolioItemList)
     }
