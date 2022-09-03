@@ -1,5 +1,6 @@
 package com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,8 +16,29 @@ import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.databinding.FragmentPortfolioBinding
 import com.example.csgocaseswatcherapp.presentation.model.addcaseitem.AddedCaseModel
+import com.github.mikephil.charting.data.PieEntry
 import com.xwray.groupie.GroupieAdapter
 import kotlinx.coroutines.launch
+import com.github.mikephil.charting.utils.ColorTemplate
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.animation.Easing
+
+import com.github.mikephil.charting.formatter.PercentFormatter
+
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.components.Legend
+
+
+
+
+
+
+
+
+
+
+
+
 
 class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
 
@@ -37,6 +59,60 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         with(binding) {
+
+            binding.pieChartPortfolioValue
+
+            fun setPieChart(){
+                pieChartPortfolioValue.isDrawHoleEnabled = true
+                pieChartPortfolioValue.setUsePercentValues(true)
+                pieChartPortfolioValue.setEntryLabelTextSize(12F)
+                pieChartPortfolioValue.setEntryLabelColor(Color.BLACK)
+                pieChartPortfolioValue.centerText = "Value"
+                pieChartPortfolioValue.setCenterTextSize(24F)
+                pieChartPortfolioValue.description.isEnabled = false
+
+                val legend = pieChartPortfolioValue.legend
+                legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
+                legend.horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
+                legend.orientation = Legend.LegendOrientation.VERTICAL
+                legend.setDrawInside(false)
+                legend.isEnabled = true
+
+            }
+
+            fun loadPieChartData(){
+
+                val entries = arrayListOf<PieEntry>()
+                entries.add(PieEntry(0.2f, "Chroma 2 Case"))
+                entries.add(PieEntry(0.2f, "Clutch Case"))
+                entries.add(PieEntry(0.2f, "Danger Zone Case"))
+
+                val colors = arrayListOf<Int>()
+                for (color in ColorTemplate.MATERIAL_COLORS) {
+                    colors.add(color)
+                }
+                for (color in ColorTemplate.VORDIPLOM_COLORS) {
+                    colors.add(color)
+                }
+
+                val dataSet = PieDataSet(entries, "Expense Category")
+                dataSet.colors = colors
+
+                val data = PieData(dataSet)
+                data.setDrawValues(true)
+                data.setValueFormatter(PercentFormatter(pieChartPortfolioValue))
+                data.setValueTextSize(12f)
+                data.setValueTextColor(Color.BLACK)
+
+                pieChartPortfolioValue.data = data
+                pieChartPortfolioValue.invalidate()
+
+                pieChartPortfolioValue.animateY(1400, Easing.EaseInOutQuad)
+
+            }
+
+            setPieChart()
+            loadPieChartData()
 
             itemCaseRecyclerView.adapter = caseListAdapter
 
@@ -90,6 +166,8 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
             }
         }
     }
+
+
 
     private fun handleState(uiState: PortfolioViewState) {
         when(uiState){

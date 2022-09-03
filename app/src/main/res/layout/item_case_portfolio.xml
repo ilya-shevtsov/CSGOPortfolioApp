@@ -162,4 +162,7 @@
         app:layout_constraintStart_toEndOf="@id/startProfitLossLine"
         app:layout_constraintTop_toTopOf="@id/topLine"
         tools:text="%s" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
