@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CSGOCasesWatcherApp</string>
+    <string name="app_name">CSGO Watcher</string>
     <string name="error_screen_case_overview">Could not connect to the server, try again later</string>
 
     // start screen

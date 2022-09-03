@@ -22,14 +22,14 @@ object PortfolioItemMapper {
         )
     }
 
-    fun getOverAllValue(amount: Int, price: Double): Double {
+    private fun getOverAllValue(amount: Int, price: Double): Double {
         Log.e("getOverAllValue","This is the amount: $amount")
         Log.e("getOverAllValue","This is the price: $price")
         return round(amount * price)
     }
 
 
-    fun getCaseImage(caseName: String): String {
+    private fun getCaseImage(caseName: String): String {
         val newName = caseName
             .replace(" ", "%20")
             .replace(":", "%3A")
@@ -38,3 +38,4 @@ object PortfolioItemMapper {
         return "https://api.steamapis.com/image/item/730/$newName"
     }
 }
+

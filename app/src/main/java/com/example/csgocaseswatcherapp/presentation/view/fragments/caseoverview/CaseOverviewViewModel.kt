@@ -28,7 +28,7 @@ class CaseOverviewViewModel @Inject constructor(
                 showCaseList(response)
             } catch (throwable: Throwable) {
                 showError()
-                Log.e("Logging_CasesOverviewViewModel.getCaseList", "${throwable.message}")
+                Log.e("Logging_getCaseList", "${throwable.message}")
             }
         }
     }

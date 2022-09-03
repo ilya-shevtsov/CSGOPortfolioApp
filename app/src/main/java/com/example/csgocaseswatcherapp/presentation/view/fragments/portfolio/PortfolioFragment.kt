@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
@@ -42,9 +43,7 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
             lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                     viewModel.uiState.collect{ uiState ->
-                        val portfolioCaseItemList = uiState.portfolioItemList
-                        caseListAdapter.update(portfolioCaseItemList)
-
+                        handleState(uiState)
                     }
                 }
             }
@@ -69,7 +68,44 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
             addCaseButton.setOnClickListener {
                 viewModel.handleAction(PortfolioViewAction.OnAddCaseClicked)
             }
+
+            caseNameHeader.setOnClickListener {
+                viewModel.handleAction(PortfolioViewAction.OnCaseNameSortClicked)
+            }
+
+            caseAmountHeader.setOnClickListener {
+                viewModel.handleAction(PortfolioViewAction.OnCaseAmountClicked)
+            }
+
+            casePriceHeader.setOnClickListener {
+                viewModel.handleAction(PortfolioViewAction.OnCasePriceClicked)
+            }
+
+            caseOverallValueHeader.setOnClickListener {
+                viewModel.handleAction(PortfolioViewAction.OnCaseOverallValueClicked)
+            }
+
+            caseProfitLossHeader.setOnClickListener {
+                viewModel.handleAction(PortfolioViewAction.OnCaseProfitLossClicked)
+            }
         }
+    }
+
+    private fun handleState(uiState: PortfolioViewState) {
+        when(uiState){
+            is PortfolioViewState.Loading -> binding.loadingView.root.isVisible = true
+            is PortfolioViewState.Error -> {
+                binding.loadingView.root.isVisible = false
+                binding.errorView.root.isVisible = true
+            }
+            is PortfolioViewState.Content -> {
+                binding.loadingView.root.isVisible = false
+                caseListAdapter.update(uiState.portfolioItemList)
+                binding.itemCaseRecyclerView.isVisible = true
+            }
+        }
+
+
     }
 
     private fun handleEvent(uiEvent: PortfolioViewEvent) {
@@ -77,9 +113,6 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
             PortfolioViewEvent.NavigateToAddCase -> findNavController().navigate(R.id.addCaseFragment)
         }
     }
-
-
-
 }
 
 
