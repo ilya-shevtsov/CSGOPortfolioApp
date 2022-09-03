@@ -41,7 +41,7 @@ class PortfolioViewModel : ViewModel() {
 
     private fun mapToPieEntry(cases: List<PortfolioItem>): List<PieEntry> {
         return cases.map { case ->
-            PieEntry(case.caseAmount.toFloat(), case.caseName)
+            PieEntry(case.caseAmount.toFloat(), case.caseName.replace("Operation",""))
         }
     }
 
