@@ -1,5 +1,6 @@
 package com.example.csgocaseswatcherapp.presentation.model.caseanalyticsitem
 
+import android.util.Log
 import com.example.csgocaseswatcherapp.domain.model.caseanalytics.CaseAnalytics
 
 object CaseAnalyticsItemMapper {
@@ -14,7 +15,16 @@ object CaseAnalyticsItemMapper {
             monthlyAvgReturnInPercent = caseAnalytics.monthlyAvgReturnInPercent,
             monthlyAvgReturnInRUB = caseAnalytics.monthlyAvgReturnInRUB,
             monthlyStandardDeviation = caseAnalytics.monthlyStandardDeviation,
-            monthlySharpRatio = caseAnalytics.monthlySharpRatio
+            monthlySharpRatio = caseAnalytics.monthlySharpRatio,
+            imageUrl = getCaseImage(caseAnalytics.caseName)
         )
+    }
+
+    private fun getCaseImage(caseName: String): String {
+        val newName = caseName
+            .replace(" ", "%20")
+            .replace(":", "%3A")
+            .replace("&", "%26")
+        return "https://api.steamapis.com/image/item/730/$newName"
     }
 }
