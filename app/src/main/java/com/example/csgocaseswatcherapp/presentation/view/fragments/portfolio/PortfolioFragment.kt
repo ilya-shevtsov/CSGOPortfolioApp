@@ -109,6 +109,9 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
                 binding.errorView.root.isVisible = true
             }
             is PortfolioViewState.Content -> {
+                binding.totalValue.text = binding.root.context.getString(
+                    R.string.portfolio_total_value, uiState.totalPortfolioValue.toString()
+                )
                 binding.loadingView.root.isVisible = false
                 caseListAdapter.update(uiState.portfolioItemList)
                 binding.itemCaseRecyclerView.isVisible = true

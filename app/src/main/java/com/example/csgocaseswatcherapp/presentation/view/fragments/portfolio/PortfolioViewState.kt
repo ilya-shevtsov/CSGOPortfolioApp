@@ -7,7 +7,8 @@ sealed class PortfolioViewState {
 
     data class Content(
         val portfolioItemList: List<PortfolioItem>,
-        val portfolioPietEntryList: List<PieEntry>
+        val portfolioPietEntryList: List<PieEntry>,
+        val totalPortfolioValue: Double
     ) : PortfolioViewState()
 
     object Loading : PortfolioViewState()
