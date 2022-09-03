@@ -117,11 +117,12 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
 
                 binding.pieChartPortfolioValue.isDrawHoleEnabled = true
                 binding.pieChartPortfolioValue.setUsePercentValues(true)
-                binding.pieChartPortfolioValue.setEntryLabelTextSize(12F)
+                binding.pieChartPortfolioValue.setEntryLabelTextSize(10F)
                 binding.pieChartPortfolioValue.setEntryLabelColor(Color.BLACK)
-                binding.pieChartPortfolioValue.centerText = "Value"
+                binding.pieChartPortfolioValue.centerText = "Amount"
                 binding.pieChartPortfolioValue.setCenterTextSize(24F)
                 binding.pieChartPortfolioValue.description.isEnabled = false
+                binding.pieChartPortfolioValue.legend.isEnabled = false
 
 
                 val colors = arrayListOf<Int>()
@@ -138,7 +139,7 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
                 val data = PieData(dataSet)
                 data.setDrawValues(true)
                 data.setValueFormatter(PercentFormatter(binding.pieChartPortfolioValue))
-                data.setValueTextSize(12f)
+                data.setValueTextSize(10f)
                 data.setValueTextColor(Color.BLACK)
 
                 binding.pieChartPortfolioValue.data = data
