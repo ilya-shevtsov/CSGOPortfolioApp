@@ -251,6 +251,15 @@
         android:visibility="gone"
         />
 
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pieChartPortfolioValue"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toEndOf="@+id/sideLine"
+        app:layout_constraintTop_toBottomOf="@id/bottomLine"
+        app:layout_constraintBottom_toTopOf="@id/casePartLineUp"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
