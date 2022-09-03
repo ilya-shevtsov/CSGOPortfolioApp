@@ -23,8 +23,6 @@ object PortfolioItemMapper {
     }
 
     private fun getOverAllValue(amount: Int, price: Double): Double {
-        Log.e("getOverAllValue","This is the amount: $amount")
-        Log.e("getOverAllValue","This is the price: $price")
         return round(amount * price)
     }
 
