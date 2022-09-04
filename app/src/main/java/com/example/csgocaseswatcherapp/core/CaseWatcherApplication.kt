@@ -15,5 +15,5 @@ class CaseWatcherApplication : Application() {
         appComponent = DaggerAppComponent.create()
     }
 
-    open fun getAppComponent() = appComponent
+    fun getAppComponent() = appComponent
 }
