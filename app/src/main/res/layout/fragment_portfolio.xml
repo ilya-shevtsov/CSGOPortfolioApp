@@ -44,37 +44,44 @@
         app:layout_constraintStart_toStartOf="parent" />
 
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addCaseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:backgroundTint="@color/primaryColor"
+        android:contentDescription="Add Case"
+        android:src="@drawable/ic_plus"
+        app:layout_constraintBottom_toBottomOf="@id/detailsButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/detailsButton" />
+
     <Button
         android:id="@+id/detailsButton"
-        style="@style/portfolioToolsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Details"
-        app:layout_constraintEnd_toStartOf="@id/pieChartPortfolioValue"
-        app:layout_constraintStart_toStartOf="@id/bottomLine"
-        app:layout_constraintTop_toBottomOf="@id/bottomLine" />
-
-    <Button
-        android:id="@+id/addCaseButton"
-        style="@style/portfolioToolsButton"
-        android:text="Add Case"
-        app:layout_constraintEnd_toStartOf="@id/pieChartPortfolioValue"
-        app:layout_constraintStart_toStartOf="@id/detailsButton"
-        app:layout_constraintTop_toBottomOf="@id/detailsButton" />
-
-
-    <Button
-        style="@style/portfolioHeaderButton"
-        android:id="@+id/caseNameHeader"
-        android:text="@string/case_portfolio_header_case"
-        app:layout_constraintBottom_toTopOf="@id/itemCaseRecyclerView"
-        app:layout_constraintEnd_toStartOf="@id/caseAmountHeader"
+        android:textAllCaps="false"
+        android:text="Portfolio Details"
+        app:layout_constraintBottom_toTopOf="@+id/caseNameHeader"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/pieChartPortfolioValue" />
 
 
     <Button
+        android:id="@+id/caseNameHeader"
         style="@style/portfolioHeaderButton"
+        android:text="@string/case_portfolio_header_case"
+        app:layout_constraintBottom_toTopOf="@id/itemCaseRecyclerView"
+        app:layout_constraintEnd_toStartOf="@id/caseAmountHeader"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/detailsButton" />
+
+
+    <Button
         android:id="@+id/caseAmountHeader"
+        style="@style/portfolioHeaderButton"
         android:text="@string/case_portfolio_header_amount"
         app:layout_constraintBottom_toBottomOf="@id/caseNameHeader"
         app:layout_constraintEnd_toStartOf="@id/casePriceHeader"
@@ -83,8 +90,8 @@
 
 
     <Button
-        style="@style/portfolioHeaderButton"
         android:id="@+id/casePriceHeader"
+        style="@style/portfolioHeaderButton"
         android:text="@string/case_portfolio_header_price"
         app:layout_constraintBottom_toBottomOf="@id/caseNameHeader"
         app:layout_constraintEnd_toStartOf="@id/caseOverallValueHeader"
@@ -93,18 +100,18 @@
 
 
     <Button
-        style="@style/portfolioHeaderButton"
         android:id="@+id/caseOverallValueHeader"
+        style="@style/portfolioHeaderButton"
         android:text="@string/case_portfolio_header_overall_value"
         app:layout_constraintBottom_toBottomOf="@id/caseNameHeader"
+        app:layout_constraintEnd_toStartOf="@id/caseProfitLossHeader"
         app:layout_constraintStart_toEndOf="@id/casePriceHeader"
-        app:layout_constraintTop_toTopOf="@id/caseNameHeader"
-        app:layout_constraintEnd_toStartOf="@id/caseProfitLossHeader"/>
+        app:layout_constraintTop_toTopOf="@id/caseNameHeader" />
 
 
     <Button
-        style="@style/portfolioHeaderButton"
         android:id="@+id/caseProfitLossHeader"
+        style="@style/portfolioHeaderButton"
         android:text="@string/case_portfolio_header_profit_loss"
         app:layout_constraintBottom_toBottomOf="@id/caseNameHeader"
         app:layout_constraintEnd_toEndOf="parent"
@@ -125,10 +132,10 @@
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pieChartPortfolioValue"
         android:layout_width="0dp"
-        android:layout_height="315dp"
-        android:layout_marginEnd="4dp"
+        android:layout_height="320dp"
+        android:layout_margin="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/addCaseButton"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bottomLine" />
 
     <include
@@ -140,5 +147,6 @@
         android:id="@+id/loadingView"
         layout="@layout/loading_view"
         android:visibility="gone" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
