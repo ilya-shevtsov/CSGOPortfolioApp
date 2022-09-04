@@ -5,7 +5,7 @@
     android:id="@+id/Portfolio"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/frontPageBackground"
+    android:background="@color/backgroundColor"
     tools:context=".presentation.view.fragments.portfolio.PortfolioFragment">
 
 
@@ -22,6 +22,8 @@
     <TextView
         android:id="@+id/totalValue"
         android:layout_width="0dp"
+        android:layout_marginStart="8dp"
+        android:gravity="center_vertical"
         android:layout_height="50dp"
         android:text="@string/portfolio_total_value"
         android:textColor="@color/black"
@@ -250,6 +252,15 @@
         layout="@layout/loading_view"
         android:visibility="gone"
         />
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pieChartPortfolioValue"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toEndOf="@+id/sideLine"
+        app:layout_constraintTop_toBottomOf="@id/bottomLine"
+        app:layout_constraintBottom_toTopOf="@id/casePartLineUp"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 
 
