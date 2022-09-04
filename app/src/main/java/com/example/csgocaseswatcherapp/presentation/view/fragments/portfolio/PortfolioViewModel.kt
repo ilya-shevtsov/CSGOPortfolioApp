@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.csgocaseswatcherapp.data.api.ApiTools
 import com.example.csgocaseswatcherapp.data.model.portfolioitem.PortfolioItemDtoMapper
-import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioItem
+import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioGroupieItem
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioItemMapper
 import com.github.mikephil.charting.data.PieEntry
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 
 class PortfolioViewModel : ViewModel() {
 
-    var portfolioItemList: List<PortfolioItem> = listOf()
+    var portfolioItemList: List<PortfolioGroupieItem> = listOf()
 
     val uiState: MutableStateFlow<PortfolioViewState> =
         MutableStateFlow(value = PortfolioViewState.Loading)
@@ -33,7 +33,7 @@ class PortfolioViewModel : ViewModel() {
         }
     }
 
-    private fun mapToPieEntry(PortfolioItemList: List<PortfolioItem>): List<PieEntry> {
+    private fun mapToPieEntry(PortfolioItemList: List<PortfolioGroupieItem>): List<PieEntry> {
         return PortfolioItemList.map { case ->
             PieEntry(
                 case.caseAmount.toFloat(),
@@ -44,7 +44,7 @@ class PortfolioViewModel : ViewModel() {
         }
     }
 
-    private fun getTotalValue(PortfolioItemList: List<PortfolioItem>): Double {
+    private fun getTotalValue(PortfolioItemList: List<PortfolioGroupieItem>): Double {
         return PortfolioItemList.sumOf { case ->
             case.caseOverallValue
         }
@@ -149,7 +149,7 @@ class PortfolioViewModel : ViewModel() {
     }
 
     private fun showContent(
-        portfolioItemList: List<PortfolioItem>,
+        portfolioItemList: List<PortfolioGroupieItem>,
     ) {
         val portfolioPietEntryList = mapToPieEntry(portfolioItemList)
         val totalPortfolioValue = getTotalValue(portfolioItemList)
@@ -157,10 +157,8 @@ class PortfolioViewModel : ViewModel() {
             portfolioItemList = portfolioItemList,
             portfolioPietEntryList = portfolioPietEntryList,
             totalPortfolioValue = totalPortfolioValue
-
         )
     }
-
 
     private suspend fun getPortfolioData() {
         val responseDto = ApiTools.getApiService().getPortfolioData()
