@@ -6,7 +6,7 @@ import com.example.csgocaseswatcherapp.databinding.ItemCasePortfolioBinding
 import com.xwray.groupie.viewbinding.BindableItem
 
 
-class PortfolioItem(
+class PortfolioGroupieItem(
     val caseImage: String,
     val caseName: String,
     val caseAmount: Int,

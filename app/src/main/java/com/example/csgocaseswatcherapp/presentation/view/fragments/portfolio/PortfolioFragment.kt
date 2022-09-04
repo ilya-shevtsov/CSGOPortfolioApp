@@ -100,7 +100,6 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
         }
     }
 
-
     private fun handleState(uiState: PortfolioViewState) {
         when (uiState) {
             is PortfolioViewState.Loading -> binding.loadingView.root.isVisible = true
@@ -147,7 +146,6 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
 
                 binding.pieChartPortfolioValue.data = data
                 binding.pieChartPortfolioValue.invalidate()
-
                 binding.pieChartPortfolioValue.animateY(1400, Easing.EaseInOutQuad)
             }
         }

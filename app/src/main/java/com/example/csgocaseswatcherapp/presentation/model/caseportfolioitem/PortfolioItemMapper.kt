@@ -6,10 +6,10 @@ import kotlin.math.round
 
 object PortfolioItemMapper {
 
-    //PlaceHolder caseProfitLoss and overallValue (right now is just from purchase price)
+    //PlaceHolder caseProfitLoss (right now is just from purchase price)
 
-    fun map(addedCaseItem: AddedCaseModel): PortfolioItem {
-        return PortfolioItem(
+    fun map(addedCaseItem: AddedCaseModel): PortfolioGroupieItem {
+        return PortfolioGroupieItem(
             caseImage = getCaseImage(addedCaseItem.name),
             caseName = addedCaseItem.name,
             caseAmount = addedCaseItem.amount,
