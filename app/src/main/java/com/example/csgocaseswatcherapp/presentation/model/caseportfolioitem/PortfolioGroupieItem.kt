@@ -15,13 +15,30 @@ class PortfolioGroupieItem(
     val caseProfitLoss: Double
 ) : BindableItem<ItemCasePortfolioBinding>() {
 
+    override fun getId(): Long {
+        return caseName.hashCode().toLong()
+    }
+
+//    iewBinding.root.context.getString(
+//    R.string.case_lowest_price,
+//    caseOverviewModel.lowestPrice.toString()
+//    )
+
     override fun bind(viewBinding: ItemCasePortfolioBinding, position: Int) {
         viewBinding.caseImageView.setImageURI(caseImage)
         viewBinding.caseNameTextView.text = caseName
-        viewBinding.caseAmount.text = caseAmount.toString()
-        viewBinding.casePrice.text = casePrice.toString()
-        viewBinding.caseOverallValue.text = caseOverallValue.toString()
-        viewBinding.caseProfitLoss.text = caseProfitLoss.toString()
+        viewBinding.caseAmount.text = viewBinding.root.context.getString(
+            R.string.amount_of_cases, caseAmount.toString()
+        )
+        viewBinding.casePrice.text = viewBinding.root.context.getString(
+            R.string.average_price, casePrice.toString()
+        )
+        viewBinding.caseOverallValue.text = viewBinding.root.context.getString(
+            R.string.overall_value, caseOverallValue.toString()
+        )
+        viewBinding.caseProfitLoss.text = viewBinding.root.context.getString(
+            R.string.profit_loss, caseProfitLoss.toString()
+        )
     }
 
     override fun getLayout(): Int {

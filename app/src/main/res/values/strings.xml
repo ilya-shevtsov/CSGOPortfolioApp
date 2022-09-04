@@ -26,7 +26,13 @@
     <string name="daily_sharp_ratio">Daily Sharp ratio: %s</string>
 
     // Portfolio
-    <string name="portfolio_total_value">Value: %s</string>
+    <string name="portfolio_total_value">Value: %s $</string>
+    <string name="amount_of_cases">%s Cases</string>
+    <string name="average_price">• %s $</string>
+    <string name="overall_value">%s $</string>
+    <string name="profit_loss">%s $ (1.75 \%%)</string>
+<!--    (1.75 character \u0025)-->
+
 
     // Add Case
     <string name="add_case_case_name">Case Name:</string>
