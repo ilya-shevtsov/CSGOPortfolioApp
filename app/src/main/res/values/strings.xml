@@ -91,7 +91,7 @@
     <string name="case_portfolio_header_overall_value">Overall Value</string>
     <string name="case_portfolio_header_price">Price</string>
     <string name="case_portfolio_header_amount">Amount</string>
-    <string name="case_portfolio_header_case">Case</string>
+    <string name="case_portfolio_header_case">Case Name</string>
     <string name="choose_currency_button">Choose Currency</string>
     <string name="add_case_button">Add Case</string>
     <string name="loading">LOADING</string>
