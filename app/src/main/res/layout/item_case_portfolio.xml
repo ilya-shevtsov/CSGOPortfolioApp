@@ -10,7 +10,6 @@
     <View
         android:id="@+id/topLine"
         android:layout_width="match_parent"
-
         android:layout_height="1dp"
         android:background="@color/black"
         app:layout_constraintBottom_toTopOf="@id/startLine"

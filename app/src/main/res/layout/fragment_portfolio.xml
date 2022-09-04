@@ -22,9 +22,9 @@
     <TextView
         android:id="@+id/totalValue"
         android:layout_width="0dp"
+        android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:gravity="center_vertical"
-        android:layout_height="50dp"
         android:text="@string/portfolio_total_value"
         android:textColor="@color/black"
         android:textSize="23sp"
@@ -43,193 +43,73 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+
     <Button
-        android:id="@+id/homeButton"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:background="@drawable/ic_home_screen_button"
+        android:id="@+id/detailsButton"
+        style="@style/portfolioToolsButton"
+        android:gravity="center"
+        android:text="Details"
+        app:layout_constraintEnd_toStartOf="@id/pieChartPortfolioValue"
         app:layout_constraintStart_toStartOf="@id/bottomLine"
         app:layout_constraintTop_toBottomOf="@id/bottomLine" />
 
     <Button
-        android:id="@+id/portfolioButton"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:background="@drawable/ic_portfolio_button"
-        app:layout_constraintStart_toStartOf="@id/homeButton"
-        app:layout_constraintTop_toBottomOf="@id/homeButton" />
-
-    <Button
-        android:id="@+id/detailsButton"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:background="@drawable/ic_case_details_button"
-        app:layout_constraintStart_toStartOf="@id/portfolioButton"
-        app:layout_constraintTop_toBottomOf="@id/portfolioButton" />
-
-    <Button
         android:id="@+id/addCaseButton"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:background="@drawable/ic_add_case_button"
+        style="@style/portfolioToolsButton"
+        android:text="Add Case"
+        app:layout_constraintEnd_toStartOf="@id/pieChartPortfolioValue"
         app:layout_constraintStart_toStartOf="@id/detailsButton"
         app:layout_constraintTop_toBottomOf="@id/detailsButton" />
 
 
-    <View
-        android:id="@+id/sideLine"
-        android:layout_width="2dp"
-        android:layout_height="0dp"
-        android:background="@color/black"
-        app:layout_constraintBottom_toTopOf="@id/casePartLineUp"
-        app:layout_constraintEnd_toEndOf="@id/detailsButton"
-        app:layout_constraintTop_toBottomOf="@id/bottomLine" />
-
-    <View
-        android:id="@+id/casePartLineUp"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginBottom="280dp"
-        android:background="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <View
-        android:id="@+id/bottomLineCaseHeader"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/startLine" />
-
-    <View
-        android:id="@+id/startLine"
-        android:layout_width="2dp"
-        android:layout_height="35dp"
-        android:background="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/bottomLineCaseHeader"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/casePartLineUp" />
-
-    <View
-        android:id="@+id/endLine"
-        android:layout_width="2dp"
-        android:layout_height="35dp"
-        android:background="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/bottomLineCaseHeader"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/casePartLineUp" />
-
     <Button
+        style="@style/portfolioHeaderButton"
         android:id="@+id/caseNameHeader"
-        android:layout_width="164dp"
-        android:textAllCaps="false"
-        android:layout_height="35dp"
-        android:background="@color/casePortfolioHeaderColor"
-        android:gravity="center"
         android:text="@string/case_portfolio_header_case"
-        android:textColor="@color/white"
-        android:textSize="11sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/bottomLineCaseHeader"
-        app:layout_constraintStart_toEndOf="@id/startLine"
-        app:layout_constraintTop_toBottomOf="@id/casePartLineUp" />
+        app:layout_constraintBottom_toTopOf="@id/itemCaseRecyclerView"
+        app:layout_constraintEnd_toStartOf="@id/caseAmountHeader"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pieChartPortfolioValue" />
 
-    <View
-        android:id="@+id/startAmountLine"
-        android:layout_width="2dp"
-        android:layout_height="35dp"
-        android:background="@color/black"
-        app:layout_constraintBottom_toTopOf="@id/bottomLineCaseHeader"
-        app:layout_constraintStart_toEndOf="@id/caseNameHeader"
-        app:layout_constraintTop_toBottomOf="@id/casePartLineUp" />
 
     <Button
+        style="@style/portfolioHeaderButton"
         android:id="@+id/caseAmountHeader"
-        android:layout_width="50dp"
-        android:layout_height="35dp"
-        android:background="@color/casePortfolioHeaderColor"
-        android:gravity="center"
         android:text="@string/case_portfolio_header_amount"
-        android:textColor="@color/white"
-        android:textSize="11sp"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toTopOf="@id/bottomLineCaseHeader"
-        app:layout_constraintStart_toEndOf="@id/startAmountLine"
-        app:layout_constraintTop_toBottomOf="@id/casePartLineUp" />
+        app:layout_constraintBottom_toBottomOf="@id/caseNameHeader"
+        app:layout_constraintEnd_toStartOf="@id/casePriceHeader"
+        app:layout_constraintStart_toEndOf="@id/caseNameHeader"
+        app:layout_constraintTop_toTopOf="@id/caseNameHeader" />
 
-    <View
-        android:id="@+id/startPriceLine"
-        android:layout_width="2dp"
-        android:layout_height="35dp"
-        android:background="@color/black"
-        app:layout_constraintBottom_toTopOf="@id/bottomLineCaseHeader"
-        app:layout_constraintStart_toEndOf="@id/caseAmountHeader"
-        app:layout_constraintTop_toBottomOf="@id/casePartLineUp" />
 
     <Button
+        style="@style/portfolioHeaderButton"
         android:id="@+id/casePriceHeader"
-        android:layout_width="50dp"
-        android:layout_height="35dp"
-        android:background="@color/casePortfolioHeaderColor"
-        android:gravity="center"
-        android:textAllCaps="false"
         android:text="@string/case_portfolio_header_price"
-        android:textColor="@color/white"
-        android:textSize="11sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/bottomLineCaseHeader"
-        app:layout_constraintStart_toEndOf="@id/startPriceLine"
-        app:layout_constraintTop_toBottomOf="@id/casePartLineUp" />
+        app:layout_constraintBottom_toBottomOf="@id/caseNameHeader"
+        app:layout_constraintEnd_toStartOf="@id/caseOverallValueHeader"
+        app:layout_constraintStart_toEndOf="@id/caseAmountHeader"
+        app:layout_constraintTop_toTopOf="@id/caseNameHeader" />
 
-    <View
-        android:id="@+id/startOverallValueLine"
-        android:layout_width="2dp"
-        android:layout_height="35dp"
-        android:background="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/bottomLineCaseHeader"
-        app:layout_constraintStart_toEndOf="@id/casePriceHeader"
-        app:layout_constraintTop_toTopOf="@id/casePartLineUp" />
 
     <Button
+        style="@style/portfolioHeaderButton"
         android:id="@+id/caseOverallValueHeader"
-        android:layout_width="50dp"
-        android:layout_height="35dp"
-        android:background="@color/casePortfolioHeaderColor"
-        android:gravity="center"
-        android:textAllCaps="false"
         android:text="@string/case_portfolio_header_overall_value"
-        android:textColor="@color/white"
-        android:textSize="11sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/bottomLineCaseHeader"
-        app:layout_constraintStart_toEndOf="@id/startOverallValueLine"
-        app:layout_constraintTop_toBottomOf="@id/casePartLineUp" />
+        app:layout_constraintBottom_toBottomOf="@id/caseNameHeader"
+        app:layout_constraintStart_toEndOf="@id/casePriceHeader"
+        app:layout_constraintTop_toTopOf="@id/caseNameHeader"
+        app:layout_constraintEnd_toStartOf="@id/caseProfitLossHeader"/>
 
-    <View
-        android:id="@+id/startProfitLossLine"
-        android:layout_width="2dp"
-        android:layout_height="35dp"
-        android:background="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/bottomLineCaseHeader"
-        app:layout_constraintStart_toEndOf="@id/caseOverallValueHeader"
-        app:layout_constraintTop_toTopOf="@id/casePartLineUp" />
 
     <Button
+        style="@style/portfolioHeaderButton"
         android:id="@+id/caseProfitLossHeader"
-        android:layout_width="86dp"
-        android:textAllCaps="false"
-        android:layout_height="35dp"
-        android:background="@color/casePortfolioHeaderColor"
-        android:gravity="center"
         android:text="@string/case_portfolio_header_profit_loss"
-        android:textColor="@color/white"
-        android:textSize="11sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/bottomLineCaseHeader"
-        app:layout_constraintEnd_toStartOf="@id/endLine"
-        app:layout_constraintStart_toEndOf="@id/startProfitLossLine"
-        app:layout_constraintTop_toBottomOf="@id/casePartLineUp" />
+        app:layout_constraintBottom_toBottomOf="@id/caseNameHeader"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/caseOverallValueHeader"
+        app:layout_constraintTop_toTopOf="@id/caseNameHeader" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/itemCaseRecyclerView"
@@ -239,8 +119,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bottomLineCaseHeader"
+        app:layout_constraintTop_toBottomOf="@+id/caseNameHeader"
         tools:listitem="@layout/item_case_portfolio" />
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pieChartPortfolioValue"
+        android:layout_width="0dp"
+        android:layout_height="315dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/addCaseButton"
+        app:layout_constraintTop_toBottomOf="@id/bottomLine" />
 
     <include
         android:id="@+id/errorView"
@@ -250,18 +139,6 @@
     <include
         android:id="@+id/loadingView"
         layout="@layout/loading_view"
-        android:visibility="gone"
-        />
-
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/pieChartPortfolioValue"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintStart_toEndOf="@+id/sideLine"
-        app:layout_constraintTop_toBottomOf="@id/bottomLine"
-        app:layout_constraintBottom_toTopOf="@id/casePartLineUp"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-
+        android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
