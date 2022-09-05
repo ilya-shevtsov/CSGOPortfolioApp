@@ -50,6 +50,9 @@
             android:name="selectedCurrency"
             app:argType="string"
             android:defaultValue="USD" />
+        <action
+            android:id="@+id/action_portfolioFragment_to_portfolioDetailsFragment"
+            app:destination="@id/portfolioDetailsFragment" />
 
     </fragment>
     <fragment
@@ -105,6 +108,15 @@
 
         <action
             android:id="@+id/action_currencyChangeFragment_to_portfolioFragment"
+            app:destination="@id/portfolioFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/portfolioDetailsFragment"
+        android:name="com.example.csgocaseswatcherapp.presentation.view.fragments.portfoliodetails.PortfolioDetailsFragment"
+        android:label="fragment_portfolio_details"
+        tools:layout="@layout/fragment_portfolio_details" >
+        <action
+            android:id="@+id/action_portfolioDetailsFragment_to_portfolioFragment"
             app:destination="@id/portfolioFragment" />
     </fragment>
 </navigation>
