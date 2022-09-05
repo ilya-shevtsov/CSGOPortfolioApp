@@ -70,10 +70,6 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
                 viewModel.handleAction(PortfolioViewAction.OnCaseAdded(addedCase))
             }
 
-            homeButton.setOnClickListener {
-                findNavController().navigate(R.id.startFragment)
-            }
-
             addCaseButton.setOnClickListener {
                 viewModel.handleAction(PortfolioViewAction.OnAddCaseClicked)
             }

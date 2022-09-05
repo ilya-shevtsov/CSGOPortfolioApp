@@ -4,165 +4,99 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="12dp"
+    android:layout_marginTop="12dp">
 
     <View
-        android:id="@+id/topLine"
-        android:layout_width="match_parent"
-
-        android:layout_height="1dp"
-        android:background="@color/black"
-        app:layout_constraintBottom_toTopOf="@id/startLine"
-        app:layout_constraintEnd_toStartOf="@id/endLine"
-        app:layout_constraintStart_toStartOf="@id/startLine"
+        android:id="@+id/container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/item_case_portfolio_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:id="@+id/bottomLine"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/startLine"
-        app:layout_constraintEnd_toStartOf="@id/endLine"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.65" />
 
-    <View
-        android:id="@+id/startLine"
-        android:layout_width="2dp"
-        android:layout_height="60dp"
-        android:background="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/bottomLine"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topLine" />
-
-    <View
-        android:id="@+id/endLine"
-        android:layout_width="2dp"
-        android:layout_height="60dp"
-        android:background="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/bottomLine"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/topLine" />
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/caseImageView"
-        android:layout_width="70dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toTopOf="@id/bottomLine"
-        app:layout_constraintEnd_toStartOf="@id/caseNameTextView"
-        app:layout_constraintStart_toStartOf="@id/startLine"
-        app:layout_constraintTop_toBottomOf="@+id/topLine"
-        fresco:actualImageScaleType="fitCenter"
-        tools:background="@color/black" />
+        android:layout_width="85dp"
+        android:layout_height="66dp"
+        android:layout_marginVertical="12dp"
+        android:layout_marginStart="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@drawable/d_chroma_case" />
 
     <TextView
         android:id="@+id/caseNameTextView"
-        android:layout_width="80dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:textColor="@color/black"
-        android:textSize="11sp"
+        android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/bottomLine"
+        app:layout_constraintBottom_toTopOf="@id/caseAmount"
+        app:layout_constraintEnd_toStartOf="@id/guideline"
         app:layout_constraintStart_toEndOf="@id/caseImageView"
-        app:layout_constraintTop_toBottomOf="@id/topLine"
-        tools:text="%s" />
-
-    <View
-        android:id="@+id/startAmountLine"
-        android:layout_width="2dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="8dp"
-        android:background="@color/black"
-        app:layout_constraintBottom_toTopOf="@id/bottomLine"
-        app:layout_constraintStart_toEndOf="@id/caseNameTextView"
-        app:layout_constraintTop_toBottomOf="@id/topLine" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="Operation Breakout Weapon Case" />
 
     <TextView
         android:id="@+id/caseAmount"
-        android:layout_width="50dp"
-        android:layout_height="35dp"
-        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:textSize="11sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/bottomLine"
-        app:layout_constraintStart_toEndOf="@id/startAmountLine"
-        app:layout_constraintTop_toBottomOf="@id/topLine"
-        tools:text="%s" />
-
-    <View
-        android:id="@+id/startPriceLine"
-        android:layout_width="2dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="8dp"
-        android:background="@color/black"
-        app:layout_constraintBottom_toTopOf="@id/bottomLine"
-        app:layout_constraintStart_toEndOf="@id/caseAmount"
-        app:layout_constraintTop_toBottomOf="@id/topLine" />
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/caseNameTextView"
+        app:layout_constraintTop_toBottomOf="@id/caseNameTextView"
+        tools:text="255 Cases" />
 
     <TextView
         android:id="@+id/casePrice"
-        android:layout_width="50dp"
-        android:layout_height="35dp"
-        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
         android:textColor="@color/black"
-        android:textSize="11sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/bottomLine"
-        app:layout_constraintStart_toEndOf="@id/startPriceLine"
-        app:layout_constraintTop_toTopOf="@id/topLine"
-        tools:text="%s" />
-
-    <View
-        android:id="@+id/startOverallValueLine"
-        android:layout_width="2dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="8dp"
-        android:background="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/bottomLine"
-        app:layout_constraintStart_toEndOf="@id/casePrice"
-        app:layout_constraintTop_toTopOf="@id/topLine" />
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/caseAmount"
+        app:layout_constraintStart_toEndOf="@id/caseAmount"
+        tools:text="• 16.88 $" />
 
     <TextView
         android:id="@+id/caseOverallValue"
-        android:layout_width="50dp"
-        android:layout_height="35dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
         android:gravity="center"
         android:textColor="@color/black"
-        android:textSize="11sp"
+        android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/bottomLine"
-        app:layout_constraintStart_toEndOf="@id/startOverallValueLine"
-        app:layout_constraintTop_toTopOf="@id/topLine"
-        tools:text="%s" />
-
-    <View
-        android:id="@+id/startProfitLossLine"
-        android:layout_width="2dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="8dp"
-        android:background="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/bottomLine"
-        app:layout_constraintStart_toEndOf="@id/caseOverallValue"
-        app:layout_constraintTop_toTopOf="@id/topLine" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/caseNameTextView"
+        tools:text="50.64 $" />
 
     <TextView
         android:id="@+id/caseProfitLoss"
-        android:layout_width="50dp"
-        android:layout_height="35dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="@color/black"
-        android:textSize="11sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/bottomLine"
-        app:layout_constraintEnd_toStartOf="@id/endLine"
-        app:layout_constraintStart_toEndOf="@id/startProfitLossLine"
-        app:layout_constraintTop_toTopOf="@id/topLine"
-        tools:text="%s" />
-
-
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/casePrice"
+        app:layout_constraintEnd_toEndOf="@id/caseOverallValue"
+        app:layout_constraintTop_toTopOf="@id/casePrice"
+        tools:text="-2.9 $ (1.75 %)" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

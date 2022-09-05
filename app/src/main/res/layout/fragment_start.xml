@@ -10,35 +10,29 @@
         android:id="@+id/currencyChangeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="4dp"
         android:background="@drawable/button_background"
         android:padding="8dp"
         android:textAllCaps="false"
-        android:textSize="14sp"
         android:textColor="@color/white"
-        android:layout_margin="4dp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/backgroundCyrcle"
-        android:layout_width="138dp"
-        android:layout_height="138dp"
-        android:layout_marginEnd="304dp"
-        android:src="@drawable/ic_backgroundcyrcle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/backgroundCircle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_backgroundcircle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/backgroundCircleTwo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_backgroundcircletwo"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <ImageView
-        android:id="@+id/backgroundCyrcleTwo"
-        android:layout_width="143dp"
-        android:layout_height="155dp"
-        android:layout_marginBottom="612dp"
-        android:src="@drawable/ic_backgroundcyrcletwo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
@@ -69,53 +63,33 @@
         app:layout_constraintVertical_bias="0.15" />
 
     <Button
+        style="@style/mainMenuButton"
         android:id="@+id/caseOverviewButton"
-        app:layout_constraintVertical_chainStyle="packed"
-        android:layout_width="280dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/button_background"
         android:text="@string/front_page_case_overview_button"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@id/caseAnalyticsButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/frontPageTextSlogan" />
+        app:layout_constraintTop_toTopOf="@+id/frontPageTextSlogan"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
+        style="@style/mainMenuButton"
         android:id="@+id/caseAnalyticsButton"
-        android:layout_width="280dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/button_background"
         android:text="@string/front_page_analytics_button"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@id/casePortfolioButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/caseOverviewButton" />
 
     <Button
+        style="@style/mainMenuButton"
         android:id="@+id/casePortfolioButton"
-        android:layout_width="280dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/button_background"
         android:text="@string/front_page_portfolio_button"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintVertical_bias="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/caseAnalyticsButton" />
+        app:layout_constraintTop_toBottomOf="@+id/caseAnalyticsButton"
+        app:layout_constraintVertical_bias="0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
