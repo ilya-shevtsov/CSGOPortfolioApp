@@ -71,14 +71,7 @@ class PortfolioDetailsFragment : Fragment(R.layout.fragment_portfolio_details) {
                 binding.loadingView.root.isVisible = false
                 binding.barChartPortfolioValue.description.isEnabled = false
                 binding.barChartPortfolioValue.legend.isEnabled = false
-
-                val listOfBarEntries = listOf(
-                    BarEntry(1f, 2f),
-                    BarEntry(2f, 4f),
-                    BarEntry(3f, 6f),
-                )
-
-
+                
                 val newDataList = listOf(
                     BarEntry(1f, 129f),
                     BarEntry(2f, 164f),
