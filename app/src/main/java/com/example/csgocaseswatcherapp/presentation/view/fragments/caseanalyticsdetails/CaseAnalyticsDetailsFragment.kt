@@ -16,6 +16,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.core.CaseWatcherApplication
 import com.example.csgocaseswatcherapp.databinding.FragmentCaseAnalyticsDetailsBinding
+import com.facebook.drawee.drawable.Rounded
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -57,46 +58,47 @@ class CaseAnalyticsDetailsFragment : Fragment(R.layout.fragment_case_analytics_d
             is CaseAnalyticsDetailsViewState.Loading -> binding.loadingView.root.isVisible = true
             is CaseAnalyticsDetailsViewState.Content -> {
                 with(binding) {
-                    with(uiState) {
-                        caseNameTextView.text = caseAnalyticsModel.caseName
+                    with(uiState.caseAnalyticsModel) {
+                        caseNameTextView.text = caseName
+                        caseImageView.setImageURI(imageUrl)
                         dailyAvgReturnInPercentDetails.text =
                             getString(
                                 R.string.daily_avg_return_in_percent,
-                                caseAnalyticsModel.dailyAvgReturnInPercent.toString()
+                                dailyAvgReturnInPercent.toString()
                             )
                         dailyAvgReturnInRubDetails.text =
                             getString(
                                 R.string.daily_avg_return_in_rub,
-                                caseAnalyticsModel.dailyAvgReturnInRUB.toString()
+                                dailyAvgReturnInRUB.toString()
                             )
                         dailyStandardDeviationDetails.text =
                             getString(
                                 R.string.daily_standard_deviation,
-                                caseAnalyticsModel.dailyStandardDeviation.toString()
+                                dailyStandardDeviation.toString()
                             )
                         dailySharpRatioDetails.text =
                             getString(
                                 R.string.daily_sharp_ratio,
-                                caseAnalyticsModel.dailySharpRatio.toString()
+                                dailySharpRatio.toString()
                             )
                         monthlyAvgReturnInPercentDetails.text = getString(
                             R.string.monthly_avg_return_in_percent,
-                            caseAnalyticsModel.monthlyAvgReturnInPercent.toString()
+                            monthlyAvgReturnInPercent.toString()
                         )
                         monthlyAvgReturnInRubDetails.text =
                             getString(
                                 R.string.monthly_avg_return_in_rub,
-                                caseAnalyticsModel.monthlyAvgReturnInRUB.toString()
+                                monthlyAvgReturnInRUB.toString()
                             )
                         monthlyStandardDeviationDetails.text =
                             getString(
                                 R.string.monthly_standard_deviation,
-                                caseAnalyticsModel.monthlyStandardDeviation.toString()
+                               monthlyStandardDeviation.toString()
                             )
                         monthlySharpRatioDetails.text =
                             getString(
                                 R.string.monthly_sharp_ratio,
-                                caseAnalyticsModel.monthlySharpRatio.toString()
+                                monthlySharpRatio.toString()
                             )
                     }
                 }
