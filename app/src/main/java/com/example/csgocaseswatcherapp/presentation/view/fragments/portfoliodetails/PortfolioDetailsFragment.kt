@@ -11,13 +11,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.databinding.FragmentPortfolioDetailsBinding
-import com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio.PortfolioViewModel
 import com.github.mikephil.charting.animation.Easing
-import com.github.mikephil.charting.data.*
-import com.github.mikephil.charting.formatter.PercentFormatter
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.utils.ColorTemplate
 import kotlinx.coroutines.launch
 
@@ -51,7 +50,6 @@ class PortfolioDetailsFragment : Fragment(R.layout.fragment_portfolio_details) {
             }
 
 
-
 //            lifecycleScope.launch {
 //                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
 //                    viewModel.uiEvent.collect { uiEvent ->
@@ -75,11 +73,35 @@ class PortfolioDetailsFragment : Fragment(R.layout.fragment_portfolio_details) {
                 binding.barChartPortfolioValue.legend.isEnabled = false
 
                 val listOfBarEntries = listOf(
-                    BarEntry(1f,2f),
-                    BarEntry(2f,4f),
-                    BarEntry(3f,6f),
-                    )
+                    BarEntry(1f, 2f),
+                    BarEntry(2f, 4f),
+                    BarEntry(3f, 6f),
+                )
 
+
+                val newDataList = listOf(
+                    BarEntry(1f, 129f),
+                    BarEntry(2f, 164f),
+                    BarEntry(3f, 225f),
+                    BarEntry(4f, 236f),
+                    BarEntry(5f, 334f),
+                    BarEntry(6f, 479f),
+                    BarEntry(7f, 429f),
+                    BarEntry(8f,424f),
+                    BarEntry(9f, 448f),
+                    BarEntry(10f, 335f),
+                    BarEntry(11f, 315f),
+                    BarEntry(12f, 322f),
+                    BarEntry(13f, 414f),
+                    BarEntry(14f, 458f),
+                    BarEntry(15f, 509f),
+                    BarEntry(16f, 546f),
+                    BarEntry(17f, 668f),
+                    BarEntry(18f, 741f),
+                    BarEntry(19f, 685f),
+                    BarEntry(20f, 840f),
+                    BarEntry(21f, 834f),
+                )
 
                 val colors = arrayListOf<Int>()
                 for (color in ColorTemplate.MATERIAL_COLORS) {
@@ -89,7 +111,7 @@ class PortfolioDetailsFragment : Fragment(R.layout.fragment_portfolio_details) {
                     colors.add(color)
                 }
 
-                val dataSet = BarDataSet(listOfBarEntries, "Portfolio Value")
+                val dataSet = BarDataSet(newDataList, "Portfolio Value")
                 dataSet.colors = colors
 
                 val data = BarData(dataSet)
