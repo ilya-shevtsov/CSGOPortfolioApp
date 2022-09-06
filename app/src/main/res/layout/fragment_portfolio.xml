@@ -64,6 +64,8 @@
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/detailsButton"
         android:layout_width="0dp"
+        android:layout_marginVertical="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/primaryColor"
         android:clickable="true"
@@ -74,9 +76,9 @@
         android:textSize="11sp"
         app:icon="@drawable/ic_details"
         app:iconTint="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/caseNameHeader"
-        app:layout_constraintEnd_toStartOf="@id/buttonSorting"
+        app:layout_constraintBottom_toTopOf="@id/itemCaseRecyclerView"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/buttonSorting"
         app:layout_constraintTop_toBottomOf="@id/barChartPortfolioValue" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -86,6 +88,7 @@
         android:backgroundTint="@color/primaryColor"
         android:clickable="true"
         android:gravity="center"
+        android:layout_marginEnd="8dp"
         android:text="Sorting"
         android:textAllCaps="false"
         android:textColor="@color/white"
@@ -98,54 +101,7 @@
         app:layout_constraintTop_toTopOf="@id/detailsButton" />
 
 
-    <Button
-        android:id="@+id/caseNameHeader"
-        style="@style/portfolioHeaderButton"
-        android:text="@string/case_portfolio_header_case"
-        app:layout_constraintBottom_toTopOf="@id/itemCaseRecyclerView"
-        app:layout_constraintEnd_toStartOf="@id/caseAmountHeader"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/detailsButton" />
 
-
-    <Button
-        android:id="@+id/caseAmountHeader"
-        style="@style/portfolioHeaderButton"
-        android:text="@string/case_portfolio_header_amount"
-        app:layout_constraintBottom_toBottomOf="@id/caseNameHeader"
-        app:layout_constraintEnd_toStartOf="@id/casePriceHeader"
-        app:layout_constraintStart_toEndOf="@id/caseNameHeader"
-        app:layout_constraintTop_toTopOf="@id/caseNameHeader" />
-
-
-    <Button
-        android:id="@+id/casePriceHeader"
-        style="@style/portfolioHeaderButton"
-        android:text="@string/case_portfolio_header_price"
-        app:layout_constraintBottom_toBottomOf="@id/caseNameHeader"
-        app:layout_constraintEnd_toStartOf="@id/caseOverallValueHeader"
-        app:layout_constraintStart_toEndOf="@id/caseAmountHeader"
-        app:layout_constraintTop_toTopOf="@id/caseNameHeader" />
-
-
-    <Button
-        android:id="@+id/caseOverallValueHeader"
-        style="@style/portfolioHeaderButton"
-        android:text="@string/case_portfolio_header_overall_value"
-        app:layout_constraintBottom_toBottomOf="@id/caseNameHeader"
-        app:layout_constraintEnd_toStartOf="@id/caseProfitLossHeader"
-        app:layout_constraintStart_toEndOf="@id/casePriceHeader"
-        app:layout_constraintTop_toTopOf="@id/caseNameHeader" />
-
-
-    <Button
-        android:id="@+id/caseProfitLossHeader"
-        style="@style/portfolioHeaderButton"
-        android:text="@string/case_portfolio_header_profit_loss"
-        app:layout_constraintBottom_toBottomOf="@id/caseNameHeader"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/caseOverallValueHeader"
-        app:layout_constraintTop_toTopOf="@id/caseNameHeader" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/itemCaseRecyclerView"
@@ -155,7 +111,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/caseNameHeader"
+        app:layout_constraintTop_toBottomOf="@+id/detailsButton"
         tools:listitem="@layout/item_case_portfolio" />
 
     <com.github.mikephil.charting.charts.BarChart
