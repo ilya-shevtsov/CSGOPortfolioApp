@@ -49,6 +49,42 @@ class SortingBottomSheetFragment : BottomSheetDialogFragment() {
                     )
                 )
             }
+
+            sortByAmount.setOnClickListener {
+                val sortingMethod = SortingMethod.byAmount
+                viewModel.handleAction(
+                    SortingBottomSheetFragmentViewAction.OnSortingMethodSelected(
+                        sortingMethod
+                    )
+                )
+            }
+
+            sortByPrice.setOnClickListener {
+                val sortingMethod = SortingMethod.byPrice
+                viewModel.handleAction(
+                    SortingBottomSheetFragmentViewAction.OnSortingMethodSelected(
+                        sortingMethod
+                    )
+                )
+            }
+
+            sortByOverallValue.setOnClickListener {
+                val sortingMethod = SortingMethod.byOverallValue
+                viewModel.handleAction(
+                    SortingBottomSheetFragmentViewAction.OnSortingMethodSelected(
+                        sortingMethod
+                    )
+                )
+            }
+
+            sortByProfitLoss.setOnClickListener {
+                val sortingMethod = SortingMethod.byPorfitLoss
+                viewModel.handleAction(
+                    SortingBottomSheetFragmentViewAction.OnSortingMethodSelected(
+                        sortingMethod
+                    )
+                )
+            }
         }
     }
 
