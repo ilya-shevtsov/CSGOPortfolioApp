@@ -99,15 +99,16 @@ class AddCaseFragment : Fragment(R.layout.fragment_add_case) {
                 caseNameList
             )
 
-            addCaseCaseName.threshold = 1
+            addCaseName.threshold = 1
 
-            addCaseCaseName.setAdapter(caseNameArrayAdapter)
+            addCaseName.setAdapter(caseNameArrayAdapter)
+
 
             addCaseButton.setOnClickListener {
                 val addedCase = AddedCaseModel(
-                    name = addCaseCaseName.text.toString(),
-                    amount = addCaseCaseAmount.text.toString().toInt(),
-                    purchasePrice = addCaseCasePurchasePrice.text.toString().toDouble()
+                    name = addCaseName.text.toString(),
+                    amount = addCaseAmount.text.toString().toInt(),
+                    purchasePrice = addCasePurchasePrice.text.toString().toDouble()
                 )
                 viewModel.handleAction(AddCaseViewAction.OnCaseAddedClicked(addedCase))
             }
