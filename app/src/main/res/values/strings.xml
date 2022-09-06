@@ -31,7 +31,7 @@
     <string name="average_price">• %s $</string>
     <string name="overall_value">%s $</string>
     <string name="profit_loss">%s $ (1.75 \%%)</string>
-<!--    (1.75 character \u0025)-->
+    <!--    (1.75 character \u0025)-->
 
 
     // Add Case

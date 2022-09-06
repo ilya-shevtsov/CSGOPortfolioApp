@@ -50,6 +50,12 @@
             android:name="selectedCurrency"
             app:argType="string"
             android:defaultValue="USD" />
+        <action
+            android:id="@+id/action_portfolioFragment_to_portfolioDetailsFragment"
+            app:destination="@id/portfolioDetailsFragment" />
+        <action
+            android:id="@+id/action_portfolioFragment_to_sortingBottomSheetFragment"
+            app:destination="@id/sortingBottomSheetFragment" />
 
     </fragment>
     <fragment
@@ -90,7 +96,7 @@
     </fragment>
     <fragment
         android:id="@+id/addCaseFragment"
-        android:name="com.example.csgocaseswatcherapp.presentation.view.fragments.addCaseFragment.AddCaseFragment"
+        android:name="com.example.csgocaseswatcherapp.presentation.view.fragments.addcasefragment.AddCaseFragment"
         android:label="Add Case"
         tools:layout="@layout/fragment_add_case">
         <action
@@ -107,4 +113,22 @@
             android:id="@+id/action_currencyChangeFragment_to_portfolioFragment"
             app:destination="@id/portfolioFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/portfolioDetailsFragment"
+        android:name="com.example.csgocaseswatcherapp.presentation.view.fragments.portfoliodetails.PortfolioDetailsFragment"
+        android:label="fragment_portfolio_details"
+        tools:layout="@layout/fragment_portfolio_details" >
+        <action
+            android:id="@+id/action_portfolioDetailsFragment_to_portfolioFragment"
+            app:destination="@id/portfolioFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/sortingBottomSheetFragment"
+        android:name="com.example.csgocaseswatcherapp.presentation.view.fragments.sortingbottomsheetfragment.SortingBottomSheetFragment"
+        android:label="fragment_sorting_bottom_sheet"
+        tools:layout="@layout/fragment_sorting_bottom_sheet" >
+        <action
+            android:id="@+id/action_sortingBottomSheetFragment_to_portfolioFragment"
+            app:destination="@id/portfolioFragment" />
+    </dialog>
 </navigation>

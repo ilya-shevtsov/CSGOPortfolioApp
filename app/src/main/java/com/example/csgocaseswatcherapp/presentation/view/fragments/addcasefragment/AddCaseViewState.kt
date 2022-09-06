@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.presentation.view.fragments.addCaseFragment
+package com.example.csgocaseswatcherapp.presentation.view.fragments.addcasefragment
 
 import com.example.csgocaseswatcherapp.presentation.model.addcaseitem.AddedCaseModel
 
