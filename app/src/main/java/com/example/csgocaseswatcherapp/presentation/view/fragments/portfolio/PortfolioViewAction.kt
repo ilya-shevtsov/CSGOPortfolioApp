@@ -1,6 +1,7 @@
 package com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio
 
 import com.example.csgocaseswatcherapp.presentation.model.addcaseitem.AddedCaseModel
+import com.example.csgocaseswatcherapp.presentation.view.fragments.sortingbottomsheetfragment.SortingMethod
 
 sealed class PortfolioViewAction {
 
@@ -8,16 +9,12 @@ sealed class PortfolioViewAction {
         val addedCase: AddedCaseModel
     ) : PortfolioViewAction()
 
+    data class OnSortingMethodSelected(
+        val sortingMethod:SortingMethod
+    ): PortfolioViewAction()
+
     object OnAddCaseClicked : PortfolioViewAction()
 
-    object OnCaseNameSortClicked : PortfolioViewAction()
-
-    object OnCaseAmountClicked : PortfolioViewAction()
-
-    object OnCasePriceClicked : PortfolioViewAction()
-
-    object OnCaseOverallValueClicked : PortfolioViewAction()
-
-    object OnCaseProfitLossClicked : PortfolioViewAction()
+    object OnSortClicked : PortfolioViewAction()
 
 }
