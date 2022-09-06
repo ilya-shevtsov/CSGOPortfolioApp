@@ -104,6 +104,7 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
                 binding.loadingView.root.isVisible = false
                 caseListAdapter.update(uiState.portfolioItemList)
                 binding.itemCaseRecyclerView.isVisible = true
+                binding.itemCaseRecyclerView.smoothScrollToPosition(0)
 
                 // Bar Chart
 
