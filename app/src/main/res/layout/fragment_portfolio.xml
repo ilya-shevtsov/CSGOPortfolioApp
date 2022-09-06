@@ -27,7 +27,7 @@
         android:gravity="center_vertical"
         android:text="@string/portfolio_total_value"
         android:textColor="@color/black"
-        android:textSize="23sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/bottomLine"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,29 +44,58 @@
         app:layout_constraintStart_toStartOf="parent" />
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/addCaseButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:backgroundTint="@color/primaryColor"
-        android:contentDescription="Add Case"
-        android:src="@drawable/ic_plus"
+        android:clickable="true"
+        android:text="Add Case"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        app:icon="@drawable/ic_plus"
+        app:iconTint="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/detailsButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/buttonSorting"
         app:layout_constraintTop_toTopOf="@id/detailsButton" />
 
-    <Button
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/detailsButton"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/primaryColor"
+        android:clickable="true"
         android:gravity="center"
-        android:textAllCaps="false"
         android:text="Portfolio Details"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        app:icon="@drawable/ic_details"
+        app:iconTint="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/caseNameHeader"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/buttonSorting"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/barChartPortfolioValue" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/buttonSorting"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:backgroundTint="@color/primaryColor"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="Sorting"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        app:icon="@drawable/ic_sort"
+        app:iconTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/detailsButton"
+        app:layout_constraintEnd_toStartOf="@id/addCaseButton"
+        app:layout_constraintStart_toEndOf="@id/detailsButton"
+        app:layout_constraintTop_toTopOf="@id/detailsButton" />
 
 
     <Button
@@ -132,20 +161,11 @@
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/barChartPortfolioValue"
         android:layout_width="0dp"
-        android:layout_height="320dp"
+        android:layout_height="280dp"
         android:layout_margin="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bottomLine" />
-
-<!--    <com.github.mikephil.charting.charts.PieChart-->
-<!--        android:id="@+id/pieChartPortfolioValue"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="320dp"-->
-<!--        android:layout_margin="4dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/bottomLine" />-->
 
     <include
         android:id="@+id/errorView"

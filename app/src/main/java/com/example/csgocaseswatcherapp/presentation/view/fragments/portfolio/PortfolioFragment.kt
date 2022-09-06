@@ -96,6 +96,10 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
             caseProfitLossHeader.setOnClickListener {
                 viewModel.handleAction(PortfolioViewAction.OnCaseProfitLossClicked)
             }
+
+            buttonSorting.setOnClickListener {
+                findNavController().navigate(R.id.sortingBottomSheetFragment)
+            }
         }
     }
 
@@ -114,7 +118,7 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
                 caseListAdapter.update(uiState.portfolioItemList)
                 binding.itemCaseRecyclerView.isVisible = true
 
-                /////
+                // Bar Chart
 
                 binding.barChartPortfolioValue.description.isEnabled = false
                 binding.barChartPortfolioValue.legend.isEnabled = false
@@ -143,16 +147,8 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
                     BarEntry(21f, 834f),
                 )
 
-                val colors = arrayListOf<Int>()
-                for (color in ColorTemplate.MATERIAL_COLORS) {
-                    colors.add(color)
-                }
-                for (color in ColorTemplate.VORDIPLOM_COLORS) {
-                    colors.add(color)
-                }
-
                 val dataSet = BarDataSet(newDataList, "Portfolio Value")
-                dataSet.colors = colors
+                dataSet.color = Color.parseColor("#2FA1BA")
 
                 val data = BarData(dataSet)
                 data.setDrawValues(true)
