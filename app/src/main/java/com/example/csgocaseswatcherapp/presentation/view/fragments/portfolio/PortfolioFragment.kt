@@ -48,7 +48,7 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
             binding.barChartPortfolioValue
 
             itemCaseRecyclerView.adapter = caseListAdapter
-            
+
 
             lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
