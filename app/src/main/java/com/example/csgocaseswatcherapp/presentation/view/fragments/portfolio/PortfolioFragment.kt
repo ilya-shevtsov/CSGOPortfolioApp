@@ -16,10 +16,11 @@ import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.databinding.FragmentPortfolioBinding
 import com.example.csgocaseswatcherapp.presentation.model.addcaseitem.AddedCaseModel
+import com.example.csgocaseswatcherapp.presentation.view.fragments.sortingbottomsheetfragment.SortingMethod
 import com.github.mikephil.charting.animation.Easing
-import com.github.mikephil.charting.data.*
-import com.github.mikephil.charting.formatter.PercentFormatter
-import com.github.mikephil.charting.utils.ColorTemplate
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
 import com.xwray.groupie.GroupieAdapter
 import kotlinx.coroutines.launch
 
@@ -48,6 +49,7 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
 
             itemCaseRecyclerView.adapter = caseListAdapter
 
+
             lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                     viewModel.uiState.collect { uiState ->
@@ -69,6 +71,11 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
                 viewModel.handleAction(PortfolioViewAction.OnCaseAdded(addedCase))
             }
 
+            setFragmentResultListener("sortingMethod") { _, bundle ->
+                val sortingMethod = bundle.getSerializable("sortingMethod") as SortingMethod
+                viewModel.handleAction(PortfolioViewAction.OnSortingMethodSelected(sortingMethod))
+            }
+
             detailsButton.setOnClickListener {
                 findNavController().navigate(R.id.portfolioDetailsFragment)
             }
@@ -77,28 +84,8 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
                 viewModel.handleAction(PortfolioViewAction.OnAddCaseClicked)
             }
 
-            caseNameHeader.setOnClickListener {
-                viewModel.handleAction(PortfolioViewAction.OnCaseNameSortClicked)
-            }
-
-            caseAmountHeader.setOnClickListener {
-                viewModel.handleAction(PortfolioViewAction.OnCaseAmountClicked)
-            }
-
-            casePriceHeader.setOnClickListener {
-                viewModel.handleAction(PortfolioViewAction.OnCasePriceClicked)
-            }
-
-            caseOverallValueHeader.setOnClickListener {
-                viewModel.handleAction(PortfolioViewAction.OnCaseOverallValueClicked)
-            }
-
-            caseProfitLossHeader.setOnClickListener {
-                viewModel.handleAction(PortfolioViewAction.OnCaseProfitLossClicked)
-            }
-
             buttonSorting.setOnClickListener {
-                findNavController().navigate(R.id.sortingBottomSheetFragment)
+                viewModel.handleAction(PortfolioViewAction.OnSortClicked)
             }
         }
     }
@@ -111,15 +98,16 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
                 binding.errorView.root.isVisible = true
             }
             is PortfolioViewState.Content -> {
+                // Main
                 binding.totalValue.text = binding.root.context.getString(
                     R.string.portfolio_total_value, uiState.totalPortfolioValue.toString()
                 )
                 binding.loadingView.root.isVisible = false
                 caseListAdapter.update(uiState.portfolioItemList)
                 binding.itemCaseRecyclerView.isVisible = true
+                binding.itemCaseRecyclerView.smoothScrollToPosition(0)
 
                 // Bar Chart
-
                 binding.barChartPortfolioValue.description.isEnabled = false
                 binding.barChartPortfolioValue.legend.isEnabled = false
 
@@ -131,7 +119,7 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
                     BarEntry(5f, 334f),
                     BarEntry(6f, 479f),
                     BarEntry(7f, 429f),
-                    BarEntry(8f,424f),
+                    BarEntry(8f, 424f),
                     BarEntry(9f, 448f),
                     BarEntry(10f, 335f),
                     BarEntry(11f, 315f),
@@ -196,6 +184,7 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
     private fun handleEvent(uiEvent: PortfolioViewEvent) {
         when (uiEvent) {
             PortfolioViewEvent.NavigateToAddCase -> findNavController().navigate(R.id.addCaseFragment)
+            PortfolioViewEvent.NavigateToSorting -> findNavController().navigate(R.id.sortingBottomSheetFragment)
         }
     }
 }
