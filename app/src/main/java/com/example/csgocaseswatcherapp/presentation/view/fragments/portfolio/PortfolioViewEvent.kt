@@ -4,4 +4,6 @@ sealed class PortfolioViewEvent {
 
     object NavigateToAddCase : PortfolioViewEvent()
 
+//    object NavigateToSortBottomSheetFragment : PortfolioViewEvent()
+
 }

@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.presentation.view.fragments.addCaseFragment
+package com.example.csgocaseswatcherapp.presentation.view.fragments.addcasefragment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

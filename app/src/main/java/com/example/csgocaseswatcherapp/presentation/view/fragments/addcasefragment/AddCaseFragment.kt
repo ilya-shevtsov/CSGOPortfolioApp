@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.presentation.view.fragments.addCaseFragment
+package com.example.csgocaseswatcherapp.presentation.view.fragments.addcasefragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
