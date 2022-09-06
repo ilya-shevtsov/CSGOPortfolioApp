@@ -9,24 +9,24 @@
     android:background="@color/backgroundColor"
     tools:context=".presentation.view.fragments.sortingbottomsheetfragment.SortingBottomSheetFragment">
 
-    <TextView
-        android:id="@+id/sortingHeader"
+    <Button
+        android:id="@+id/sortingButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
         android:text="Sort"
-        android:textSize="28sp"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/sortByNameButton"
+        android:id="@+id/sortByName"
         style="@style/sortingButton"
         android:text="By Name"
         app:layout_constraintBottom_toTopOf="@id/sortByAmount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sortingHeader" />
+        app:layout_constraintTop_toBottomOf="@id/sortingButton" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/sortByAmount"
@@ -34,7 +34,7 @@
         android:text="By Amount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sortByNameButton" />
+        app:layout_constraintTop_toBottomOf="@id/sortByName" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/sortByPrice"
