@@ -6,17 +6,9 @@
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
     android:id="@+id/portfolioDetailsFragment"
-    tools:context=".presentation.view.fragments.portfoliodetails.PortfolioDetailsFragment">
+    tools:context=".presentation.view.fragments.portfoliodetails.PortfolioDetailsFragment"
+    >
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/barChartPortfolioValue"
-        android:layout_width="0dp"
-        android:layout_height="320dp"
-        android:layout_margin="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <include
         android:id="@+id/errorView"
