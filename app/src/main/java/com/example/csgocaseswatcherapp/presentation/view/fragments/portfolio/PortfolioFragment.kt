@@ -98,6 +98,7 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
                 binding.errorView.root.isVisible = true
             }
             is PortfolioViewState.Content -> {
+                // Main
                 binding.totalValue.text = binding.root.context.getString(
                     R.string.portfolio_total_value, uiState.totalPortfolioValue.toString()
                 )
@@ -107,7 +108,6 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
                 binding.itemCaseRecyclerView.smoothScrollToPosition(0)
 
                 // Bar Chart
-
                 binding.barChartPortfolioValue.description.isEnabled = false
                 binding.barChartPortfolioValue.legend.isEnabled = false
 
