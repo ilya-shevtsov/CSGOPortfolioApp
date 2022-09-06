@@ -33,9 +33,11 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayoutAmount"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:counterTextColor="@color/ErrorColor"
         app:layout_constraintVertical_chainStyle="packed">
 
         <com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -46,7 +48,8 @@
             android:layout_marginBottom="12dp"
             android:hint="Case Name"
             android:inputType="text"
-            android:padding="12dp" />
+            android:padding="12dp"
+            android:textSize="20sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -55,11 +58,11 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
         app:layout_constraintBottom_toTopOf="@id/textInputLayoutPrice"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textInputLayoutName"
-
-        >
+        app:layout_constraintEnd_toEndOf="@id/textInputLayoutName"
+        app:layout_constraintStart_toStartOf="@id/textInputLayoutName"
+        app:layout_constraintTop_toBottomOf="@id/textInputLayoutName">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/addCaseAmount"
@@ -68,7 +71,8 @@
             android:layout_marginBottom="12dp"
             android:hint="Amount of cases"
             android:inputType="number"
-            android:padding="12dp" />
+            android:padding="12dp"
+            android:textSize="20sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -77,8 +81,10 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/textInputLayoutAmount"
+        app:layout_constraintStart_toStartOf="@id/textInputLayoutAmount"
         app:layout_constraintTop_toBottomOf="@id/textInputLayoutAmount">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -88,7 +94,8 @@
             android:layout_marginBottom="12dp"
             android:hint="Purchase price"
             android:inputType="number"
-            android:padding="12dp" />
+            android:padding="12dp"
+            android:textSize="20sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
