@@ -8,8 +8,8 @@ object PortfolioItemMapper {
 
     //PlaceHolder caseProfitLoss (right now is just from purchase price)
 
-    fun map(addedCaseItem: AddedCaseModel): PortfolioGroupieItem {
-        return PortfolioGroupieItem(
+    fun map(addedCaseItem: AddedCaseModel): PortfolioCaseItem {
+        return PortfolioCaseItem(
             caseImage = getCaseImage(addedCaseItem.name),
             caseName = addedCaseItem.name,
             caseAmount = addedCaseItem.amount,

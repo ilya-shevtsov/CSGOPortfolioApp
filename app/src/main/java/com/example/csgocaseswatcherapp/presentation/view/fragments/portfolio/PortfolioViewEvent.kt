@@ -6,4 +6,6 @@ sealed class PortfolioViewEvent {
 
     object NavigateToSorting : PortfolioViewEvent()
 
+    object NavigateToPortfolioDetails : PortfolioViewEvent()
+
 }
