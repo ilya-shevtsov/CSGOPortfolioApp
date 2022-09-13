@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.databinding.FragmentPortfolioBinding
 import com.example.csgocaseswatcherapp.presentation.model.addcaseitem.AddedCaseModel
+import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioGroupieItem
 import com.example.csgocaseswatcherapp.presentation.view.fragments.sortingbottomsheetfragment.SortingMethod
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.data.BarData
@@ -77,7 +78,7 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
             }
 
             detailsButton.setOnClickListener {
-                findNavController().navigate(R.id.portfolioDetailsFragment)
+                viewModel.handleAction(PortfolioViewAction.OnPortfolioDetailsClicked)
             }
 
             addCaseButton.setOnClickListener {
@@ -103,7 +104,7 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
                     R.string.portfolio_total_value, uiState.totalPortfolioValue.toString()
                 )
                 binding.loadingView.root.isVisible = false
-                caseListAdapter.update(uiState.portfolioItemList)
+                caseListAdapter.update(uiState.portfolioItemList.map(::PortfolioGroupieItem))
                 binding.itemCaseRecyclerView.isVisible = true
                 binding.itemCaseRecyclerView.smoothScrollToPosition(0)
 
@@ -146,37 +147,6 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
                 binding.barChartPortfolioValue.data = data
                 binding.barChartPortfolioValue.invalidate()
                 binding.barChartPortfolioValue.animateY(1400, Easing.EaseInOutQuad)
-
-//                binding.pieChartPortfolioValue.isDrawHoleEnabled = true
-//                binding.pieChartPortfolioValue.setUsePercentValues(true)
-//                binding.pieChartPortfolioValue.setEntryLabelTextSize(10F)
-//                binding.pieChartPortfolioValue.setEntryLabelColor(Color.BLACK)
-//                binding.pieChartPortfolioValue.centerText = "Amount"
-//                binding.pieChartPortfolioValue.setCenterTextSize(24F)
-//                binding.pieChartPortfolioValue.description.isEnabled = false
-//                binding.pieChartPortfolioValue.legend.isEnabled = false
-//
-//
-//                val colors = arrayListOf<Int>()
-//                for (color in ColorTemplate.MATERIAL_COLORS) {
-//                    colors.add(color)
-//                }
-//                for (color in ColorTemplate.VORDIPLOM_COLORS) {
-//                    colors.add(color)
-//                }
-//
-//                val dataSet = PieDataSet(uiState.portfolioPietEntryList, "Cases by amount")
-//                dataSet.colors = colors
-//
-//                val data = PieData(dataSet)
-//                data.setDrawValues(true)
-//                data.setValueFormatter(PercentFormatter(binding.pieChartPortfolioValue))
-//                data.setValueTextSize(10f)
-//                data.setValueTextColor(Color.BLACK)
-//
-//                binding.pieChartPortfolioValue.data = data
-//                binding.pieChartPortfolioValue.invalidate()
-//                binding.pieChartPortfolioValue.animateY(1400, Easing.EaseInOutQuad)
             }
         }
     }
@@ -185,6 +155,8 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
         when (uiEvent) {
             PortfolioViewEvent.NavigateToAddCase -> findNavController().navigate(R.id.addCaseFragment)
             PortfolioViewEvent.NavigateToSorting -> findNavController().navigate(R.id.sortingBottomSheetFragment)
+            PortfolioViewEvent.NavigateToPortfolioDetails -> findNavController().navigate(R.id.portfolioDetailsFragment)
+
         }
     }
 }

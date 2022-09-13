@@ -7,7 +7,7 @@ import com.github.mikephil.charting.data.PieEntry
 sealed class PortfolioDetailsViewState {
 
     data class Content(
-        val portfolioValueList: List<PortfolioValueItem>,
+//        val portfolioValueList: List<PortfolioValueItem>,
         val portfolioPietEntryList: List<PieEntry>,
     ) : PortfolioDetailsViewState()
 
