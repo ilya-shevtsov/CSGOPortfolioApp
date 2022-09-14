@@ -43,45 +43,39 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/addCaseButton"
+    <View
+        android:id="@+id/optionButtonsContainer"
+        android:background="@drawable/item_case_portfolio_background"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:backgroundTint="@color/primaryColor"
-        android:clickable="true"
-        android:text="Add Case"
-        android:layout_marginEnd="8dp"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="11sp"
-        app:icon="@drawable/ic_plus"
-        app:iconTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="@id/detailsButton"
+        android:layout_height="65dp"
+        android:layout_marginHorizontal="12dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/buttonSorting"
-        app:layout_constraintTop_toTopOf="@id/detailsButton" />
+        app:layout_constraintBottom_toTopOf="@id/itemCaseRecyclerView"
+        app:layout_constraintTop_toBottomOf="@id/barChartPortfolioValue"
+        />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/detailsButton"
         android:layout_width="0dp"
         android:layout_marginVertical="8dp"
-        android:layout_marginEnd="2dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="6dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/primaryColor"
         android:clickable="true"
         android:gravity="center"
         android:text="Details"
         android:textAllCaps="false"
-        android:layout_marginStart="8dp"
+        app:iconPadding="2dp"
         android:textColor="@color/white"
         android:textSize="11sp"
         app:icon="@drawable/ic_details"
         app:iconTint="@color/white"
-        app:layout_constraintBottom_toTopOf="@id/itemCaseRecyclerView"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/optionButtonsContainer"
+        app:layout_constraintStart_toStartOf="@id/optionButtonsContainer"
         app:layout_constraintEnd_toStartOf="@id/buttonSorting"
-        app:layout_constraintTop_toBottomOf="@id/barChartPortfolioValue" />
+        app:layout_constraintBottom_toBottomOf="@id/optionButtonsContainer" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/buttonSorting"
@@ -90,11 +84,12 @@
         android:backgroundTint="@color/primaryColor"
         android:clickable="true"
         android:gravity="center"
-        android:layout_marginEnd="2dp"
+        android:layout_marginEnd="8dp"
         android:text="Sorting"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="11sp"
+        app:iconPadding="2dp"
         app:icon="@drawable/ic_sort"
         app:iconTint="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/detailsButton"
@@ -102,8 +97,24 @@
         app:layout_constraintStart_toEndOf="@id/detailsButton"
         app:layout_constraintTop_toTopOf="@id/detailsButton" />
 
-
-
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/addCaseButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="Add Case"
+        android:layout_marginEnd="6dp"
+        android:textAllCaps="false"
+        app:iconPadding="2dp"
+        android:backgroundTint="@color/primaryColor"
+        android:clickable="true"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        app:icon="@drawable/ic_plus"
+        app:iconTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/detailsButton"
+        app:layout_constraintEnd_toEndOf="@id/optionButtonsContainer"
+        app:layout_constraintStart_toEndOf="@id/buttonSorting"
+        app:layout_constraintTop_toTopOf="@id/detailsButton" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/itemCaseRecyclerView"
@@ -113,7 +124,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailsButton"
+        app:layout_constraintTop_toBottomOf="@+id/optionButtonsContainer"
         tools:listitem="@layout/item_case_portfolio" />
 
     <com.github.mikephil.charting.charts.BarChart
@@ -121,6 +132,7 @@
         android:layout_width="0dp"
         android:layout_height="280dp"
         android:layout_margin="4dp"
+        app:layout_constraintBottom_toTopOf="@id/optionButtonsContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bottomLine" />
