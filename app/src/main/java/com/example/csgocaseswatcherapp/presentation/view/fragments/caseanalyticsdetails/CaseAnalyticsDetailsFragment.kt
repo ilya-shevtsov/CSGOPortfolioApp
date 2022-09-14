@@ -49,7 +49,7 @@ class CaseAnalyticsDetailsFragment : Fragment(R.layout.fragment_case_analytics_d
                 }
             }
         }
-        viewModel.onItemProvided(args.currentCase)
+        viewModel.handleAction(CaseAnalyticsDetailsViewAction.OnItemProvided(args.currentCase))
     }
 
     private fun handleState(uiState: CaseAnalyticsDetailsViewState) {
