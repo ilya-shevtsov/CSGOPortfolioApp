@@ -1,4 +1,10 @@
 package com.example.csgocaseswatcherapp.presentation.view.fragments.portfoliodetails
 
-class PortfolioDetailsViewAction {
+import com.example.csgocaseswatcherapp.presentation.model.PortfolioItemListArgs
+
+sealed class PortfolioDetailsViewAction {
+
+    data class OnPortfolioDataProvided(
+        val portfolioItemListArgs: PortfolioItemListArgs
+    ) : PortfolioDetailsViewAction()
 }
