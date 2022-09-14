@@ -51,7 +51,7 @@ class PortfolioDetailsFragment : Fragment(R.layout.fragment_portfolio_details) {
                     }
                 }
             }
-            viewModel.onPortfolioDataProvided(args.portfolioItemListArgs)
+            viewModel.handleAction(PortfolioDetailsViewAction.OnPortfolioDataProvided(args.portfolioItemListArgs))
 
 
 //            lifecycleScope.launch {
