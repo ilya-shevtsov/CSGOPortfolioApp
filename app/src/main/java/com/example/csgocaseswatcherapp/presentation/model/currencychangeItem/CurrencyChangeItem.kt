@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.presentation.model.currencyChangeItem
+package com.example.csgocaseswatcherapp.presentation.model.currencychangeItem
 
 import android.view.View
 import com.example.csgocaseswatcherapp.R

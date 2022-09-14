@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.databinding.FragmentPortfolioBinding
 import com.example.csgocaseswatcherapp.presentation.model.addcaseitem.AddedCaseModel
+import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioGroupieItem
 import com.example.csgocaseswatcherapp.presentation.view.fragments.sortingbottomsheetfragment.SortingMethod
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.data.BarData
@@ -77,7 +78,7 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
             }
 
             detailsButton.setOnClickListener {
-                findNavController().navigate(R.id.portfolioDetailsFragment)
+                viewModel.handleAction(PortfolioViewAction.OnPortfolioDetailsClicked)
             }
 
             addCaseButton.setOnClickListener {
@@ -103,89 +104,80 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
                     R.string.portfolio_total_value, uiState.totalPortfolioValue.toString()
                 )
                 binding.loadingView.root.isVisible = false
-                caseListAdapter.update(uiState.portfolioItemList)
+                caseListAdapter.update(uiState.portfolioItemList.map(::PortfolioGroupieItem))
                 binding.itemCaseRecyclerView.isVisible = true
                 binding.itemCaseRecyclerView.smoothScrollToPosition(0)
 
-                // Bar Chart
-                binding.barChartPortfolioValue.description.isEnabled = false
-                binding.barChartPortfolioValue.legend.isEnabled = false
-
-                val newDataList = listOf(
-                    BarEntry(1f, 129f),
-                    BarEntry(2f, 164f),
-                    BarEntry(3f, 225f),
-                    BarEntry(4f, 236f),
-                    BarEntry(5f, 334f),
-                    BarEntry(6f, 479f),
-                    BarEntry(7f, 429f),
-                    BarEntry(8f, 424f),
-                    BarEntry(9f, 448f),
-                    BarEntry(10f, 335f),
-                    BarEntry(11f, 315f),
-                    BarEntry(12f, 322f),
-                    BarEntry(13f, 414f),
-                    BarEntry(14f, 458f),
-                    BarEntry(15f, 509f),
-                    BarEntry(16f, 546f),
-                    BarEntry(17f, 668f),
-                    BarEntry(18f, 741f),
-                    BarEntry(19f, 685f),
-                    BarEntry(20f, 840f),
-                    BarEntry(21f, 834f),
-                )
-
-                val dataSet = BarDataSet(newDataList, "Portfolio Value")
-                dataSet.color = Color.parseColor("#2FA1BA")
-
-                val data = BarData(dataSet)
-                data.setDrawValues(true)
-                data.setValueTextSize(10f)
-                data.setValueTextColor(Color.BLACK)
-
-                binding.barChartPortfolioValue.data = data
-                binding.barChartPortfolioValue.invalidate()
-                binding.barChartPortfolioValue.animateY(1400, Easing.EaseInOutQuad)
-
-//                binding.pieChartPortfolioValue.isDrawHoleEnabled = true
-//                binding.pieChartPortfolioValue.setUsePercentValues(true)
-//                binding.pieChartPortfolioValue.setEntryLabelTextSize(10F)
-//                binding.pieChartPortfolioValue.setEntryLabelColor(Color.BLACK)
-//                binding.pieChartPortfolioValue.centerText = "Amount"
-//                binding.pieChartPortfolioValue.setCenterTextSize(24F)
-//                binding.pieChartPortfolioValue.description.isEnabled = false
-//                binding.pieChartPortfolioValue.legend.isEnabled = false
-//
-//
-//                val colors = arrayListOf<Int>()
-//                for (color in ColorTemplate.MATERIAL_COLORS) {
-//                    colors.add(color)
-//                }
-//                for (color in ColorTemplate.VORDIPLOM_COLORS) {
-//                    colors.add(color)
-//                }
-//
-//                val dataSet = PieDataSet(uiState.portfolioPietEntryList, "Cases by amount")
-//                dataSet.colors = colors
-//
-//                val data = PieData(dataSet)
-//                data.setDrawValues(true)
-//                data.setValueFormatter(PercentFormatter(binding.pieChartPortfolioValue))
-//                data.setValueTextSize(10f)
-//                data.setValueTextColor(Color.BLACK)
-//
-//                binding.pieChartPortfolioValue.data = data
-//                binding.pieChartPortfolioValue.invalidate()
-//                binding.pieChartPortfolioValue.animateY(1400, Easing.EaseInOutQuad)
+                setUpBarChart()
             }
         }
     }
 
+    private fun setUpBarChart() {
+        binding.barChartPortfolioValue.description.isEnabled = false
+        binding.barChartPortfolioValue.legend.isEnabled = false
+
+        val newDataList = listOf(
+            BarEntry(1f, 129f),
+            BarEntry(2f, 164f),
+            BarEntry(3f, 225f),
+            BarEntry(4f, 236f),
+            BarEntry(5f, 334f),
+            BarEntry(6f, 479f),
+            BarEntry(7f, 429f),
+            BarEntry(8f, 424f),
+            BarEntry(9f, 448f),
+            BarEntry(10f, 335f),
+            BarEntry(11f, 315f),
+            BarEntry(12f, 322f),
+            BarEntry(13f, 414f),
+            BarEntry(14f, 458f),
+            BarEntry(15f, 509f),
+            BarEntry(16f, 546f),
+            BarEntry(17f, 668f),
+            BarEntry(18f, 741f),
+            BarEntry(19f, 685f),
+            BarEntry(20f, 840f),
+            BarEntry(21f, 834f),
+        )
+
+        val dataSet = BarDataSet(newDataList, "Portfolio Value")
+        dataSet.color = Color.parseColor("#2FA1BA")
+
+        val data = BarData(dataSet)
+        data.setDrawValues(true)
+        data.setValueTextSize(10f)
+        data.setValueTextColor(Color.BLACK)
+
+        binding.barChartPortfolioValue.data = data
+        binding.barChartPortfolioValue.invalidate()
+        binding.barChartPortfolioValue.animateY(1400, Easing.EaseInOutQuad)
+    }
+
     private fun handleEvent(uiEvent: PortfolioViewEvent) {
         when (uiEvent) {
-            PortfolioViewEvent.NavigateToAddCase -> findNavController().navigate(R.id.addCaseFragment)
-            PortfolioViewEvent.NavigateToSorting -> findNavController().navigate(R.id.sortingBottomSheetFragment)
+            is PortfolioViewEvent.NavigateToAddCase -> handleNavigateToAddCase()
+            is PortfolioViewEvent.NavigateToSorting -> handleNavigateToSorting()
+            is PortfolioViewEvent.NavigateToPortfolioDetails -> handleNavigateToPortfolioDetails(
+                uiEvent
+            )
+
         }
+    }
+
+    private fun handleNavigateToAddCase() {
+        findNavController().navigate(R.id.addCaseFragment)
+    }
+
+    private fun handleNavigateToSorting() {
+        findNavController().navigate(R.id.sortingBottomSheetFragment)
+    }
+
+    private fun handleNavigateToPortfolioDetails(uiEvent: PortfolioViewEvent.NavigateToPortfolioDetails) {
+        val action = PortfolioFragmentDirections.actionPortfolioFragmentToPortfolioDetailsFragment(
+            uiEvent.portfolioItemListArgs
+        )
+        findNavController().navigate(action)
     }
 }
 

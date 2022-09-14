@@ -28,102 +28,90 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/CaseNameTextView"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutName"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="@string/add_case_case_name"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayoutAmount"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed">
 
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
 
-    <AutoCompleteTextView
-        android:id="@+id/addCaseCaseName"
+            android:id="@+id/addCaseName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:hint="Case Name"
+            android:inputType="text"
+            android:padding="12dp"
+            android:textSize="20sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutAmount"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:hint="@string/add_case_name_hint"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        app:layout_constraintBottom_toTopOf="@id/numberOfCaseTextView"
-        app:layout_constraintEnd_toEndOf="@id/CaseNameTextView"
-        app:layout_constraintStart_toStartOf="@id/CaseNameTextView"
-        app:layout_constraintTop_toBottomOf="@id/CaseNameTextView" />
+        android:layout_marginHorizontal="12dp"
+        app:layout_constraintBottom_toTopOf="@id/textInputLayoutPrice"
+        app:layout_constraintEnd_toEndOf="@id/textInputLayoutName"
+        app:layout_constraintStart_toStartOf="@id/textInputLayoutName"
+        app:layout_constraintTop_toBottomOf="@id/textInputLayoutName">
 
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/addCaseAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:hint="Amount of cases"
+            android:inputType="number"
+            android:padding="12dp"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/numberOfCaseTextView"
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutPrice"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="@string/add_case_number_of_cases"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/addCaseCaseName"
-        app:layout_constraintStart_toStartOf="@id/addCaseCaseName"
-        app:layout_constraintTop_toBottomOf="@id/addCaseCaseName" />
+        android:layout_marginHorizontal="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/textInputLayoutAmount"
+        app:layout_constraintStart_toStartOf="@id/textInputLayoutAmount"
+        app:layout_constraintTop_toBottomOf="@id/textInputLayoutAmount">
 
-    <EditText
-        android:id="@+id/addCaseCaseAmount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        app:layout_constraintEnd_toEndOf="@id/numberOfCaseTextView"
-        app:layout_constraintStart_toStartOf="@id/numberOfCaseTextView"
-        app:layout_constraintTop_toBottomOf="@id/numberOfCaseTextView"
-        android:hint="@string/add_case_number_of_cases_hint"
-        android:inputType="number"
-        android:importantForAutofill="no" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/addCasePurchasePrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:hint="Purchase price"
+            android:inputType="number"
+            android:padding="12dp"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/purchasePriceTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="@string/add_case_purchase_price"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/addCaseCaseAmount"
-        app:layout_constraintStart_toStartOf="@id/addCaseCaseAmount"
-        app:layout_constraintTop_toBottomOf="@id/addCaseCaseAmount" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/addCaseCasePurchasePrice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:hint="@string/add_case_purchase_price_hint"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        android:inputType="numberDecimal"
-        app:layout_constraintEnd_toEndOf="@id/purchasePriceTextView"
-        app:layout_constraintStart_toStartOf="@id/purchasePriceTextView"
-        app:layout_constraintTop_toBottomOf="@id/purchasePriceTextView"
-        android:importantForAutofill="no" />
 
     <Button
         android:id="@+id/addCaseButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_background"
-        android:text="@string/add_case_button"
-        android:padding="8dp"
-        android:textAllCaps="false"
-        android:textSize="14sp"
-        android:textColor="@color/white"
         android:layout_margin="4dp"
+        android:background="@drawable/button_background"
+        android:padding="8dp"
+        android:text="@string/add_case_button"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <include
         android:id="@+id/loadingView"

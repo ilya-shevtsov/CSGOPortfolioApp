@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.csgocaseswatcherapp.data.api.ApiTools
 import com.example.csgocaseswatcherapp.data.model.portfolioitem.PortfolioItemDtoMapper
+import com.example.csgocaseswatcherapp.presentation.model.PortfolioItemListArgs
+import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioCaseItem
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioGroupieItem
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioItemMapper
 import com.example.csgocaseswatcherapp.presentation.model.portfoliodetailsvalueitem.PortfolioValueItem
@@ -16,7 +18,7 @@ import kotlinx.coroutines.launch
 
 class PortfolioViewModel : ViewModel() {
 
-    var portfolioItemList: List<PortfolioGroupieItem> = listOf()
+    var portfolioItemList: List<PortfolioCaseItem> = listOf()
 
     var portfolioValueList: List<PortfolioValueItem> = listOf()
 
@@ -43,7 +45,7 @@ class PortfolioViewModel : ViewModel() {
         }
     }
 
-    private fun getTotalValue(PortfolioItemList: List<PortfolioGroupieItem>): Double {
+    private fun getTotalValue(PortfolioItemList: List<PortfolioCaseItem>): Double {
         return PortfolioItemList.sumOf { case ->
             case.caseOverallValue
         }
@@ -59,12 +61,15 @@ class PortfolioViewModel : ViewModel() {
             is PortfolioViewAction.OnCaseAdded -> handleOnCaseAdded(action)
             is PortfolioViewAction.OnSortClicked -> handleOnOnSortClicked()
             is PortfolioViewAction.OnSortingMethodSelected -> handleOnSortingMethodSelected(action)
-//            is PortfolioViewAction.OnCaseAmountClicked -> handleOnCaseAmountClicked()
-//            is PortfolioViewAction.OnCasePriceClicked -> handleOnCasePriceClicked()
-//            is PortfolioViewAction.OnCaseOverallValueClicked -> handleOnCaseOverallValueClicked()
-//            is PortfolioViewAction.OnCaseProfitLossClicked -> handleProfitLossClicked()
+            is PortfolioViewAction.OnPortfolioDetailsClicked -> handleOnPortfolioDetailsClicked()
         }
     }
+
+    private fun handleOnPortfolioDetailsClicked() {
+        val portfolioItemListArgs = PortfolioItemListArgs(portfolioItemList)
+        viewModelScope.launch { uiEvent.emit(PortfolioViewEvent.NavigateToPortfolioDetails(portfolioItemListArgs)) }
+    }
+
 
     private fun handleOnSortingMethodSelected(action: PortfolioViewAction.OnSortingMethodSelected) {
         when (action.sortingMethod) {
@@ -159,7 +164,7 @@ class PortfolioViewModel : ViewModel() {
 
 
     private fun showContent(
-        portfolioItemList: List<PortfolioGroupieItem>, portfolioValueList: List<PortfolioValueItem>
+        portfolioItemList: List<PortfolioCaseItem>, portfolioValueList: List<PortfolioValueItem>
     ) {
         val portfolioBarEntryList = mapToBarEntry(portfolioValueList)
         val totalPortfolioValue = getTotalValue(portfolioItemList)
