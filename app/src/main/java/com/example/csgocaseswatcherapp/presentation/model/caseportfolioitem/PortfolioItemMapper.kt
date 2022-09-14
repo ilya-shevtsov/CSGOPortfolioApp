@@ -6,8 +6,6 @@ import kotlin.math.round
 
 object PortfolioItemMapper {
 
-    //PlaceHolder caseProfitLoss (right now is just from purchase price)
-
     fun map(addedCaseItem: AddedCaseModel): PortfolioCaseItem {
         return PortfolioCaseItem(
             caseImage = getCaseImage(addedCaseItem.name),
@@ -25,7 +23,6 @@ object PortfolioItemMapper {
     private fun getOverAllValue(amount: Int, price: Double): Double {
         return round(amount * price)
     }
-
 
     private fun getCaseImage(caseName: String): String {
         val newName = caseName

@@ -102,7 +102,7 @@ class CaseAnalyticsFragment : Fragment(R.layout.fragment_case_analytics) {
                             CaseAnalyticsGroupieItem(caseAnalyticsItem)
                         }
                     caseAnalyticsListAdapter.update(caseAnalyticsViewItemList)
-                   caseAnalyticsRecyclerView.isVisible = true
+                    caseAnalyticsRecyclerView.isVisible = true
                 }
             }
         }

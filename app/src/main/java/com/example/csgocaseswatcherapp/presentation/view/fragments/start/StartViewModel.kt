@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.csgocaseswatcherapp.data.api.ApiTools
 import com.example.csgocaseswatcherapp.data.model.prederredcurrencydto.PreferredCurrencyDto
-import com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio.PortfolioViewState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow

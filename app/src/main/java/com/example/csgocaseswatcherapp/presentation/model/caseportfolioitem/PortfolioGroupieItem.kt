@@ -5,9 +5,8 @@ import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.databinding.ItemCasePortfolioBinding
 import com.xwray.groupie.viewbinding.BindableItem
 
-
 class PortfolioGroupieItem(
-    val portfolioCaseItem: PortfolioCaseItem
+    private val portfolioCaseItem: PortfolioCaseItem
 ) : BindableItem<ItemCasePortfolioBinding>() {
 
     override fun getId(): Long {
@@ -38,6 +37,4 @@ class PortfolioGroupieItem(
     override fun initializeViewBinding(view: View): ItemCasePortfolioBinding {
         return ItemCasePortfolioBinding.bind(view)
     }
-
-
 }

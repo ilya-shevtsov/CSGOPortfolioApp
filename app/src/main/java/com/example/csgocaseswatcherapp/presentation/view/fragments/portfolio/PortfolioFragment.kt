@@ -25,7 +25,6 @@ import com.github.mikephil.charting.data.BarEntry
 import com.xwray.groupie.GroupieAdapter
 import kotlinx.coroutines.launch
 
-
 class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
 
     private val viewModel: PortfolioViewModel by viewModels()

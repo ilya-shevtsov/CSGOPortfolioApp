@@ -52,7 +52,6 @@ class AddCaseFragment : Fragment(R.layout.fragment_add_case) {
                 }
             }
 
-
             val caseNameList = listOf(
                 "Chroma Case",
                 "Chroma 2 Case",
@@ -102,7 +101,6 @@ class AddCaseFragment : Fragment(R.layout.fragment_add_case) {
             addCaseName.threshold = 1
 
             addCaseName.setAdapter(caseNameArrayAdapter)
-
 
             addCaseButton.setOnClickListener {
                 val addedCase = AddedCaseModel(
