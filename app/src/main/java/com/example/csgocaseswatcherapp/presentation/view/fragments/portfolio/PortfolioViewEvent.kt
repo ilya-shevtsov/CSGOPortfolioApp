@@ -11,5 +11,4 @@ sealed class PortfolioViewEvent {
     data class NavigateToPortfolioDetails(
         val portfolioItemListArgs: PortfolioItemListArgs
     ) : PortfolioViewEvent()
-
 }

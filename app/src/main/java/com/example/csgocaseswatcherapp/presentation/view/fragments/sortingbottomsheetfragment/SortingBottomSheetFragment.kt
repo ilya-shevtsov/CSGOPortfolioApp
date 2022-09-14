@@ -42,7 +42,7 @@ class SortingBottomSheetFragment : BottomSheetDialogFragment() {
             }
 
             sortByName.setOnClickListener {
-                val sortingMethod = SortingMethod.byName
+                val sortingMethod = SortingMethod.ByName
                 viewModel.handleAction(
                     SortingBottomSheetFragmentViewAction.OnSortingMethodSelected(
                         sortingMethod
@@ -51,7 +51,7 @@ class SortingBottomSheetFragment : BottomSheetDialogFragment() {
             }
 
             sortByAmount.setOnClickListener {
-                val sortingMethod = SortingMethod.byAmount
+                val sortingMethod = SortingMethod.ByAmount
                 viewModel.handleAction(
                     SortingBottomSheetFragmentViewAction.OnSortingMethodSelected(
                         sortingMethod
@@ -60,7 +60,7 @@ class SortingBottomSheetFragment : BottomSheetDialogFragment() {
             }
 
             sortByPrice.setOnClickListener {
-                val sortingMethod = SortingMethod.byPrice
+                val sortingMethod = SortingMethod.ByPrice
                 viewModel.handleAction(
                     SortingBottomSheetFragmentViewAction.OnSortingMethodSelected(
                         sortingMethod
@@ -69,7 +69,7 @@ class SortingBottomSheetFragment : BottomSheetDialogFragment() {
             }
 
             sortByOverallValue.setOnClickListener {
-                val sortingMethod = SortingMethod.byOverallValue
+                val sortingMethod = SortingMethod.ByOverallValue
                 viewModel.handleAction(
                     SortingBottomSheetFragmentViewAction.OnSortingMethodSelected(
                         sortingMethod
@@ -78,7 +78,7 @@ class SortingBottomSheetFragment : BottomSheetDialogFragment() {
             }
 
             sortByProfitLoss.setOnClickListener {
-                val sortingMethod = SortingMethod.byPorfitLoss
+                val sortingMethod = SortingMethod.ByProfitLoss
                 viewModel.handleAction(
                     SortingBottomSheetFragmentViewAction.OnSortingMethodSelected(
                         sortingMethod

@@ -7,5 +7,4 @@ sealed class AddCaseViewAction {
     data class OnCaseAddedClicked(
         val addedCase: AddedCaseModel
     ) : AddCaseViewAction()
-
 }

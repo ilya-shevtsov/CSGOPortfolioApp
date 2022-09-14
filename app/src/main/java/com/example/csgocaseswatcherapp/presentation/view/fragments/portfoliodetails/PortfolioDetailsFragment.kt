@@ -22,7 +22,6 @@ import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
 import kotlinx.coroutines.launch
 
-
 class PortfolioDetailsFragment : Fragment(R.layout.fragment_portfolio_details) {
 
     private val viewModel: PortfolioDetailsViewModel by viewModels()
@@ -38,7 +37,6 @@ class PortfolioDetailsFragment : Fragment(R.layout.fragment_portfolio_details) {
         binding = FragmentPortfolioDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
@@ -76,7 +74,6 @@ class PortfolioDetailsFragment : Fragment(R.layout.fragment_portfolio_details) {
             is PortfolioDetailsViewState.Content -> {
                 binding.loadingView.root.isVisible = false
                 setUpChart(uiState.portfolioPietEntryList)
-
             }
         }
     }

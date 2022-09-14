@@ -11,5 +11,4 @@ sealed class CaseAnalyticsViewState {
     ) : CaseAnalyticsViewState()
 
     object Error : CaseAnalyticsViewState()
-
 }

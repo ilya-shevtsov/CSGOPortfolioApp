@@ -9,6 +9,5 @@ sealed class CaseDetailsViewState {
     data class Content(
         val caseOverviewModel: CaseOverviewModel
     ) : CaseDetailsViewState()
-
 }
 
