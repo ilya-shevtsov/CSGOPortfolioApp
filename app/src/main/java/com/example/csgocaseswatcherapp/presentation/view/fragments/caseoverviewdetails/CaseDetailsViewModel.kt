@@ -11,9 +11,16 @@ class CaseDetailsViewModel @Inject constructor(
     val uiState: MutableStateFlow<CaseDetailsViewState> =
         MutableStateFlow(value = CaseDetailsViewState.Loading)
 
-    fun onItemProvided(currentCase: CaseOverviewModel) {
+    fun handleAction(action: CaseDetailsViewAction) {
+        when (action) {
+            is CaseDetailsViewAction.OnItemProvided -> handleOnItemProvided(action.caseOverviewModel)
+
+        }
+    }
+
+    private fun handleOnItemProvided(caseOverviewModel: CaseOverviewModel) {
         val state = CaseDetailsViewState.Content(
-            currentCase
+            caseOverviewModel
         )
         uiState.value = state
     }

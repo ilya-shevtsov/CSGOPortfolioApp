@@ -28,14 +28,21 @@ class PortfolioDetailsViewModel : ViewModel() {
         }
     }
 
-    fun onPortfolioDataProvided(portfolioItemListArgs: PortfolioItemListArgs){
+    fun handleAction(action: PortfolioDetailsViewAction) {
+        when (action) {
+            is PortfolioDetailsViewAction.OnPortfolioDataProvided -> handleOnPortfolioDataProvided(
+                action.portfolioItemListArgs
+            )
+        }
+    }
+
+    private fun handleOnPortfolioDataProvided(portfolioItemListArgs: PortfolioItemListArgs) {
         portfolioItemList = portfolioItemListArgs.portfolioItemList
-        Log.e("onPortfolioDataProvided","$portfolioItemList")
+        Log.e("onPortfolioDataProvided", "$portfolioItemList")
         showContent(portfolioItemList)
     }
 
     private fun showContent(portfolioItemList: List<PortfolioCaseItem>) {
-//        uiState.value = PortfolioDetailsViewState.Content(portfolioValueList,mapToPieEntry(portfolioValueList))
         uiState.value = PortfolioDetailsViewState.Content(mapToPieEntry(portfolioItemList))
     }
 }
