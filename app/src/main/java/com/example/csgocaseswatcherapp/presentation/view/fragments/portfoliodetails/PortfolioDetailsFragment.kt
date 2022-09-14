@@ -90,36 +90,39 @@ class PortfolioDetailsFragment : Fragment(R.layout.fragment_portfolio_details) {
 //    }
 
     private fun setUpChart(dataEntries: List<PieEntry>) {
-        binding.pieChartPortfolioValue.isDrawHoleEnabled = true
-        binding.pieChartPortfolioValue.setUsePercentValues(true)
-        binding.pieChartPortfolioValue.setEntryLabelTextSize(10F)
-        binding.pieChartPortfolioValue.setEntryLabelColor(Color.BLACK)
-        binding.pieChartPortfolioValue.centerText = "Amount"
-        binding.pieChartPortfolioValue.setCenterTextSize(24F)
-        binding.pieChartPortfolioValue.description.isEnabled = false
-        binding.pieChartPortfolioValue.legend.isEnabled = false
 
+        with(binding) {
 
-        val colors = arrayListOf<Int>()
-        for (color in ColorTemplate.MATERIAL_COLORS) {
-            colors.add(color)
+            pieChartPortfolioValue.isDrawHoleEnabled = true
+            pieChartPortfolioValue.setUsePercentValues(true)
+            pieChartPortfolioValue.setEntryLabelTextSize(10F)
+            pieChartPortfolioValue.setEntryLabelColor(Color.BLACK)
+            pieChartPortfolioValue.centerText = "Amount"
+            pieChartPortfolioValue.setCenterTextSize(24F)
+            pieChartPortfolioValue.description.isEnabled = false
+            pieChartPortfolioValue.legend.isEnabled = false
+
+            val colors = arrayListOf<Int>()
+            for (color in ColorTemplate.MATERIAL_COLORS) {
+                colors.add(color)
+            }
+            for (color in ColorTemplate.VORDIPLOM_COLORS) {
+                colors.add(color)
+            }
+
+            val dataSet = PieDataSet(dataEntries, "Cases by amount")
+            dataSet.colors = colors
+
+            val data = PieData(dataSet)
+            data.setDrawValues(true)
+            data.setValueFormatter(PercentFormatter(pieChartPortfolioValue))
+            data.setValueTextSize(10f)
+            data.setValueTextColor(Color.BLACK)
+
+            pieChartPortfolioValue.data = data
+            pieChartPortfolioValue.invalidate()
+            pieChartPortfolioValue.animateY(1400, Easing.EaseInOutQuad)
         }
-        for (color in ColorTemplate.VORDIPLOM_COLORS) {
-            colors.add(color)
-        }
-
-        val dataSet = PieDataSet(dataEntries, "Cases by amount")
-        dataSet.colors = colors
-
-        val data = PieData(dataSet)
-        data.setDrawValues(true)
-        data.setValueFormatter(PercentFormatter(binding.pieChartPortfolioValue))
-        data.setValueTextSize(10f)
-        data.setValueTextColor(Color.BLACK)
-
-        binding.pieChartPortfolioValue.data = data
-        binding.pieChartPortfolioValue.invalidate()
-        binding.pieChartPortfolioValue.animateY(1400, Easing.EaseInOutQuad)
     }
 }
 
