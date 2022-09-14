@@ -5,5 +5,4 @@ sealed class SortingBottomSheetFragmentViewAction {
     data class OnSortingMethodSelected(
         val sortingMethod: SortingMethod
     ) : SortingBottomSheetFragmentViewAction()
-
 }

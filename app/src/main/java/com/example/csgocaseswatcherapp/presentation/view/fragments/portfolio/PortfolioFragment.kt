@@ -25,7 +25,6 @@ import com.github.mikephil.charting.data.BarEntry
 import com.xwray.groupie.GroupieAdapter
 import kotlinx.coroutines.launch
 
-
 class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
 
     private val viewModel: PortfolioViewModel by viewModels()
@@ -92,66 +91,73 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
     }
 
     private fun handleState(uiState: PortfolioViewState) {
-        when (uiState) {
-            is PortfolioViewState.Loading -> binding.loadingView.root.isVisible = true
-            is PortfolioViewState.Error -> {
-                binding.loadingView.root.isVisible = false
-                binding.errorView.root.isVisible = true
-            }
-            is PortfolioViewState.Content -> {
-                // Main
-                binding.totalValue.text = binding.root.context.getString(
-                    R.string.portfolio_total_value, uiState.totalPortfolioValue.toString()
-                )
-                binding.loadingView.root.isVisible = false
-                caseListAdapter.update(uiState.portfolioItemList.map(::PortfolioGroupieItem))
-                binding.itemCaseRecyclerView.isVisible = true
-                binding.itemCaseRecyclerView.smoothScrollToPosition(0)
+        with(binding) {
+            when (uiState) {
+                is PortfolioViewState.Loading -> loadingView.root.isVisible = true
+                is PortfolioViewState.Error -> {
+                    loadingView.root.isVisible = false
+                    errorView.root.isVisible = true
+                }
+                is PortfolioViewState.Content -> {
+                    // Portfolio Value
+                   totalValue.text = binding.root.context.getString(
+                        R.string.portfolio_total_value, uiState.totalPortfolioValue.toString()
+                    )
 
-                setUpBarChart()
+                    //Portfolio Recycler
+                    loadingView.root.isVisible = false
+                    itemCaseRecyclerView.isVisible = true
+                    caseListAdapter.update(uiState.portfolioItemList.map(::PortfolioGroupieItem))
+                    itemCaseRecyclerView.smoothScrollToPosition(0)
+
+                    //BarChart
+                    setUpChart()
+                }
             }
         }
     }
 
-    private fun setUpBarChart() {
-        binding.barChartPortfolioValue.description.isEnabled = false
-        binding.barChartPortfolioValue.legend.isEnabled = false
+    private fun setUpChart() {
+        with(binding) {
+            barChartPortfolioValue.description.isEnabled = false
+            barChartPortfolioValue.legend.isEnabled = false
 
-        val newDataList = listOf(
-            BarEntry(1f, 129f),
-            BarEntry(2f, 164f),
-            BarEntry(3f, 225f),
-            BarEntry(4f, 236f),
-            BarEntry(5f, 334f),
-            BarEntry(6f, 479f),
-            BarEntry(7f, 429f),
-            BarEntry(8f, 424f),
-            BarEntry(9f, 448f),
-            BarEntry(10f, 335f),
-            BarEntry(11f, 315f),
-            BarEntry(12f, 322f),
-            BarEntry(13f, 414f),
-            BarEntry(14f, 458f),
-            BarEntry(15f, 509f),
-            BarEntry(16f, 546f),
-            BarEntry(17f, 668f),
-            BarEntry(18f, 741f),
-            BarEntry(19f, 685f),
-            BarEntry(20f, 840f),
-            BarEntry(21f, 834f),
-        )
+            val newDataList = listOf(
+                BarEntry(1f, 129f),
+                BarEntry(2f, 164f),
+                BarEntry(3f, 225f),
+                BarEntry(4f, 236f),
+                BarEntry(5f, 334f),
+                BarEntry(6f, 479f),
+                BarEntry(7f, 429f),
+                BarEntry(8f, 424f),
+                BarEntry(9f, 448f),
+                BarEntry(10f, 335f),
+                BarEntry(11f, 315f),
+                BarEntry(12f, 322f),
+                BarEntry(13f, 414f),
+                BarEntry(14f, 458f),
+                BarEntry(15f, 509f),
+                BarEntry(16f, 546f),
+                BarEntry(17f, 668f),
+                BarEntry(18f, 741f),
+                BarEntry(19f, 685f),
+                BarEntry(20f, 840f),
+                BarEntry(21f, 834f),
+            )
 
-        val dataSet = BarDataSet(newDataList, "Portfolio Value")
-        dataSet.color = Color.parseColor("#2FA1BA")
+            val dataSet = BarDataSet(newDataList, "Portfolio Value")
+            dataSet.color = Color.parseColor("#2FA1BA")
 
-        val data = BarData(dataSet)
-        data.setDrawValues(true)
-        data.setValueTextSize(10f)
-        data.setValueTextColor(Color.BLACK)
+            val data = BarData(dataSet)
+            data.setDrawValues(true)
+            data.setValueTextSize(10f)
+            data.setValueTextColor(Color.BLACK)
 
-        binding.barChartPortfolioValue.data = data
-        binding.barChartPortfolioValue.invalidate()
-        binding.barChartPortfolioValue.animateY(1400, Easing.EaseInOutQuad)
+            barChartPortfolioValue.data = data
+            barChartPortfolioValue.invalidate()
+            barChartPortfolioValue.animateY(1400, Easing.EaseInOutQuad)
+        }
     }
 
     private fun handleEvent(uiEvent: PortfolioViewEvent) {

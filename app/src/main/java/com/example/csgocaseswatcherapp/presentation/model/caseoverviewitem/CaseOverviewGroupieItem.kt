@@ -32,5 +32,4 @@ data class CaseOverviewGroupieItem(
     override fun initializeViewBinding(view: View): ItemCaseBinding {
         return ItemCaseBinding.bind(view)
     }
-
 }

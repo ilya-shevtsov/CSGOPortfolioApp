@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
 class CaseAnalyticsViewModel @Inject constructor(
     private val getCaseAnalyticsListUseCase: GetCaseAnalyticsListUseCase
 ) : ViewModel() {

@@ -5,7 +5,6 @@ import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.databinding.ItemCurrencyChangeBinding
 import com.xwray.groupie.viewbinding.BindableItem
 
-
 class CurrencyChangeItem(
      val currencyName: String,
 
@@ -22,6 +21,4 @@ class CurrencyChangeItem(
     override fun initializeViewBinding(view: View): ItemCurrencyChangeBinding {
         return ItemCurrencyChangeBinding.bind(view)
     }
-
-
 }

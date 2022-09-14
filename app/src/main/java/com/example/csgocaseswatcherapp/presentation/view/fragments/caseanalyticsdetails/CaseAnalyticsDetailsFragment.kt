@@ -16,7 +16,6 @@ import androidx.navigation.fragment.navArgs
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.core.CaseWatcherApplication
 import com.example.csgocaseswatcherapp.databinding.FragmentCaseAnalyticsDetailsBinding
-import com.facebook.drawee.drawable.Rounded
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -93,7 +92,7 @@ class CaseAnalyticsDetailsFragment : Fragment(R.layout.fragment_case_analytics_d
                         monthlyStandardDeviationDetails.text =
                             getString(
                                 R.string.monthly_standard_deviation,
-                               monthlyStandardDeviation.toString()
+                                monthlyStandardDeviation.toString()
                             )
                         monthlySharpRatioDetails.text =
                             getString(
@@ -102,9 +101,7 @@ class CaseAnalyticsDetailsFragment : Fragment(R.layout.fragment_case_analytics_d
                             )
                     }
                 }
-
             }
-
         }
     }
 

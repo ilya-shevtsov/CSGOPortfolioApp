@@ -18,5 +18,4 @@ sealed class PortfolioViewAction {
     object OnSortClicked : PortfolioViewAction()
 
     object OnPortfolioDetailsClicked : PortfolioViewAction()
-
 }

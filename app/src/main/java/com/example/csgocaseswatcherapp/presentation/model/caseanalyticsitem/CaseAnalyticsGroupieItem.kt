@@ -3,7 +3,6 @@ package com.example.csgocaseswatcherapp.presentation.model.caseanalyticsitem
 import android.view.View
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.databinding.ItemCaseAnalyticsBinding
-import com.example.csgocaseswatcherapp.databinding.ItemCaseBinding
 import com.xwray.groupie.viewbinding.BindableItem
 
 data class CaseAnalyticsGroupieItem(
@@ -29,5 +28,4 @@ data class CaseAnalyticsGroupieItem(
     override fun initializeViewBinding(view: View): ItemCaseAnalyticsBinding {
         return ItemCaseAnalyticsBinding.bind(view)
     }
-
 }

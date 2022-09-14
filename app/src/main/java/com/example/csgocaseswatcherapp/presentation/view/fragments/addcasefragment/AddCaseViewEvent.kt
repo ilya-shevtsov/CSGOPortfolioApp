@@ -7,5 +7,4 @@ sealed class AddCaseViewEvent {
     data class NavigateToPortfolioWithAddedCase(
         val addedCase: AddedCaseModel
     ) : AddCaseViewEvent()
-
 }

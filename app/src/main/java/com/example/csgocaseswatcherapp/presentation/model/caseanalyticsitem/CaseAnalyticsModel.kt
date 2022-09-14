@@ -1,7 +1,6 @@
 package com.example.csgocaseswatcherapp.presentation.model.caseanalyticsitem
 
 import android.os.Parcelable
-import com.example.csgocaseswatcherapp.data.model.caseanalytics.CaseAnalyticsMapper
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
