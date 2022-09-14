@@ -14,10 +14,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.databinding.FragmentPortfolioDetailsBinding
-import com.example.csgocaseswatcherapp.presentation.view.fragments.caseanalyticsdetails.CaseAnalyticsDetailsFragmentArgs
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
 import kotlinx.coroutines.launch
@@ -74,37 +74,11 @@ class PortfolioDetailsFragment : Fragment(R.layout.fragment_portfolio_details) {
                 binding.errorView.root.isVisible = true
             }
             is PortfolioDetailsViewState.Content -> {
+                //Main
                 binding.loadingView.root.isVisible = false
-                binding.pieChartPortfolioValue.isDrawHoleEnabled = true
-                binding.pieChartPortfolioValue.setUsePercentValues(true)
-                binding.pieChartPortfolioValue.setEntryLabelTextSize(10F)
-                binding.pieChartPortfolioValue.setEntryLabelColor(Color.BLACK)
-                binding.pieChartPortfolioValue.centerText = "Amount"
-                binding.pieChartPortfolioValue.setCenterTextSize(24F)
-                binding.pieChartPortfolioValue.description.isEnabled = false
-                binding.pieChartPortfolioValue.legend.isEnabled = false
 
-
-                val colors = arrayListOf<Int>()
-                for (color in ColorTemplate.MATERIAL_COLORS) {
-                    colors.add(color)
-                }
-                for (color in ColorTemplate.VORDIPLOM_COLORS) {
-                    colors.add(color)
-                }
-
-                val dataSet = PieDataSet(uiState.portfolioPietEntryList, "Cases by amount")
-                dataSet.colors = colors
-
-                val data = PieData(dataSet)
-                data.setDrawValues(true)
-                data.setValueFormatter(PercentFormatter(binding.pieChartPortfolioValue))
-                data.setValueTextSize(10f)
-                data.setValueTextColor(Color.BLACK)
-
-                binding.pieChartPortfolioValue.data = data
-                binding.pieChartPortfolioValue.invalidate()
-                binding.pieChartPortfolioValue.animateY(1400, Easing.EaseInOutQuad)
+                //PieChart
+                setUpChart(uiState.portfolioPietEntryList)
 
             }
         }
@@ -112,8 +86,40 @@ class PortfolioDetailsFragment : Fragment(R.layout.fragment_portfolio_details) {
 
 //    private fun handleEvent(uiEvent: PortfolioDetailsViewEvent) {
 //        when (uiEvent) {
-//
 //        }
 //    }
+
+    private fun setUpChart(dataEntries: List<PieEntry>) {
+        binding.pieChartPortfolioValue.isDrawHoleEnabled = true
+        binding.pieChartPortfolioValue.setUsePercentValues(true)
+        binding.pieChartPortfolioValue.setEntryLabelTextSize(10F)
+        binding.pieChartPortfolioValue.setEntryLabelColor(Color.BLACK)
+        binding.pieChartPortfolioValue.centerText = "Amount"
+        binding.pieChartPortfolioValue.setCenterTextSize(24F)
+        binding.pieChartPortfolioValue.description.isEnabled = false
+        binding.pieChartPortfolioValue.legend.isEnabled = false
+
+
+        val colors = arrayListOf<Int>()
+        for (color in ColorTemplate.MATERIAL_COLORS) {
+            colors.add(color)
+        }
+        for (color in ColorTemplate.VORDIPLOM_COLORS) {
+            colors.add(color)
+        }
+
+        val dataSet = PieDataSet(dataEntries, "Cases by amount")
+        dataSet.colors = colors
+
+        val data = PieData(dataSet)
+        data.setDrawValues(true)
+        data.setValueFormatter(PercentFormatter(binding.pieChartPortfolioValue))
+        data.setValueTextSize(10f)
+        data.setValueTextColor(Color.BLACK)
+
+        binding.pieChartPortfolioValue.data = data
+        binding.pieChartPortfolioValue.invalidate()
+        binding.pieChartPortfolioValue.animateY(1400, Easing.EaseInOutQuad)
+    }
 }
 

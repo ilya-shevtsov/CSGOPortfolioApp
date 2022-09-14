@@ -99,21 +99,24 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
                 binding.errorView.root.isVisible = true
             }
             is PortfolioViewState.Content -> {
-                // Main
+                // Portfolio Value
                 binding.totalValue.text = binding.root.context.getString(
                     R.string.portfolio_total_value, uiState.totalPortfolioValue.toString()
                 )
-                binding.loadingView.root.isVisible = false
+
+                //Portfolio Recycler
                 caseListAdapter.update(uiState.portfolioItemList.map(::PortfolioGroupieItem))
+                binding.loadingView.root.isVisible = false
                 binding.itemCaseRecyclerView.isVisible = true
                 binding.itemCaseRecyclerView.smoothScrollToPosition(0)
 
-                setUpBarChart()
+                //BarChart
+                setUpChart()
             }
         }
     }
 
-    private fun setUpBarChart() {
+    private fun setUpChart() {
         binding.barChartPortfolioValue.description.isEnabled = false
         binding.barChartPortfolioValue.legend.isEnabled = false
 
