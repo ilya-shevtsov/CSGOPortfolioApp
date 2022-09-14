@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.csgocaseswatcherapp.data.api.ApiTools
 import com.example.csgocaseswatcherapp.data.model.portfolioitem.PortfolioItemDtoMapper
+import com.example.csgocaseswatcherapp.presentation.model.PortfolioItemListArgs
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioCaseItem
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioGroupieItem
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioItemMapper
@@ -65,8 +66,10 @@ class PortfolioViewModel : ViewModel() {
     }
 
     private fun handleOnPortfolioDetailsClicked() {
-        viewModelScope.launch { uiEvent.emit(PortfolioViewEvent.NavigateToPortfolioDetails) }
+        val portfolioItemListArgs = PortfolioItemListArgs(portfolioItemList)
+        viewModelScope.launch { uiEvent.emit(PortfolioViewEvent.NavigateToPortfolioDetails(portfolioItemListArgs)) }
     }
+
 
     private fun handleOnSortingMethodSelected(action: PortfolioViewAction.OnSortingMethodSelected) {
         when (action.sortingMethod) {

@@ -29,7 +29,7 @@ class PortfolioDetailsFragment : Fragment(R.layout.fragment_portfolio_details) {
 
     private lateinit var binding: FragmentPortfolioDetailsBinding
 
-
+    private val args by navArgs<PortfolioDetailsFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,6 +53,7 @@ class PortfolioDetailsFragment : Fragment(R.layout.fragment_portfolio_details) {
                     }
                 }
             }
+            viewModel.onPortfolioDataProvided(args.portfolioItemListArgs)
 
 
 //            lifecycleScope.launch {
