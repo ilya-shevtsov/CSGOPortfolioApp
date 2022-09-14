@@ -92,16 +92,18 @@ class CaseAnalyticsFragment : Fragment(R.layout.fragment_case_analytics) {
     }
 
     private fun handleState(uiState: CaseAnalyticsViewState) {
-        when (uiState) {
-            is CaseAnalyticsViewState.Loading -> binding.loadingView.root.isVisible = true
-            is CaseAnalyticsViewState.Error -> binding.errorView.root.isVisible = true
-            is CaseAnalyticsViewState.Content -> {
-                val caseAnalyticsViewItemList =
-                    uiState.caseAnalyticsItemList.map { caseAnalyticsItem ->
-                        CaseAnalyticsGroupieItem(caseAnalyticsItem)
-                    }
-                caseAnalyticsListAdapter.update(caseAnalyticsViewItemList)
-                binding.caseAnalyticsRecyclerView.isVisible = true
+        with(binding) {
+            when (uiState) {
+                is CaseAnalyticsViewState.Loading -> loadingView.root.isVisible = true
+                is CaseAnalyticsViewState.Error -> errorView.root.isVisible = true
+                is CaseAnalyticsViewState.Content -> {
+                    val caseAnalyticsViewItemList =
+                        uiState.caseAnalyticsItemList.map { caseAnalyticsItem ->
+                            CaseAnalyticsGroupieItem(caseAnalyticsItem)
+                        }
+                    caseAnalyticsListAdapter.update(caseAnalyticsViewItemList)
+                   caseAnalyticsRecyclerView.isVisible = true
+                }
             }
         }
     }

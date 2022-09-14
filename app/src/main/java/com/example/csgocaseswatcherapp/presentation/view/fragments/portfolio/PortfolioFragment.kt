@@ -92,34 +92,34 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
     }
 
     private fun handleState(uiState: PortfolioViewState) {
-        when (uiState) {
-            is PortfolioViewState.Loading -> binding.loadingView.root.isVisible = true
-            is PortfolioViewState.Error -> {
-                binding.loadingView.root.isVisible = false
-                binding.errorView.root.isVisible = true
-            }
-            is PortfolioViewState.Content -> {
-                // Portfolio Value
-                binding.totalValue.text = binding.root.context.getString(
-                    R.string.portfolio_total_value, uiState.totalPortfolioValue.toString()
-                )
+        with(binding) {
+            when (uiState) {
+                is PortfolioViewState.Loading -> loadingView.root.isVisible = true
+                is PortfolioViewState.Error -> {
+                    loadingView.root.isVisible = false
+                    errorView.root.isVisible = true
+                }
+                is PortfolioViewState.Content -> {
+                    // Portfolio Value
+                   totalValue.text = binding.root.context.getString(
+                        R.string.portfolio_total_value, uiState.totalPortfolioValue.toString()
+                    )
 
-                //Portfolio Recycler
-                caseListAdapter.update(uiState.portfolioItemList.map(::PortfolioGroupieItem))
-                binding.loadingView.root.isVisible = false
-                binding.itemCaseRecyclerView.isVisible = true
-                binding.itemCaseRecyclerView.smoothScrollToPosition(0)
+                    //Portfolio Recycler
+                    loadingView.root.isVisible = false
+                    itemCaseRecyclerView.isVisible = true
+                    caseListAdapter.update(uiState.portfolioItemList.map(::PortfolioGroupieItem))
+                    itemCaseRecyclerView.smoothScrollToPosition(0)
 
-                //BarChart
-                setUpChart()
+                    //BarChart
+                    setUpChart()
+                }
             }
         }
     }
 
     private fun setUpChart() {
-
         with(binding) {
-
             barChartPortfolioValue.description.isEnabled = false
             barChartPortfolioValue.legend.isEnabled = false
 

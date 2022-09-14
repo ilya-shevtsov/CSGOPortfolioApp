@@ -92,15 +92,18 @@ class CaseOverviewFragment : Fragment(R.layout.fragment_case_overview) {
     }
 
     private fun handleState(uiState: CaseOverviewViewState) {
-        when (uiState) {
-            is CaseOverviewViewState.Loading -> binding.loadingView.root.isVisible = true
-            is CaseOverviewViewState.Error -> binding.errorView.root.isVisible = true
-            is CaseOverviewViewState.Content -> {
-                val caseOverViewItemList = uiState.caseOverviewItemList.map { caseOverViewItem ->
-                    CaseOverviewGroupieItem(caseOverViewItem)
+        with(binding) {
+            when (uiState) {
+                is CaseOverviewViewState.Loading -> loadingView.root.isVisible = true
+                is CaseOverviewViewState.Error -> errorView.root.isVisible = true
+                is CaseOverviewViewState.Content -> {
+                    val caseOverViewItemList =
+                        uiState.caseOverviewItemList.map { caseOverViewItem ->
+                            CaseOverviewGroupieItem(caseOverViewItem)
+                        }
+                    caseOverviewListAdapter.update(caseOverViewItemList)
+                    caseRecyclerView.isVisible = true
                 }
-                caseOverviewListAdapter.update(caseOverViewItemList)
-                binding.caseRecyclerView.isVisible = true
             }
         }
     }
