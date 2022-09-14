@@ -116,7 +116,7 @@
     <fragment
         android:id="@+id/portfolioDetailsFragment"
         android:name="com.example.csgocaseswatcherapp.presentation.view.fragments.portfoliodetails.PortfolioDetailsFragment"
-        android:label="fragment_portfolio_details"
+        android:label="Portfolio Details"
         tools:layout="@layout/fragment_portfolio_details" >
         <action
             android:id="@+id/action_portfolioDetailsFragment_to_portfolioFragment"
