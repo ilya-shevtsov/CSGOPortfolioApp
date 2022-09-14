@@ -121,6 +121,9 @@
         <action
             android:id="@+id/action_portfolioDetailsFragment_to_portfolioFragment"
             app:destination="@id/portfolioFragment" />
+        <argument
+            android:name="portfolioItemListArgs"
+            app:argType="com.example.csgocaseswatcherapp.presentation.model.PortfolioItemListArgs" />
     </fragment>
     <dialog
         android:id="@+id/sortingBottomSheetFragment"

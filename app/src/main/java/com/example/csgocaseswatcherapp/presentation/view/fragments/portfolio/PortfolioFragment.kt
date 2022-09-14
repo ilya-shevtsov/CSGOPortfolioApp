@@ -153,11 +153,20 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
 
     private fun handleEvent(uiEvent: PortfolioViewEvent) {
         when (uiEvent) {
-            PortfolioViewEvent.NavigateToAddCase -> findNavController().navigate(R.id.addCaseFragment)
-            PortfolioViewEvent.NavigateToSorting -> findNavController().navigate(R.id.sortingBottomSheetFragment)
-            PortfolioViewEvent.NavigateToPortfolioDetails -> findNavController().navigate(R.id.portfolioDetailsFragment)
+            is PortfolioViewEvent.NavigateToAddCase -> findNavController().navigate(R.id.addCaseFragment)
+            is PortfolioViewEvent.NavigateToSorting -> findNavController().navigate(R.id.sortingBottomSheetFragment)
+            is PortfolioViewEvent.NavigateToPortfolioDetails -> handleNavigateToPortfolioDetails(
+                uiEvent
+            )
 
         }
+    }
+
+    private fun handleNavigateToPortfolioDetails(uiEvent: PortfolioViewEvent.NavigateToPortfolioDetails) {
+        val action = PortfolioFragmentDirections.actionPortfolioFragmentToPortfolioDetailsFragment(
+            uiEvent.portfolioItemListArgs
+        )
+        findNavController().navigate(action)
     }
 }
 
