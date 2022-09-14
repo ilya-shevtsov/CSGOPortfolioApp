@@ -74,10 +74,7 @@ class PortfolioDetailsFragment : Fragment(R.layout.fragment_portfolio_details) {
                 binding.errorView.root.isVisible = true
             }
             is PortfolioDetailsViewState.Content -> {
-                //Main
                 binding.loadingView.root.isVisible = false
-
-                //PieChart
                 setUpChart(uiState.portfolioPietEntryList)
 
             }
