@@ -49,7 +49,7 @@ class CaseDetailsFragment : Fragment(R.layout.fragment_case_details) {
                 }
             }
         }
-        viewModel.onItemProvided(args.currentCase)
+        viewModel.handleAction(CaseDetailsViewAction.OnItemProvided(args.currentCase))
     }
 
     private fun handleState(uiState: CaseDetailsViewState) {

@@ -53,7 +53,6 @@ class PortfolioDetailsFragment : Fragment(R.layout.fragment_portfolio_details) {
             }
             viewModel.handleAction(PortfolioDetailsViewAction.OnPortfolioDataProvided(args.portfolioItemListArgs))
 
-
 //            lifecycleScope.launch {
 //                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
 //                    viewModel.uiEvent.collect { uiEvent ->
