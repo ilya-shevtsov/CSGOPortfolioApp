@@ -15,6 +15,6 @@ This is an app that allows you to track your CSGO Case Portfolio (cases you have
 - View investment data about the cases (number of cases in portfolio, their average purchase price, total value and currency profit (or loss)
 - Sort your portfolio (by name, number of cases, average purchase price, overall value and by profit/loss)
 
-## ServerSide
+## Backend
 
 For this App I created a my own server using Ktor. [CSGO Case Portfolio Tracker ServerSide](https://github.com/ilya-shevtsov/CSGOCasesWatcherAppServer)
