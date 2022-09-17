@@ -10,6 +10,7 @@ This is an app that allows you to track your CSGO Case Portfolio (cases you have
 ## Track your investments:
 
 - Add cases to your portfolio
+<img src="READMEImages/addcaseone.jpg">
 - View your hisorical Portfolio Value
 - View investment data about the cases (number of cases in portfolio, their average purchase price, total value and currency profit (or loss)
 - Sort your portfolio (by name, number of cases, average purchase price, overall value and by profit/loss)
