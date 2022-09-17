@@ -1,7 +1,4 @@
 # CS:GO Case Portfolio Tracker
-
-## Track your CS:GO Case investments
-
 This is an app that allows you to track your CSGO Case Portfolio (cases you have collected or bought), track their price movement, return, and see how many cases you have and their total value.   
 
 ## With this app you will be able to:
