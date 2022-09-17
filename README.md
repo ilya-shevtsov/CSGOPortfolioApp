@@ -25,4 +25,4 @@ This is an app that allows you to track your CSGO Case Portfolio (cases you have
 
 ## Backend
 
-For this App I created a my own server using Ktor. [CSGO Case Portfolio Tracker ServerSide](https://github.com/ilya-shevtsov/CSGOCasesWatcherAppServer)
+For this App I created a my own server using Ktor. [CSGO Case Portfolio Tracker Backend](https://github.com/ilya-shevtsov/CSGOCasesWatcherAppServer)
