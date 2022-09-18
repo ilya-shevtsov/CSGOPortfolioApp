@@ -14,6 +14,7 @@ import com.github.mikephil.charting.data.BarEntry
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import kotlin.math.roundToLong
 
 class PortfolioViewModel : ViewModel() {
 
@@ -46,7 +47,7 @@ class PortfolioViewModel : ViewModel() {
 
     private fun getTotalValue(PortfolioItemList: List<PortfolioCaseItem>): Double {
         return PortfolioItemList.sumOf { case ->
-            case.caseOverallValue
+            case.caseOverallValue.roundToLong().toDouble()
         }
     }
 
