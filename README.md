@@ -8,7 +8,8 @@ This is an app that allows you to track your CSGO Case Portfolio (cases you have
 
 <img src="READMEImages/caseoverview_framed.png" width="200"> <img src="READMEImages/casedetails_framed.png" width="200"> 
 
-![image](https://user-images.githubusercontent.com/70269178/190987325-33020d07-436c-4102-8cd0-bd57e2f6861a.png)
+
+![5eeea355389655 59822ff824b72](https://user-images.githubusercontent.com/70269178/190987468-d8df2d3f-a61c-49d4-a983-71c76f419695.gif)
 
 
 
