@@ -6,25 +6,25 @@ This is an app that allows you to track your CSGO Case Portfolio (cases you have
 - Current market volume, lowest and mid price of the cases
 - Main information about the case(description of the case, release date and drop status)
 
-<img src="READMEImages/caseoverview_framed.png" width="200"> <img src="READMEImages/casedetails_framed.png" width="200"> <img src="READMEImages/addcasegif.gif" width="180"> 
-
-
+<img src="READMEImages/caseoverview_framed.png" width="200"> <img src="READMEImages/casedetails_framed.png" width="200"> <img src="READMEImages/caseoverviewgif.gif" width="180"> 
 
 - Investing data (Monthly and daily average return, standard deviation and sharp ratio)
 
-<img src="READMEImages/caseanalytics_framed.png" width="200"> <img src="READMEImages/caseanalyticsdetails_framed.png" width="200">
+<img src="READMEImages/caseanalytics_framed.png" width="200"> <img src="READMEImages/caseanalyticsdetails_framed.png" width="200"> <img src="READMEImages/caseanalyticsgif.gif" width="180"> 
 
 ## Track your investments:
 
 - Add cases to your portfolio
 
-<img src="READMEImages/addcasetwo_framed.png" width="200"> <img src="READMEImages/addcaseone_framed.png" width="200">
+<img src="READMEImages/addcasetwo_framed.png" width="200"> <img src="READMEImages/addcaseone_framed.png" width="200"> <img src="READMEImages/addcasegif.gif" width="180"> 
 
-- View investment data about the cases (number of cases in portfolio, their average purchase price, total value and currency profit (or loss)
+- View investment data about the cases (number of cases in portfolio, their average purchase price, total value and currency profit (or loss) and hisorical Portfolio Value
 
-- View your hisorical Portfolio Value and sort portfolio (by name, number of cases, average purchase price, overall value and by profit/loss)
+<img src="READMEImages/portfolio_framed.png" width="200"> <img src="READMEImages/caseportfoliogif.gif" width="180"> 
 
-<img src="READMEImages/portfolio_framed.png" width="200"> <img src="READMEImages/sort_framed.png" width="200">
+- Sort portfolio (by name, number of cases, average purchase price, overall value and by profit/loss)
+
+<img src="READMEImages/portfolio_framed.png" width="200"> <img src="READMEImages/sort_framed.png" width="200"> <img src="READMEImages/casesortgif.gif" width="180"> 
 
 ## Backend
 
