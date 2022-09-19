@@ -10,7 +10,7 @@ This is an app that allows you to track your CSGO Case Portfolio (cases you have
 
 - Investing data (Monthly and daily average return, standard deviation and sharp ratio)
 
-<img src="READMEImages/caseanalytics_framed.png" width="200"> <img src="READMEImages/caseanalyticsdetails_framed (1).png" width="200">
+<img src="READMEImages/caseanalytics_framed.png" width="200"> <img src="READMEImages/caseanalyticsdetails_framed.png" width="200">
 
 ## Track your investments:
 
@@ -21,7 +21,7 @@ This is an app that allows you to track your CSGO Case Portfolio (cases you have
 - View investment data about the cases (number of cases in portfolio, their average purchase price, total value and currency profit (or loss)
 - View your hisorical Portfolio Value and sort portfolio (by name, number of cases, average purchase price, overall value and by profit/loss)
 
-<img src="READMEImages/portfolio_framed.png" width="200"> <img src="READMEImages/sort.jpg" width="200">
+<img src="READMEImages/portfolio_framed.png" width="200"> <img src="READMEImages/sort_framed.png" width="200">
 
 ## Backend
 
