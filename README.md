@@ -22,17 +22,17 @@ https://user-images.githubusercontent.com/70269178/190982590-6d9dba01-27eb-4f85-
 
 <img src="READMEImages/addcasetwo_framed.png" width="200"> <img src="READMEImages/addcaseone_framed.png" width="200">
 
-<video src="https://user-images.githubusercontent.com/70269178/190982692-c8fdd39b-4128-404f-9479-a8ba0c83de7a.mp4"</video>
+https://user-images.githubusercontent.com/70269178/190982692-c8fdd39b-4128-404f-9479-a8ba0c83de7a.mp4
 
 - View investment data about the cases (number of cases in portfolio, their average purchase price, total value and currency profit (or loss)
 
-<video src="https://user-images.githubusercontent.com/70269178/190982859-84933cd4-bcff-41bf-90e9-565a6649b4b1.mp4"</video>
+https://user-images.githubusercontent.com/70269178/190982859-84933cd4-bcff-41bf-90e9-565a6649b4b1.mp4
 
 - View your hisorical Portfolio Value and sort portfolio (by name, number of cases, average purchase price, overall value and by profit/loss)
 
 <img src="READMEImages/portfolio_framed.png" width="200"> <img src="READMEImages/sort_framed.png" width="200">
 
-<video src="[https://user-images.githubusercontent.com/70269178/190982859-84933cd4-bcff-41bf-90e9-565a6649b4b1.mp4](https://user-images.githubusercontent.com/70269178/190983425-b213f02d-db27-422a-9082-f1a60d2be4e6.mp4)"</video>
+https://user-images.githubusercontent.com/70269178/190983425-b213f02d-db27-422a-9082-f1a60d2be4e6.mp4
 
 ## Backend
 
