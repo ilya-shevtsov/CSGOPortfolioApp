@@ -13,8 +13,7 @@ This is an app that allows you to track your CSGO Case Portfolio (cases you have
 
 <img src="READMEImages/caseanalytics_framed.png" width="200"> <img src="READMEImages/caseanalyticsdetails_framed.png" width="200">
 
-
-<video src="[Case Analytics](https://user-images.githubusercontent.com/70269178/190982590-6d9dba01-27eb-4f85-ba23-f5e9453c64e3.mp4)"</video>
+<video src="https://user-images.githubusercontent.com/70269178/190982590-6d9dba01-27eb-4f85-ba23-f5e9453c64e3.mp4"<video></video>
 
 ## Track your investments:
 
