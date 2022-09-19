@@ -7,10 +7,7 @@ This is an app that allows you to track your CSGO Case Portfolio (cases you have
 - Main information about the case(description of the case, release date and drop status)
 
 <img src="READMEImages/caseoverview_framed.png" width="200"> <img src="READMEImages/casedetails_framed.png" width="200"> 
-
-
-![5eeea355389655 59822ff824b72](https://user-images.githubusercontent.com/70269178/190987468-d8df2d3f-a61c-49d4-a983-71c76f419695.gif)
-
+![giphy](https://user-images.githubusercontent.com/70269178/190988163-d96fff49-df25-4636-8d57-6e4847ed1cf9.gif)
 
 
 - Investing data (Monthly and daily average return, standard deviation and sharp ratio)
