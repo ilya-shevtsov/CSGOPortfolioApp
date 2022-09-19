@@ -8,7 +8,7 @@ This is an app that allows you to track your CSGO Case Portfolio (cases you have
 
 <img src="READMEImages/caseoverview_framed.png" width="200"> <img src="READMEImages/casedetails_framed.png" width="200"> 
 
-https://user-images.githubusercontent.com/70269178/190980210-998147b1-89fe-4617-98db-bfd850b4f7e9.mp4
+<img src="READMEImages/addcasegif.gif" width="200"/>
 
 - Investing data (Monthly and daily average return, standard deviation and sharp ratio)
 
@@ -32,7 +32,11 @@ https://user-images.githubusercontent.com/70269178/190982859-84933cd4-bcff-41bf-
 
 <img src="READMEImages/portfolio_framed.png" width="200"> <img src="READMEImages/sort_framed.png" width="200">
 
-https://user-images.githubusercontent.com/70269178/190983425-b213f02d-db27-422a-9082-f1a60d2be4e6.mp4
+
+https://user-images.githubusercontent.com/70269178/190984771-4a36d38c-4d72-4fdf-81d2-4793948fef85.mp4
+
+
+
 
 ## Backend
 
