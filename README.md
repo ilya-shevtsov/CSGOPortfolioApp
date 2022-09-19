@@ -6,22 +6,22 @@ This is an app that allows you to track your CSGO Case Portfolio (cases you have
 - Current market volume, lowest and mid price of the cases
 - Main information about the case(description of the case, release date and drop status)
 
-<img src="READMEImages/caseoverview.jpg" width="200"> <img src="READMEImages/casedetails.jpg" width="200">
+<img src="READMEImages/caseoverview_framed.png" width="200"> <img src="READMEImages/casedetails_framed.png" width="200">
 
 - Investing data (Monthly and daily average return, standard deviation and sharp ratio)
 
-<img src="READMEImages/caseanalytics.jpg" width="200"> <img src="READMEImages/caseanalyticsdetails.jpg" width="200">
+<img src="READMEImages/caseanalytics_framed.png" width="200"> <img src="READMEImages/caseanalyticsdetails_framed (1).png" width="200">
 
 ## Track your investments:
 
 - Add cases to your portfolio
 
-<img src="READMEImages/addcaseone.jpg" width="200"> <img src="READMEImages/addcasetwo.jpg" width="200">
+<img src="READMEImages/addcaseone_framed.png" width="200"> <img src="READMEImages/addcasetwo_framed.png" width="200">
 
 - View investment data about the cases (number of cases in portfolio, their average purchase price, total value and currency profit (or loss)
 - View your hisorical Portfolio Value and sort portfolio (by name, number of cases, average purchase price, overall value and by profit/loss)
 
-<img src="READMEImages/portfolio.jpg" width="200"> <img src="READMEImages/sort.jpg" width="200">
+<img src="READMEImages/portfolio_framed.png" width="200"> <img src="READMEImages/sort.jpg" width="200">
 
 ## Backend
 
