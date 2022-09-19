@@ -1,5 +1,6 @@
 # CS:GO Case Portfolio Tracker
 This is an app that allows you to track your CSGO Case Portfolio (cases you have collected or bought), track their price movement, return, and see how many cases you have and their total value. With this app you will be able to:
+![](https://user-images.githubusercontent.com/70269178/190986448-1adff4f0-e751-430e-9c5e-f477b72002e5.gif)
 
 ## Overview data about games cases:
 
@@ -8,7 +9,7 @@ This is an app that allows you to track your CSGO Case Portfolio (cases you have
 
 <img src="READMEImages/caseoverview_framed.png" width="200"> <img src="READMEImages/casedetails_framed.png" width="200"> 
 
-<gif src="https://user-images.githubusercontent.com/70269178/190986448-1adff4f0-e751-430e-9c5e-f477b72002e5.gif")
+
 
 
 - Investing data (Monthly and daily average return, standard deviation and sharp ratio)
