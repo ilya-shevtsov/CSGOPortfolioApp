@@ -6,6 +6,7 @@ sealed class CaseDetailsViewState {
 
     object Loading : CaseDetailsViewState()
 
+
     data class Content(
         val caseOverviewModel: CaseOverviewModel
     ) : CaseDetailsViewState()
