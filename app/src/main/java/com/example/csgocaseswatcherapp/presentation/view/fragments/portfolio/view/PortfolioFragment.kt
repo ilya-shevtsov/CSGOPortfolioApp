@@ -20,8 +20,6 @@ import com.example.csgocaseswatcherapp.core.CaseWatcherApplication
 import com.example.csgocaseswatcherapp.databinding.FragmentPortfolioBinding
 import com.example.csgocaseswatcherapp.presentation.model.addcaseitem.AddedCaseModel
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioGroupieItem
-import com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio.PortfolioViewModel
-import com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio.PortfolioViewState
 import com.example.csgocaseswatcherapp.presentation.view.fragments.sortingbottomsheetfragment.SortingMethod
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.data.BarData

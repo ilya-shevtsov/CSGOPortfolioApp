@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio
+package com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio.view
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -8,8 +8,6 @@ import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.Port
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioItemMapper
 import com.example.csgocaseswatcherapp.presentation.model.portfoliodetailsvalueitem.PortfolioValueItem
 import com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio.domain.GetPortfolioDataUseCase
-import com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio.view.PortfolioViewAction
-import com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio.view.PortfolioViewEvent
 import com.example.csgocaseswatcherapp.presentation.view.fragments.sortingbottomsheetfragment.SortingMethod
 import com.github.mikephil.charting.data.BarEntry
 import kotlinx.coroutines.flow.MutableSharedFlow

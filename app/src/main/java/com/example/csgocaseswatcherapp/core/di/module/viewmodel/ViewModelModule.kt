@@ -6,7 +6,7 @@ import com.example.csgocaseswatcherapp.presentation.view.fragments.caseanalytics
 import com.example.csgocaseswatcherapp.presentation.view.fragments.caseanalyticsdetails.CaseAnalyticsDetailsViewModel
 import com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverviewdetails.CaseDetailsViewModel
 import com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview.CaseOverviewViewModel
-import com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio.PortfolioViewModel
+import com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio.view.PortfolioViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
