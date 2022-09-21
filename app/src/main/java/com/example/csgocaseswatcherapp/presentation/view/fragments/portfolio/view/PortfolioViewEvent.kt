@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio
+package com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio.view
 
 import com.example.csgocaseswatcherapp.presentation.model.PortfolioItemListArgs
 
