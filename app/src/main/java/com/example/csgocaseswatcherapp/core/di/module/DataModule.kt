@@ -4,6 +4,8 @@ import com.example.csgocaseswatcherapp.data.repository.CaseAnalyticsRepositoryIm
 import com.example.csgocaseswatcherapp.data.repository.CaseOverviewServerRepository
 import com.example.csgocaseswatcherapp.domain.repository.CaseAnalyticsRepository
 import com.example.csgocaseswatcherapp.domain.repository.CaseRepository
+import com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio.data.PortfolioServerRepository
+import com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio.domain.PortfolioRepository
 import dagger.Binds
 import dagger.Module
 import javax.inject.Singleton
@@ -13,9 +15,13 @@ interface DataModule {
 
     @Binds
     @Singleton
-    fun caseRepository(overviewServer: CaseOverviewServerRepository): CaseRepository
+    fun caseRepository(impl: CaseOverviewServerRepository): CaseRepository
 
     @Binds
     @Singleton
     fun caseAnalyticsRepository(impl: CaseAnalyticsRepositoryImpl): CaseAnalyticsRepository
+
+    @Binds
+    @Singleton
+    fun portfolioServerRepository(impl: PortfolioServerRepository): PortfolioRepository
 }
