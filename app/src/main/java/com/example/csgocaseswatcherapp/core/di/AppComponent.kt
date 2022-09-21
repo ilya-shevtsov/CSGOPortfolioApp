@@ -5,6 +5,7 @@ import com.example.csgocaseswatcherapp.presentation.view.fragments.caseanalytics
 import com.example.csgocaseswatcherapp.presentation.view.fragments.caseanalyticsdetails.CaseAnalyticsDetailsFragment
 import com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverviewdetails.CaseDetailsFragment
 import com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview.CaseOverviewFragment
+import com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio.view.PortfolioFragment
 import dagger.Component
 import javax.inject.Singleton
 
@@ -19,4 +20,6 @@ interface AppComponent {
     fun inject(fragment: CaseAnalyticsFragment)
 
     fun inject(fragment: CaseAnalyticsDetailsFragment)
+
+    fun inject(fragment: PortfolioFragment)
 }

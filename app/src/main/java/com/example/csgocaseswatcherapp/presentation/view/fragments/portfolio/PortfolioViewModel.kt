@@ -3,20 +3,25 @@ package com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.csgocaseswatcherapp.data.api.ApiTools
-import com.example.csgocaseswatcherapp.data.model.portfolioitem.PortfolioItemDtoMapper
 import com.example.csgocaseswatcherapp.presentation.model.PortfolioItemListArgs
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioCaseItem
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioItemMapper
 import com.example.csgocaseswatcherapp.presentation.model.portfoliodetailsvalueitem.PortfolioValueItem
+import com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio.domain.GetPortfolioDataUseCase
+import com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio.view.PortfolioViewAction
+import com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio.view.PortfolioViewEvent
 import com.example.csgocaseswatcherapp.presentation.view.fragments.sortingbottomsheetfragment.SortingMethod
 import com.github.mikephil.charting.data.BarEntry
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 import kotlin.math.roundToLong
 
-class PortfolioViewModel : ViewModel() {
+class PortfolioViewModel @Inject constructor(
+    private val getPortfolioDataUseCase: GetPortfolioDataUseCase
+) :
+    ViewModel() {
 
     var portfolioItemList: List<PortfolioCaseItem> = listOf()
 
@@ -150,9 +155,6 @@ class PortfolioViewModel : ViewModel() {
     }
 
     private suspend fun getPortfolioData() {
-        val responseDto = ApiTools.getApiService().getPortfolioData()
-        portfolioItemList = responseDto.map { caseDto ->
-            PortfolioItemDtoMapper.map(caseDto)
-        }
+        portfolioItemList = getPortfolioDataUseCase.invoke()
     }
 }

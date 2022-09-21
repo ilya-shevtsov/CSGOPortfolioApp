@@ -120,6 +120,7 @@ dependencies {
     
     // Testing
     testImplementation 'app.cash.turbine:turbine:0.10.0'
+    testImplementation "org.mockito.kotlin:mockito-kotlin:4.0.0"
 
 }
 

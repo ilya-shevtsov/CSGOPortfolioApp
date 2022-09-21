@@ -6,7 +6,7 @@ import com.example.csgocaseswatcherapp.domain.model.caseoverview.CaseOverview
 import com.example.csgocaseswatcherapp.domain.repository.CaseRepository
 import javax.inject.Inject
 
-class CaseRepositoryImpl @Inject constructor(
+class CaseOverviewServerRepository @Inject constructor(
 
 ) : CaseRepository {
 
