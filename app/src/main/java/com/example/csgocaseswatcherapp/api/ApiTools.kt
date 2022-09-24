@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.data.api
+package com.example.csgocaseswatcherapp.api
 
 
 import okhttp3.OkHttpClient
