@@ -2,11 +2,11 @@ package com.example.csgocaseswatcherapp.core.di.module.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.csgocaseswatcherapp.presentation.view.fragments.caseanalytics.view.CaseAnalyticsViewModel
-import com.example.csgocaseswatcherapp.presentation.view.fragments.caseanalyticsdetails.CaseAnalyticsDetailsViewModel
-import com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverviewdetails.CaseDetailsViewModel
-import com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview.view.CaseOverviewViewModel
-import com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio.view.PortfolioViewModel
+import com.example.csgocaseswatcherapp.presentation.screens.caseanalytics.view.CaseAnalyticsViewModel
+import com.example.csgocaseswatcherapp.presentation.screens.caseanalyticsdetails.view.CaseAnalyticsDetailsViewModel
+import com.example.csgocaseswatcherapp.presentation.screens.caseoverview.view.CaseOverviewViewModel
+import com.example.csgocaseswatcherapp.presentation.screens.caseoverviewdetails.view.CaseDetailsViewModel
+import com.example.csgocaseswatcherapp.presentation.screens.portfolio.view.PortfolioViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

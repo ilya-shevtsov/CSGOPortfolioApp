@@ -3,6 +3,7 @@ package com.example.csgocaseswatcherapp.presentation.model.caseoverviewitem
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
+
 @Parcelize
 data class CaseOverviewModel(
     val caseName: String,

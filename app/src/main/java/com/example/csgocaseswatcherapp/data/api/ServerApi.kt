@@ -1,10 +1,10 @@
 package com.example.csgocaseswatcherapp.data.api
 
-import com.example.csgocaseswatcherapp.data.model.addedcase.AddedCaseDto
-import com.example.csgocaseswatcherapp.presentation.view.fragments.caseanalytics.data.entities.CaseAnalyticsDto
-import com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview.data.entities.CaseDto
-import com.example.csgocaseswatcherapp.data.model.portfolioitem.PortfolioItemDto
-import com.example.csgocaseswatcherapp.data.model.prederredcurrencydto.PreferredCurrencyDto
+import com.example.csgocaseswatcherapp.presentation.screens.addcasefragment.data.entities.AddedCaseDto
+import com.example.csgocaseswatcherapp.presentation.screens.caseanalytics.data.entities.CaseAnalyticsDto
+import com.example.csgocaseswatcherapp.presentation.screens.caseoverview.data.entities.CaseDto
+import com.example.csgocaseswatcherapp.presentation.screens.portfolio.data.entities.PortfolioItemDto
+import com.example.csgocaseswatcherapp.presentation.screens.start.data.entities.PreferredCurrencyDto
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST

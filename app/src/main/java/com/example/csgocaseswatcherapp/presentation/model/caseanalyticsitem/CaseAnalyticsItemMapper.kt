@@ -1,6 +1,6 @@
 package com.example.csgocaseswatcherapp.presentation.model.caseanalyticsitem
 
-import com.example.csgocaseswatcherapp.presentation.view.fragments.caseanalytics.domain.entities.CaseAnalytics
+import com.example.csgocaseswatcherapp.presentation.screens.caseanalytics.domain.entities.CaseAnalytics
 
 object CaseAnalyticsItemMapper {
 
