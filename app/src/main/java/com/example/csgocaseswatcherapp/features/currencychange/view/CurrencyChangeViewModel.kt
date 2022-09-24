@@ -5,8 +5,9 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CurrencyChangeViewModel : ViewModel() {
+class CurrencyChangeViewModel @Inject constructor() : ViewModel() {
 
     val uiState = MutableStateFlow(value = createInitialState())
 

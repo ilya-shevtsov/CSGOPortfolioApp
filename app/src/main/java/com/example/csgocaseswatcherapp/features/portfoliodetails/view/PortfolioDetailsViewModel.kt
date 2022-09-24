@@ -7,8 +7,9 @@ import com.example.csgocaseswatcherapp.features.portfolio.view.entities.Portfoli
 import com.github.mikephil.charting.data.PieEntry
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import javax.inject.Inject
 
-class PortfolioDetailsViewModel : ViewModel() {
+class PortfolioDetailsViewModel @Inject constructor() : ViewModel() {
 
     var portfolioItemList: List<PortfolioCaseItem> = listOf()
 
