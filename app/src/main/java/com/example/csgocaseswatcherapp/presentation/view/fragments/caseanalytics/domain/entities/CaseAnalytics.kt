@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.domain.model.caseanalytics
+package com.example.csgocaseswatcherapp.presentation.view.fragments.caseanalytics.domain.entities
 
 data class CaseAnalytics(
     val caseName: String,

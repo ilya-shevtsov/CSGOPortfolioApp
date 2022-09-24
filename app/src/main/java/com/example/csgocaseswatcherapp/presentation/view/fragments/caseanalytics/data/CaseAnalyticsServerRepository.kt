@@ -1,9 +1,9 @@
 package com.example.csgocaseswatcherapp.presentation.view.fragments.caseanalytics.data
 
 import com.example.csgocaseswatcherapp.data.api.ApiTools
-import com.example.csgocaseswatcherapp.data.model.caseanalytics.CaseAnalyticsMapper
-import com.example.csgocaseswatcherapp.domain.model.caseanalytics.CaseAnalytics
-import com.example.csgocaseswatcherapp.domain.repository.CaseAnalyticsRepository
+import com.example.csgocaseswatcherapp.presentation.view.fragments.caseanalytics.data.entities.CaseAnalyticsMapper
+import com.example.csgocaseswatcherapp.presentation.view.fragments.caseanalytics.domain.entities.CaseAnalytics
+import com.example.csgocaseswatcherapp.presentation.view.fragments.caseanalytics.domain.CaseAnalyticsRepository
 import javax.inject.Inject
 
 class CaseAnalyticsServerRepository @Inject constructor(

@@ -1,10 +1,10 @@
-package com.example.csgocaseswatcherapp.presentation.view.fragments.caseanalytics
+package com.example.csgocaseswatcherapp.presentation.view.fragments.caseanalytics.view
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.csgocaseswatcherapp.domain.model.caseanalytics.CaseAnalytics
-import com.example.csgocaseswatcherapp.domain.usecase.GetCaseAnalyticsListUseCase
+import com.example.csgocaseswatcherapp.presentation.view.fragments.caseanalytics.domain.entities.CaseAnalytics
+import com.example.csgocaseswatcherapp.presentation.view.fragments.caseanalytics.domain.usecases.GetCaseAnalyticsListUseCase
 import com.example.csgocaseswatcherapp.presentation.model.caseanalyticsitem.CaseAnalyticsItemMapper
 import com.example.csgocaseswatcherapp.presentation.model.caseanalyticsitem.CaseAnalyticsModel
 import kotlinx.coroutines.flow.MutableSharedFlow

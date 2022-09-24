@@ -1,6 +1,6 @@
-package com.example.csgocaseswatcherapp.data.model.caseoverview
+package com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview.data.entities
 
-import com.example.csgocaseswatcherapp.domain.model.caseoverview.CaseOverview
+import com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview.domain.entities.CaseOverview
 
 object CaseOverviewMapper {
 

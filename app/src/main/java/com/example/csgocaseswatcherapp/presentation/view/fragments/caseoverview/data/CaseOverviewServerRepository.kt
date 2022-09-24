@@ -1,8 +1,8 @@
 package com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview.data
 
 import com.example.csgocaseswatcherapp.data.api.ApiTools
-import com.example.csgocaseswatcherapp.data.model.caseoverview.CaseOverviewMapper
-import com.example.csgocaseswatcherapp.domain.model.caseoverview.CaseOverview
+import com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview.data.entities.CaseOverviewMapper
+import com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview.domain.entities.CaseOverview
 import com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview.domain.CaseRepository
 import javax.inject.Inject
 
