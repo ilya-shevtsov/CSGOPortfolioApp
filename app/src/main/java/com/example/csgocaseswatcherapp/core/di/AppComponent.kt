@@ -1,11 +1,11 @@
 package com.example.csgocaseswatcherapp.core.di
 
 import com.example.csgocaseswatcherapp.core.di.module.AppModule
-import com.example.csgocaseswatcherapp.presentation.screens.caseanalytics.view.CaseAnalyticsFragment
-import com.example.csgocaseswatcherapp.presentation.screens.caseanalyticsdetails.view.CaseAnalyticsDetailsFragment
-import com.example.csgocaseswatcherapp.presentation.screens.caseoverview.view.CaseOverviewFragment
-import com.example.csgocaseswatcherapp.presentation.screens.caseoverviewdetails.view.CaseDetailsFragment
-import com.example.csgocaseswatcherapp.presentation.screens.portfolio.view.PortfolioFragment
+import com.example.csgocaseswatcherapp.screens.caseanalytics.view.CaseAnalyticsFragment
+import com.example.csgocaseswatcherapp.screens.caseanalyticsdetails.view.CaseAnalyticsDetailsFragment
+import com.example.csgocaseswatcherapp.screens.caseoverview.view.CaseOverviewFragment
+import com.example.csgocaseswatcherapp.screens.caseoverviewdetails.view.CaseDetailsFragment
+import com.example.csgocaseswatcherapp.screens.portfolio.view.PortfolioFragment
 import dagger.Component
 import javax.inject.Singleton
 

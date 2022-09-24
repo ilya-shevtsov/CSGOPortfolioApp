@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
     android:orientation="vertical"
-    tools:context=".presentation.screens.caseanalytics.view.CaseAnalyticsFragment">
+    tools:context="com.example.csgocaseswatcherapp.screens.caseanalytics.view.CaseAnalyticsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/caseAnalyticsRecyclerView"
