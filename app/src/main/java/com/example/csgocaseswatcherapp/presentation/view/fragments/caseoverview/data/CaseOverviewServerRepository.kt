@@ -1,12 +1,12 @@
-package com.example.csgocaseswatcherapp.data.repository
+package com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview.data
 
 import com.example.csgocaseswatcherapp.data.api.ApiTools
 import com.example.csgocaseswatcherapp.data.model.caseoverview.CaseOverviewMapper
 import com.example.csgocaseswatcherapp.domain.model.caseoverview.CaseOverview
-import com.example.csgocaseswatcherapp.domain.repository.CaseRepository
+import com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview.domain.CaseRepository
 import javax.inject.Inject
 
-class CaseRepositoryImpl @Inject constructor(
+class CaseOverviewServerRepository @Inject constructor(
 
 ) : CaseRepository {
 

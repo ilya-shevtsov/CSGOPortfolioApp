@@ -1,8 +1,6 @@
-package com.example.csgocaseswatcherapp.domain.usecase
+package com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview.domain
 
 import com.example.csgocaseswatcherapp.domain.model.caseoverview.CaseOverview
-import com.example.csgocaseswatcherapp.domain.repository.CaseRepository
-import io.reactivex.Single
 import javax.inject.Inject
 
 class GetCaseOverviewListUseCase @Inject constructor(

@@ -1,5 +1,6 @@
-package com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio
+package com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio.view
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,10 +11,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
+import com.example.csgocaseswatcherapp.core.CaseWatcherApplication
 import com.example.csgocaseswatcherapp.databinding.FragmentPortfolioBinding
 import com.example.csgocaseswatcherapp.presentation.model.addcaseitem.AddedCaseModel
 import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioGroupieItem
@@ -24,10 +27,14 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.xwray.groupie.GroupieAdapter
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
 
-    private val viewModel: PortfolioViewModel by viewModels()
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val viewModel: PortfolioViewModel by viewModels { viewModelFactory }
 
     private lateinit var binding: FragmentPortfolioBinding
 
@@ -100,7 +107,7 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
                 }
                 is PortfolioViewState.Content -> {
                     // Portfolio Value
-                   totalValue.text = binding.root.context.getString(
+                    totalValue.text = binding.root.context.getString(
                         R.string.portfolio_total_value, uiState.totalPortfolioValue.toString()
                     )
 
@@ -184,6 +191,13 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
             uiEvent.portfolioItemListArgs
         )
         findNavController().navigate(action)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (context.applicationContext as CaseWatcherApplication)
+            .getAppComponent()
+            .inject(this)
     }
 }
 

@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview
+package com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview.view
 
 import android.content.Context
 import android.os.Bundle
