@@ -1,6 +1,7 @@
 package com.example.csgocaseswatcherapp.core.di
 
 import com.example.csgocaseswatcherapp.core.di.module.AppModule
+import com.example.csgocaseswatcherapp.features.addcasefragment.view.AddCaseFragment
 import com.example.csgocaseswatcherapp.features.caseanalytics.view.CaseAnalyticsFragment
 import com.example.csgocaseswatcherapp.features.caseanalyticsdetails.view.CaseAnalyticsDetailsFragment
 import com.example.csgocaseswatcherapp.features.caseoverview.view.CaseOverviewFragment
@@ -22,4 +23,6 @@ interface AppComponent {
     fun inject(fragment: CaseAnalyticsDetailsFragment)
 
     fun inject(fragment: PortfolioFragment)
+
+    fun inject(fragment: AddCaseFragment)
 }

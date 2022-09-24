@@ -2,6 +2,7 @@ package com.example.csgocaseswatcherapp.core.di.module.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.csgocaseswatcherapp.features.addcasefragment.view.AddCaseViewModel
 import com.example.csgocaseswatcherapp.features.caseanalytics.view.CaseAnalyticsViewModel
 import com.example.csgocaseswatcherapp.features.caseanalyticsdetails.view.CaseAnalyticsDetailsViewModel
 import com.example.csgocaseswatcherapp.features.caseoverview.view.CaseOverviewViewModel
@@ -43,6 +44,11 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(PortfolioViewModel::class)
     fun PortfolioViewModel(viewModel: PortfolioViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AddCaseViewModel::class)
+    fun AddCaseViewModel(viewModel: AddCaseViewModel): ViewModel
 
 
 
