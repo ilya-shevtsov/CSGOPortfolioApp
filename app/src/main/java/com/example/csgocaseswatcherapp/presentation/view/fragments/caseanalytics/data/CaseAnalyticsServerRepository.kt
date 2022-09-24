@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.data.repository
+package com.example.csgocaseswatcherapp.presentation.view.fragments.caseanalytics.data
 
 import com.example.csgocaseswatcherapp.data.api.ApiTools
 import com.example.csgocaseswatcherapp.data.model.caseanalytics.CaseAnalyticsMapper
@@ -6,7 +6,7 @@ import com.example.csgocaseswatcherapp.domain.model.caseanalytics.CaseAnalytics
 import com.example.csgocaseswatcherapp.domain.repository.CaseAnalyticsRepository
 import javax.inject.Inject
 
-class CaseAnalyticsRepositoryImpl @Inject constructor(
+class CaseAnalyticsServerRepository @Inject constructor(
 
 ) : CaseAnalyticsRepository {
 

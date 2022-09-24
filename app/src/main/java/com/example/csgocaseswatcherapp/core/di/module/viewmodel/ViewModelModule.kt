@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.csgocaseswatcherapp.presentation.view.fragments.caseanalytics.CaseAnalyticsViewModel
 import com.example.csgocaseswatcherapp.presentation.view.fragments.caseanalyticsdetails.CaseAnalyticsDetailsViewModel
 import com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverviewdetails.CaseDetailsViewModel
-import com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview.CaseOverviewViewModel
+import com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview.view.CaseOverviewViewModel
 import com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio.view.PortfolioViewModel
 import dagger.Binds
 import dagger.Module

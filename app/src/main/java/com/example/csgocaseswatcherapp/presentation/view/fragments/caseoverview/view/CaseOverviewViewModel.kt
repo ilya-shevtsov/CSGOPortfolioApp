@@ -1,10 +1,10 @@
-package com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview
+package com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview.view
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.csgocaseswatcherapp.domain.model.caseoverview.CaseOverview
-import com.example.csgocaseswatcherapp.domain.usecase.GetCaseOverviewListUseCase
+import com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview.domain.GetCaseOverviewListUseCase
 import com.example.csgocaseswatcherapp.presentation.model.caseoverviewitem.CaseOverviewItemMapper
 import com.example.csgocaseswatcherapp.presentation.model.caseoverviewitem.CaseOverviewModel
 import kotlinx.coroutines.flow.MutableSharedFlow

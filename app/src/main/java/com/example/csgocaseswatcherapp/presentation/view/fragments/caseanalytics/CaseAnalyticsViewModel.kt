@@ -7,8 +7,6 @@ import com.example.csgocaseswatcherapp.domain.model.caseanalytics.CaseAnalytics
 import com.example.csgocaseswatcherapp.domain.usecase.GetCaseAnalyticsListUseCase
 import com.example.csgocaseswatcherapp.presentation.model.caseanalyticsitem.CaseAnalyticsItemMapper
 import com.example.csgocaseswatcherapp.presentation.model.caseanalyticsitem.CaseAnalyticsModel
-import com.example.csgocaseswatcherapp.presentation.model.caseoverviewitem.CaseOverviewModel
-import com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview.CaseOverviewViewEvent
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
