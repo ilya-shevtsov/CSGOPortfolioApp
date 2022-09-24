@@ -1,11 +1,16 @@
 package com.example.csgocaseswatcherapp.core.di
 
 import com.example.csgocaseswatcherapp.core.di.module.AppModule
-import com.example.csgocaseswatcherapp.presentation.view.fragments.caseanalytics.CaseAnalyticsFragment
-import com.example.csgocaseswatcherapp.presentation.view.fragments.caseanalyticsdetails.CaseAnalyticsDetailsFragment
-import com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverviewdetails.CaseDetailsFragment
-import com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview.view.CaseOverviewFragment
-import com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio.view.PortfolioFragment
+import com.example.csgocaseswatcherapp.features.addcasefragment.view.AddCaseFragment
+import com.example.csgocaseswatcherapp.features.caseanalytics.view.CaseAnalyticsFragment
+import com.example.csgocaseswatcherapp.features.caseanalyticsdetails.view.CaseAnalyticsDetailsFragment
+import com.example.csgocaseswatcherapp.features.caseoverview.view.CaseOverviewFragment
+import com.example.csgocaseswatcherapp.features.caseoverviewdetails.view.CaseDetailsFragment
+import com.example.csgocaseswatcherapp.features.currencychange.view.CurrencyChangeFragment
+import com.example.csgocaseswatcherapp.features.portfolio.view.PortfolioFragment
+import com.example.csgocaseswatcherapp.features.portfoliodetails.view.PortfolioDetailsFragment
+import com.example.csgocaseswatcherapp.features.sortingbottomsheetfragment.view.SortingBottomSheetFragment
+import com.example.csgocaseswatcherapp.features.start.view.StartFragment
 import dagger.Component
 import javax.inject.Singleton
 
@@ -22,4 +27,14 @@ interface AppComponent {
     fun inject(fragment: CaseAnalyticsDetailsFragment)
 
     fun inject(fragment: PortfolioFragment)
+
+    fun inject(fragment: AddCaseFragment)
+
+    fun inject(fragment: StartFragment)
+
+    fun inject(fragment: SortingBottomSheetFragment)
+
+    fun inject(fragment: PortfolioDetailsFragment)
+
+    fun inject(fragment: CurrencyChangeFragment)
 }

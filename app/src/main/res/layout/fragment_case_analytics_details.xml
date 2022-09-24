@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_margin="8dp"
     android:background="@color/backgroundColor"
-    tools:context=".presentation.view.fragments.caseanalyticsdetails.CaseAnalyticsDetailsFragment">
+    tools:context="com.example.csgocaseswatcherapp.features.caseanalyticsdetails.view.CaseAnalyticsDetailsFragment">
 
 
     <TextView
