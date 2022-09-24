@@ -4,8 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SortingBottomSheetFragmentViewModel : ViewModel() {
+class SortingBottomSheetFragmentViewModel @Inject constructor() : ViewModel() {
 
     val uiEvent = MutableSharedFlow<SortingBottomSheetFragmentViewEvent>()
 

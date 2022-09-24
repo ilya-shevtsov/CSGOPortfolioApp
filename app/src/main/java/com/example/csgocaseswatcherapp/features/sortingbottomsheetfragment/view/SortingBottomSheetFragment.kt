@@ -1,5 +1,6 @@
 package com.example.csgocaseswatcherapp.features.sortingbottomsheetfragment.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,16 +9,22 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.example.csgocaseswatcherapp.core.CaseWatcherApplication
 import com.example.csgocaseswatcherapp.databinding.FragmentSortingBottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class SortingBottomSheetFragment : BottomSheetDialogFragment() {
 
-    private val viewModel: SortingBottomSheetFragmentViewModel by viewModels()
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val viewModel: SortingBottomSheetFragmentViewModel by viewModels { viewModelFactory }
 
     private lateinit var binding: FragmentSortingBottomSheetBinding
 
@@ -102,5 +109,12 @@ class SortingBottomSheetFragment : BottomSheetDialogFragment() {
             bundleOf("sortingMethod" to uiEvent.sortingMethod)
         )
         findNavController().popBackStack()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (context.applicationContext as CaseWatcherApplication)
+            .getAppComponent()
+            .inject(this)
     }
 }
