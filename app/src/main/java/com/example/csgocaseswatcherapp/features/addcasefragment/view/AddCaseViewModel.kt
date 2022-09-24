@@ -26,7 +26,7 @@ class AddCaseViewModel @Inject constructor(
     }
 
     private fun handleOnCaseAddedClicked(addedCase: AddedCaseModel) {
-        sendAddedCaseUseCase.sendAddedCase(addedCase)
+        sendAddedCaseUseCase.invoke(addedCase)
         viewModelScope.launch {
             uiEvent.emit(
                 AddCaseViewEvent.NavigateToPortfolioWithAddedCase(

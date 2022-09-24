@@ -7,7 +7,7 @@ import javax.inject.Inject
 class SendAddedCaseUseCase @Inject constructor(
     private val addCaseRepository: AddCaseRepository
 ) {
-     fun sendAddedCase(addedCase: AddedCaseModel) {
+    operator fun invoke(addedCase: AddedCaseModel) {
         return addCaseRepository.sendAddedCase(addedCase)
     }
 }
