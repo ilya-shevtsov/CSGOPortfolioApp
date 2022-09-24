@@ -14,7 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.databinding.FragmentCurrencyChangeBinding
-import com.example.csgocaseswatcherapp.presentation.model.currencychangeItem.CurrencyChangeItem
+import com.example.csgocaseswatcherapp.presentation.screens.start.view.entities.CurrencyChangeItem
 import com.xwray.groupie.GroupieAdapter
 import kotlinx.coroutines.launch
 

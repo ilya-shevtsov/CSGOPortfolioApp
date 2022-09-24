@@ -1,7 +1,7 @@
 package com.example.csgocaseswatcherapp.presentation.screens.portfolio.view
 
-import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioCaseItem
-import com.example.csgocaseswatcherapp.presentation.model.portfoliodetailsvalueitem.PortfolioValueItem
+import com.example.csgocaseswatcherapp.presentation.screens.portfolio.view.entities.PortfolioCaseItem
+import com.example.csgocaseswatcherapp.presentation.screens.portfolio.view.entities.PortfolioValueItem
 import com.github.mikephil.charting.data.BarEntry
 
 sealed class PortfolioViewState {

@@ -1,6 +1,6 @@
 package com.example.csgocaseswatcherapp.presentation.screens.addcasefragment.view
 
-import com.example.csgocaseswatcherapp.presentation.model.addcaseitem.AddedCaseModel
+import com.example.csgocaseswatcherapp.presentation.screens.addcasefragment.view.entities.AddedCaseModel
 
 sealed class AddCaseViewEvent {
 

@@ -2,8 +2,8 @@ package com.example.csgocaseswatcherapp.presentation.screens.portfoliodetails.vi
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.csgocaseswatcherapp.presentation.model.PortfolioItemListArgs
-import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioCaseItem
+import com.example.csgocaseswatcherapp.presentation.screens.portfolio.view.entities.PortfolioItemListArgs
+import com.example.csgocaseswatcherapp.presentation.screens.portfolio.view.entities.PortfolioCaseItem
 import com.github.mikephil.charting.data.PieEntry
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow

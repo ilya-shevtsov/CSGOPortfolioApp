@@ -1,6 +1,6 @@
 package com.example.csgocaseswatcherapp.presentation.screens.portfolio.domain.usecases
 
-import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioCaseItem
+import com.example.csgocaseswatcherapp.presentation.screens.portfolio.view.entities.PortfolioCaseItem
 import com.example.csgocaseswatcherapp.presentation.screens.portfolio.domain.PortfolioRepository
 import javax.inject.Inject
 

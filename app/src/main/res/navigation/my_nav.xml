@@ -68,7 +68,7 @@
             app:destination="@id/caseOverviewFragment" />
         <argument
             android:name="currentCase"
-            app:argType="com.example.csgocaseswatcherapp.presentation.model.caseoverviewitem.CaseOverviewModel" />
+            app:argType="com.example.csgocaseswatcherapp.presentation.screens.caseoverview.view.entities.CaseOverviewModel" />
     </fragment>
     <fragment
         android:id="@+id/caseAnalyticsFragment"
@@ -92,7 +92,7 @@
             app:destination="@id/caseAnalyticsFragment" />
         <argument
             android:name="currentCase"
-            app:argType="com.example.csgocaseswatcherapp.presentation.model.caseanalyticsitem.CaseAnalyticsModel" />
+            app:argType="com.example.csgocaseswatcherapp.presentation.screens.caseanalytics.view.entities.CaseAnalyticsModel" />
     </fragment>
     <fragment
         android:id="@+id/addCaseFragment"
@@ -123,7 +123,7 @@
             app:destination="@id/portfolioFragment" />
         <argument
             android:name="portfolioItemListArgs"
-            app:argType="com.example.csgocaseswatcherapp.presentation.model.PortfolioItemListArgs" />
+            app:argType="com.example.csgocaseswatcherapp.presentation.screens.portfolio.view.entities.PortfolioItemListArgs" />
     </fragment>
     <dialog
         android:id="@+id/sortingBottomSheetFragment"

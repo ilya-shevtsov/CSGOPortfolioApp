@@ -3,8 +3,8 @@ package com.example.csgocaseswatcherapp.presentation.screens.caseoverview.view
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.csgocaseswatcherapp.presentation.model.caseoverviewitem.CaseOverviewItemMapper
-import com.example.csgocaseswatcherapp.presentation.model.caseoverviewitem.CaseOverviewModel
+import com.example.csgocaseswatcherapp.presentation.screens.caseoverview.view.entities.CaseOverviewItemMapper
+import com.example.csgocaseswatcherapp.presentation.screens.caseoverview.view.entities.CaseOverviewModel
 import com.example.csgocaseswatcherapp.presentation.screens.caseoverview.domain.entities.CaseOverview
 import com.example.csgocaseswatcherapp.presentation.screens.caseoverview.domain.usecases.GetCaseOverviewListUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow

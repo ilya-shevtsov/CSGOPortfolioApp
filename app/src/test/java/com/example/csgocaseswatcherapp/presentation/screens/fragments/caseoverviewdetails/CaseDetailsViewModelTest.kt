@@ -1,7 +1,7 @@
 package com.example.csgocaseswatcherapp.presentation.screens.fragments.caseoverviewdetails
 
 import app.cash.turbine.test
-import com.example.csgocaseswatcherapp.presentation.model.caseoverviewitem.CaseOverviewModel
+import com.example.csgocaseswatcherapp.presentation.screens.caseoverview.view.entities.CaseOverviewModel
 import com.example.csgocaseswatcherapp.presentation.screens.caseoverviewdetails.view.CaseDetailsViewAction
 import com.example.csgocaseswatcherapp.presentation.screens.caseoverviewdetails.view.CaseDetailsViewModel
 import com.example.csgocaseswatcherapp.presentation.screens.caseoverviewdetails.view.CaseDetailsViewState

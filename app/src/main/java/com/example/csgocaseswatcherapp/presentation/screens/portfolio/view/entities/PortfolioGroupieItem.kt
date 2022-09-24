@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem
+package com.example.csgocaseswatcherapp.presentation.screens.portfolio.view.entities
 
 import android.view.View
 import com.example.csgocaseswatcherapp.R
