@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.data.model.caseanalytics
+package com.example.csgocaseswatcherapp.presentation.view.fragments.caseanalytics.data.entities
 
 import java.io.Serializable
 import com.google.gson.annotations.SerializedName

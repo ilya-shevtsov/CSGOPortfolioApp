@@ -1,7 +1,6 @@
-package com.example.csgocaseswatcherapp.data.model.caseanalytics
+package com.example.csgocaseswatcherapp.presentation.view.fragments.caseanalytics.data.entities
 
-import android.util.Log
-import com.example.csgocaseswatcherapp.domain.model.caseanalytics.CaseAnalytics
+import com.example.csgocaseswatcherapp.presentation.view.fragments.caseanalytics.domain.entities.CaseAnalytics
 
 object CaseAnalyticsMapper {
 
