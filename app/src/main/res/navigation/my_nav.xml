@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/caseOverviewFragment"
-        android:name="com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview.CaseOverviewFragment"
+        android:name="com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview.view.CaseOverviewFragment"
         android:label="Case Overview"
         tools:layout="@layout/fragment_case_overview">
         <action

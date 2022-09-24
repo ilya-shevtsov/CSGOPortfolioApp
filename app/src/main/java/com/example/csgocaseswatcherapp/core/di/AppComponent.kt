@@ -4,7 +4,7 @@ import com.example.csgocaseswatcherapp.core.di.module.AppModule
 import com.example.csgocaseswatcherapp.presentation.view.fragments.caseanalytics.CaseAnalyticsFragment
 import com.example.csgocaseswatcherapp.presentation.view.fragments.caseanalyticsdetails.CaseAnalyticsDetailsFragment
 import com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverviewdetails.CaseDetailsFragment
-import com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview.CaseOverviewFragment
+import com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview.view.CaseOverviewFragment
 import com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio.view.PortfolioFragment
 import dagger.Component
 import javax.inject.Singleton
