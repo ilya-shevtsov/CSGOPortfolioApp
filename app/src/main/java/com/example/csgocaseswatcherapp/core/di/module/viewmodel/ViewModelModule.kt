@@ -8,6 +8,7 @@ import com.example.csgocaseswatcherapp.features.caseanalyticsdetails.view.CaseAn
 import com.example.csgocaseswatcherapp.features.caseoverview.view.CaseOverviewViewModel
 import com.example.csgocaseswatcherapp.features.caseoverviewdetails.view.CaseDetailsViewModel
 import com.example.csgocaseswatcherapp.features.portfolio.view.PortfolioViewModel
+import com.example.csgocaseswatcherapp.features.sortingbottomsheetfragment.view.SortingBottomSheetFragmentViewModel
 import com.example.csgocaseswatcherapp.features.start.view.StartViewModel
 import dagger.Binds
 import dagger.Module
@@ -55,5 +56,10 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(StartViewModel::class)
     fun StartViewModel(viewModel: StartViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SortingBottomSheetFragmentViewModel::class)
+    fun SortingBottomSheetFragmentViewModel(viewModel: SortingBottomSheetFragmentViewModel): ViewModel
 
 }
