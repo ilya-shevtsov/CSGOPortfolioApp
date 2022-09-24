@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.presentation.model.caseanalyticsitem
+package com.example.csgocaseswatcherapp.presentation.screens.caseanalytics.view.entities
 
 import com.example.csgocaseswatcherapp.presentation.screens.caseanalytics.domain.entities.CaseAnalytics
 

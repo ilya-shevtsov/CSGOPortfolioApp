@@ -16,7 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.core.CaseWatcherApplication
 import com.example.csgocaseswatcherapp.databinding.FragmentCaseAnalyticsBinding
-import com.example.csgocaseswatcherapp.presentation.model.caseanalyticsitem.CaseAnalyticsGroupieItem
+import com.example.csgocaseswatcherapp.presentation.screens.caseanalytics.view.entities.CaseAnalyticsGroupieItem
 import com.xwray.groupie.GroupieAdapter
 import kotlinx.coroutines.launch
 import javax.inject.Inject

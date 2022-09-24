@@ -1,7 +1,7 @@
 package com.example.csgocaseswatcherapp.presentation.screens.caseoverviewdetails.view
 
 import androidx.lifecycle.ViewModel
-import com.example.csgocaseswatcherapp.presentation.model.caseoverviewitem.CaseOverviewModel
+import com.example.csgocaseswatcherapp.presentation.screens.caseoverview.view.entities.CaseOverviewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 

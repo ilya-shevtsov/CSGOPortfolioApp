@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.presentation.model.addcaseitem
+package com.example.csgocaseswatcherapp.presentation.screens.addcasefragment.view.entities
 
 import java.io.Serializable
 

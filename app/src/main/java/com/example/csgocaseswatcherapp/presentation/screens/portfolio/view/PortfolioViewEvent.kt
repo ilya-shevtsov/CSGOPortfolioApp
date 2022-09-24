@@ -1,6 +1,6 @@
 package com.example.csgocaseswatcherapp.presentation.screens.portfolio.view
 
-import com.example.csgocaseswatcherapp.presentation.model.PortfolioItemListArgs
+import com.example.csgocaseswatcherapp.presentation.screens.portfolio.view.entities.PortfolioItemListArgs
 
 sealed class PortfolioViewEvent {
 

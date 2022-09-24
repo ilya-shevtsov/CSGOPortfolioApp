@@ -1,6 +1,6 @@
 package com.example.csgocaseswatcherapp.presentation.screens.portfolio.domain
 
-import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioCaseItem
+import com.example.csgocaseswatcherapp.presentation.screens.portfolio.view.entities.PortfolioCaseItem
 
 interface PortfolioRepository {
 

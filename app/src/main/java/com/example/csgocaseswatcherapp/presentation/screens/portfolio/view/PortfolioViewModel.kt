@@ -3,10 +3,10 @@ package com.example.csgocaseswatcherapp.presentation.screens.portfolio.view
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.csgocaseswatcherapp.presentation.model.PortfolioItemListArgs
-import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioCaseItem
-import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioItemMapper
-import com.example.csgocaseswatcherapp.presentation.model.portfoliodetailsvalueitem.PortfolioValueItem
+import com.example.csgocaseswatcherapp.presentation.screens.portfolio.view.entities.PortfolioItemListArgs
+import com.example.csgocaseswatcherapp.presentation.screens.portfolio.view.entities.PortfolioCaseItem
+import com.example.csgocaseswatcherapp.presentation.screens.portfolio.view.entities.PortfolioItemMapper
+import com.example.csgocaseswatcherapp.presentation.screens.portfolio.view.entities.PortfolioValueItem
 import com.example.csgocaseswatcherapp.presentation.screens.portfolio.domain.usecases.GetPortfolioDataUseCase
 import com.example.csgocaseswatcherapp.presentation.screens.sortingbottomsheetfragment.view.SortingMethod
 import com.github.mikephil.charting.data.BarEntry

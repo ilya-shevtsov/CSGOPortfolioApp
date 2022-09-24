@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.presentation.model.caseoverviewitem
+package com.example.csgocaseswatcherapp.presentation.screens.caseoverview.view.entities
 
 import android.view.View
 import com.example.csgocaseswatcherapp.R

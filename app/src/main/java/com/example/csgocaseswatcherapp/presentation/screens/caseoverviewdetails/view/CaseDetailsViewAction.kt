@@ -1,6 +1,6 @@
 package com.example.csgocaseswatcherapp.presentation.screens.caseoverviewdetails.view
 
-import com.example.csgocaseswatcherapp.presentation.model.caseoverviewitem.CaseOverviewModel
+import com.example.csgocaseswatcherapp.presentation.screens.caseoverview.view.entities.CaseOverviewModel
 
 sealed class CaseDetailsViewAction {
 

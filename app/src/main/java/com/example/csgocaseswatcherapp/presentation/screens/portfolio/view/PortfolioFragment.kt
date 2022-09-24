@@ -18,8 +18,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.core.CaseWatcherApplication
 import com.example.csgocaseswatcherapp.databinding.FragmentPortfolioBinding
-import com.example.csgocaseswatcherapp.presentation.model.addcaseitem.AddedCaseModel
-import com.example.csgocaseswatcherapp.presentation.model.caseportfolioitem.PortfolioGroupieItem
+import com.example.csgocaseswatcherapp.presentation.screens.addcasefragment.view.entities.AddedCaseModel
+import com.example.csgocaseswatcherapp.presentation.screens.portfolio.view.entities.PortfolioGroupieItem
 import com.example.csgocaseswatcherapp.presentation.screens.sortingbottomsheetfragment.view.SortingMethod
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.data.BarData

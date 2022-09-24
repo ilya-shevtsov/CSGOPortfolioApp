@@ -15,7 +15,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.databinding.FragmentAddCaseBinding
-import com.example.csgocaseswatcherapp.presentation.model.addcaseitem.AddedCaseModel
+import com.example.csgocaseswatcherapp.presentation.screens.addcasefragment.view.entities.AddedCaseModel
 import kotlinx.coroutines.launch
 
 class AddCaseFragment : Fragment(R.layout.fragment_add_case) {

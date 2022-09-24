@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.presentation.model.caseanalyticsitem
+package com.example.csgocaseswatcherapp.presentation.screens.caseanalytics.view.entities
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

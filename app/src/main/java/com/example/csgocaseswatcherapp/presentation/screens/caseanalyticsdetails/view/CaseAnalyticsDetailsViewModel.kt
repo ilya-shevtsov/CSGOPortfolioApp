@@ -1,7 +1,7 @@
 package com.example.csgocaseswatcherapp.presentation.screens.caseanalyticsdetails.view
 
 import androidx.lifecycle.ViewModel
-import com.example.csgocaseswatcherapp.presentation.model.caseanalyticsitem.CaseAnalyticsModel
+import com.example.csgocaseswatcherapp.presentation.screens.caseanalytics.view.entities.CaseAnalyticsModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
