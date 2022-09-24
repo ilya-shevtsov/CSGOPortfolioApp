@@ -1,5 +1,7 @@
 package com.example.csgocaseswatcherapp.core.di.module
 
+import com.example.csgocaseswatcherapp.features.addcasefragment.data.AddCaseServerRepository
+import com.example.csgocaseswatcherapp.features.addcasefragment.domain.AddCaseRepository
 import com.example.csgocaseswatcherapp.features.caseanalytics.data.CaseAnalyticsServerRepository
 import com.example.csgocaseswatcherapp.features.caseanalytics.domain.CaseAnalyticsRepository
 import com.example.csgocaseswatcherapp.features.caseoverview.data.CaseOverviewServerRepository
@@ -24,4 +26,8 @@ interface DataModule {
     @Binds
     @Singleton
     fun portfolioServerRepository(impl: PortfolioServerRepository): PortfolioRepository
+
+    @Binds
+    @Singleton
+    fun addCaseServerRepository(impl: AddCaseServerRepository): AddCaseRepository
 }

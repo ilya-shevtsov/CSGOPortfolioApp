@@ -24,7 +24,7 @@ class CaseOverviewViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             try {
-                val response = getCaseListUseCase.getCaseOverviewList()
+                val response = getCaseListUseCase.invoke()
                 showCaseList(response)
             } catch (throwable: Throwable) {
                 showError()

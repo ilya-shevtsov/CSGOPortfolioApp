@@ -1,5 +1,6 @@
 package com.example.csgocaseswatcherapp.features.addcasefragment.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,17 +11,23 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
+import com.example.csgocaseswatcherapp.core.CaseWatcherApplication
 import com.example.csgocaseswatcherapp.databinding.FragmentAddCaseBinding
 import com.example.csgocaseswatcherapp.features.addcasefragment.view.entities.AddedCaseModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class AddCaseFragment : Fragment(R.layout.fragment_add_case) {
 
-    private val viewModel: AddCaseViewModel by viewModels()
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val viewModel: AddCaseViewModel by viewModels { viewModelFactory }
 
     private lateinit var binding: FragmentAddCaseBinding
 
@@ -127,5 +134,12 @@ class AddCaseFragment : Fragment(R.layout.fragment_add_case) {
             bundleOf("addedCase" to uiEvent.addedCase)
         )
         findNavController().popBackStack()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (context.applicationContext as CaseWatcherApplication)
+            .getAppComponent()
+            .inject(this)
     }
 }
