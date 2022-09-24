@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/startFragment"
-        android:name="com.example.csgocaseswatcherapp.presentation.view.fragments.start.StartFragment"
+        android:name="com.example.csgocaseswatcherapp.presentation.screens.start.view.StartFragment"
         android:label="Main Menu"
         tools:layout="@layout/fragment_start" >
         <action
@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/caseOverviewFragment"
-        android:name="com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverview.view.CaseOverviewFragment"
+        android:name="com.example.csgocaseswatcherapp.presentation.screens.caseoverview.view.CaseOverviewFragment"
         android:label="Case Overview"
         tools:layout="@layout/fragment_case_overview">
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/portfolioFragment"
-        android:name="com.example.csgocaseswatcherapp.presentation.view.fragments.portfolio.view.PortfolioFragment"
+        android:name="com.example.csgocaseswatcherapp.presentation.screens.portfolio.view.PortfolioFragment"
         android:label="Portfolio"
         tools:layout="@layout/fragment_portfolio" >
         <action
@@ -60,7 +60,7 @@
     </fragment>
     <fragment
         android:id="@+id/caseDetailsFragment"
-        android:name="com.example.csgocaseswatcherapp.presentation.view.fragments.caseoverviewdetails.CaseDetailsFragment"
+        android:name="com.example.csgocaseswatcherapp.presentation.screens.portfoliodetails.view.PortfolioDetailsFragment"
         android:label="Case Details"
         tools:layout="@layout/fragment_case_details" >
         <action
@@ -72,7 +72,7 @@
     </fragment>
     <fragment
         android:id="@+id/caseAnalyticsFragment"
-        android:name="com.example.csgocaseswatcherapp.presentation.view.fragments.caseanalytics.view.CaseAnalyticsFragment"
+        android:name="com.example.csgocaseswatcherapp.presentation.screens.caseanalytics.view.CaseAnalyticsFragment"
         android:label="Case Analytics "
         tools:layout="@layout/fragment_case_analytics">
         <action
@@ -84,7 +84,7 @@
     </fragment>
     <fragment
         android:id="@+id/caseAnalyticsDetailsFragment"
-        android:name="com.example.csgocaseswatcherapp.presentation.view.fragments.caseanalyticsdetails.CaseAnalyticsDetailsFragment"
+        android:name="com.example.csgocaseswatcherapp.presentation.screens.caseanalyticsdetails.view.CaseAnalyticsDetailsFragment"
         android:label="Case Analytical Details"
         tools:layout="@layout/fragment_case_analytics_details">
         <action
@@ -96,7 +96,7 @@
     </fragment>
     <fragment
         android:id="@+id/addCaseFragment"
-        android:name="com.example.csgocaseswatcherapp.presentation.view.fragments.addcasefragment.AddCaseFragment"
+        android:name="com.example.csgocaseswatcherapp.presentation.screens.addcasefragment.view.AddCaseFragment"
         android:label="Add Case"
         tools:layout="@layout/fragment_add_case">
         <action
@@ -105,7 +105,7 @@
     </fragment>
     <fragment
         android:id="@+id/currencyChangeFragment"
-        android:name="com.example.csgocaseswatcherapp.presentation.view.fragments.currencychange.CurrencyChangeFragment"
+        android:name="com.example.csgocaseswatcherapp.presentation.screens.currencychange.view.CurrencyChangeFragment"
         android:label="CurrencyChangeFragment"
         tools:layout="@layout/fragment_currency_change">
 
@@ -115,7 +115,7 @@
     </fragment>
     <fragment
         android:id="@+id/portfolioDetailsFragment"
-        android:name="com.example.csgocaseswatcherapp.presentation.view.fragments.portfoliodetails.PortfolioDetailsFragment"
+        android:name="com.example.csgocaseswatcherapp.presentation.screens.portfoliodetails.view.PortfolioDetailsFragment"
         android:label="Portfolio Details"
         tools:layout="@layout/fragment_portfolio_details" >
         <action
@@ -127,7 +127,7 @@
     </fragment>
     <dialog
         android:id="@+id/sortingBottomSheetFragment"
-        android:name="com.example.csgocaseswatcherapp.presentation.view.fragments.sortingbottomsheetfragment.SortingBottomSheetFragment"
+        android:name="com.example.csgocaseswatcherapp.presentation.screens.sortingbottomsheetfragment.view.SortingBottomSheetFragment"
         android:label="fragment_sorting_bottom_sheet"
         tools:layout="@layout/fragment_sorting_bottom_sheet" >
         <action
