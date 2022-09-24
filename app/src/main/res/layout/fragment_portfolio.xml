@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
-    tools:context=".presentation.screens.portfolio.view.PortfolioFragment">
+    tools:context="com.example.csgocaseswatcherapp.screens.portfolio.view.PortfolioFragment">
 
 
     <View
