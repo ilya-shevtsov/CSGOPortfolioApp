@@ -1,14 +1,14 @@
 <resources>
-    <string name="app_name">CSGO Watcher</string>
+    <string name="app_name">CS:GO Portfolio</string>
     <string name="error_screen_case_overview">Could not connect to the server, try again later</string>
 
     // start screen
-    <string name="front_page_slogan">Invest Smart with CSGO Watcher App</string>
+    <string name="front_page_slogan">Invest Smart with CS:GO Portfolio Tracker</string>
     <string name="front_page_case_overview_button">Case Overview</string>
     <string name="front_page_portfolio_button">Portfolio</string>
     <string name="front_page_analytics_button">Case Analytics</string>
 
-    // case details //
+    // case details
     <string name="case_volume">Volume: %s</string>
     <string name="case_median_price">Median Price: %s</string>
     <string name="case_lowest_price">Lowest Price: %s</string>
