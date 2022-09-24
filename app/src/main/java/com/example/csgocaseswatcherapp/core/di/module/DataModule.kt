@@ -8,6 +8,8 @@ import com.example.csgocaseswatcherapp.features.caseoverview.data.CaseOverviewSe
 import com.example.csgocaseswatcherapp.features.caseoverview.domain.CaseRepository
 import com.example.csgocaseswatcherapp.features.portfolio.data.PortfolioServerRepository
 import com.example.csgocaseswatcherapp.features.portfolio.domain.PortfolioRepository
+import com.example.csgocaseswatcherapp.features.start.data.StartServerRepository
+import com.example.csgocaseswatcherapp.features.start.domain.StartRepository
 import dagger.Binds
 import dagger.Module
 import javax.inject.Singleton
@@ -30,4 +32,8 @@ interface DataModule {
     @Binds
     @Singleton
     fun addCaseServerRepository(impl: AddCaseServerRepository): AddCaseRepository
+
+    @Binds
+    @Singleton
+    fun startServerRepository(impl: StartServerRepository): StartRepository
 }

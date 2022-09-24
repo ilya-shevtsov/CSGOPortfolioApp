@@ -3,19 +3,40 @@ package com.example.csgocaseswatcherapp.features.start.view
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.csgocaseswatcherapp.api.ApiTools
 import com.example.csgocaseswatcherapp.features.start.data.entities.PreferredCurrencyDto
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import com.example.csgocaseswatcherapp.features.start.domain.usecases.GetPreferredCurrencyUseCase
+import com.example.csgocaseswatcherapp.features.start.domain.usecases.SendPreferredCurrencyUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class StartViewModel : ViewModel() {
+class StartViewModel @Inject constructor(
+    private val getPreferredCurrencyUseCase: GetPreferredCurrencyUseCase,
+    private val sendPreferredCurrencyUseCase: SendPreferredCurrencyUseCase
+) : ViewModel() {
 
     val uiState = MutableStateFlow(value = createInitialState())
 
     val uiEvent = MutableSharedFlow<StartViewEvent>()
+
+    init {
+        viewModelScope.launch {
+            try {
+                val preferredCurrency = when (getPreferredCurrencyUseCase().preferredCurrency) {
+                    1 -> "USD"
+                    5 -> "RUB"
+                    else -> {
+                        "Choose Currency"
+                    }
+                }
+                uiState.value = StartViewState.Content(preferredCurrency)
+            } catch (throwable: Throwable) {
+                showError()
+                Log.e("Logging_getCaseList", "${throwable.message}")
+            }
+        }
+    }
 
     fun handleAction(action: StartViewAction) {
         when (action) {
@@ -46,39 +67,24 @@ class StartViewModel : ViewModel() {
 
     private fun handleCurrencySelected(action: StartViewAction.OnCurrencySelected) {
         if (action.preferredCurrency != null) {
-            uiState.value = StartViewState(action.preferredCurrency)
+            uiState.value = StartViewState.Content(action.preferredCurrency)
 
             when (action.preferredCurrency) {
                 "USD" -> {
-                    sendPreferredCurrency(PreferredCurrencyDto(1))
+                    sendPreferredCurrencyUseCase(PreferredCurrencyDto(1))
                     Log.e("ServerSide", "SendUSD")
                 }
                 "RUB" -> {
-                    sendPreferredCurrency(PreferredCurrencyDto(5))
+                    sendPreferredCurrencyUseCase(PreferredCurrencyDto(5))
                     Log.e("ServerSide", "SendRUB")
                 }
             }
         }
     }
 
-    private fun sendPreferredCurrency(preferredCurrency: PreferredCurrencyDto) {
-        CoroutineScope(Dispatchers.IO).launch {
-            ApiTools.getApiService().postPreferredCurrency(preferredCurrency)
-        }
-    }
+    private fun createInitialState(): StartViewState = StartViewState.Content("USD")
 
-
-    private fun createInitialState(): StartViewState = StartViewState("USD")
-
-    suspend fun getPreferredCurrency() {
-        viewModelScope.launch {
-            val response = ApiTools.getApiService().getPreferredCurrency()
-            val preferredCurrency = when (response.preferredCurrency) {
-                1 -> "USD"
-                5 -> "RUB"
-                else -> { "Choose Currency" }
-            }
-            uiState.value = StartViewState(preferredCurrency)
-        }
+    private fun showError() {
+        uiState.value = StartViewState.Error
     }
 }

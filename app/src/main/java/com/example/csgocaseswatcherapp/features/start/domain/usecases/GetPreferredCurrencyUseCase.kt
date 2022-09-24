@@ -1,0 +1,13 @@
+package com.example.csgocaseswatcherapp.features.start.domain.usecases
+
+import com.example.csgocaseswatcherapp.features.start.data.entities.PreferredCurrencyDto
+import com.example.csgocaseswatcherapp.features.start.domain.StartRepository
+import javax.inject.Inject
+
+class GetPreferredCurrencyUseCase @Inject constructor(
+    private val startRepository: StartRepository
+) {
+    suspend operator fun invoke(): PreferredCurrencyDto {
+        return startRepository.getPreferredCurrency()
+    }
+}
