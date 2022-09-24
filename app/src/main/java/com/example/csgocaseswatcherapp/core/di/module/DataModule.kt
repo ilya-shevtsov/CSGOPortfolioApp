@@ -1,11 +1,11 @@
 package com.example.csgocaseswatcherapp.core.di.module
 
-import com.example.csgocaseswatcherapp.screens.caseanalytics.data.CaseAnalyticsServerRepository
-import com.example.csgocaseswatcherapp.screens.caseanalytics.domain.CaseAnalyticsRepository
-import com.example.csgocaseswatcherapp.screens.caseoverview.data.CaseOverviewServerRepository
-import com.example.csgocaseswatcherapp.screens.caseoverview.domain.CaseRepository
-import com.example.csgocaseswatcherapp.screens.portfolio.data.PortfolioServerRepository
-import com.example.csgocaseswatcherapp.screens.portfolio.domain.PortfolioRepository
+import com.example.csgocaseswatcherapp.features.caseanalytics.data.CaseAnalyticsServerRepository
+import com.example.csgocaseswatcherapp.features.caseanalytics.domain.CaseAnalyticsRepository
+import com.example.csgocaseswatcherapp.features.caseoverview.data.CaseOverviewServerRepository
+import com.example.csgocaseswatcherapp.features.caseoverview.domain.CaseRepository
+import com.example.csgocaseswatcherapp.features.portfolio.data.PortfolioServerRepository
+import com.example.csgocaseswatcherapp.features.portfolio.domain.PortfolioRepository
 import dagger.Binds
 import dagger.Module
 import javax.inject.Singleton
