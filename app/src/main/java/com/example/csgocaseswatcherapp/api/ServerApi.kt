@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.data.api
+package com.example.csgocaseswatcherapp.api
 
 import com.example.csgocaseswatcherapp.features.addcasefragment.data.entities.AddedCaseDto
 import com.example.csgocaseswatcherapp.features.caseanalytics.data.entities.CaseAnalyticsDto

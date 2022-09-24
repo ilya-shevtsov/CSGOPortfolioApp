@@ -3,7 +3,7 @@ package com.example.csgocaseswatcherapp.features.start.view
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.csgocaseswatcherapp.data.api.ApiTools
+import com.example.csgocaseswatcherapp.api.ApiTools
 import com.example.csgocaseswatcherapp.features.start.data.entities.PreferredCurrencyDto
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

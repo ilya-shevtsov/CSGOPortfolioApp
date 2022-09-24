@@ -2,7 +2,7 @@ package com.example.csgocaseswatcherapp.features.addcasefragment.view
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.csgocaseswatcherapp.data.api.ApiTools
+import com.example.csgocaseswatcherapp.api.ApiTools
 import com.example.csgocaseswatcherapp.features.addcasefragment.data.entities.AddedCaseDto
 import com.example.csgocaseswatcherapp.features.addcasefragment.view.entities.AddedCaseModel
 import kotlinx.coroutines.CoroutineScope
