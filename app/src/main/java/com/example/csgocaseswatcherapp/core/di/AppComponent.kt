@@ -6,7 +6,9 @@ import com.example.csgocaseswatcherapp.features.caseanalytics.view.CaseAnalytics
 import com.example.csgocaseswatcherapp.features.caseanalyticsdetails.view.CaseAnalyticsDetailsFragment
 import com.example.csgocaseswatcherapp.features.caseoverview.view.CaseOverviewFragment
 import com.example.csgocaseswatcherapp.features.caseoverviewdetails.view.CaseDetailsFragment
+import com.example.csgocaseswatcherapp.features.currencychange.view.CurrencyChangeFragment
 import com.example.csgocaseswatcherapp.features.portfolio.view.PortfolioFragment
+import com.example.csgocaseswatcherapp.features.portfoliodetails.view.PortfolioDetailsFragment
 import com.example.csgocaseswatcherapp.features.sortingbottomsheetfragment.view.SortingBottomSheetFragment
 import com.example.csgocaseswatcherapp.features.start.view.StartFragment
 import dagger.Component
@@ -31,4 +33,8 @@ interface AppComponent {
     fun inject(fragment: StartFragment)
 
     fun inject(fragment: SortingBottomSheetFragment)
+
+    fun inject(fragment: PortfolioDetailsFragment)
+
+    fun inject(fragment: CurrencyChangeFragment)
 }

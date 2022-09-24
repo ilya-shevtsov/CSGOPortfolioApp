@@ -27,7 +27,7 @@ class StartFragment : Fragment(R.layout.fragment_start) {
 
     private val viewModel: StartViewModel by viewModels { viewModelFactory }
 
-    private lateinit var binding: FragmentStartBinding 
+    private lateinit var binding: FragmentStartBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
