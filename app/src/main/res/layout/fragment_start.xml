@@ -32,8 +32,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_backgroundcircletwo"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/frontPageImage"
@@ -63,8 +63,8 @@
         app:layout_constraintVertical_bias="0.15" />
 
     <Button
-        style="@style/mainMenuButton"
         android:id="@+id/caseOverviewButton"
+        style="@style/mainMenuButton"
         android:text="@string/front_page_case_overview_button"
         app:layout_constraintBottom_toTopOf="@id/caseAnalyticsButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,8 +73,8 @@
         app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
-        style="@style/mainMenuButton"
         android:id="@+id/caseAnalyticsButton"
+        style="@style/mainMenuButton"
         android:text="@string/front_page_analytics_button"
         app:layout_constraintBottom_toBottomOf="@id/casePortfolioButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -82,8 +82,8 @@
         app:layout_constraintTop_toBottomOf="@id/caseOverviewButton" />
 
     <Button
-        style="@style/mainMenuButton"
         android:id="@+id/casePortfolioButton"
+        style="@style/mainMenuButton"
         android:text="@string/front_page_portfolio_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
