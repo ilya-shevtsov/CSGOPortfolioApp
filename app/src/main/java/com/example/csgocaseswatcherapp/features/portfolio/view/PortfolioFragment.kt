@@ -163,7 +163,8 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
 
             barChartPortfolioValue.data = data
             barChartPortfolioValue.invalidate()
-            barChartPortfolioValue.animateY(1400, Easing.EaseInOutQuad)
+            //
+
         }
     }
 
@@ -174,8 +175,12 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
             is PortfolioViewEvent.NavigateToPortfolioDetails -> handleNavigateToPortfolioDetails(
                 uiEvent
             )
-
+            is PortfolioViewEvent.AnimateBarChart -> handleAnimateBarChart()
         }
+    }
+
+    private fun handleAnimateBarChart() {
+        binding.barChartPortfolioValue.animateY(1400, Easing.EaseInOutQuad)
     }
 
     private fun handleNavigateToAddCase() {

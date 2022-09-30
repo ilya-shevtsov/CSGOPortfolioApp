@@ -34,6 +34,7 @@ class PortfolioViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 getPortfolioData()
+                uiEvent.emit(PortfolioViewEvent.AnimateBarChart)
                 showContent(portfolioItemList, portfolioValueList)
             } catch (throwable: Throwable) {
                 showError()
