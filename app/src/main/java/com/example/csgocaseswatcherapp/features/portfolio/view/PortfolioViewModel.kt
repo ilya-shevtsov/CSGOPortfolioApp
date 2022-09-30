@@ -117,6 +117,7 @@ class PortfolioViewModel @Inject constructor(
     private fun handleOnCaseAdded(action: PortfolioViewAction.OnCaseAdded) {
         val portfolioItem = PortfolioItemMapper.map(action.addedCase)
         val newPortfolioItemList = portfolioItemList + portfolioItem
+        portfolioItemList = newPortfolioItemList
         createPortfolioUiState(newPortfolioItemList)
     }
 
