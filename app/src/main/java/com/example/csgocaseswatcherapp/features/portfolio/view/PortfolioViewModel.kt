@@ -3,11 +3,11 @@ package com.example.csgocaseswatcherapp.features.portfolio.view
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemListArgs
+import com.example.csgocaseswatcherapp.features.portfolio.domain.usecases.GetPortfolioDataUseCase
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioCaseItem
+import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemListArgs
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemMapper
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioValueItem
-import com.example.csgocaseswatcherapp.features.portfolio.domain.usecases.GetPortfolioDataUseCase
 import com.example.csgocaseswatcherapp.features.sortingbottomsheetfragment.view.SortingMethod
 import com.github.mikephil.charting.data.BarEntry
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -34,6 +34,7 @@ class PortfolioViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 getPortfolioData()
+                uiEvent.emit(PortfolioViewEvent.AnimateBarChart)
                 showContent(portfolioItemList, portfolioValueList)
             } catch (throwable: Throwable) {
                 showError()
@@ -114,10 +115,31 @@ class PortfolioViewModel @Inject constructor(
         }
     }
 
+    fun addAmountAndValue(
+        addedCase: PortfolioCaseItem,
+        portfolioItem: PortfolioCaseItem
+    ): PortfolioCaseItem {
+        return PortfolioCaseItem(
+            caseImage = portfolioItem.caseImage,
+            caseName = portfolioItem.caseName,
+            caseAmount = portfolioItem.caseAmount + addedCase.caseAmount,
+            casePrice = portfolioItem.casePrice,
+            caseOverallValue = portfolioItem.caseOverallValue + addedCase.caseOverallValue,
+            caseProfitLoss = portfolioItem.caseProfitLoss
+        )
+    }
+
     private fun handleOnCaseAdded(action: PortfolioViewAction.OnCaseAdded) {
-        val portfolioItem = PortfolioItemMapper.map(action.addedCase)
-        val newPortfolioItemList = portfolioItemList + portfolioItem
-        createPortfolioUiState(newPortfolioItemList)
+        val addedCase = PortfolioItemMapper.map(action.addedCase)
+
+        portfolioItemList = portfolioItemList.map { portfolioCaseItem ->
+            if (portfolioCaseItem.caseName == addedCase.caseName) {
+                addAmountAndValue(addedCase, portfolioCaseItem)
+            } else {
+                portfolioCaseItem
+            }
+        }
+        createPortfolioUiState(portfolioItemList)
     }
 
     private fun handleOnOnSortClicked() {
