@@ -8,6 +8,8 @@ sealed class PortfolioViewEvent {
 
     object NavigateToSorting : PortfolioViewEvent()
 
+    object AnimateBarChart : PortfolioViewEvent()
+
     data class NavigateToPortfolioDetails(
         val portfolioItemListArgs: PortfolioItemListArgs
     ) : PortfolioViewEvent()
