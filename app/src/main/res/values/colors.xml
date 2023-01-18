@@ -14,4 +14,5 @@
     <color name="backgroundColor">#E5F7FF</color>
     <color name="buttonColor">#40BBD6</color>
     <color name="casePortfolioHeaderColor">#2FA1BA</color>
+    <color name="analyticsBackround">#edfaff</color>
 </resources>

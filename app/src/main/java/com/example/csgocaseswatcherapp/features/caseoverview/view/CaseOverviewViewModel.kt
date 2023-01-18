@@ -3,7 +3,7 @@ package com.example.csgocaseswatcherapp.features.caseoverview.view
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewItemMapper
+import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewModelMapper
 import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewModel
 import com.example.csgocaseswatcherapp.features.caseoverview.domain.entities.CaseOverview
 import com.example.csgocaseswatcherapp.features.caseoverview.domain.usecases.GetCaseOverviewListUseCase
@@ -51,7 +51,7 @@ class CaseOverviewViewModel @Inject constructor(
 
     private fun showCaseList(caseList: List<CaseOverview>) {
         uiState.value = CaseOverviewViewState.Content(
-            caseOverviewItemList = caseList.map(CaseOverviewItemMapper::map),
+            caseOverviewItemList = caseList.map(CaseOverviewModelMapper::map),
         )
     }
 }

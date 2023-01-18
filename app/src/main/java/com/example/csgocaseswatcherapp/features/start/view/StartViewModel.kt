@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.csgocaseswatcherapp.features.start.data.entities.PreferredCurrencyDto
+import com.example.csgocaseswatcherapp.features.start.domain.entities.PreferredCurrency
 import com.example.csgocaseswatcherapp.features.start.domain.usecases.GetPreferredCurrencyUseCase
 import com.example.csgocaseswatcherapp.features.start.domain.usecases.SendPreferredCurrencyUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -71,11 +72,11 @@ class StartViewModel @Inject constructor(
 
             when (action.preferredCurrency) {
                 "USD" -> {
-                    sendPreferredCurrencyUseCase(PreferredCurrencyDto(1))
+                    sendPreferredCurrencyUseCase(PreferredCurrency(1))
                     Log.e("ServerSide", "SendUSD")
                 }
                 "RUB" -> {
-                    sendPreferredCurrencyUseCase(PreferredCurrencyDto(5))
+                    sendPreferredCurrencyUseCase(PreferredCurrency(5))
                     Log.e("ServerSide", "SendRUB")
                 }
             }

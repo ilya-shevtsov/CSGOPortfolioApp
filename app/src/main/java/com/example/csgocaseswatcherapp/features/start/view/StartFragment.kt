@@ -33,7 +33,6 @@ class StartFragment : Fragment(R.layout.fragment_start) {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         binding = FragmentStartBinding.inflate(inflater, container, false)
         return binding.root
     }

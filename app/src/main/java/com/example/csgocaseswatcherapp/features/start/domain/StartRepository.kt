@@ -1,10 +1,10 @@
 package com.example.csgocaseswatcherapp.features.start.domain
 
-import com.example.csgocaseswatcherapp.features.start.data.entities.PreferredCurrencyDto
+import com.example.csgocaseswatcherapp.features.start.domain.entities.PreferredCurrency
 
 interface StartRepository {
 
-    suspend fun getPreferredCurrency(): PreferredCurrencyDto
+    suspend fun getPreferredCurrency(): PreferredCurrency
 
-    fun sendPreferredCurrency(preferredCurrency: PreferredCurrencyDto)
+    fun sendPreferredCurrency(preferredCurrency: PreferredCurrency)
 }

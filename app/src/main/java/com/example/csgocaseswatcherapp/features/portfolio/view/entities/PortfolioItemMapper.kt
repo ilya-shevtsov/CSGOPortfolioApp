@@ -6,8 +6,8 @@ import kotlin.math.round
 
 object PortfolioItemMapper {
 
-    fun map(addedCaseItem: AddedCaseModel): PortfolioCaseItem {
-        return PortfolioCaseItem(
+    fun map(addedCaseItem: AddedCaseModel): PortfolioItem {
+        return PortfolioItem(
             caseImage = getCaseImage(addedCaseItem.name),
             caseName = addedCaseItem.name,
             caseAmount = addedCaseItem.amount,
