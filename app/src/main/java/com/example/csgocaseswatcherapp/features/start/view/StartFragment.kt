@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
@@ -19,6 +20,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.core.CaseWatcherApplication
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -33,90 +35,55 @@ class StartFragment : Fragment(R.layout.fragment_start) {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         return ComposeView(requireContext()).also {
             composeView = it
         }
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         composeView.setContent {
             val state by viewModel.uiState.collectAsState()
-//            StartScreen(state = state)
+            LaunchedEffect(Unit) {
+                viewModel.uiEvent.collectLatest { event ->
+                    when (event) {
+                        StartViewEvent.NavigateToCaseOverview -> findNavController().navigate(R.id.caseOverviewFragment)
+                        StartViewEvent.NavigateToPortfolio -> findNavController().navigate(R.id.portfolioFragment)
+                        StartViewEvent.NavigateToAnalytics -> findNavController().navigate(R.id.caseAnalyticsFragment)
+                        StartViewEvent.NavigateToCurrencyChange -> findNavController().navigate(R.id.currencyChangeFragment)
+                    }
+                }
+            }
+
+            when (state) {
+                is StartViewState.Content -> {
+                    StartScreen(state = state as StartViewState.Content,
+                        onCaseOverviewClicked = { viewModel.handleAction(StartViewAction.OnCaseOverviewClicked) },
+                        onCaseAnalyticsClicked = { viewModel.handleAction(StartViewAction.OnAnalyticsClicked) },
+                        onPortfolioClicked = { viewModel.handleAction(StartViewAction.OnPortfolioClicked) },
+                        onCurrencyClicked = { viewModel.handleAction(StartViewAction.OnCurrencyChangeClicked) })
+                }
+
+                is StartViewState.Error -> {
+
+                }
+
+                is StartViewState.Loading -> {
+
+                }
+            }
+            setFragmentResultListener("preferredCurrency") { _, bundle ->
+                val preferredCurrency = bundle.getString("preferredCurrency")
+                viewModel.handleAction(StartViewAction.OnCurrencySelected(preferredCurrency))
+
+            }
         }
     }
-//        with(binding) {
-//
-//            lifecycleScope.launch {
-//                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-//                    viewModel.uiState.collect { uiState ->
-//                        handleState(uiState)
-//                    }
-//                }
-//            }
-//
-//            lifecycleScope.launch {
-//                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-//                    viewModel.uiEvent.collect { uiEvent ->
-//                        handleEvent(uiEvent)
-//                    }
-//                }
-//            }
-//
-//            setFragmentResultListener("preferredCurrency") { _, bundle ->
-//                val preferredCurrency = bundle.getString("preferredCurrency")
-//                viewModel.handleAction(StartViewAction.OnCurrencySelected(preferredCurrency))
-//            }
-//
-//            caseOverviewButton.setOnClickListener {
-//                viewModel.handleAction(StartViewAction.OnCaseOverviewClicked)
-//            }
-//
-//            casePortfolioButton.setOnClickListener {
-//                viewModel.handleAction(StartViewAction.OnPortfolioClicked)
-//            }
-//
-//            caseAnalyticsButton.setOnClickListener {
-//                viewModel.handleAction(StartViewAction.OnAnalyticsClicked)
-//            }
-//
-//            currencyChangeButton.setOnClickListener {
-//                viewModel.handleAction(StartViewAction.OnCurrencyChangeClicked)
-//            }
-//        }
-//    }
-//
-//    private fun handleState(uiState: StartViewState) {
-//        with(binding) {
-//            when (uiState) {
-//                is StartViewState.Loading -> loadingView.root.isVisible = true
-//                is StartViewState.Error -> {
-//                    loadingView.root.isVisible = false
-//                    errorView.root.isVisible = true
-//                }
-//
-//                is StartViewState.Content -> {
-//                    currencyChangeButton.text = uiState.currencyButton
-//                }
-//            }
-//        }
-//    }
-//
-//    private fun handleEvent(uiEvent: StartViewEvent) {
-//        when (uiEvent) {
-//            StartViewEvent.NavigateToCaseOverview -> findNavController().navigate(R.id.caseOverviewFragment)
-//            StartViewEvent.NavigateToPortfolio -> findNavController().navigate(R.id.portfolioFragment)
-//            StartViewEvent.NavigateToAnalytics -> findNavController().navigate(R.id.caseAnalyticsFragment)
-//            StartViewEvent.NavigateToCurrencyChange -> findNavController().navigate(R.id.currencyChangeFragment)
-//        }
-//    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (context.applicationContext as CaseWatcherApplication)
-            .getAppComponent()
-            .inject(this)
+        (context.applicationContext as CaseWatcherApplication).getAppComponent().inject(this)
     }
 }
