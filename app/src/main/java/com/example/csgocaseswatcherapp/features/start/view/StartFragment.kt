@@ -9,19 +9,15 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.core.CaseWatcherApplication
+import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class StartFragment : Fragment(R.layout.fragment_start) {
@@ -44,46 +40,53 @@ class StartFragment : Fragment(R.layout.fragment_start) {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        composeView.setViewCompositionStrategy(
+            androidx.compose.ui.platform.ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed
+        )
+
+        setFragmentResultListener("preferredCurrency") { _, bundle ->
+            val preferredCurrency = bundle.getString("preferredCurrency")
+            viewModel.handleAction(StartViewAction.OnCurrencySelected(preferredCurrency))
+        }
+
         composeView.setContent {
-            val state by viewModel.uiState.collectAsState()
-            LaunchedEffect(Unit) {
-                viewModel.uiEvent.collectLatest { event ->
-                    when (event) {
-                        StartViewEvent.NavigateToCaseOverview -> findNavController().navigate(R.id.caseOverviewFragment)
-                        StartViewEvent.NavigateToPortfolio -> findNavController().navigate(R.id.portfolioFragment)
-                        StartViewEvent.NavigateToAnalytics -> findNavController().navigate(R.id.caseAnalyticsFragment)
-                        StartViewEvent.NavigateToCurrencyChange -> findNavController().navigate(R.id.currencyChangeFragment)
+            AppTheme(dynamicColor = false) {
+                val state by viewModel.uiState.collectAsState()
+                LaunchedEffect(Unit) {
+                    viewModel.uiEvent.collectLatest { event ->
+                        when (event) {
+                            StartViewEvent.NavigateToCaseOverview -> navigateTo(R.id.caseOverviewFragment)
+                            StartViewEvent.NavigateToPortfolio -> navigateTo(R.id.portfolioFragment)
+                            StartViewEvent.NavigateToAnalytics -> navigateTo(R.id.caseAnalyticsFragment)
+                            StartViewEvent.NavigateToCurrencyChange -> navigateTo(R.id.currencyChangeFragment)
+                        }
                     }
                 }
-            }
 
-            when (state) {
-                is StartViewState.Content -> {
-                    StartScreen(state = state as StartViewState.Content,
+                when (state) {
+                    is StartViewState.Content -> StartScreen(
+                        state = state as StartViewState.Content,
                         onCaseOverviewClicked = { viewModel.handleAction(StartViewAction.OnCaseOverviewClicked) },
                         onCaseAnalyticsClicked = { viewModel.handleAction(StartViewAction.OnAnalyticsClicked) },
                         onPortfolioClicked = { viewModel.handleAction(StartViewAction.OnPortfolioClicked) },
-                        onCurrencyClicked = { viewModel.handleAction(StartViewAction.OnCurrencyChangeClicked) })
+                        onCurrencyClicked = { viewModel.handleAction(StartViewAction.OnCurrencyChangeClicked) }
+                    )
+
+                    is StartViewState.Error -> {}
+
+                    is StartViewState.Loading -> {}
                 }
-
-                is StartViewState.Error -> {
-
-                }
-
-                is StartViewState.Loading -> {
-
-                }
-            }
-            setFragmentResultListener("preferredCurrency") { _, bundle ->
-                val preferredCurrency = bundle.getString("preferredCurrency")
-                viewModel.handleAction(StartViewAction.OnCurrencySelected(preferredCurrency))
-
             }
         }
+    }
+
+    private fun navigateTo(distinction: Int) {
+        findNavController().navigate(distinction)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (context.applicationContext as CaseWatcherApplication).getAppComponent().inject(this)
     }
+
 }

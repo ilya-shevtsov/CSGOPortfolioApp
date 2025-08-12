@@ -4,9 +4,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,12 +30,17 @@ fun MainMenuButton(
             .padding(start = 8.dp, end = 8.dp, top = 16.dp)
             .width(280.dp)
             .height(60.dp),
-        shape = RoundedCornerShape(8.dp), // adjust radius to match screenshot
+        shape = RoundedCornerShape(8.dp),
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = colorResource(id = R.color.primaryColor),
-            contentColor = Color.White
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = MaterialTheme.colorScheme.onPrimary,
         ),
-        elevation = ButtonDefaults.elevation(defaultElevation = 0.dp) // flat like the image
+        elevation = ButtonDefaults.buttonElevation(
+            defaultElevation = 0.dp,
+            pressedElevation = 0.dp,
+            focusedElevation = 0.dp,
+            hoveredElevation = 0.dp
+        )
     ) {
         Text(
             text = buttonText,
@@ -46,8 +52,10 @@ fun MainMenuButton(
     }
 }
 
-@Composable
 @Preview
-fun MainMenuButtonPreview(){
-    MainMenuButton("Case Overview",{})
+@Composable
+fun MainMenuButtonPreview() {
+    com.example.csgocaseswatcherapp.core.ui.theme.AppTheme(dynamicColor = false) {
+        MainMenuButton("Case Overview", {})
+    }
 }
