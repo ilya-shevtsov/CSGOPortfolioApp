@@ -8,41 +8,42 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
 
 private val LightColors = lightColorScheme(
-    primary = md_theme_light_primary,
-    onPrimary = md_theme_light_onPrimary,
-    primaryContainer = md_theme_light_primaryContainer,
-    onPrimaryContainer = md_theme_light_onPrimaryContainer,
-    secondary = md_theme_light_secondary,
-    onSecondary = md_theme_light_onSecondary,
-    secondaryContainer = md_theme_light_secondaryContainer,
-    onSecondaryContainer = md_theme_light_onSecondaryContainer,
-    background = md_theme_light_background,
-    onBackground = md_theme_light_onBackground,
-    surface = md_theme_light_surface,
-    onSurface = md_theme_light_onSurface,
-    error = md_theme_light_error,
-    onError = md_theme_light_onError
+    primary = Color(0xFF40BBD6),
+    onPrimary = Color(0xFFFFFFFF),
+    primaryContainer = Color(0xFF7CEEFF),
+    onPrimaryContainer = Color(0xFF008BA5),
+    secondary = Color(0xFFE5F7FF),
+    onSecondary = Color(0xFF000000),
+    secondaryContainer = Color(0xFFFFFFFF),
+    onSecondaryContainer = Color(0xFFB3C4CC),
+    background = Color(0xFFE5F7FF),
+    onBackground = Color(0xFF000000),
+    surface = Color(0xFFEDFaff),
+    onSurface = Color(0xFF000000),
+    error = Color(0xFFFF0000),
+    onError = Color(0xFFFFFFFF)
 )
 
 private val DarkColors = darkColorScheme(
-    primary = md_theme_dark_primary,
-    onPrimary = md_theme_dark_onPrimary,
-    primaryContainer = md_theme_dark_primaryContainer,
-    onPrimaryContainer = md_theme_dark_onPrimaryContainer,
-    secondary = md_theme_dark_secondary,
-    onSecondary = md_theme_dark_onSecondary,
-    secondaryContainer = md_theme_dark_secondaryContainer,
-    onSecondaryContainer = md_theme_dark_onSecondaryContainer,
-    background = md_theme_dark_background,
-    onBackground = md_theme_dark_onBackground,
-    surface = md_theme_dark_surface,
-    onSurface = md_theme_dark_onSurface,
-    error = md_theme_dark_error,
-    onError = md_theme_dark_onError
+    primary = Color(0xFF7CEEFF),
+    onPrimary = Color(0xFF003641),
+    primaryContainer = Color(0xFF005B67),
+    onPrimaryContainer = Color(0xFFB7F3FF),
+    secondary = Color(0xFFB3C4CC),
+    onSecondary = Color(0xFF1C2B30),
+    secondaryContainer = Color(0xFF33474E),
+    onSecondaryContainer = Color(0xFFD7E8EF),
+    background = Color(0xFF101417),
+    onBackground = Color(0xFFE2E8EA),
+    surface = Color(0xFF12171A),
+    onSurface = Color(0xFFE2E8EA),
+    error = Color(0xFFFFB4AB),
+    onError = Color(0xFF690005)
 )
 
 @Composable
