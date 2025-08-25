@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -40,8 +41,6 @@ fun CaseOverviewItem(
     item: CaseOverviewModel,
     onClick: () -> Unit,
 ) {
-    val shape = RoundedCornerShape(16.dp)
-
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -70,7 +69,7 @@ fun CaseOverviewItem(
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .size(100.dp)
-                    .clip(shape)
+                    .clip(RoundedCornerShape(16.dp))
             )
 
             Spacer(Modifier.width(16.dp))
@@ -109,7 +108,7 @@ fun CaseOverviewItem(
 
 @Composable
 private fun StatRow(
-    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    icon: ImageVector,
     label: String,
     value: String,
 ) {

@@ -24,7 +24,6 @@ import com.example.csgocaseswatcherapp.core.CaseWatcherApplication
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 import com.example.csgocaseswatcherapp.databinding.FragmentCaseOverviewBinding
 import com.example.csgocaseswatcherapp.features.caseoverview.domain.entities.CaseOverview
-import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewGroupieItem
 import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewModel
 import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewScreen
 import com.xwray.groupie.GroupieAdapter

@@ -33,7 +33,6 @@ class CaseOverviewViewModel @Inject constructor(
                     caseOverviewItemList = response.map(CaseOverviewModelMapper::map)
                 )
             }.onFailure { t ->
-                Log.e("WTF", "onFailure entered")
                 if (t is CancellationException) throw t
                 Log.e("Logging_getCaseList", t.message ?: "error", t)
                 showError()
@@ -47,7 +46,6 @@ class CaseOverviewViewModel @Inject constructor(
     }
 
     private fun showError(){
-        Log.e("WTF", "showError entered")
         viewModelScope.launch {
             uiState.value = CaseOverviewViewState.Error
         }
