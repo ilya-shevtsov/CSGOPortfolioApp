@@ -124,7 +124,6 @@ fun ButtonsSelectionSection(
             verticalArrangement = Arrangement.spacedBy(12.dp),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 20.dp)
         ) {
             MainMenuButton(
                 buttonText = stringResource(R.string.front_page_case_overview_button),

@@ -3,6 +3,7 @@ package com.example.csgocaseswatcherapp
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
+import androidx.navigation.ui.setupActionBarWithNavController
 
 open class MainActivity : AppCompatActivity() {
 
@@ -10,7 +11,7 @@ open class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        setupActionBarWithNavController(findNavController(R.id.fragment))
+        setupActionBarWithNavController(findNavController(R.id.fragment))
     }
 
     override fun onSupportNavigateUp(): Boolean {
