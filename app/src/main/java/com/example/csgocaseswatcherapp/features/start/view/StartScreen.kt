@@ -36,14 +36,43 @@ import com.example.csgocaseswatcherapp.core.ui.SmallButton
 
 @Composable
 fun StartScreen(
-    state: StartViewState.Content,
+    state: StartViewState,
     onCaseOverviewClicked: () -> Unit,
     onCaseAnalyticsClicked: () -> Unit,
     onPortfolioClicked: () -> Unit,
     onCurrencyClicked: () -> Unit
 ) {
+
+
+    when (state) {
+        is StartViewState.Content ->
+            StartScreenContent(
+                state,
+                onCurrencyClicked,
+                onCaseOverviewClicked,
+                onCaseAnalyticsClicked,
+                onPortfolioClicked
+            )
+
+        is StartViewState.Error -> {}
+
+        is StartViewState.Loading -> {}
+    }
+
+}
+
+@Composable
+private fun StartScreenContent(
+    state: StartViewState.Content,
+    onCurrencyClicked: () -> Unit,
+    onCaseOverviewClicked: () -> Unit,
+    onCaseAnalyticsClicked: () -> Unit,
+    onPortfolioClicked: () -> Unit
+) {
+
     val primary = MaterialTheme.colorScheme.primary
     val background = MaterialTheme.colorScheme.background
+
 
     Box(
         modifier = Modifier
@@ -194,11 +223,11 @@ fun StartScreenPreview() {
         dynamicColor = false
     ) {
         StartScreen(
-            StartViewState.Content(currencyButton = "RUB"),
+            state = StartViewState.Content(currencyButton = "RUB"),
             onCaseOverviewClicked = {},
             onCaseAnalyticsClicked = {},
             onPortfolioClicked = {},
-            onCurrencyClicked = {},
+            onCurrencyClicked = {}
         )
     }
 }
