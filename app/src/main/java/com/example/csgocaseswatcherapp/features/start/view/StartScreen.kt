@@ -30,6 +30,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.csgocaseswatcherapp.R
+import com.example.csgocaseswatcherapp.core.ui.ErrorScreen
+import com.example.csgocaseswatcherapp.core.ui.LoadingScreen
 import com.example.csgocaseswatcherapp.core.ui.MainMenuButton
 import com.example.csgocaseswatcherapp.core.ui.SmallButton
 
@@ -54,9 +56,9 @@ fun StartScreen(
                 onPortfolioClicked
             )
 
-        is StartViewState.Error -> {}
+        is StartViewState.Error -> ErrorScreen()
 
-        is StartViewState.Loading -> {}
+        is StartViewState.Loading -> LoadingScreen()
     }
 
 }

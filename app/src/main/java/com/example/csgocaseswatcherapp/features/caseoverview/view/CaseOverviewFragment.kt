@@ -21,6 +21,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.core.CaseWatcherApplication
+import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 import com.example.csgocaseswatcherapp.databinding.FragmentCaseOverviewBinding
 import com.example.csgocaseswatcherapp.features.caseoverview.domain.entities.CaseOverview
 import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewGroupieItem
@@ -36,102 +37,45 @@ class CaseOverviewFragment : Fragment(R.layout.fragment_case_overview) {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var binding: FragmentCaseOverviewBinding
-
     private val viewModel: CaseOverviewViewModel by viewModels { viewModelFactory }
 
     private lateinit var composeView: ComposeView
 
-    private val caseOverviewListAdapter = GroupieAdapter()
 
-
-    //    override fun onCreateView(
-//        inflater: LayoutInflater,
-//        container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View {
-//        return ComposeView(requireContext()).also {
-//            composeView = it
-//        }
-//    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentCaseOverviewBinding.inflate(inflater, container, false)
-        return binding.root
+        return ComposeView(requireContext()).also {
+            composeView = it
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-//        composeView.setViewCompositionStrategy(
-//            androidx.compose.ui.platform.ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed
-//        )
+        composeView.setViewCompositionStrategy(
+            androidx.compose.ui.platform.ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed
+        )
 
-        with(binding) {
+        composeView.setContent {
+            AppTheme(dynamicColor = false) {
+                CaseOverviewIntegration(
+                    viewModel = viewModel,
+                    onNavigateToDetails = { model -> navigateToDetails(model)
 
-            caseRecyclerView.adapter = caseOverviewListAdapter
-
-            lifecycleScope.launch {
-                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    viewModel.uiState.collect { uiState ->
-                        handleState(uiState)
                     }
-                }
-            }
-
-            lifecycleScope.launch {
-                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    viewModel.uiEvent.collect { uiEvent ->
-                        handleEvent(uiEvent)
-                    }
-                }
-            }
-
-            caseOverviewListAdapter.setOnItemClickListener { caseOverViewListItem, _ ->
-                when (caseOverViewListItem) {
-                    is CaseOverviewGroupieItem -> {
-                        viewModel.handleAction(
-                            CaseOverviewViewAction.OnCaseClicked(
-                                caseOverViewListItem.caseOverviewModel
-                            )
-                        )
-                    }
-                }
+                )
             }
         }
     }
 
-    private fun handleEvent(uiEvent: CaseOverviewViewEvent) {
-        when (uiEvent) {
-            is CaseOverviewViewEvent.NavigateToCaseDetails -> navigateToCaseDetails(uiEvent)
-        }
-    }
-
-    private fun navigateToCaseDetails(uiEvent: CaseOverviewViewEvent.NavigateToCaseDetails) {
+    private fun navigateToDetails(model:CaseOverviewModel){
         val action =
             CaseOverviewFragmentDirections.actionCaseOverviewFragmentToCaseDetailsFragment(
-                uiEvent.case
+                model
             )
         findNavController().navigate(action)
-    }
-
-    private fun handleState(uiState: CaseOverviewViewState) {
-        with(binding) {
-            when (uiState) {
-                is CaseOverviewViewState.Loading -> loadingView.root.isVisible = true
-                is CaseOverviewViewState.Error -> errorView.root.isVisible = true
-                is CaseOverviewViewState.Content -> {
-                    val caseOverViewItemList =
-                        uiState.caseOverviewItemList.map { caseOverViewItem ->
-                            CaseOverviewGroupieItem(caseOverViewItem)
-                        }
-                    caseOverviewListAdapter.update(caseOverViewItemList)
-                    caseRecyclerView.isVisible = true
-                }
-            }
-        }
     }
 
     @Composable
