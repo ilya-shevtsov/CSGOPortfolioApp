@@ -6,19 +6,28 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.ComposeView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.core.CaseWatcherApplication
+import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 import com.example.csgocaseswatcherapp.databinding.FragmentPortfolioBinding
 import com.example.csgocaseswatcherapp.features.addcasefragment.view.entities.AddedCaseModel
+import com.example.csgocaseswatcherapp.features.caseoverview.view.CaseOverviewViewAction
+import com.example.csgocaseswatcherapp.features.caseoverview.view.CaseOverviewViewEvent
+import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewScreen
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioGroupieItem
 import com.example.csgocaseswatcherapp.features.sortingbottomsheetfragment.view.SortingMethod
 import com.github.mikephil.charting.animation.Easing
@@ -26,6 +35,7 @@ import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.xwray.groupie.GroupieAdapter
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -40,6 +50,18 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
 
     private val caseListAdapter = GroupieAdapter()
 
+    private lateinit var composeView: ComposeView
+
+//    override fun onCreateView(
+//        inflater: LayoutInflater,
+//        container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View {
+//        return ComposeView(requireContext()).also {
+//            composeView = it
+//        }
+//    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,6 +71,18 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+//        composeView.setViewCompositionStrategy(
+//            androidx.compose.ui.platform.ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed
+//        )
+//
+//        composeView.setContent {
+//            AppTheme(dynamicColor = false) {
+//                PortfolioIntegration(
+//                    viewModel
+//                )
+//            }
+//        }
 
         with(binding) {
 
@@ -105,6 +139,7 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
                     loadingView.root.isVisible = false
                     errorView.root.isVisible = true
                 }
+
                 is PortfolioViewState.Content -> {
                     // Portfolio Value
                     totalValue.text = binding.root.context.getString(
@@ -163,8 +198,6 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
 
             barChartPortfolioValue.data = data
             barChartPortfolioValue.invalidate()
-            //
-
         }
     }
 
@@ -175,6 +208,7 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
             is PortfolioViewEvent.NavigateToPortfolioDetails -> handleNavigateToPortfolioDetails(
                 uiEvent
             )
+
             is PortfolioViewEvent.AnimateBarChart -> handleAnimateBarChart()
         }
     }
@@ -196,6 +230,44 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
             uiEvent.portfolioItemListArgs
         )
         findNavController().navigate(action)
+    }
+
+
+    @Composable
+    fun PortfolioIntegration(
+        viewModel: PortfolioViewModel
+    ) {
+        setFragmentResultListener("addedCase") { _, bundle ->
+            val addedCase = bundle.getSerializable("addedCase") as AddedCaseModel
+            viewModel.handleAction(PortfolioViewAction.OnCaseAdded(addedCase))
+        }
+
+        setFragmentResultListener("sortingMethod") { _, bundle ->
+            val sortingMethod = bundle.getSerializable("sortingMethod") as SortingMethod
+            viewModel.handleAction(PortfolioViewAction.OnSortingMethodSelected(sortingMethod))
+        }
+
+        val state by viewModel.uiState.collectAsStateWithLifecycle()
+
+        LaunchedEffect(viewModel) {
+            viewModel.uiEvent.collectLatest { event ->
+                when (event) {
+                    is PortfolioViewEvent.NavigateToAddCase -> handleNavigateToAddCase()
+                    is PortfolioViewEvent.NavigateToSorting -> handleNavigateToSorting()
+                    is PortfolioViewEvent.NavigateToPortfolioDetails -> handleNavigateToPortfolioDetails(
+                        event
+                    )
+
+                    is PortfolioViewEvent.AnimateBarChart -> handleAnimateBarChart()
+                }
+            }
+        }
+        PortfolioScreen(
+            state = state,
+            onDetailsClicked = { viewModel.handleAction(PortfolioViewAction.OnPortfolioDetailsClicked) },
+            onAddCaseClicked = { viewModel.handleAction(PortfolioViewAction.OnAddCaseClicked) },
+            onSortingClicked = { viewModel.handleAction(PortfolioViewAction.OnSortClicked) },
+        )
     }
 
     override fun onAttach(context: Context) {
