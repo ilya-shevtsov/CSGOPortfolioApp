@@ -48,7 +48,7 @@ fun LoadingScreen() {
 
 @Preview
 @Composable
-private fun ErrorScreenPreview() {
+private fun LoadingScreenPreview() {
     AppTheme {
         LoadingScreen()
     }

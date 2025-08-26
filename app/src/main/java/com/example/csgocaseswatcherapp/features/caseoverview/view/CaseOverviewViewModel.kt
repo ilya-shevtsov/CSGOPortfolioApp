@@ -41,14 +41,12 @@ class CaseOverviewViewModel @Inject constructor(
         }
     }
 
-    private fun initState():CaseOverviewViewState{
+    private fun initState(): CaseOverviewViewState {
         return CaseOverviewViewState.Loading
     }
 
-    private fun showError(){
-        viewModelScope.launch {
-            uiState.value = CaseOverviewViewState.Error
-        }
+    private fun showError() {
+        uiState.value = CaseOverviewViewState.Error
     }
 
     fun handleAction(action: CaseOverviewViewAction) {
