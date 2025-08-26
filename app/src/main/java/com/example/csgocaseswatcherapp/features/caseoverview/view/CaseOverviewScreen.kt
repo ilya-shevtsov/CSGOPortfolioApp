@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.features.caseoverview.view.entities
+package com.example.csgocaseswatcherapp.features.caseoverview.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,7 +10,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.csgocaseswatcherapp.core.ui.ErrorScreen
 import com.example.csgocaseswatcherapp.core.ui.LoadingScreen
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
-import com.example.csgocaseswatcherapp.features.caseoverview.view.CaseOverviewViewState
+import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewItem
+import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewModel
 
 @Composable
 fun CaseOverviewScreen(
