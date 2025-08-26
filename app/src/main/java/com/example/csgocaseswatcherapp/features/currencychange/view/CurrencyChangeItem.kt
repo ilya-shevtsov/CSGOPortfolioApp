@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.features.start.view.entities
+package com.example.csgocaseswatcherapp.features.currencychange.view
 
 import android.view.View
 import com.example.csgocaseswatcherapp.R

@@ -30,20 +30,51 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.csgocaseswatcherapp.R
+import com.example.csgocaseswatcherapp.core.ui.ErrorScreen
+import com.example.csgocaseswatcherapp.core.ui.LoadingScreen
 import com.example.csgocaseswatcherapp.core.ui.MainMenuButton
 import com.example.csgocaseswatcherapp.core.ui.SmallButton
 
 
 @Composable
 fun StartScreen(
-    state: StartViewState.Content,
+    state: StartViewState,
     onCaseOverviewClicked: () -> Unit,
     onCaseAnalyticsClicked: () -> Unit,
     onPortfolioClicked: () -> Unit,
     onCurrencyClicked: () -> Unit
 ) {
+
+
+    when (state) {
+        is StartViewState.Content ->
+            StartScreenContent(
+                state,
+                onCurrencyClicked,
+                onCaseOverviewClicked,
+                onCaseAnalyticsClicked,
+                onPortfolioClicked
+            )
+
+        is StartViewState.Error -> ErrorScreen()
+
+        is StartViewState.Loading -> LoadingScreen()
+    }
+
+}
+
+@Composable
+private fun StartScreenContent(
+    state: StartViewState.Content,
+    onCurrencyClicked: () -> Unit,
+    onCaseOverviewClicked: () -> Unit,
+    onCaseAnalyticsClicked: () -> Unit,
+    onPortfolioClicked: () -> Unit
+) {
+
     val primary = MaterialTheme.colorScheme.primary
     val background = MaterialTheme.colorScheme.background
+
 
     Box(
         modifier = Modifier
@@ -95,7 +126,6 @@ fun ButtonsSelectionSection(
             verticalArrangement = Arrangement.spacedBy(12.dp),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 20.dp)
         ) {
             MainMenuButton(
                 buttonText = stringResource(R.string.front_page_case_overview_button),
@@ -194,11 +224,11 @@ fun StartScreenPreview() {
         dynamicColor = false
     ) {
         StartScreen(
-            StartViewState.Content(currencyButton = "RUB"),
+            state = StartViewState.Content(currencyButton = "RUB"),
             onCaseOverviewClicked = {},
             onCaseAnalyticsClicked = {},
             onPortfolioClicked = {},
-            onCurrencyClicked = {},
+            onCurrencyClicked = {}
         )
     }
 }

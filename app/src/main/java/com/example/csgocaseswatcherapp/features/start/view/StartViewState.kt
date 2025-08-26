@@ -6,8 +6,8 @@ sealed class StartViewState {
         val currencyButton: String
     ) : StartViewState()
 
-    object Loading : StartViewState()
+    data object Loading : StartViewState()
 
-    object Error : StartViewState()
+    data object Error : StartViewState()
 }
 

@@ -17,7 +17,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.core.CaseWatcherApplication
 import com.example.csgocaseswatcherapp.databinding.FragmentCurrencyChangeBinding
-import com.example.csgocaseswatcherapp.features.start.view.entities.CurrencyChangeItem
 import com.xwray.groupie.GroupieAdapter
 import kotlinx.coroutines.launch
 import javax.inject.Inject

@@ -5,14 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.core.CaseWatcherApplication
@@ -38,46 +39,48 @@ class StartFragment : Fragment(R.layout.fragment_start) {
         }
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         composeView.setViewCompositionStrategy(
             androidx.compose.ui.platform.ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed
         )
+
+        composeView.setContent {
+            AppTheme(dynamicColor = false) {
+                StartScreenIntegration(viewModel)
+            }
+        }
+    }
+
+    @Composable
+    fun StartScreenIntegration(
+        viewModel: StartViewModel,
+    ) {
 
         setFragmentResultListener("preferredCurrency") { _, bundle ->
             val preferredCurrency = bundle.getString("preferredCurrency")
             viewModel.handleAction(StartViewAction.OnCurrencySelected(preferredCurrency))
         }
 
-        composeView.setContent {
-            AppTheme(dynamicColor = false) {
-                val state by viewModel.uiState.collectAsState()
-                LaunchedEffect(Unit) {
-                    viewModel.uiEvent.collectLatest { event ->
-                        when (event) {
-                            StartViewEvent.NavigateToCaseOverview -> navigateTo(R.id.caseOverviewFragment)
-                            StartViewEvent.NavigateToPortfolio -> navigateTo(R.id.portfolioFragment)
-                            StartViewEvent.NavigateToAnalytics -> navigateTo(R.id.caseAnalyticsFragment)
-                            StartViewEvent.NavigateToCurrencyChange -> navigateTo(R.id.currencyChangeFragment)
-                        }
-                    }
-                }
+        val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-                when (state) {
-                    is StartViewState.Content -> StartScreen(
-                        state = state as StartViewState.Content,
-                        onCaseOverviewClicked = { viewModel.handleAction(StartViewAction.OnCaseOverviewClicked) },
-                        onCaseAnalyticsClicked = { viewModel.handleAction(StartViewAction.OnAnalyticsClicked) },
-                        onPortfolioClicked = { viewModel.handleAction(StartViewAction.OnPortfolioClicked) },
-                        onCurrencyClicked = { viewModel.handleAction(StartViewAction.OnCurrencyChangeClicked) }
-                    )
-
-                    is StartViewState.Error -> {}
-
-                    is StartViewState.Loading -> {}
+        LaunchedEffect(viewModel) {
+            viewModel.uiEvent.collectLatest { event ->
+                when (event) {
+                    StartViewEvent.NavigateToCaseOverview -> navigateTo(R.id.caseOverviewFragment)
+                    StartViewEvent.NavigateToPortfolio -> navigateTo(R.id.portfolioFragment)
+                    StartViewEvent.NavigateToAnalytics -> navigateTo(R.id.caseAnalyticsFragment)
+                    StartViewEvent.NavigateToCurrencyChange -> navigateTo(R.id.currencyChangeFragment)
                 }
             }
         }
+
+        StartScreen(
+            state = state,
+            onCaseOverviewClicked = { viewModel.handleAction(StartViewAction.OnCaseOverviewClicked) },
+            onCaseAnalyticsClicked = { viewModel.handleAction(StartViewAction.OnAnalyticsClicked) },
+            onPortfolioClicked = { viewModel.handleAction(StartViewAction.OnPortfolioClicked) },
+            onCurrencyClicked = { viewModel.handleAction(StartViewAction.OnCurrencyChangeClicked) }
+        )
     }
 
     private fun navigateTo(distinction: Int) {
@@ -88,5 +91,6 @@ class StartFragment : Fragment(R.layout.fragment_start) {
         super.onAttach(context)
         (context.applicationContext as CaseWatcherApplication).getAppComponent().inject(this)
     }
-
 }
+
+

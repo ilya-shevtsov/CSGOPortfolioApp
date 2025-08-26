@@ -7,30 +7,46 @@ import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseO
 import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewModel
 import com.example.csgocaseswatcherapp.features.caseoverview.domain.entities.CaseOverview
 import com.example.csgocaseswatcherapp.features.caseoverview.domain.usecases.GetCaseOverviewListUseCase
+import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewScreenPreview
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeout
 import javax.inject.Inject
+import kotlin.coroutines.cancellation.CancellationException
 
 class CaseOverviewViewModel @Inject constructor(
     private val getCaseListUseCase: GetCaseOverviewListUseCase
 ) : ViewModel() {
 
     val uiState: MutableStateFlow<CaseOverviewViewState> =
-        MutableStateFlow(value = CaseOverviewViewState.Loading)
+        MutableStateFlow(value = initState())
 
     val uiEvent = MutableSharedFlow<CaseOverviewViewEvent>()
 
     init {
         viewModelScope.launch {
-            try {
-                val response = getCaseListUseCase.invoke()
-                showCaseList(response)
-            } catch (throwable: Throwable) {
+            runCatching {
+                getCaseListUseCase()
+            }.onSuccess { response ->
+                uiState.value = CaseOverviewViewState.Content(
+                    caseOverviewItemList = response.map(CaseOverviewModelMapper::map)
+                )
+            }.onFailure { t ->
+                if (t is CancellationException) throw t
+                Log.e("Logging_getCaseList", t.message ?: "error", t)
                 showError()
-                Log.e("Logging_getCaseList", "${throwable.message}")
+
             }
         }
+    }
+
+    private fun initState(): CaseOverviewViewState {
+        return CaseOverviewViewState.Loading
+    }
+
+    private fun showError() {
+        uiState.value = CaseOverviewViewState.Error
     }
 
     fun handleAction(action: CaseOverviewViewAction) {
@@ -43,15 +59,5 @@ class CaseOverviewViewModel @Inject constructor(
         viewModelScope.launch {
             uiEvent.emit(CaseOverviewViewEvent.NavigateToCaseDetails(case))
         }
-    }
-
-    private fun showError() {
-        uiState.value = CaseOverviewViewState.Error
-    }
-
-    private fun showCaseList(caseList: List<CaseOverview>) {
-        uiState.value = CaseOverviewViewState.Content(
-            caseOverviewItemList = caseList.map(CaseOverviewModelMapper::map),
-        )
     }
 }
