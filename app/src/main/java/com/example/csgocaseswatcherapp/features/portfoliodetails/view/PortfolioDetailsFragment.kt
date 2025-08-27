@@ -6,18 +6,29 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.core.CaseWatcherApplication
+import com.example.csgocaseswatcherapp.core.ui.ErrorScreen
+import com.example.csgocaseswatcherapp.core.ui.LoadingScreen
 import com.example.csgocaseswatcherapp.databinding.FragmentPortfolioDetailsBinding
 import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
@@ -37,6 +48,17 @@ class PortfolioDetailsFragment : Fragment(R.layout.fragment_portfolio_details) {
 
     private val args by navArgs<PortfolioDetailsFragmentArgs>()
 
+    private lateinit var composeView: ComposeView
+
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ):View {
+//        return ComposeView(requireContext()).also {
+//            composeView = it
+//        }
+//    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,27 +69,25 @@ class PortfolioDetailsFragment : Fragment(R.layout.fragment_portfolio_details) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        with(binding) {
+//        composeView.setViewCompositionStrategy(
+//            ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed
+//        )
+//        composeView.setContent {
+//            AppTheme(dynamicColor = false) {
+//                PortfolioDetailsIntegration(viewModel)
+//            }
+//        }
 
-            binding.pieChartPortfolioValue
+        binding.pieChartPortfolioValue
 
-            lifecycleScope.launch {
-                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    viewModel.uiState.collect { uiState ->
-                        handleState(uiState)
-                    }
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collect { uiState ->
+                    handleState(uiState)
                 }
             }
-            viewModel.handleAction(PortfolioDetailsViewAction.OnPortfolioDataProvided(args.portfolioItemListArgs))
-
-//            lifecycleScope.launch {
-//                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-//                    viewModel.uiEvent.collect { uiEvent ->
-//                        handleEvent(uiEvent)
-//                    }
-//                }
-//            }
         }
+        viewModel.handleAction(PortfolioDetailsViewAction.OnPortfolioDataProvided(args.portfolioItemListArgs))
     }
 
     private fun handleState(uiState: PortfolioDetailsViewState) {
@@ -77,6 +97,7 @@ class PortfolioDetailsFragment : Fragment(R.layout.fragment_portfolio_details) {
                 binding.loadingView.root.isVisible = false
                 binding.errorView.root.isVisible = true
             }
+
             is PortfolioDetailsViewState.Content -> {
                 binding.loadingView.root.isVisible = false
                 setUpChart(uiState.portfolioPietEntryList)
@@ -84,10 +105,6 @@ class PortfolioDetailsFragment : Fragment(R.layout.fragment_portfolio_details) {
         }
     }
 
-//    private fun handleEvent(uiEvent: PortfolioDetailsViewEvent) {
-//        when (uiEvent) {
-//        }
-//    }
 
     private fun setUpChart(dataEntries: List<PieEntry>) {
 
@@ -123,6 +140,75 @@ class PortfolioDetailsFragment : Fragment(R.layout.fragment_portfolio_details) {
             pieChartPortfolioValue.invalidate()
             pieChartPortfolioValue.animateY(1400, Easing.EaseInOutQuad)
         }
+    }
+
+    @Composable
+    fun PortfolioDetailsIntegration(
+        viewModel: PortfolioDetailsViewModel
+    ) {
+        viewModel.handleAction(PortfolioDetailsViewAction.OnPortfolioDataProvided(args.portfolioItemListArgs))
+
+        val state by viewModel.uiState.collectAsStateWithLifecycle()
+
+        PortfolioDetailsScreen(
+            state = state,
+
+            )
+    }
+
+    @Composable
+    fun PortfolioDetailsScreen(
+        state: PortfolioDetailsViewState
+    ) {
+        when (state) {
+            is PortfolioDetailsViewState.Error -> ErrorScreen()
+            is PortfolioDetailsViewState.Loading -> LoadingScreen()
+            is PortfolioDetailsViewState.Content -> PortfolioDetailsContent(
+                portfolioPietEntryList = state.portfolioPietEntryList,
+                modifier = Modifier
+            )
+
+        }
+    }
+
+    @Composable
+    fun PortfolioDetailsContent(
+        portfolioPietEntryList: List<PieEntry>, modifier: Modifier
+    ) {
+        AndroidView(
+            modifier = modifier,
+            factory = { context ->
+                PieChart(context).apply {
+                    layoutParams = ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+
+                    description = Description().apply { text = "" }
+                    legend.isEnabled = false
+
+                    isDrawHoleEnabled = true
+                    setUsePercentValues(true)
+                    setEntryLabelTextSize(10f)
+                    setEntryLabelColor(Color.BLACK)
+                    setCenterTextSize(24f)
+                    centerText = centerText
+
+                }
+            },
+            update = { chart ->
+                val dataSet = PieDataSet(portfolioPietEntryList, "Amount"). apply {
+                    this.colors = colors
+                }
+
+                val data = PieData(dataSet).apply {
+                    setDrawValues(true)
+                    setValueTextSize(10f)
+                    setValueTextColor(Color.BLACK)
+                }
+
+                chart.data = data
+                chart.invalidate()
+                chart.animateY(1400, Easing.EaseInOutQuad)
+            }
+        )
     }
 
     override fun onAttach(context: Context) {
