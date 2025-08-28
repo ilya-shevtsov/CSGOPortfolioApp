@@ -1,7 +1,7 @@
 package com.example.csgocaseswatcherapp.features.portfolio.view
 
 import com.example.csgocaseswatcherapp.features.addcasefragment.view.entities.AddedCaseModel
-import com.example.csgocaseswatcherapp.features.sortingbottomsheetfragment.view.SortingMethod
+import com.example.csgocaseswatcherapp.features.sortingmodal.view.SortingMethod
 
 sealed class PortfolioViewAction {
 

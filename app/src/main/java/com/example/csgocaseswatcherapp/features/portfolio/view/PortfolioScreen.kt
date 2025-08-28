@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.automirrored.filled.Sort
@@ -29,6 +30,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -61,6 +63,7 @@ fun PortfolioScreen(
     onDetailsClicked: () -> Unit,
     onAddCaseClicked: () -> Unit,
     onSortingClicked: () -> Unit,
+    scrollSignal: Int,
 ) {
 
     when (state) {
@@ -74,7 +77,8 @@ fun PortfolioScreen(
             onDetailsClicked = onDetailsClicked,
             onAddCaseClicked = onAddCaseClicked,
             onSortingClicked = onSortingClicked,
-            modifier = Modifier
+            modifier = Modifier,
+            scrollSignal = scrollSignal
         )
     }
 }
@@ -88,8 +92,19 @@ fun PortfolioContent(
     barEntries: List<BarEntry>,
     onDetailsClicked: () -> Unit,
     onAddCaseClicked: () -> Unit,
-    onSortingClicked: () -> Unit
+    onSortingClicked: () -> Unit,
+    scrollSignal: Int
 ) {
+
+    val listState = rememberLazyListState()
+
+
+    LaunchedEffect(scrollSignal) {
+        if (scrollSignal > 0) {
+            listState.animateScrollToItem(0)
+        }
+    }
+
     Column(
         modifier
             .background(MaterialTheme.colorScheme.background)
@@ -156,6 +171,7 @@ fun PortfolioContent(
         Spacer(Modifier.height(8.dp))
 
         LazyColumn(
+            state = listState,
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(bottom = 16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
@@ -343,8 +359,9 @@ fun PortfolioScreenPreview() {
                 totalPortfolioValue = 62.0
             ),
             onDetailsClicked = {},
+            onAddCaseClicked = {},
             onSortingClicked = {},
-            onAddCaseClicked = {}
+            scrollSignal = 0
         )
     }
 }

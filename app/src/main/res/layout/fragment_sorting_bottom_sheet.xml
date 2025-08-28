@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:layout_marginHorizontal="12dp"
     android:background="@color/backgroundColor"
-    tools:context="com.example.csgocaseswatcherapp.features.sortingbottomsheetfragment.view.SortingBottomSheetFragment">
+    tools:context="com.example.csgocaseswatcherapp.features.sortingmodal.view.SortingBottomSheetFragment">
 
     <TextView
         android:id="@+id/sortingHeader"
