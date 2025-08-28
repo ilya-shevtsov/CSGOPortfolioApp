@@ -70,7 +70,6 @@ fun PortfolioScreen(
         is PortfolioViewState.Loading -> LoadingScreen()
         is PortfolioViewState.Error -> ErrorScreen()
         is PortfolioViewState.Content -> PortfolioContent(
-
             totalPortfolioValue = state.totalPortfolioValue,
             items = state.portfolioItemList,
             barEntries = state.portfolioBartEntryList,

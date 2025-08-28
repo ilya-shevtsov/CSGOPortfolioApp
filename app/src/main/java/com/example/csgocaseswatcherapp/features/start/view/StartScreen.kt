@@ -30,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.csgocaseswatcherapp.R
+import com.example.csgocaseswatcherapp.core.ui.BackgroundDecorations
 import com.example.csgocaseswatcherapp.core.ui.ErrorScreen
 import com.example.csgocaseswatcherapp.core.ui.LoadingScreen
 import com.example.csgocaseswatcherapp.core.ui.MainMenuButton
@@ -72,7 +73,6 @@ private fun StartScreenContent(
     onPortfolioClicked: () -> Unit
 ) {
 
-    val primary = MaterialTheme.colorScheme.primary
     val background = MaterialTheme.colorScheme.background
 
 
@@ -87,7 +87,6 @@ private fun StartScreenContent(
                 .padding(horizontal = 16.dp)
         ) {
             HeaderDecoration(
-                primaryColor = primary,
                 currencyButtonText = state.currencyButton,
                 onCurrencyClicked = onCurrencyClicked
             )
@@ -146,7 +145,6 @@ fun ButtonsSelectionSection(
 @Composable
 fun HeaderDecoration(
     modifier: Modifier = Modifier,
-    primaryColor: Color,
     currencyButtonText: String,
     onCurrencyClicked: () -> Unit
 ) {
@@ -161,21 +159,7 @@ fun HeaderDecoration(
                 .weight(1f)
                 .fillMaxHeight()
         ) {
-            Canvas(modifier = modifier.matchParentSize()) {
-                val r = 80.dp.toPx()
-                drawCircle(
-                    color = primaryColor,
-                    radius = r,
-                    center = Offset(r * 0.75f, r * 0.05f),
-                    alpha = 0.25f
-                )
-                drawCircle(
-                    color = primaryColor,
-                    radius = r,
-                    center = Offset(r * -0.1f, r * 0.75f),
-                    alpha = 0.25f
-                )
-            }
+            BackgroundDecorations(modifier = Modifier.matchParentSize())
         }
         SmallButton(
             modifier = Modifier.padding(top = 12.dp, end = 12.dp),
