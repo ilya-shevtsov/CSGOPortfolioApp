@@ -85,10 +85,6 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
                     is PortfolioViewEvent.NavigateToPortfolioDetails -> handleNavigateToPortfolioDetails(
                         event
                     )
-
-                    is PortfolioViewEvent.AnimateBarChart -> {
-
-                    }
                 }
             }
         }
@@ -107,5 +103,3 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
             .inject(this)
     }
 }
-
-
