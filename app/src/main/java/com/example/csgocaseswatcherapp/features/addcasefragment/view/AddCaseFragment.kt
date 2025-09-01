@@ -180,8 +180,8 @@ class AddCaseFragment : Fragment(R.layout.fragment_add_case) {
 
     private fun navigateToPortfolioWithAddedCase(uiEvent: AddCaseViewEvent.NavigateToPortfolioWithAddedCase) {
         setFragmentResult(
-            "addedCase",
-            bundleOf("addedCase" to uiEvent.addedCase)
+            ADD_CASE_REQUEST_KEY,
+            bundleOf(ADD_CASE_REQUEST_KEY to uiEvent.addedCase)
         )
         findNavController().popBackStack()
     }
@@ -196,8 +196,8 @@ class AddCaseFragment : Fragment(R.layout.fragment_add_case) {
                 when (event) {
                     is AddCaseViewEvent.NavigateToPortfolioWithAddedCase -> {
                         setFragmentResult(
-                            "addedCase",
-                            bundleOf("addedCase" to event.addedCase)
+                            ADD_CASE_REQUEST_KEY,
+                            bundleOf(ADD_CASE_REQUEST_KEY to event.addedCase)
                         )
                     }
                 }
@@ -246,5 +246,9 @@ class AddCaseFragment : Fragment(R.layout.fragment_add_case) {
         (context.applicationContext as CaseWatcherApplication)
             .getAppComponent()
             .inject(this)
+    }
+
+    companion object {
+        const val ADD_CASE_REQUEST_KEY = "addedCase"
     }
 }
