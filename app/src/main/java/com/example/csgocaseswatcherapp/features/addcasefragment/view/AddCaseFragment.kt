@@ -30,8 +30,6 @@ class AddCaseFragment : Fragment(R.layout.fragment_add_case) {
 
     private val viewModel: AddCaseViewModel by viewModels { viewModelFactory }
 
-//    private lateinit var binding: FragmentAddCaseBinding
-
     private lateinit var composeView: ComposeView
 
     override fun onCreateView(
@@ -42,14 +40,6 @@ class AddCaseFragment : Fragment(R.layout.fragment_add_case) {
             composeView = it
         }
     }
-
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View {
-//        binding = FragmentAddCaseBinding.inflate(inflater, container, false)
-//        return binding.root
-//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 

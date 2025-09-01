@@ -61,9 +61,7 @@ import java.util.Locale
 @Composable
 fun PortfolioScreen(
     state: PortfolioViewState,
-    onDetailsClicked: () -> Unit,
-    onAddCaseClicked: () -> Unit,
-    onSortingClicked: () -> Unit,
+    onAction: (PortfolioViewAction) -> Unit,
     scrollSignal: Int,
 ) {
 
@@ -74,10 +72,8 @@ fun PortfolioScreen(
             totalPortfolioValue = state.totalPortfolioValue,
             items = state.portfolioItemList,
             barEntries = state.portfolioBartEntryList,
-            onDetailsClicked = onDetailsClicked,
-            onAddCaseClicked = onAddCaseClicked,
-            onSortingClicked = onSortingClicked,
-            scrollSignal = scrollSignal
+            scrollSignal = scrollSignal,
+            onAction = onAction
         )
     }
 }
@@ -86,17 +82,14 @@ fun PortfolioScreen(
 @Composable
 fun PortfolioContent(
     modifier: Modifier = Modifier,
-    totalPortfolioValue: Double,
+    totalPortfolioValue: String,
     items: List<PortfolioItem>,
     barEntries: List<BarEntry>,
-    onDetailsClicked: () -> Unit,
-    onAddCaseClicked: () -> Unit,
-    onSortingClicked: () -> Unit,
+    onAction: (PortfolioViewAction) -> Unit,
     scrollSignal: Int
 ) {
     val listState = rememberLazyListState()
 
-    Log.e("WTF", "items in Content: $items")
     LaunchedEffect(scrollSignal) {
         if (scrollSignal > 0) {
             listState.animateScrollToItem(0)
@@ -111,16 +104,16 @@ fun PortfolioContent(
     ) {
         Spacer(Modifier.height(8.dp))
         Text(
-            text = "Total: " + String.format(Locale.US, "$%.2f", totalPortfolioValue),
+            text = totalPortfolioValue,
             style = MaterialTheme.typography.titleLarge.copy(
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold
             ),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 12.dp)
+                .padding(vertical = AppTheme.dimensions.paddingML)
         )
-        HorizontalDivider(Modifier.padding(vertical = 8.dp), thickness = 1.dp)
+        HorizontalDivider(Modifier.padding(vertical = AppTheme.dimensions.paddingM), thickness = 1.dp)
 
         Spacer(Modifier.height(8.dp))
 
@@ -146,20 +139,20 @@ fun PortfolioContent(
             ) {
                 PortfolioButton(
                     modifier = Modifier.weight(1f),
-                    onClick = onDetailsClicked,
+                    onClick = { onAction(PortfolioViewAction.OnPortfolioDetailsClicked) },
                     icon = Icons.AutoMirrored.Default.List,
                     text = stringResource(R.string.details_button)
                 )
 
                 PortfolioButton(
                     modifier = Modifier.weight(1f),
-                    onClick = onSortingClicked,
+                    onClick = { onAction(PortfolioViewAction.OnSortClicked) },
                     icon = Icons.AutoMirrored.Filled.Sort,
                     text = stringResource(R.string.sorting_button)
                 )
                 PortfolioButton(
                     modifier = Modifier.weight(1f),
-                    onClick = onAddCaseClicked,
+                    onClick = { onAction(PortfolioViewAction.OnAddCaseClicked) },
                     icon = Icons.Default.Add,
                     text = stringResource(R.string.add_case_button)
                 )
@@ -198,7 +191,7 @@ fun PortfolioButton(modifier: Modifier, onClick: () -> Unit, icon: ImageVector, 
             containerColor = AppTheme.colors.primary,
             contentColor = AppTheme.colors.onPrimary
         ),
-        contentPadding = PaddingValues(horizontal = 12.dp, vertical = 10.dp)
+        contentPadding = PaddingValues(horizontal = AppTheme.dimensions.paddingML, vertical = AppTheme.dimensions.paddingM)
     ) {
         Icon(icon, contentDescription = null)
         Spacer(Modifier.width(6.dp))
@@ -357,11 +350,10 @@ fun PortfolioScreenPreview() {
                     BarEntry(20f, 840f),
                     BarEntry(21f, 834f),
                 ),
-                totalPortfolioValue = 62.0
+                totalPortfolioValue = "Total: $1341234.44"
             ),
-            onDetailsClicked = {},
-            onAddCaseClicked = {},
-            onSortingClicked = {},
+            onAction = {},
+
             scrollSignal = 0
         )
     }

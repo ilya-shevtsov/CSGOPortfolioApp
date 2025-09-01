@@ -6,14 +6,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.csgocaseswatcherapp.features.portfolio.domain.usecases.GetPortfolioDataUseCase
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItem
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemListArgs
-import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemMapper
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioValueItem
 import com.example.csgocaseswatcherapp.features.sortingmodal.view.SortingMethod
 import com.github.mikephil.charting.data.BarEntry
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.util.Locale
 import javax.inject.Inject
 import kotlin.math.roundToLong
 
@@ -162,7 +161,7 @@ class PortfolioViewModel @Inject constructor(
             portfolioItemList = portfolioItemList,
             portfolioValueList = portfolioValueList,
             portfolioBartEntryList = mockBarEntry,
-            totalPortfolioValue = totalPortfolioValue
+            totalPortfolioValue = totalPortfolioValue.formatTotalValue()
         )
     }
 
@@ -173,8 +172,13 @@ class PortfolioViewModel @Inject constructor(
             portfolioItemList = newPortfolioItemList,
             portfolioValueList = portfolioValueList,
             portfolioBartEntryList = portfolioBarEntryList,
-            totalPortfolioValue = totalPortfolioValue
+            totalPortfolioValue = totalPortfolioValue.formatTotalValue()
         )
+    }
+
+
+    private fun Double.formatTotalValue():String {
+        return "Total: " + String.format(Locale.US, "$%.2f", this)
     }
 
     private suspend fun getPortfolioData() {

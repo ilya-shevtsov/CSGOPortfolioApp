@@ -61,7 +61,7 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
         )
 
         composeView.setContent {
-            AppTheme{
+            AppTheme {
                 PortfolioIntegration(
                     viewModel,
                     sortingViewModel
@@ -91,9 +91,6 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
         val showSortingSheet = remember { mutableStateOf(false) }
         val scrollSignal = remember { androidx.compose.runtime.mutableIntStateOf(0) }
 
-        Log.e("WTF", "state in Fragment: $state")
-
-
         setFragmentResultListener("addedCase") { _, bundle ->
             val addedCase = bundle.getSerializable("addedCase") as AddedCase
             viewModel.handleAction(PortfolioViewAction.OnCaseAdded(addedCase))
@@ -104,7 +101,10 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
             viewModel.uiEvent.collectLatest { event ->
                 when (event) {
                     is PortfolioViewEvent.NavigateToAddCase -> handleNavigateToAddCase()
-                    is PortfolioViewEvent.NavigateToPortfolioDetails -> handleNavigateToPortfolioDetails(event)
+                    is PortfolioViewEvent.NavigateToPortfolioDetails -> handleNavigateToPortfolioDetails(
+                        event
+                    )
+
                     is PortfolioViewEvent.NavigateToSorting -> {
                         showSortingSheet.value = true
                     }
@@ -114,9 +114,7 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
 
         PortfolioScreen(
             state = state,
-            onDetailsClicked = { viewModel.handleAction(PortfolioViewAction.OnPortfolioDetailsClicked) },
-            onAddCaseClicked = { viewModel.handleAction(PortfolioViewAction.OnAddCaseClicked) },
-            onSortingClicked = { viewModel.handleAction(PortfolioViewAction.OnSortClicked) },
+            onAction = { action -> viewModel.handleAction(action = action) },
             scrollSignal = scrollSignal.intValue
         )
 
