@@ -1,6 +1,7 @@
-package com.example.csgocaseswatcherapp.features.addcasefragment.view.entities
+package com.example.csgocaseswatcherapp.features.addcasefragment.view
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,18 +34,14 @@ import com.example.csgocaseswatcherapp.core.ui.BackgroundDecorations
 import com.example.csgocaseswatcherapp.core.ui.ErrorScreen
 import com.example.csgocaseswatcherapp.core.ui.LoadingScreen
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
-import com.example.csgocaseswatcherapp.features.addcasefragment.view.AddCaseViewAction
-import com.example.csgocaseswatcherapp.features.addcasefragment.view.AddCaseViewState
+import com.example.csgocaseswatcherapp.features.addcasefragment.view.entities.AddCaseModel
 
 @Composable
 fun AddCaseScreen(
     state: AddCaseViewState,
     onAction: (AddCaseViewAction) -> Unit,
 ) {
-
-    LaunchedEffect(Unit) {
-        onAction(AddCaseViewAction.OnCreate)
-    }
+    LaunchedEffect(Unit) { onAction(AddCaseViewAction.OnCreate) }
 
     when (state) {
         is AddCaseViewState.Loading -> LoadingScreen()
@@ -52,7 +49,6 @@ fun AddCaseScreen(
             state = state,
             onAction = onAction,
         )
-
         AddCaseViewState.Error -> ErrorScreen()
     }
 }
@@ -64,11 +60,19 @@ fun AddCaseContent(
     onAction: (AddCaseViewAction) -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }
+    var hasFocus by remember { mutableStateOf(false) }
+
+    LaunchedEffect(hasFocus, state.caseNameSearchQuery, state.caseNameSuggestionList) {
+        expanded = hasFocus &&
+                state.caseNameSearchQuery.isNotEmpty() &&
+                state.caseNameSuggestionList.isNotEmpty()
+    }
 
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(AppTheme.colors.background)
+            .clickable {  }
     ) {
         BackgroundDecorations(modifier = Modifier.matchParentSize())
 
@@ -84,40 +88,42 @@ fun AddCaseContent(
 
             ExposedDropdownMenuBox(
                 expanded = expanded,
-                onExpandedChange = { expanded = !expanded }
+                onExpandedChange = { willExpand -> expanded = willExpand }
             ) {
                 OutlinedTextField(
                     value = state.caseModel.name,
-                    onValueChange = { newValue -> AddCaseViewAction.OnNameChanged(newValue) },
+                    onValueChange = { newValue ->
+                        onAction(AddCaseViewAction.OnNameChanged(newValue))
+                    },
                     label = { Text("Case Name") },
                     singleLine = true,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .menuAnchor(type = MenuAnchorType.PrimaryEditable)
-                        .onFocusChanged { focusState ->
-                            expanded = focusState.isFocused
-                        }
+                        .menuAnchor(MenuAnchorType.PrimaryEditable)
+                        .onFocusChanged { f -> hasFocus = f.isFocused }
                 )
 
                 ExposedDropdownMenu(
                     expanded = expanded,
                     onDismissRequest = { expanded = false }
                 ) {
-                    state.caseNameSuggestionList.forEach { suggestion ->
-                        DropdownMenuItem(
-                            text = { Text(suggestion) },
-                            onClick = {
-                                onAction(AddCaseViewAction.OnSuggestionClicked(suggestion))
-                                expanded = false
-                            }
-                        )
-                    }
+                    state.caseNameSuggestionList
+                        .take(8)
+                        .forEach { suggestion ->
+                            DropdownMenuItem(
+                                text = { Text(suggestion) },
+                                onClick = {
+                                    onAction(AddCaseViewAction.OnSuggestionClicked(suggestion))
+                                    expanded = false
+                                }
+                            )
+                        }
                 }
             }
 
             OutlinedTextField(
                 value = state.caseModel.amount,
-                onValueChange = { newValue -> AddCaseViewAction.OnAmountChanged(newValue) },
+                onValueChange = { newValue -> onAction(AddCaseViewAction.OnAmountChanged(newValue)) },
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text("Amount of cases") },
                 singleLine = true,
@@ -129,7 +135,7 @@ fun AddCaseContent(
 
             OutlinedTextField(
                 value = state.caseModel.price,
-                onValueChange = { newValue -> AddCaseViewAction.OnPriceChanged(newValue) },
+                onValueChange = { newValue -> onAction(AddCaseViewAction.OnPriceChanged(newValue)) },
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text("Purchase price") },
                 singleLine = true,
@@ -142,7 +148,7 @@ fun AddCaseContent(
             Spacer(Modifier.weight(1f))
 
             Button(
-                onClick = { AddCaseViewAction.OnAddCaseClicked },
+                onClick = { onAction(AddCaseViewAction.OnAddCaseClicked) },
                 enabled = state.isAddCaseButtonActive,
                 modifier = Modifier
                     .align(Alignment.End)
@@ -154,7 +160,6 @@ fun AddCaseContent(
     }
 }
 
-
 @Preview
 @Composable
 fun AddCaseContentPreview() {
@@ -164,10 +169,9 @@ fun AddCaseContentPreview() {
                 caseModel = AddCaseModel(name = "Chroma Case", amount = "37", price = "3.14"),
                 caseNameSearchQuery = "Chroma",
                 isAddCaseButtonActive = false,
-                caseNameSuggestionList = listOf()
+                caseNameSuggestionList = listOf("Chroma Case", "Chroma 2 Case")
             ),
             onAction = {},
         )
     }
 }
-

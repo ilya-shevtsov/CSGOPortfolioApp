@@ -12,6 +12,7 @@ import com.example.csgocaseswatcherapp.features.sortingmodal.view.SortingMethod
 import com.github.mikephil.charting.data.BarEntry
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.math.roundToLong
@@ -114,31 +115,11 @@ class PortfolioViewModel @Inject constructor(
         }
     }
 
-    fun addAmountAndValue(
-        added: PortfolioItem,
-        portfolioItem: PortfolioItem
-    ): PortfolioItem {
-        return PortfolioItem(
-            caseImage = portfolioItem.caseImage,
-            caseName = portfolioItem.caseName,
-            caseAmount = portfolioItem.caseAmount + added.caseAmount,
-            casePrice = portfolioItem.casePrice,
-            caseOverallValue = portfolioItem.caseOverallValue + added.caseOverallValue,
-            caseProfitLoss = portfolioItem.caseProfitLoss
-        )
-    }
-
     private fun handleOnCaseAdded(action: PortfolioViewAction.OnCaseAdded) {
-        val addedCase = PortfolioItemMapper.map(action.addedCase)
-
-        portfolioItemList = portfolioItemList.map { portfolioCaseItem ->
-            if (portfolioCaseItem.caseName == addedCase.caseName) {
-                addAmountAndValue(addedCase, portfolioCaseItem)
-            } else {
-                portfolioCaseItem
-            }
+        viewModelScope.launch {
+            val state = uiState.value as PortfolioViewState.Content
+            uiState.value = state.copy(portfolioItemList = getPortfolioDataUseCase())
         }
-        createPortfolioUiState(portfolioItemList)
     }
 
     private fun handleOnOnSortClicked() {

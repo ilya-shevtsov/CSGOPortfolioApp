@@ -1,6 +1,7 @@
 package com.example.csgocaseswatcherapp.features.portfolio.view
 
 import android.graphics.Color
+import android.util.Log
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import androidx.compose.foundation.background
@@ -76,7 +77,6 @@ fun PortfolioScreen(
             onDetailsClicked = onDetailsClicked,
             onAddCaseClicked = onAddCaseClicked,
             onSortingClicked = onSortingClicked,
-            modifier = Modifier,
             scrollSignal = scrollSignal
         )
     }
@@ -85,7 +85,7 @@ fun PortfolioScreen(
 
 @Composable
 fun PortfolioContent(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     totalPortfolioValue: Double,
     items: List<PortfolioItem>,
     barEntries: List<BarEntry>,
@@ -94,10 +94,9 @@ fun PortfolioContent(
     onSortingClicked: () -> Unit,
     scrollSignal: Int
 ) {
-
     val listState = rememberLazyListState()
 
-
+    Log.e("WTF", "items in Content: $items")
     LaunchedEffect(scrollSignal) {
         if (scrollSignal > 0) {
             listState.animateScrollToItem(0)
@@ -283,6 +282,9 @@ private fun PortfolioBarChart(
     entries: List<BarEntry>,
     modifier: Modifier = Modifier,
 ) {
+
+    val label = stringResource(R.string.portfolio_value)
+
     AndroidView(
         modifier = modifier,
         factory = { context ->
@@ -297,7 +299,7 @@ private fun PortfolioBarChart(
             }
         },
         update = { chart ->
-            val set = BarDataSet(entries, "Portfolio Value").apply {
+            val set = BarDataSet(entries, label).apply {
                 color = Color.parseColor("#2FA1BA")
                 valueTextSize = 10f
                 valueTextColor = Color.BLACK

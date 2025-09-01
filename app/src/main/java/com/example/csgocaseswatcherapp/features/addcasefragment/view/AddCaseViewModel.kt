@@ -29,8 +29,8 @@ class AddCaseViewModel @Inject constructor(
         return AddCaseState(
             addedCaseData = AddedCase(name = "", amount = 0, purchasePrice = 0.0),
             caseNameSearchQuery = "",
-            isAddCaseButtonActive = false,
-            nameSuggestionResult = NameSuggestionResult.Loading
+            nameSuggestionResult = NameSuggestionResult.Loading,
+            originalNameSuggestionList = listOf()
         )
     }
 
@@ -63,7 +63,42 @@ class AddCaseViewModel @Inject constructor(
         }
     }
 
-    private fun handleOnSuggestionClicked(action:AddCaseViewAction.OnSuggestionClicked) {
+    private fun createViewStateChain() {
+        businessState.onEach { state ->
+            val ui = when (val result = state.nameSuggestionResult) {
+                is NameSuggestionResult.Error -> AddCaseViewState.Error
+                is NameSuggestionResult.Loading -> AddCaseViewState.Loading
+                is NameSuggestionResult.Success -> {
+                    val filtered =
+                        if (state.caseNameSearchQuery.isBlank()) {
+                            emptyList()
+                        } else {
+                            result.suggestionList.filter {
+                                it.contains(
+                                    state.caseNameSearchQuery,
+                                    ignoreCase = true
+                                )
+                            }
+                        }
+
+                    val addCaseButtonIsActive =
+                        state.addedCaseData.purchasePrice > 0.0 && state.addedCaseData.amount > 0 && state.originalNameSuggestionList.contains(
+                            state.addedCaseData.name
+                        )
+
+                    AddCaseViewState.Content(
+                        caseModel = state.addedCaseData.toModel(),
+                        caseNameSearchQuery = state.caseNameSearchQuery,
+                        isAddCaseButtonActive = addCaseButtonIsActive,
+                        caseNameSuggestionList = filtered
+                    )
+                }
+            }
+            uiState.value = ui
+        }.launchIn(viewModelScope)
+    }
+
+    private fun handleOnSuggestionClicked(action: AddCaseViewAction.OnSuggestionClicked) {
         viewModelScope.launch {
             businessState.update { it.copy(addedCaseData = it.addedCaseData.copy(name = action.name)) }
         }
@@ -71,42 +106,38 @@ class AddCaseViewModel @Inject constructor(
 
     private fun handleOnNameChanged(action: AddCaseViewAction.OnNameChanged) {
         viewModelScope.launch {
-            businessState.update { it.copy(addedCaseData = it.addedCaseData.copy(name = action.name)) }
+            businessState.update {
+                it.copy(
+                    addedCaseData = it.addedCaseData.copy(name = action.name),
+                    caseNameSearchQuery = action.name
+                )
+            }
+
         }
     }
 
     private fun handleOnAmountChanged(action: AddCaseViewAction.OnAmountChanged) {
         viewModelScope.launch {
-            businessState.update { it.copy(addedCaseData = it.addedCaseData.copy(amount = action.amount.toInt())) }
+            businessState.update {
+                val amountInt = action.amount.toIntOrNull() ?: 0
+                val updated = it.copy(
+                    addedCaseData = it.addedCaseData.copy(amount = amountInt)
+                )
+                updated
+            }
         }
     }
 
     private fun handleOnPriceChanged(action: AddCaseViewAction.OnPriceChanged) {
         viewModelScope.launch {
-            businessState.update { it.copy(addedCaseData = it.addedCaseData.copy(purchasePrice = action.price.toDouble())) }
-        }
-    }
-
-    private fun createViewStateChain() {
-        businessState.onEach { state ->
-            val uiState = when (state.nameSuggestionResult) {
-                is NameSuggestionResult.Error -> AddCaseViewState.Error
-                is NameSuggestionResult.Loading -> AddCaseViewState.Loading
-                is NameSuggestionResult.Success -> {
-
-                    val caseNameSuggestionList = state.nameSuggestionResult.suggestionList
-                        .filterBySearchQuery(state.caseNameSearchQuery)
-
-                    AddCaseViewState.Content(
-                        caseModel = state.addedCaseData.toModel(),
-                        caseNameSearchQuery = state.caseNameSearchQuery,
-                        isAddCaseButtonActive = state.isAddCaseButtonActive,
-                        caseNameSuggestionList = caseNameSuggestionList
-                    )
-                }
+            businessState.update {
+                val priceD = action.price.replace(',', '.').toDoubleOrNull() ?: 0.0
+                val updated = it.copy(
+                    addedCaseData = it.addedCaseData.copy(purchasePrice = priceD)
+                )
+                updated
             }
-            this.uiState.value = uiState
-        }.launchIn(viewModelScope)
+        }
     }
 
     private fun onCreate() {
@@ -120,7 +151,8 @@ class AddCaseViewModel @Inject constructor(
             val nameSuggestionList = getCaseSuggestionListUseCase.invoke()
             businessState.update { state ->
                 state.copy(
-                    nameSuggestionResult = NameSuggestionResult.Success(nameSuggestionList)
+                    nameSuggestionResult = NameSuggestionResult.Success(nameSuggestionList),
+                    originalNameSuggestionList = nameSuggestionList
                 )
             }
 
@@ -138,16 +170,12 @@ class AddCaseViewModel @Inject constructor(
     private fun handleAddCaseClicked() {
         val addedCase = businessState.value.addedCaseData
         sendAddedCaseUseCase.invoke(addedCase)
-//        viewModelScope.launch {
-//            uiEvent.emit(
-//                AddCaseViewEvent.NavigateToPortfolioWithAddedCase(
-//                    addedCase
-//                )
-//            )
-//        }
+        viewModelScope.launch {
+            uiEvent.emit(
+                AddCaseViewEvent.NavigateToPortfolioWithAddedCase(
+                    addedCase
+                )
+            )
+        }
     }
-
-    private fun List<String>.filterBySearchQuery(query: String): List<String> =
-        if (query.isBlank()) this
-        else filter { item -> item.contains(query, ignoreCase = true) }
 }

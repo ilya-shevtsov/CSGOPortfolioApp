@@ -2,6 +2,7 @@ package com.example.csgocaseswatcherapp.features.portfolio.view
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -23,6 +25,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.core.CaseWatcherApplication
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
+import com.example.csgocaseswatcherapp.features.addcasefragment.view.entities.AddedCase
 import com.example.csgocaseswatcherapp.features.sortingmodal.view.SortingBottomModal
 import com.example.csgocaseswatcherapp.features.sortingmodal.view.SortingModalViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -87,6 +90,14 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
         val state by viewModel.uiState.collectAsStateWithLifecycle()
         val showSortingSheet = remember { mutableStateOf(false) }
         val scrollSignal = remember { androidx.compose.runtime.mutableIntStateOf(0) }
+
+        Log.e("WTF", "state in Fragment: $state")
+
+
+        setFragmentResultListener("addedCase") { _, bundle ->
+            val addedCase = bundle.getSerializable("addedCase") as AddedCase
+            viewModel.handleAction(PortfolioViewAction.OnCaseAdded(addedCase))
+        }
 
 
         LaunchedEffect(viewModel) {

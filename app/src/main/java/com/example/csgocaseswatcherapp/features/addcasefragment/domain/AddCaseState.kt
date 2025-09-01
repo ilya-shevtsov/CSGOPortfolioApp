@@ -5,8 +5,8 @@ import com.example.csgocaseswatcherapp.features.addcasefragment.view.entities.Ad
 data class AddCaseState(
     val addedCaseData: AddedCase,
     val caseNameSearchQuery: String = "",
-    val isAddCaseButtonActive: Boolean = false,
-    val nameSuggestionResult: NameSuggestionResult
+    val nameSuggestionResult: NameSuggestionResult,
+    val originalNameSuggestionList: List<String>
 )
 
 
