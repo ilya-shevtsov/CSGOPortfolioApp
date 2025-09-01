@@ -8,7 +8,7 @@ import com.example.csgocaseswatcherapp.features.portfolio.view.entities.Portfoli
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemListArgs
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemMapper
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioValueItem
-import com.example.csgocaseswatcherapp.features.sortingbottomsheetfragment.view.SortingMethod
+import com.example.csgocaseswatcherapp.features.sortingmodal.view.SortingMethod
 import com.github.mikephil.charting.data.BarEntry
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,7 +34,6 @@ class PortfolioViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 getPortfolioData()
-                uiEvent.emit(PortfolioViewEvent.AnimateBarChart)
                 showContent(portfolioItemList, portfolioValueList)
             } catch (throwable: Throwable) {
                 showError()
@@ -154,11 +153,34 @@ class PortfolioViewModel @Inject constructor(
         portfolioItemList: List<PortfolioItem>, portfolioValueList: List<PortfolioValueItem>
     ) {
         val portfolioBarEntryList = mapToBarEntry(portfolioValueList)
+        val mockBarEntry = listOf(
+            BarEntry(1f, 129f),
+            BarEntry(2f, 164f),
+            BarEntry(3f, 225f),
+            BarEntry(4f, 236f),
+            BarEntry(5f, 334f),
+            BarEntry(6f, 479f),
+            BarEntry(7f, 429f),
+            BarEntry(8f, 424f),
+            BarEntry(9f, 448f),
+            BarEntry(10f, 335f),
+            BarEntry(11f, 315f),
+            BarEntry(12f, 322f),
+            BarEntry(13f, 414f),
+            BarEntry(14f, 458f),
+            BarEntry(15f, 509f),
+            BarEntry(16f, 546f),
+            BarEntry(17f, 668f),
+            BarEntry(18f, 741f),
+            BarEntry(19f, 685f),
+            BarEntry(20f, 840f),
+            BarEntry(21f, 834f),
+        )
         val totalPortfolioValue = getTotalValue(portfolioItemList)
         uiState.value = PortfolioViewState.Content(
             portfolioItemList = portfolioItemList,
             portfolioValueList = portfolioValueList,
-            portfolioBartEntryList = portfolioBarEntryList,
+            portfolioBartEntryList = mockBarEntry,
             totalPortfolioValue = totalPortfolioValue
         )
     }

@@ -1,42 +1,31 @@
 package com.example.csgocaseswatcherapp.features.portfolio.view
 
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.ComposeView
-import androidx.core.view.isVisible
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.core.CaseWatcherApplication
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
-import com.example.csgocaseswatcherapp.databinding.FragmentPortfolioBinding
-import com.example.csgocaseswatcherapp.features.addcasefragment.view.entities.AddedCaseModel
-import com.example.csgocaseswatcherapp.features.caseoverview.view.CaseOverviewViewAction
-import com.example.csgocaseswatcherapp.features.caseoverview.view.CaseOverviewViewEvent
-import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewScreen
-import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioGroupieItem
-import com.example.csgocaseswatcherapp.features.sortingbottomsheetfragment.view.SortingMethod
-import com.github.mikephil.charting.animation.Easing
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
-import com.xwray.groupie.GroupieAdapter
+import com.example.csgocaseswatcherapp.features.sortingmodal.view.SortingBottomModal
+import com.example.csgocaseswatcherapp.features.sortingmodal.view.SortingModalViewModel
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
@@ -44,185 +33,42 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
+    private val sortingViewModel: SortingModalViewModel by viewModels { viewModelFactory }
+
     private val viewModel: PortfolioViewModel by viewModels { viewModelFactory }
-
-    private lateinit var binding: FragmentPortfolioBinding
-
-    private val caseListAdapter = GroupieAdapter()
 
     private lateinit var composeView: ComposeView
 
-//    override fun onCreateView(
-//        inflater: LayoutInflater,
-//        container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View {
-//        return ComposeView(requireContext()).also {
-//            composeView = it
-//        }
-//    }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentPortfolioBinding.inflate(inflater, container, false)
-        return binding.root
+        return ComposeView(requireContext()).also {
+            composeView = it
+        }
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-//        composeView.setViewCompositionStrategy(
-//            androidx.compose.ui.platform.ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed
-//        )
-//
-//        composeView.setContent {
-//            AppTheme(dynamicColor = false) {
-//                PortfolioIntegration(
-//                    viewModel
-//                )
-//            }
-//        }
+        composeView.setViewCompositionStrategy(
+            ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed
+        )
 
-        with(binding) {
-
-            binding.barChartPortfolioValue
-
-            itemCaseRecyclerView.adapter = caseListAdapter
-
-
-            lifecycleScope.launch {
-                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    viewModel.uiState.collect { uiState ->
-                        handleState(uiState)
-                    }
-                }
-            }
-
-            lifecycleScope.launch {
-                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    viewModel.uiEvent.collect { uiEvent ->
-                        handleEvent(uiEvent)
-                    }
-                }
-            }
-
-            setFragmentResultListener("addedCase") { _, bundle ->
-                val addedCase = bundle.getSerializable("addedCase") as AddedCaseModel
-                viewModel.handleAction(PortfolioViewAction.OnCaseAdded(addedCase))
-            }
-
-            setFragmentResultListener("sortingMethod") { _, bundle ->
-                val sortingMethod = bundle.getSerializable("sortingMethod") as SortingMethod
-                viewModel.handleAction(PortfolioViewAction.OnSortingMethodSelected(sortingMethod))
-            }
-
-            detailsButton.setOnClickListener {
-                viewModel.handleAction(PortfolioViewAction.OnPortfolioDetailsClicked)
-            }
-
-            addCaseButton.setOnClickListener {
-                viewModel.handleAction(PortfolioViewAction.OnAddCaseClicked)
-            }
-
-            buttonSorting.setOnClickListener {
-                viewModel.handleAction(PortfolioViewAction.OnSortClicked)
+        composeView.setContent {
+            AppTheme(dynamicColor = false) {
+                PortfolioIntegration(
+                    viewModel,
+                    sortingViewModel
+                )
             }
         }
-    }
-
-    private fun handleState(uiState: PortfolioViewState) {
-        with(binding) {
-            when (uiState) {
-                is PortfolioViewState.Loading -> loadingView.root.isVisible = true
-                is PortfolioViewState.Error -> {
-                    loadingView.root.isVisible = false
-                    errorView.root.isVisible = true
-                }
-
-                is PortfolioViewState.Content -> {
-                    // Portfolio Value
-                    totalValue.text = binding.root.context.getString(
-                        R.string.portfolio_total_value, uiState.totalPortfolioValue.toString()
-                    )
-
-                    //Portfolio Recycler
-                    loadingView.root.isVisible = false
-                    itemCaseRecyclerView.isVisible = true
-                    caseListAdapter.update(uiState.portfolioItemList.map(::PortfolioGroupieItem))
-                    itemCaseRecyclerView.smoothScrollToPosition(0)
-
-                    //BarChart
-                    setUpChart()
-                }
-            }
-        }
-    }
-
-    private fun setUpChart() {
-        with(binding) {
-            barChartPortfolioValue.description.isEnabled = false
-            barChartPortfolioValue.legend.isEnabled = false
-
-            val newDataList = listOf(
-                BarEntry(1f, 129f),
-                BarEntry(2f, 164f),
-                BarEntry(3f, 225f),
-                BarEntry(4f, 236f),
-                BarEntry(5f, 334f),
-                BarEntry(6f, 479f),
-                BarEntry(7f, 429f),
-                BarEntry(8f, 424f),
-                BarEntry(9f, 448f),
-                BarEntry(10f, 335f),
-                BarEntry(11f, 315f),
-                BarEntry(12f, 322f),
-                BarEntry(13f, 414f),
-                BarEntry(14f, 458f),
-                BarEntry(15f, 509f),
-                BarEntry(16f, 546f),
-                BarEntry(17f, 668f),
-                BarEntry(18f, 741f),
-                BarEntry(19f, 685f),
-                BarEntry(20f, 840f),
-                BarEntry(21f, 834f),
-            )
-
-            val dataSet = BarDataSet(newDataList, "Portfolio Value")
-            dataSet.color = Color.parseColor("#2FA1BA")
-
-            val data = BarData(dataSet)
-            data.setDrawValues(true)
-            data.setValueTextSize(10f)
-            data.setValueTextColor(Color.BLACK)
-
-            barChartPortfolioValue.data = data
-            barChartPortfolioValue.invalidate()
-        }
-    }
-
-    private fun handleEvent(uiEvent: PortfolioViewEvent) {
-        when (uiEvent) {
-            is PortfolioViewEvent.NavigateToAddCase -> handleNavigateToAddCase()
-            is PortfolioViewEvent.NavigateToSorting -> handleNavigateToSorting()
-            is PortfolioViewEvent.NavigateToPortfolioDetails -> handleNavigateToPortfolioDetails(
-                uiEvent
-            )
-
-            is PortfolioViewEvent.AnimateBarChart -> handleAnimateBarChart()
-        }
-    }
-
-    private fun handleAnimateBarChart() {
-        binding.barChartPortfolioValue.animateY(1400, Easing.EaseInOutQuad)
     }
 
     private fun handleNavigateToAddCase() {
         findNavController().navigate(R.id.addCaseFragment)
-    }
-
-    private fun handleNavigateToSorting() {
-        findNavController().navigate(R.id.sortingBottomSheetFragment)
     }
 
     private fun handleNavigateToPortfolioDetails(uiEvent: PortfolioViewEvent.NavigateToPortfolioDetails) {
@@ -232,42 +78,55 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
         findNavController().navigate(action)
     }
 
-
+    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun PortfolioIntegration(
-        viewModel: PortfolioViewModel
+        viewModel: PortfolioViewModel,
+        sortingViewModel: SortingModalViewModel
     ) {
-        setFragmentResultListener("addedCase") { _, bundle ->
-            val addedCase = bundle.getSerializable("addedCase") as AddedCaseModel
-            viewModel.handleAction(PortfolioViewAction.OnCaseAdded(addedCase))
-        }
-
-        setFragmentResultListener("sortingMethod") { _, bundle ->
-            val sortingMethod = bundle.getSerializable("sortingMethod") as SortingMethod
-            viewModel.handleAction(PortfolioViewAction.OnSortingMethodSelected(sortingMethod))
-        }
-
         val state by viewModel.uiState.collectAsStateWithLifecycle()
+        val showSortingSheet = remember { mutableStateOf(false) }
+        val scrollSignal = remember { androidx.compose.runtime.mutableIntStateOf(0) }
+
 
         LaunchedEffect(viewModel) {
             viewModel.uiEvent.collectLatest { event ->
                 when (event) {
                     is PortfolioViewEvent.NavigateToAddCase -> handleNavigateToAddCase()
-                    is PortfolioViewEvent.NavigateToSorting -> handleNavigateToSorting()
-                    is PortfolioViewEvent.NavigateToPortfolioDetails -> handleNavigateToPortfolioDetails(
-                        event
-                    )
-
-                    is PortfolioViewEvent.AnimateBarChart -> handleAnimateBarChart()
+                    is PortfolioViewEvent.NavigateToPortfolioDetails -> handleNavigateToPortfolioDetails(event)
+                    is PortfolioViewEvent.NavigateToSorting -> {
+                        showSortingSheet.value = true
+                    }
                 }
             }
         }
+
         PortfolioScreen(
             state = state,
             onDetailsClicked = { viewModel.handleAction(PortfolioViewAction.OnPortfolioDetailsClicked) },
             onAddCaseClicked = { viewModel.handleAction(PortfolioViewAction.OnAddCaseClicked) },
             onSortingClicked = { viewModel.handleAction(PortfolioViewAction.OnSortClicked) },
+            scrollSignal = scrollSignal.intValue
         )
+
+        if (showSortingSheet.value) {
+            ModalBottomSheet(
+                onDismissRequest = { showSortingSheet.value = false },
+                sheetState = rememberModalBottomSheetState()
+            ) {
+                SortingBottomModal(
+                    viewModel = sortingViewModel,
+                    onDismissRequest = { showSortingSheet.value = false },
+                    onSortingSelected = { sortingMethod ->
+                        viewModel.handleAction(
+                            PortfolioViewAction.OnSortingMethodSelected(sortingMethod)
+                        )
+                        scrollSignal.intValue++
+                        showSortingSheet.value = false
+                    }
+                )
+            }
+        }
     }
 
     override fun onAttach(context: Context) {
@@ -277,5 +136,3 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
             .inject(this)
     }
 }
-
-

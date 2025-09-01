@@ -10,7 +10,7 @@ import com.example.csgocaseswatcherapp.features.caseoverviewdetails.view.CaseDet
 import com.example.csgocaseswatcherapp.features.currencychange.view.CurrencyChangeViewModel
 import com.example.csgocaseswatcherapp.features.portfolio.view.PortfolioViewModel
 import com.example.csgocaseswatcherapp.features.portfoliodetails.view.PortfolioDetailsViewModel
-import com.example.csgocaseswatcherapp.features.sortingbottomsheetfragment.view.SortingBottomSheetFragmentViewModel
+import com.example.csgocaseswatcherapp.features.sortingmodal.view.SortingModalViewModel
 import com.example.csgocaseswatcherapp.features.start.view.StartViewModel
 import dagger.Binds
 import dagger.Module
@@ -61,8 +61,8 @@ interface ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(SortingBottomSheetFragmentViewModel::class)
-    fun SortingBottomSheetFragmentViewModel(viewModel: SortingBottomSheetFragmentViewModel): ViewModel
+    @ViewModelKey(SortingModalViewModel::class)
+    fun SortingBottomSheetFragmentViewModel(viewModel: SortingModalViewModel): ViewModel
 
     @Binds
     @IntoMap

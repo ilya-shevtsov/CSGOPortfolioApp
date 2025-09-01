@@ -9,7 +9,6 @@ import com.example.csgocaseswatcherapp.features.caseoverviewdetails.view.CaseDet
 import com.example.csgocaseswatcherapp.features.currencychange.view.CurrencyChangeFragment
 import com.example.csgocaseswatcherapp.features.portfolio.view.PortfolioFragment
 import com.example.csgocaseswatcherapp.features.portfoliodetails.view.PortfolioDetailsFragment
-import com.example.csgocaseswatcherapp.features.sortingbottomsheetfragment.view.SortingBottomSheetFragment
 import com.example.csgocaseswatcherapp.features.start.view.StartFragment
 import dagger.Component
 import javax.inject.Singleton
@@ -31,8 +30,6 @@ interface AppComponent {
     fun inject(fragment: AddCaseFragment)
 
     fun inject(fragment: StartFragment)
-
-    fun inject(fragment: SortingBottomSheetFragment)
 
     fun inject(fragment: PortfolioDetailsFragment)
 

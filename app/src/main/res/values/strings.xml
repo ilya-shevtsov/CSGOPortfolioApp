@@ -105,6 +105,8 @@
     <string name="case_portfolio_header_case">Case Name</string>
     <string name="choose_currency_button">Choose Currency</string>
     <string name="add_case_button">Add Case</string>
+    <string name="sorting_button">Sorting</string>
+    <string name="details_button">Details</string>
     <string name="loading">LOADING</string>
     <string name="errorIconDesc">errorIcon</string>
 
