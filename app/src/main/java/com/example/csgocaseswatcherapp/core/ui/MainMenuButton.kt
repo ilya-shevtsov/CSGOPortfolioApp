@@ -30,8 +30,8 @@ fun MainMenuButton(
             .height(60.dp),
         shape = RoundedCornerShape(8.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.primary,
-            contentColor = MaterialTheme.colorScheme.onPrimary,
+            containerColor = AppTheme.colors.primary,
+            contentColor = AppTheme.colors.onPrimary,
         ),
         elevation = ButtonDefaults.buttonElevation(
             defaultElevation = 0.dp,

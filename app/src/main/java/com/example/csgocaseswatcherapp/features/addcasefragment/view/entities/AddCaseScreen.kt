@@ -49,12 +49,12 @@ fun AddCaseScreen(
     when (state) {
         is AddCaseViewState.Loading -> LoadingScreen()
         is AddCaseViewState.Content -> AddCaseContent(
-            state,
-            onNameChanged,
-            onAmountChanged,
-            onPriceChanged,
-            onAddCaseClicked,
-            onSuggestionClicked
+            state = state,
+            onNameChanged = onNameChanged,
+            onAmountChanged = onAmountChanged,
+            onPriceChanged = onPriceChanged,
+            onAddCaseClicked = onAddCaseClicked,
+            onSuggestionClicked = onSuggestionClicked
         )
     }
 }
@@ -74,14 +74,14 @@ fun AddCaseContent(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
+            .background(AppTheme.colors.background)
     ) {
         BackgroundDecorations(modifier = Modifier.matchParentSize())
 
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 12.dp, vertical = 16.dp),
+                .padding(horizontal = AppTheme.dimensions.paddingML, vertical = AppTheme.dimensions.paddingL),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
 
@@ -151,7 +151,7 @@ fun AddCaseContent(
                 enabled = state.isAddCaseButtonActive,
                 modifier = Modifier
                     .align(Alignment.End)
-                    .padding(4.dp)
+                    .padding(AppTheme.dimensions.paddingXS)
             ) {
                 Text("Add Case")
             }

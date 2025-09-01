@@ -45,7 +45,7 @@ class StartFragment : Fragment(R.layout.fragment_start) {
         )
 
         composeView.setContent {
-            AppTheme(dynamicColor = false) {
+            AppTheme {
                 StartScreenIntegration(viewModel)
             }
         }

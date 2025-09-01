@@ -106,9 +106,9 @@ fun PortfolioContent(
 
     Column(
         modifier
-            .background(MaterialTheme.colorScheme.background)
+            .background(AppTheme.colors.background)
             .fillMaxSize()
-            .padding(8.dp)
+            .padding(AppTheme.dimensions.paddingM)
     ) {
         Spacer(Modifier.height(8.dp))
         Text(
@@ -141,7 +141,7 @@ fun PortfolioContent(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(8.dp),
+                    .padding(AppTheme.dimensions.paddingM),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
@@ -196,8 +196,8 @@ fun PortfolioButton(modifier: Modifier, onClick: () -> Unit, icon: ImageVector, 
             .height(44.dp),
         shape = MaterialTheme.shapes.large,
         colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.primary,
-            contentColor = MaterialTheme.colorScheme.onPrimary
+            containerColor = AppTheme.colors.primary,
+            contentColor = AppTheme.colors.onPrimary
         ),
         contentPadding = PaddingValues(horizontal = 12.dp, vertical = 10.dp)
     ) {
@@ -219,7 +219,7 @@ fun PortfolioItemCard(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp),
+                .padding(AppTheme.dimensions.paddingML),
             verticalAlignment = Alignment.CenterVertically
         ) {
             AsyncImage(

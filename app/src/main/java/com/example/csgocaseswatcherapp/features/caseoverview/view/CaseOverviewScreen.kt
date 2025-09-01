@@ -26,7 +26,7 @@ fun CaseOverviewScreen(
 
         is CaseOverviewViewState.Content -> {
             val items = state.caseOverviewItemList
-            LazyColumn(modifier = Modifier.background(MaterialTheme.colorScheme.background)) {
+            LazyColumn(modifier = Modifier.background(AppTheme.colors.background)) {
                 items(
                     items = items,
                 ) { item ->
