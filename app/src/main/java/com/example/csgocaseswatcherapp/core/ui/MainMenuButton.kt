@@ -53,7 +53,7 @@ fun MainMenuButton(
 @Preview
 @Composable
 fun MainMenuButtonPreview() {
-    AppTheme(dynamicColor = false) {
+    AppTheme {
         MainMenuButton("Case Overview", {})
     }
 }

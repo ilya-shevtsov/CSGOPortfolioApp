@@ -1,12 +1,12 @@
 package com.example.csgocaseswatcherapp.features.portfolio.view
 
-import com.example.csgocaseswatcherapp.features.addcasefragment.view.entities.AddedCaseModel
+import com.example.csgocaseswatcherapp.features.addcasefragment.view.entities.AddedCase
 import com.example.csgocaseswatcherapp.features.sortingmodal.view.SortingMethod
 
 sealed class PortfolioViewAction {
 
     data class OnCaseAdded(
-        val addedCase: AddedCaseModel
+        val addedCase: AddedCase
     ) : PortfolioViewAction()
 
     data class OnSortingMethodSelected(

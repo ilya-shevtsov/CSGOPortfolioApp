@@ -58,7 +58,7 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
         )
 
         composeView.setContent {
-            AppTheme(dynamicColor = false) {
+            AppTheme{
                 PortfolioIntegration(
                     viewModel,
                     sortingViewModel

@@ -36,4 +36,5 @@ interface DataModule {
     @Binds
     @Singleton
     fun startServerRepository(impl: StartServerRepository): StartRepository
+
 }
