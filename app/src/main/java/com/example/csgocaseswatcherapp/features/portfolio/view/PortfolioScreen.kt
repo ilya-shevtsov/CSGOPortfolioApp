@@ -1,7 +1,6 @@
 package com.example.csgocaseswatcherapp.features.portfolio.view
 
 import android.graphics.Color
-import android.util.Log
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import androidx.compose.foundation.background
@@ -49,14 +48,13 @@ import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.core.ui.ErrorScreen
 import com.example.csgocaseswatcherapp.core.ui.LoadingScreen
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
-import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItem
+import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemModel
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
-import java.util.Locale
 
 @Composable
 fun PortfolioScreen(
@@ -70,10 +68,10 @@ fun PortfolioScreen(
         is PortfolioViewState.Error -> ErrorScreen()
         is PortfolioViewState.Content -> PortfolioContent(
             totalPortfolioValue = state.totalPortfolioValue,
-            items = state.portfolioItemList,
             barEntries = state.portfolioBartEntryList,
             scrollSignal = scrollSignal,
-            onAction = onAction
+            onAction = onAction,
+            modelList = state.portfolioItemModelList
         )
     }
 }
@@ -83,10 +81,10 @@ fun PortfolioScreen(
 fun PortfolioContent(
     modifier: Modifier = Modifier,
     totalPortfolioValue: String,
-    items: List<PortfolioItem>,
     barEntries: List<BarEntry>,
     onAction: (PortfolioViewAction) -> Unit,
-    scrollSignal: Int
+    scrollSignal: Int,
+    modelList: List<PortfolioItemModel>
 ) {
     val listState = rememberLazyListState()
 
@@ -113,7 +111,10 @@ fun PortfolioContent(
                 .fillMaxWidth()
                 .padding(vertical = AppTheme.dimensions.paddingML)
         )
-        HorizontalDivider(Modifier.padding(vertical = AppTheme.dimensions.paddingM), thickness = 1.dp)
+        HorizontalDivider(
+            Modifier.padding(vertical = AppTheme.dimensions.paddingM),
+            thickness = 1.dp
+        )
 
         Spacer(Modifier.height(8.dp))
 
@@ -168,8 +169,8 @@ fun PortfolioContent(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             items(
-                items = items,
-                key = { it.caseName }
+                items = modelList,
+                key = { it.itemName }
             ) { item ->
                 PortfolioItemCard(
                     item = item,
@@ -191,7 +192,10 @@ fun PortfolioButton(modifier: Modifier, onClick: () -> Unit, icon: ImageVector, 
             containerColor = AppTheme.colors.primary,
             contentColor = AppTheme.colors.onPrimary
         ),
-        contentPadding = PaddingValues(horizontal = AppTheme.dimensions.paddingML, vertical = AppTheme.dimensions.paddingM)
+        contentPadding = PaddingValues(
+            horizontal = AppTheme.dimensions.paddingML,
+            vertical = AppTheme.dimensions.paddingM
+        )
     ) {
         Icon(icon, contentDescription = null)
         Spacer(Modifier.width(6.dp))
@@ -201,7 +205,7 @@ fun PortfolioButton(modifier: Modifier, onClick: () -> Unit, icon: ImageVector, 
 
 @Composable
 fun PortfolioItemCard(
-    item: PortfolioItem,
+    item: PortfolioItemModel,
     modifier: Modifier = Modifier
 ) {
     ElevatedCard(
@@ -216,7 +220,7 @@ fun PortfolioItemCard(
         ) {
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data(item.caseImage)
+                    .data(item.itemImage)
                     .crossfade(true)
                     .build(),
                 contentDescription = null,
@@ -229,18 +233,14 @@ fun PortfolioItemCard(
 
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = item.caseName,
+                    text = item.itemName,
                     style = MaterialTheme.typography.titleMedium,
                     maxLines = 2
                 )
                 Spacer(Modifier.height(4.dp))
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
-                        text = "${item.caseAmount} cases • ",
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                    Text(
-                        text = String.format(Locale.US, "$%.2f", item.casePrice),
+                        text = item.amountPrice,
                         style = MaterialTheme.typography.bodyMedium
                     )
                 }
@@ -248,19 +248,12 @@ fun PortfolioItemCard(
 
             Column(horizontalAlignment = Alignment.End) {
                 Text(
-                    text = String.format(Locale.US, "$%.2f", item.caseOverallValue),
+                    text = item.totalValue,
                     style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
                 )
                 Spacer(Modifier.height(2.dp))
-                val sign = if (item.caseProfitLoss >= 0) "+" else ""
                 Text(
-                    text = "$sign${
-                        String.format(
-                            Locale.US,
-                            "%.2f",
-                            item.caseProfitLoss
-                        )
-                    } $ (${item.caseProfitLoss} %)",
+                    text = item.profitLoss,
                     style = MaterialTheme.typography.bodyMedium,
                     color = androidx.compose.ui.graphics.Color.Black
                 )
@@ -309,25 +302,7 @@ private fun PortfolioBarChart(
 fun PortfolioScreenPreview() {
     AppTheme {
         PortfolioScreen(
-            state = PortfolioViewState.Content(
-                portfolioItemList = listOf(
-                    PortfolioItem(
-                        caseImage = "https://api.steamapis.com/image/item/730/Horizon%20Case",
-                        caseName = "Horizon Case",
-                        caseAmount = 20,
-                        casePrice = 3.0,
-                        caseOverallValue = 60.0,
-                        caseProfitLoss = 2.9
-                    ),
-                    PortfolioItem(
-                        caseImage = "https://api.steamapis.com/image/item/730/Chroma%20Case",
-                        caseName = "Chroma Case",
-                        caseAmount = 2,
-                        casePrice = 1.0,
-                        caseOverallValue = 2.0,
-                        caseProfitLoss = 3.1
-                    )
-                ), portfolioValueList = emptyList(), portfolioBartEntryList = listOf(
+            state = PortfolioViewState.Content(portfolioValueList = emptyList(), portfolioBartEntryList = listOf(
                     BarEntry(1f, 129f),
                     BarEntry(2f, 164f),
                     BarEntry(3f, 225f),
@@ -350,10 +325,24 @@ fun PortfolioScreenPreview() {
                     BarEntry(20f, 840f),
                     BarEntry(21f, 834f),
                 ),
-                totalPortfolioValue = "Total: $1341234.44"
+                totalPortfolioValue = "Total: $10000.00", portfolioItemModelList = listOf(
+                    PortfolioItemModel(
+                        itemImage = "",
+                        itemName = "Chroma Case",
+                        totalValue = "$60.00",
+                        amountPrice = "23 cases • $12.00",
+                        profitLoss = "12.00 $ (23.23 %)"
+                    ),
+                    PortfolioItemModel(
+                        itemImage = "",
+                        itemName = "Chroma Case",
+                        totalValue = "$60.00",
+                        amountPrice = "23 cases • $12.00",
+                        profitLoss = "12.00 $ (23.23 %)"
+                    ),
+                )
             ),
             onAction = {},
-
             scrollSignal = 0
         )
     }

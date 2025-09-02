@@ -7,6 +7,7 @@ import com.example.csgocaseswatcherapp.features.portfolio.domain.usecases.GetPor
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItem
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemListArgs
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioValueItem
+import com.example.csgocaseswatcherapp.features.portfolio.view.entities.toModel
 import com.example.csgocaseswatcherapp.features.sortingmodal.view.SortingMethod
 import com.github.mikephil.charting.data.BarEntry
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -21,9 +22,9 @@ class PortfolioViewModel @Inject constructor(
 ) :
     ViewModel() {
 
-    var portfolioItemList: List<PortfolioItem> = listOf()
+    private var portfolioItemList: List<PortfolioItem> = listOf()
 
-    var portfolioValueList: List<PortfolioValueItem> = listOf()
+    private var portfolioValueList: List<PortfolioValueItem> = listOf()
 
     val uiState: MutableStateFlow<PortfolioViewState> =
         MutableStateFlow(value = PortfolioViewState.Loading)
@@ -61,7 +62,7 @@ class PortfolioViewModel @Inject constructor(
     fun handleAction(action: PortfolioViewAction) {
         when (action) {
             is PortfolioViewAction.OnAddCaseClicked -> handleOnAddCaseClicked()
-            is PortfolioViewAction.OnCaseAdded -> handleOnCaseAdded(action)
+            is PortfolioViewAction.OnCaseAdded -> handleOnCaseAdded()
             is PortfolioViewAction.OnSortClicked -> handleOnOnSortClicked()
             is PortfolioViewAction.OnSortingMethodSelected -> handleOnSortingMethodSelected(action)
             is PortfolioViewAction.OnPortfolioDetailsClicked -> handleOnPortfolioDetailsClicked()
@@ -87,24 +88,28 @@ class PortfolioViewModel @Inject constructor(
                 }
                 createPortfolioUiState(newPortfolioItemList)
             }
+
             SortingMethod.ByAmount -> {
                 val newPortfolioItemList = portfolioItemList.sortedByDescending { portfolioItem ->
                     portfolioItem.caseAmount
                 }
                 createPortfolioUiState(newPortfolioItemList)
             }
+
             SortingMethod.ByPrice -> {
                 val newPortfolioItemList = portfolioItemList.sortedBy { portfolioItem ->
                     portfolioItem.casePrice
                 }
                 createPortfolioUiState(newPortfolioItemList)
             }
+
             SortingMethod.ByOverallValue -> {
                 val newPortfolioItemList = portfolioItemList.sortedByDescending { portfolioItem ->
                     portfolioItem.caseOverallValue
                 }
                 createPortfolioUiState(newPortfolioItemList)
             }
+
             SortingMethod.ByProfitLoss -> {
                 val newPortfolioItemList = portfolioItemList.sortedByDescending { portfolioItem ->
                     portfolioItem.caseProfitLoss
@@ -114,10 +119,10 @@ class PortfolioViewModel @Inject constructor(
         }
     }
 
-    private fun handleOnCaseAdded(action: PortfolioViewAction.OnCaseAdded) {
+    private fun handleOnCaseAdded() {
         viewModelScope.launch {
             val state = uiState.value as PortfolioViewState.Content
-            uiState.value = state.copy(portfolioItemList = getPortfolioDataUseCase())
+            uiState.value = state.copy(portfolioItemModelList = getPortfolioDataUseCase().map { item -> item.toModel() })
         }
     }
 
@@ -158,26 +163,26 @@ class PortfolioViewModel @Inject constructor(
         )
         val totalPortfolioValue = getTotalValue(portfolioItemList)
         uiState.value = PortfolioViewState.Content(
-            portfolioItemList = portfolioItemList,
             portfolioValueList = portfolioValueList,
             portfolioBartEntryList = mockBarEntry,
-            totalPortfolioValue = totalPortfolioValue.formatTotalValue()
-        )
+            totalPortfolioValue = totalPortfolioValue.formatTotalValue(),
+            portfolioItemModelList = portfolioItemList.map { item -> item.toModel()}
+                )
     }
 
     private fun createPortfolioUiState(newPortfolioItemList: List<PortfolioItem>) {
         val portfolioBarEntryList = mapToBarEntry(portfolioValueList)
         val totalPortfolioValue = getTotalValue(portfolioItemList)
         uiState.value = PortfolioViewState.Content(
-            portfolioItemList = newPortfolioItemList,
             portfolioValueList = portfolioValueList,
             portfolioBartEntryList = portfolioBarEntryList,
-            totalPortfolioValue = totalPortfolioValue.formatTotalValue()
+            totalPortfolioValue = totalPortfolioValue.formatTotalValue(),
+            portfolioItemModelList = portfolioItemList.map { item -> item.toModel() }
+
         )
     }
 
-
-    private fun Double.formatTotalValue():String {
+    private fun Double.formatTotalValue(): String {
         return "Total: " + String.format(Locale.US, "$%.2f", this)
     }
 
