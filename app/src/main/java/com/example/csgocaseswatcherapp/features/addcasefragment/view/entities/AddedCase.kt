@@ -7,8 +7,3 @@ data class AddedCase(
     val amount: Int,
     val purchasePrice: Double
 ) : Serializable
-
-
-fun AddedCase.toModel(): AddCaseModel {
-    return AddCaseModel(name = name, amount = amount.toString(), price = purchasePrice.toString())
-}

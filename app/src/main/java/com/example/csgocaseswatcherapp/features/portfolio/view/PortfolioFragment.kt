@@ -54,6 +54,11 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        setFragmentResultListener("addedCase") { _, bundle ->
+            val addedCase = bundle.getSerializable("addedCase") as AddedCase
+            viewModel.handleAction(PortfolioViewAction.OnCaseAdded(addedCase))
+        }
+
         composeView.setViewCompositionStrategy(
             ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed
         )
@@ -88,13 +93,6 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
         val state by viewModel.uiState.collectAsStateWithLifecycle()
         val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
         val listState = rememberLazyListState()
-
-
-        setFragmentResultListener("addedCase") { _, bundle ->
-            val addedCase = bundle.getSerializable("addedCase") as AddedCase
-            viewModel.handleAction(PortfolioViewAction.OnCaseAdded(addedCase))
-        }
-
 
         LaunchedEffect(viewModel) {
             viewModel.uiEvent.collectLatest { event ->

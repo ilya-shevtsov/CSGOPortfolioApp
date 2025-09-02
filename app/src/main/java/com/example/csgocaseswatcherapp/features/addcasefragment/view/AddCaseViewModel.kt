@@ -7,7 +7,6 @@ import com.example.csgocaseswatcherapp.features.addcasefragment.domain.NameSugge
 import com.example.csgocaseswatcherapp.features.addcasefragment.domain.usecases.GetCaseSuggestionListUseCase
 import com.example.csgocaseswatcherapp.features.addcasefragment.domain.usecases.SendAddedCaseUseCase
 import com.example.csgocaseswatcherapp.features.addcasefragment.view.entities.AddedCase
-import com.example.csgocaseswatcherapp.features.addcasefragment.view.entities.toModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn

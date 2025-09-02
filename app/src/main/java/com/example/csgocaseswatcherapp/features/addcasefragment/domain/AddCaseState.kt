@@ -1,7 +1,5 @@
 package com.example.csgocaseswatcherapp.features.addcasefragment.domain
 
-import com.example.csgocaseswatcherapp.features.addcasefragment.view.entities.AddedCase
-
 data class AddCaseState(
     val name: String,
     val amount: Int,
