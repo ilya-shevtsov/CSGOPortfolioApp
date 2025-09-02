@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.csgocaseswatcherapp.features.sortingmodal.entities.SortingEntry
 import com.example.csgocaseswatcherapp.features.sortingmodal.entities.SortingMethod
-import com.example.csgocaseswatcherapp.features.sortingmodal.entities.toText
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -39,5 +38,13 @@ class SortingModalViewModel @Inject constructor() : ViewModel() {
                 )
             )
         }
+    }
+
+    private fun SortingMethod.toText(): String {
+        return name
+            .replace(Regex("([a-z])([A-Z])"), "$1 $2")
+            .lowercase()
+            .split(" ")
+            .joinToString(" ") { it.replaceFirstChar(Char::titlecase) }
     }
 }
