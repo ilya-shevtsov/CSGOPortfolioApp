@@ -19,9 +19,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
+import com.example.csgocaseswatcherapp.features.sortingmodal.entities.SortingMethod
 
 @Composable
 fun SortingScreen(
+    state: SortingModalViewState,
     onClick: (method: SortingMethod) -> Unit
 ) {
 
@@ -38,10 +40,10 @@ fun SortingScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        SortingMethod.entries.forEach { method ->
+        state.sortingEntryList.forEach { entry ->
             Button(
                 onClick = {
-                    onClick(method)
+                    onClick(entry.method)
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -58,7 +60,7 @@ fun SortingScreen(
                 contentPadding = PaddingValues(),
             ) {
                 Text(
-                    text = method.toText(),
+                    text = entry.name,
                     fontSize = 18.sp,
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center
@@ -71,5 +73,5 @@ fun SortingScreen(
 @Preview
 @Composable
 fun SortingScreenPreview() {
-    AppTheme { SortingScreen(onClick = {}) }
+    AppTheme { SortingScreen(state = SortingModalViewState(listOf()), onClick = {}) }
 }

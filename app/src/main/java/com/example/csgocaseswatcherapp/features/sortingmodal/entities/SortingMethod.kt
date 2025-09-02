@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.features.sortingmodal.view
+package com.example.csgocaseswatcherapp.features.sortingmodal.entities
 
 enum class SortingMethod {
     ByName,

@@ -8,7 +8,7 @@ import com.example.csgocaseswatcherapp.features.portfolio.view.entities.Portfoli
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemListArgs
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioValueItem
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.toModel
-import com.example.csgocaseswatcherapp.features.sortingmodal.view.SortingMethod
+import com.example.csgocaseswatcherapp.features.sortingmodal.entities.SortingMethod
 import com.github.mikephil.charting.data.BarEntry
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
