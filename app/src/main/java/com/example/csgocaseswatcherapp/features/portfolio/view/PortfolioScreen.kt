@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
@@ -30,7 +31,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -60,7 +60,7 @@ import com.github.mikephil.charting.data.BarEntry
 fun PortfolioScreen(
     state: PortfolioViewState,
     onAction: (PortfolioViewAction) -> Unit,
-    scrollSignal: Int,
+    listState: LazyListState
 ) {
 
     when (state) {
@@ -69,7 +69,7 @@ fun PortfolioScreen(
         is PortfolioViewState.Content -> PortfolioContent(
             totalPortfolioValue = state.totalPortfolioValue,
             barEntries = state.portfolioBartEntryList,
-            scrollSignal = scrollSignal,
+            listState = listState,
             onAction = onAction,
             modelList = state.portfolioItemModelList
         )
@@ -79,21 +79,13 @@ fun PortfolioScreen(
 
 @Composable
 fun PortfolioContent(
-    modifier: Modifier = Modifier,
     totalPortfolioValue: String,
     barEntries: List<BarEntry>,
     onAction: (PortfolioViewAction) -> Unit,
-    scrollSignal: Int,
-    modelList: List<PortfolioItemModel>
+    listState: LazyListState,
+    modelList: List<PortfolioItemModel>,
+    modifier: Modifier = Modifier
 ) {
-    val listState = rememberLazyListState()
-
-    LaunchedEffect(scrollSignal) {
-        if (scrollSignal > 0) {
-            listState.animateScrollToItem(0)
-        }
-    }
-
     Column(
         modifier
             .background(AppTheme.colors.background)
@@ -181,11 +173,15 @@ fun PortfolioContent(
 }
 
 @Composable
-fun PortfolioButton(modifier: Modifier, onClick: () -> Unit, icon: ImageVector, text: String) {
+fun PortfolioButton(
+    icon: ImageVector,
+    text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     Button(
         onClick = onClick,
         modifier = modifier
-
             .height(44.dp),
         shape = MaterialTheme.shapes.large,
         colors = ButtonDefaults.buttonColors(
@@ -224,7 +220,7 @@ fun PortfolioItemCard(
                     .crossfade(true)
                     .build(),
                 contentDescription = null,
-                placeholder = painterResource(R.drawable.d_chroma_case),
+                placeholder = painterResource(R.drawable.case_placeholder),
                 modifier = Modifier
                     .size(width = 85.dp, height = 66.dp)
             )
@@ -301,8 +297,11 @@ private fun PortfolioBarChart(
 @Composable
 fun PortfolioScreenPreview() {
     AppTheme {
+        val listState = rememberLazyListState()
+
         PortfolioScreen(
-            state = PortfolioViewState.Content(portfolioValueList = emptyList(), portfolioBartEntryList = listOf(
+            state = PortfolioViewState.Content(
+                portfolioValueList = emptyList(), portfolioBartEntryList = listOf(
                     BarEntry(1f, 129f),
                     BarEntry(2f, 164f),
                     BarEntry(3f, 225f),
@@ -342,8 +341,9 @@ fun PortfolioScreenPreview() {
                     ),
                 )
             ),
-            onAction = {},
-            scrollSignal = 0
+            onAction = {}, listState =listState
+           
+        
         )
     }
 }

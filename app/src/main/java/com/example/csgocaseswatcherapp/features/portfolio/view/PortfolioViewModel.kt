@@ -66,6 +66,7 @@ class PortfolioViewModel @Inject constructor(
             is PortfolioViewAction.OnSortClicked -> handleOnOnSortClicked()
             is PortfolioViewAction.OnSortingMethodSelected -> handleOnSortingMethodSelected(action)
             is PortfolioViewAction.OnPortfolioDetailsClicked -> handleOnPortfolioDetailsClicked()
+            is PortfolioViewAction.HideSortingModal -> hideSortingSheet()
         }
     }
 
@@ -81,54 +82,45 @@ class PortfolioViewModel @Inject constructor(
     }
 
     private fun handleOnSortingMethodSelected(action: PortfolioViewAction.OnSortingMethodSelected) {
-        when (action.sortingMethod) {
-            SortingMethod.ByName -> {
-                val newPortfolioItemList = portfolioItemList.sortedBy { portfolioItem ->
-                    portfolioItem.caseName
-                }
-                createPortfolioUiState(newPortfolioItemList)
-            }
+        val newPortfolioItemList = when (action.sortingMethod) {
+            SortingMethod.ByName -> portfolioItemList.sortedBy { it.caseName }
+            SortingMethod.ByAmount -> portfolioItemList.sortedByDescending { it.caseAmount }
+            SortingMethod.ByPrice -> portfolioItemList.sortedBy { it.casePrice }
+            SortingMethod.ByOverallValue -> portfolioItemList.sortedByDescending { it.caseOverallValue }
+            SortingMethod.ByProfitLoss -> portfolioItemList.sortedByDescending { it.caseProfitLoss }
+        }
 
-            SortingMethod.ByAmount -> {
-                val newPortfolioItemList = portfolioItemList.sortedByDescending { portfolioItem ->
-                    portfolioItem.caseAmount
-                }
-                createPortfolioUiState(newPortfolioItemList)
-            }
+        createPortfolioUiState(newPortfolioItemList)
 
-            SortingMethod.ByPrice -> {
-                val newPortfolioItemList = portfolioItemList.sortedBy { portfolioItem ->
-                    portfolioItem.casePrice
-                }
-                createPortfolioUiState(newPortfolioItemList)
-            }
+        viewModelScope.launch {
+            uiEvent.emit(PortfolioViewEvent.ScrollToTop)
+        }
+        hideSortingSheet()
+    }
 
-            SortingMethod.ByOverallValue -> {
-                val newPortfolioItemList = portfolioItemList.sortedByDescending { portfolioItem ->
-                    portfolioItem.caseOverallValue
-                }
-                createPortfolioUiState(newPortfolioItemList)
-            }
 
-            SortingMethod.ByProfitLoss -> {
-                val newPortfolioItemList = portfolioItemList.sortedByDescending { portfolioItem ->
-                    portfolioItem.caseProfitLoss
-                }
-                createPortfolioUiState(newPortfolioItemList)
-            }
+    private inline fun updateContent(transform: (PortfolioViewState.Content) -> PortfolioViewState.Content) {
+        val current = uiState.value
+        if (current is PortfolioViewState.Content) {
+            uiState.value = transform(current)
         }
     }
+
 
     private fun handleOnCaseAdded() {
         viewModelScope.launch {
             val state = uiState.value as PortfolioViewState.Content
-            uiState.value = state.copy(portfolioItemModelList = getPortfolioDataUseCase().map { item -> item.toModel() })
+            uiState.value =
+                state.copy(portfolioItemModelList = getPortfolioDataUseCase().map { item -> item.toModel() })
         }
     }
 
     private fun handleOnOnSortClicked() {
-        viewModelScope.launch { uiEvent.emit(PortfolioViewEvent.NavigateToSorting) }
+        showSortingSheet()
     }
+
+    private fun showSortingSheet() = updateContent { it.copy(isSortingSheetVisible = true) }
+    private fun hideSortingSheet() = updateContent { it.copy(isSortingSheetVisible = false) }
 
     private fun handleOnAddCaseClicked() {
         viewModelScope.launch { uiEvent.emit(PortfolioViewEvent.NavigateToAddCase) }
@@ -166,19 +158,20 @@ class PortfolioViewModel @Inject constructor(
             portfolioValueList = portfolioValueList,
             portfolioBartEntryList = mockBarEntry,
             totalPortfolioValue = totalPortfolioValue.formatTotalValue(),
-            portfolioItemModelList = portfolioItemList.map { item -> item.toModel()}
-                )
+            portfolioItemModelList = portfolioItemList.map { item -> item.toModel() }
+        )
     }
 
     private fun createPortfolioUiState(newPortfolioItemList: List<PortfolioItem>) {
+        val prev = uiState.value as? PortfolioViewState.Content
         val portfolioBarEntryList = mapToBarEntry(portfolioValueList)
-        val totalPortfolioValue = getTotalValue(portfolioItemList)
+        val totalPortfolioValue = getTotalValue(newPortfolioItemList)
         uiState.value = PortfolioViewState.Content(
             portfolioValueList = portfolioValueList,
             portfolioBartEntryList = portfolioBarEntryList,
             totalPortfolioValue = totalPortfolioValue.formatTotalValue(),
-            portfolioItemModelList = portfolioItemList.map { item -> item.toModel() }
-
+            portfolioItemModelList = newPortfolioItemList.map { it.toModel() },
+            isSortingSheetVisible = prev?.isSortingSheetVisible ?: false
         )
     }
 

@@ -13,9 +13,11 @@ sealed class PortfolioViewAction {
         val sortingMethod: SortingMethod
     ): PortfolioViewAction()
 
-    object OnAddCaseClicked : PortfolioViewAction()
+    data object OnAddCaseClicked : PortfolioViewAction()
 
-    object OnSortClicked : PortfolioViewAction()
+    data object OnSortClicked : PortfolioViewAction()
 
-    object OnPortfolioDetailsClicked : PortfolioViewAction()
+    data object OnPortfolioDetailsClicked : PortfolioViewAction()
+
+    data object HideSortingModal : PortfolioViewAction()
 }

@@ -7,7 +7,6 @@ enum class SortingMethod {
     ByOverallValue,
     ByProfitLoss
 }
-
 fun SortingMethod.toText(): String {
     return name
         .replace(Regex("([a-z])([A-Z])"), "$1 $2")

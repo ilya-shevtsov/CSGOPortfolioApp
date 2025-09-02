@@ -4,10 +4,11 @@ import com.example.csgocaseswatcherapp.features.portfolio.view.entities.Portfoli
 
 sealed class PortfolioViewEvent {
 
-    object NavigateToAddCase : PortfolioViewEvent()
+    data object NavigateToAddCase : PortfolioViewEvent()
 
-    object NavigateToSorting : PortfolioViewEvent()
     data class NavigateToPortfolioDetails(
         val portfolioItemListArgs: PortfolioItemListArgs
     ) : PortfolioViewEvent()
+
+    data object ScrollToTop: PortfolioViewEvent()
 }

@@ -64,7 +64,7 @@ fun CaseOverviewItem(
                     .crossfade(true)
                     .build(),
                 contentDescription = item.caseName,
-                placeholder = painterResource(R.drawable.d_chroma_case),
+                placeholder = painterResource(R.drawable.case_placeholder),
                 error = painterResource(R.drawable.ic_error),
                 contentScale = ContentScale.Fit,
                 modifier = Modifier

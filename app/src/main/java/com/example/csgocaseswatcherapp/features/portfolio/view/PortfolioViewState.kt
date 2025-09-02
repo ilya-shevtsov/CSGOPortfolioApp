@@ -11,7 +11,8 @@ sealed class PortfolioViewState {
         val portfolioValueList: List<PortfolioValueItem>,
         val portfolioBartEntryList: List<BarEntry>,
         val totalPortfolioValue: String,
-        val portfolioItemModelList:List<PortfolioItemModel>
+        val portfolioItemModelList:List<PortfolioItemModel>,
+        val isSortingSheetVisible: Boolean = false
     ) : PortfolioViewState()
 
     object Loading : PortfolioViewState()
