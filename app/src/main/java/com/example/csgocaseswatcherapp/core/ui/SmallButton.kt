@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 
 @Composable
 fun SmallButton(onClick: () -> Unit, modifier: Modifier = Modifier, buttonText: String){
@@ -18,8 +19,8 @@ fun SmallButton(onClick: () -> Unit, modifier: Modifier = Modifier, buttonText: 
         modifier = modifier,
         shape = RoundedCornerShape(8.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.primary,
-            contentColor = MaterialTheme.colorScheme.onPrimary
+            containerColor = AppTheme.colors.primary,
+            contentColor = AppTheme.colors.onPrimary
         ),
         contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp)
     ) {

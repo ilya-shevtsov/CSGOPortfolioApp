@@ -26,13 +26,13 @@ import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 fun LoadingScreen() {
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background,
+        color = AppTheme.colors.background,
         shadowElevation = 2.dp
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(24.dp),
+                .padding(AppTheme.dimensions.paddingXL),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {

@@ -35,6 +35,7 @@ import com.example.csgocaseswatcherapp.core.ui.ErrorScreen
 import com.example.csgocaseswatcherapp.core.ui.LoadingScreen
 import com.example.csgocaseswatcherapp.core.ui.MainMenuButton
 import com.example.csgocaseswatcherapp.core.ui.SmallButton
+import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 
 
 @Composable
@@ -73,18 +74,16 @@ private fun StartScreenContent(
     onPortfolioClicked: () -> Unit
 ) {
 
-    val background = MaterialTheme.colorScheme.background
-
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(background)
+            .background(AppTheme.colors.background)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 16.dp)
+                .padding(horizontal = AppTheme.dimensions.paddingL)
         ) {
             HeaderDecoration(
                 currencyButtonText = state.currencyButton,
@@ -162,7 +161,10 @@ fun HeaderDecoration(
             BackgroundDecorations(modifier = Modifier.matchParentSize())
         }
         SmallButton(
-            modifier = Modifier.padding(top = 12.dp, end = 12.dp),
+            modifier = Modifier.padding(
+                top = AppTheme.dimensions.paddingML,
+                end = AppTheme.dimensions.paddingML
+            ),
             onClick = onCurrencyClicked,
             buttonText = currencyButtonText
         )
@@ -192,7 +194,7 @@ fun LogoAndSlogan(
             Spacer(modifier = Modifier.size(50.dp))
             Text(
                 text = stringResource(sloganResource),
-                color = MaterialTheme.colorScheme.onBackground,
+                color = AppTheme.colors.onBackground,
                 fontWeight = FontWeight.Bold,
                 fontSize = 18.sp
             )
@@ -203,10 +205,7 @@ fun LogoAndSlogan(
 @Preview
 @Composable
 fun StartScreenPreview() {
-    com.example.csgocaseswatcherapp.core.ui.theme.AppTheme(
-        darkTheme = false,
-        dynamicColor = false
-    ) {
+    AppTheme {
         StartScreen(
             state = StartViewState.Content(currencyButton = "RUB"),
             onCaseOverviewClicked = {},

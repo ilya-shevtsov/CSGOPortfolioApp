@@ -2,8 +2,8 @@ package com.example.csgocaseswatcherapp.core
 
 import android.app.Application
 import com.example.csgocaseswatcherapp.core.di.AppComponent
-import com.facebook.drawee.backends.pipeline.Fresco
 import com.example.csgocaseswatcherapp.core.di.DaggerAppComponent
+import com.facebook.drawee.backends.pipeline.Fresco
 
 class CaseWatcherApplication : Application() {
 

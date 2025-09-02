@@ -44,18 +44,18 @@ fun CaseOverviewItem(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
+            .padding(AppTheme.dimensions.paddingML)
             .clickable { onClick() },
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface,
-            contentColor = MaterialTheme.colorScheme.onSurface
+            containerColor = AppTheme.colors.surface,
+            contentColor = AppTheme.colors.onSurface
         ),
         elevation = CardDefaults.cardElevation(defaultElevation = 3.dp)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp),
+                .padding(AppTheme.dimensions.paddingM),
             verticalAlignment = Alignment.CenterVertically
         ) {
             AsyncImage(
@@ -81,7 +81,7 @@ fun CaseOverviewItem(
                 Text(
                     text = item.caseName,
                     style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onSurface,
+                    color = AppTheme.colors.onSurface,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
@@ -112,7 +112,6 @@ private fun StatRow(
     label: String,
     value: String,
 ) {
-    val colors = MaterialTheme.colorScheme
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -120,18 +119,18 @@ private fun StatRow(
         Icon(
             imageVector = icon,
             contentDescription = null,
-            tint = colors.primary,
+            tint = AppTheme.colors.primary,
             modifier = Modifier.size(18.dp)
         )
         Text(
             text = "$label: ",
             style = MaterialTheme.typography.bodyMedium,
-            color = colors.onSurfaceVariant
+            color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Text(
             text = value,
             style = MaterialTheme.typography.bodyMedium,
-            color = colors.onSurface
+            color = AppTheme.colors.onSurface
         )
     }
 }

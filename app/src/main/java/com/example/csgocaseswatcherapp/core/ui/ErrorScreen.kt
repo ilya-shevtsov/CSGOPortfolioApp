@@ -27,20 +27,20 @@ fun ErrorScreen(
 ) {
     Surface(
         modifier = modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background,
+        color = AppTheme.colors.background,
         shadowElevation = 2.dp
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(24.dp),
+                .padding(AppTheme.dimensions.paddingXL),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Icon(
                 painter = painterResource(R.drawable.ic_error),
                 contentDescription = stringResource(R.string.errorIconDesc),
-                tint = MaterialTheme.colorScheme.error,
+                tint = AppTheme.colors.error,
                 modifier = Modifier
                     .size(48.dp)
                     .padding(bottom = 8.dp)
@@ -48,7 +48,7 @@ fun ErrorScreen(
 
             Text(
                 text = stringResource(R.string.error_screen_case_overview),
-                color = MaterialTheme.colorScheme.error,
+                color = AppTheme.colors.error,
                 style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
                 textAlign = TextAlign.Center
             )

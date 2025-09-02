@@ -1,12 +1,12 @@
 package com.example.csgocaseswatcherapp.features.portfolio.view.entities
 
 import android.util.Log
-import com.example.csgocaseswatcherapp.features.addcasefragment.view.entities.AddedCaseModel
+import com.example.csgocaseswatcherapp.features.addcasefragment.view.entities.AddedCase
 import kotlin.math.round
 
 object PortfolioItemMapper {
 
-    fun map(addedCaseItem: AddedCaseModel): PortfolioItem {
+    fun map(addedCaseItem: AddedCase): PortfolioItem {
         return PortfolioItem(
             caseImage = getCaseImage(addedCaseItem.name),
             caseName = addedCaseItem.name,

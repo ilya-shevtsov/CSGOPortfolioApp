@@ -6,13 +6,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.csgocaseswatcherapp.features.portfolio.domain.usecases.GetPortfolioDataUseCase
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItem
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemListArgs
-import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemMapper
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioValueItem
 import com.example.csgocaseswatcherapp.features.sortingmodal.view.SortingMethod
 import com.github.mikephil.charting.data.BarEntry
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import java.util.Locale
 import javax.inject.Inject
 import kotlin.math.roundToLong
 
@@ -114,31 +114,11 @@ class PortfolioViewModel @Inject constructor(
         }
     }
 
-    fun addAmountAndValue(
-        added: PortfolioItem,
-        portfolioItem: PortfolioItem
-    ): PortfolioItem {
-        return PortfolioItem(
-            caseImage = portfolioItem.caseImage,
-            caseName = portfolioItem.caseName,
-            caseAmount = portfolioItem.caseAmount + added.caseAmount,
-            casePrice = portfolioItem.casePrice,
-            caseOverallValue = portfolioItem.caseOverallValue + added.caseOverallValue,
-            caseProfitLoss = portfolioItem.caseProfitLoss
-        )
-    }
-
     private fun handleOnCaseAdded(action: PortfolioViewAction.OnCaseAdded) {
-        val addedCase = PortfolioItemMapper.map(action.addedCase)
-
-        portfolioItemList = portfolioItemList.map { portfolioCaseItem ->
-            if (portfolioCaseItem.caseName == addedCase.caseName) {
-                addAmountAndValue(addedCase, portfolioCaseItem)
-            } else {
-                portfolioCaseItem
-            }
+        viewModelScope.launch {
+            val state = uiState.value as PortfolioViewState.Content
+            uiState.value = state.copy(portfolioItemList = getPortfolioDataUseCase())
         }
-        createPortfolioUiState(portfolioItemList)
     }
 
     private fun handleOnOnSortClicked() {
@@ -181,7 +161,7 @@ class PortfolioViewModel @Inject constructor(
             portfolioItemList = portfolioItemList,
             portfolioValueList = portfolioValueList,
             portfolioBartEntryList = mockBarEntry,
-            totalPortfolioValue = totalPortfolioValue
+            totalPortfolioValue = totalPortfolioValue.formatTotalValue()
         )
     }
 
@@ -192,8 +172,13 @@ class PortfolioViewModel @Inject constructor(
             portfolioItemList = newPortfolioItemList,
             portfolioValueList = portfolioValueList,
             portfolioBartEntryList = portfolioBarEntryList,
-            totalPortfolioValue = totalPortfolioValue
+            totalPortfolioValue = totalPortfolioValue.formatTotalValue()
         )
+    }
+
+
+    private fun Double.formatTotalValue():String {
+        return "Total: " + String.format(Locale.US, "$%.2f", this)
     }
 
     private suspend fun getPortfolioData() {

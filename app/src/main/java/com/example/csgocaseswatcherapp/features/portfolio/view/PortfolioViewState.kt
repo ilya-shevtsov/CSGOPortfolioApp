@@ -10,7 +10,7 @@ sealed class PortfolioViewState {
         val portfolioItemList: List<PortfolioItem>,
         val portfolioValueList: List<PortfolioValueItem>,
         val portfolioBartEntryList: List<BarEntry>,
-        val totalPortfolioValue: Double
+        val totalPortfolioValue: String
     ) : PortfolioViewState()
 
     object Loading : PortfolioViewState()

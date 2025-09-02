@@ -7,10 +7,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.unit.dp
+import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 
 @Composable
 fun BackgroundDecorations(modifier: Modifier){
-    val primary = MaterialTheme.colorScheme.primary
+    val primary = AppTheme.colors.primary
 
     Canvas(modifier = modifier.fillMaxSize()) {
         val r = 80.dp.toPx()

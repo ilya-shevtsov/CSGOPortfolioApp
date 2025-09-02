@@ -48,7 +48,7 @@ class CaseOverviewFragment : Fragment(R.layout.fragment_case_overview) {
         )
 
         composeView.setContent {
-            AppTheme(dynamicColor = false) {
+            AppTheme {
                 CaseOverviewIntegration(
                     viewModel = viewModel,
                     onNavigateToDetails = { model -> navigateToDetails(model)

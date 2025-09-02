@@ -68,7 +68,7 @@ class PortfolioDetailsFragment : Fragment(R.layout.fragment_portfolio_details) {
             ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed
         )
         composeView.setContent {
-            AppTheme(dynamicColor = false) {
+            AppTheme {
                 PortfolioDetailsIntegration(viewModel)
             }
         }

@@ -1,6 +1,7 @@
 package com.example.csgocaseswatcherapp.features.portfolio.view
 
 import android.graphics.Color
+import android.util.Log
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import androidx.compose.foundation.background
@@ -60,9 +61,7 @@ import java.util.Locale
 @Composable
 fun PortfolioScreen(
     state: PortfolioViewState,
-    onDetailsClicked: () -> Unit,
-    onAddCaseClicked: () -> Unit,
-    onSortingClicked: () -> Unit,
+    onAction: (PortfolioViewAction) -> Unit,
     scrollSignal: Int,
 ) {
 
@@ -73,11 +72,8 @@ fun PortfolioScreen(
             totalPortfolioValue = state.totalPortfolioValue,
             items = state.portfolioItemList,
             barEntries = state.portfolioBartEntryList,
-            onDetailsClicked = onDetailsClicked,
-            onAddCaseClicked = onAddCaseClicked,
-            onSortingClicked = onSortingClicked,
-            modifier = Modifier,
-            scrollSignal = scrollSignal
+            scrollSignal = scrollSignal,
+            onAction = onAction
         )
     }
 }
@@ -85,18 +81,14 @@ fun PortfolioScreen(
 
 @Composable
 fun PortfolioContent(
-    modifier: Modifier,
-    totalPortfolioValue: Double,
+    modifier: Modifier = Modifier,
+    totalPortfolioValue: String,
     items: List<PortfolioItem>,
     barEntries: List<BarEntry>,
-    onDetailsClicked: () -> Unit,
-    onAddCaseClicked: () -> Unit,
-    onSortingClicked: () -> Unit,
+    onAction: (PortfolioViewAction) -> Unit,
     scrollSignal: Int
 ) {
-
     val listState = rememberLazyListState()
-
 
     LaunchedEffect(scrollSignal) {
         if (scrollSignal > 0) {
@@ -106,22 +98,22 @@ fun PortfolioContent(
 
     Column(
         modifier
-            .background(MaterialTheme.colorScheme.background)
+            .background(AppTheme.colors.background)
             .fillMaxSize()
-            .padding(8.dp)
+            .padding(AppTheme.dimensions.paddingM)
     ) {
         Spacer(Modifier.height(8.dp))
         Text(
-            text = "Total: " + String.format(Locale.US, "$%.2f", totalPortfolioValue),
+            text = totalPortfolioValue,
             style = MaterialTheme.typography.titleLarge.copy(
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold
             ),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 12.dp)
+                .padding(vertical = AppTheme.dimensions.paddingML)
         )
-        HorizontalDivider(Modifier.padding(vertical = 8.dp), thickness = 1.dp)
+        HorizontalDivider(Modifier.padding(vertical = AppTheme.dimensions.paddingM), thickness = 1.dp)
 
         Spacer(Modifier.height(8.dp))
 
@@ -141,26 +133,26 @@ fun PortfolioContent(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(8.dp),
+                    .padding(AppTheme.dimensions.paddingM),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 PortfolioButton(
                     modifier = Modifier.weight(1f),
-                    onClick = onDetailsClicked,
+                    onClick = { onAction(PortfolioViewAction.OnPortfolioDetailsClicked) },
                     icon = Icons.AutoMirrored.Default.List,
                     text = stringResource(R.string.details_button)
                 )
 
                 PortfolioButton(
                     modifier = Modifier.weight(1f),
-                    onClick = onSortingClicked,
+                    onClick = { onAction(PortfolioViewAction.OnSortClicked) },
                     icon = Icons.AutoMirrored.Filled.Sort,
                     text = stringResource(R.string.sorting_button)
                 )
                 PortfolioButton(
                     modifier = Modifier.weight(1f),
-                    onClick = onAddCaseClicked,
+                    onClick = { onAction(PortfolioViewAction.OnAddCaseClicked) },
                     icon = Icons.Default.Add,
                     text = stringResource(R.string.add_case_button)
                 )
@@ -196,10 +188,10 @@ fun PortfolioButton(modifier: Modifier, onClick: () -> Unit, icon: ImageVector, 
             .height(44.dp),
         shape = MaterialTheme.shapes.large,
         colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.primary,
-            contentColor = MaterialTheme.colorScheme.onPrimary
+            containerColor = AppTheme.colors.primary,
+            contentColor = AppTheme.colors.onPrimary
         ),
-        contentPadding = PaddingValues(horizontal = 12.dp, vertical = 10.dp)
+        contentPadding = PaddingValues(horizontal = AppTheme.dimensions.paddingML, vertical = AppTheme.dimensions.paddingM)
     ) {
         Icon(icon, contentDescription = null)
         Spacer(Modifier.width(6.dp))
@@ -219,7 +211,7 @@ fun PortfolioItemCard(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp),
+                .padding(AppTheme.dimensions.paddingML),
             verticalAlignment = Alignment.CenterVertically
         ) {
             AsyncImage(
@@ -283,6 +275,9 @@ private fun PortfolioBarChart(
     entries: List<BarEntry>,
     modifier: Modifier = Modifier,
 ) {
+
+    val label = stringResource(R.string.portfolio_value)
+
     AndroidView(
         modifier = modifier,
         factory = { context ->
@@ -297,7 +292,7 @@ private fun PortfolioBarChart(
             }
         },
         update = { chart ->
-            val set = BarDataSet(entries, "Portfolio Value").apply {
+            val set = BarDataSet(entries, label).apply {
                 color = Color.parseColor("#2FA1BA")
                 valueTextSize = 10f
                 valueTextColor = Color.BLACK
@@ -355,11 +350,10 @@ fun PortfolioScreenPreview() {
                     BarEntry(20f, 840f),
                     BarEntry(21f, 834f),
                 ),
-                totalPortfolioValue = 62.0
+                totalPortfolioValue = "Total: $1341234.44"
             ),
-            onDetailsClicked = {},
-            onAddCaseClicked = {},
-            onSortingClicked = {},
+            onAction = {},
+
             scrollSignal = 0
         )
     }

@@ -28,12 +28,12 @@ fun SortingScreen(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(AppTheme.dimensions.paddingL)
     ) {
         Text(
             "Sort",
             style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.primary
+            color = AppTheme.colors.primary
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -46,9 +46,12 @@ fun SortingScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(60.dp)
-                    .padding(horizontal = 12.dp, vertical = 6.dp),
+                    .padding(
+                        horizontal = AppTheme.dimensions.paddingML,
+                        vertical = AppTheme.dimensions.paddingM
+                    ),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
+                    containerColor = AppTheme.colors.primary,
                     contentColor = Color.White
                 ),
                 shape = RoundedCornerShape(8.dp),
@@ -68,5 +71,5 @@ fun SortingScreen(
 @Preview
 @Composable
 fun SortingScreenPreview() {
-    AppTheme(dynamicColor = false) { SortingScreen(onClick = {}) }
+    AppTheme { SortingScreen(onClick = {}) }
 }
