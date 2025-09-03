@@ -99,7 +99,7 @@ class PortfolioViewModel @Inject constructor(
     }
 
 
-    private inline fun updateContent(transform: (PortfolioViewState.Content) -> PortfolioViewState.Content) {
+    private fun updateContent(transform: (PortfolioViewState.Content) -> PortfolioViewState.Content) {
         val current = uiState.value
         if (current is PortfolioViewState.Content) {
             uiState.value = transform(current)

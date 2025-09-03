@@ -17,15 +17,15 @@ data class PortfolioItem(
 
 fun PortfolioItem.toModel():PortfolioItemModel {
     return PortfolioItemModel(
-        itemImage = this.caseImage,
-        itemName = this.caseName,
-        totalValue = String.format(Locale.US, "$%.2f", this.caseOverallValue),
-        amountPrice = "${this.caseAmount} cases • ${
-            String.format(Locale.US, "$%.2f", this.casePrice)
+        itemImage = caseImage,
+        itemName = caseName,
+        totalValue = String.format(Locale.US, "$%.2f", caseOverallValue),
+        amountPrice = "$caseAmount cases • ${
+            String.format(Locale.US, "$%.2f", casePrice)
         }",
-        profitLoss = "${if (this.caseProfitLoss >= 0) "+" else ""}${
-            String.format(Locale.US, "%.2f", this.caseProfitLoss)
-        } $ (${this.caseProfitLoss} %)"
+        profitLoss = "${if (caseProfitLoss >= 0) "+" else ""}${
+            String.format(Locale.US, "%.2f", caseProfitLoss)
+        } $ (${caseProfitLoss} %)"
     )
 }
 
