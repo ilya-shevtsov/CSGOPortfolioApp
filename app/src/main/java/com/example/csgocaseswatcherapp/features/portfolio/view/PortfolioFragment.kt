@@ -2,18 +2,16 @@ package com.example.csgocaseswatcherapp.features.portfolio.view
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
@@ -56,6 +54,11 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        setFragmentResultListener("addedCase") { _, bundle ->
+            val addedCase = bundle.getSerializable("addedCase") as AddedCase
+            viewModel.handleAction(PortfolioViewAction.OnCaseAdded(addedCase))
+        }
+
         composeView.setViewCompositionStrategy(
             ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed
         )
@@ -88,14 +91,8 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
         sortingViewModel: SortingModalViewModel
     ) {
         val state by viewModel.uiState.collectAsStateWithLifecycle()
-        val showSortingSheet = remember { mutableStateOf(false) }
-        val scrollSignal = remember { androidx.compose.runtime.mutableIntStateOf(0) }
-
-        setFragmentResultListener("addedCase") { _, bundle ->
-            val addedCase = bundle.getSerializable("addedCase") as AddedCase
-            viewModel.handleAction(PortfolioViewAction.OnCaseAdded(addedCase))
-        }
-
+        val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+        val listState = rememberLazyListState()
 
         LaunchedEffect(viewModel) {
             viewModel.uiEvent.collectLatest { event ->
@@ -104,9 +101,8 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
                     is PortfolioViewEvent.NavigateToPortfolioDetails -> handleNavigateToPortfolioDetails(
                         event
                     )
-
-                    is PortfolioViewEvent.NavigateToSorting -> {
-                        showSortingSheet.value = true
+                    is PortfolioViewEvent.ScrollToTop -> {
+                        listState.animateScrollToItem(0)
                     }
                 }
             }
@@ -115,23 +111,22 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
         PortfolioScreen(
             state = state,
             onAction = { action -> viewModel.handleAction(action = action) },
-            scrollSignal = scrollSignal.intValue
+            listState = listState
         )
 
-        if (showSortingSheet.value) {
+        val isVisible = (state as? PortfolioViewState.Content)?.isSortingSheetVisible == true
+        if (isVisible) {
             ModalBottomSheet(
-                onDismissRequest = { showSortingSheet.value = false },
-                sheetState = rememberModalBottomSheetState()
+                onDismissRequest = { viewModel.handleAction(PortfolioViewAction.HideSortingModal) },
+                sheetState = sheetState
             ) {
                 SortingBottomModal(
                     viewModel = sortingViewModel,
-                    onDismissRequest = { showSortingSheet.value = false },
+                    onDismissRequest = { viewModel.handleAction(PortfolioViewAction.HideSortingModal) },
                     onSortingSelected = { sortingMethod ->
                         viewModel.handleAction(
                             PortfolioViewAction.OnSortingMethodSelected(sortingMethod)
                         )
-                        scrollSignal.intValue++
-                        showSortingSheet.value = false
                     }
                 )
             }

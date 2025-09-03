@@ -7,7 +7,6 @@ import com.example.csgocaseswatcherapp.features.addcasefragment.domain.NameSugge
 import com.example.csgocaseswatcherapp.features.addcasefragment.domain.usecases.GetCaseSuggestionListUseCase
 import com.example.csgocaseswatcherapp.features.addcasefragment.domain.usecases.SendAddedCaseUseCase
 import com.example.csgocaseswatcherapp.features.addcasefragment.view.entities.AddedCase
-import com.example.csgocaseswatcherapp.features.addcasefragment.view.entities.toModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -27,7 +26,9 @@ class AddCaseViewModel @Inject constructor(
 
     private fun initBusinessState(): AddCaseState {
         return AddCaseState(
-            addedCaseData = AddedCase(name = "", amount = 0, purchasePrice = 0.0),
+            name = "",
+            amount = 0,
+            purchasePrice = 0.0,
             caseNameSearchQuery = "",
             nameSuggestionResult = NameSuggestionResult.Loading,
             originalNameSuggestionList = listOf()
@@ -82,12 +83,14 @@ class AddCaseViewModel @Inject constructor(
                         }
 
                     val addCaseButtonIsActive =
-                        state.addedCaseData.purchasePrice > 0.0 && state.addedCaseData.amount > 0 && state.originalNameSuggestionList.contains(
-                            state.addedCaseData.name
+                        state.purchasePrice > 0.0 && state.amount > 0 && state.originalNameSuggestionList.contains(
+                            state.name
                         )
 
                     AddCaseViewState.Content(
-                        caseModel = state.addedCaseData.toModel(),
+                        name = state.name,
+                        amount = state.amount.toString(),
+                        price = state.purchasePrice.toString(),
                         caseNameSearchQuery = state.caseNameSearchQuery,
                         isAddCaseButtonActive = addCaseButtonIsActive,
                         caseNameSuggestionList = filtered
@@ -100,7 +103,7 @@ class AddCaseViewModel @Inject constructor(
 
     private fun handleOnSuggestionClicked(action: AddCaseViewAction.OnSuggestionClicked) {
         viewModelScope.launch {
-            businessState.update { it.copy(addedCaseData = it.addedCaseData.copy(name = action.name)) }
+            businessState.update { it.copy(name = action.name) }
         }
     }
 
@@ -108,7 +111,7 @@ class AddCaseViewModel @Inject constructor(
         viewModelScope.launch {
             businessState.update {
                 it.copy(
-                    addedCaseData = it.addedCaseData.copy(name = action.name),
+                    name = action.name,
                     caseNameSearchQuery = action.name
                 )
             }
@@ -119,11 +122,7 @@ class AddCaseViewModel @Inject constructor(
     private fun handleOnAmountChanged(action: AddCaseViewAction.OnAmountChanged) {
         viewModelScope.launch {
             businessState.update {
-                val amountInt = action.amount.toIntOrNull() ?: 0
-                val updated = it.copy(
-                    addedCaseData = it.addedCaseData.copy(amount = amountInt)
-                )
-                updated
+                it.copy(amount = action.amount.toIntOrNull() ?: 0)
             }
         }
     }
@@ -132,10 +131,7 @@ class AddCaseViewModel @Inject constructor(
         viewModelScope.launch {
             businessState.update {
                 val priceD = action.price.replace(',', '.').toDoubleOrNull() ?: 0.0
-                val updated = it.copy(
-                    addedCaseData = it.addedCaseData.copy(purchasePrice = priceD)
-                )
-                updated
+                it.copy(purchasePrice = priceD)
             }
         }
     }
@@ -168,7 +164,11 @@ class AddCaseViewModel @Inject constructor(
     }
 
     private fun handleAddCaseClicked() {
-        val addedCase = businessState.value.addedCaseData
+        val addedCase = AddedCase(
+            name = businessState.value.name,
+            amount = businessState.value.amount,
+            purchasePrice = businessState.value.purchasePrice
+        )
         sendAddedCaseUseCase.invoke(addedCase)
         viewModelScope.launch {
             uiEvent.emit(

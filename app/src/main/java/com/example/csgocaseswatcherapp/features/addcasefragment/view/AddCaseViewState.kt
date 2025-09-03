@@ -9,7 +9,9 @@ sealed class AddCaseViewState {
     data object Error: AddCaseViewState()
 
     data class Content(
-        val caseModel: AddCaseModel,
+        val name: String,
+        val amount:String,
+        val price: String,
         val caseNameSearchQuery: String = "",
         val isAddCaseButtonActive: Boolean = false,
         val caseNameSuggestionList: List<String>

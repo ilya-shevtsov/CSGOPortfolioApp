@@ -49,6 +49,7 @@ fun AddCaseScreen(
             state = state,
             onAction = onAction,
         )
+
         AddCaseViewState.Error -> ErrorScreen()
     }
 }
@@ -72,7 +73,7 @@ fun AddCaseContent(
         modifier = Modifier
             .fillMaxSize()
             .background(AppTheme.colors.background)
-            .clickable {  }
+            .clickable { }
     ) {
         BackgroundDecorations(modifier = Modifier.matchParentSize())
 
@@ -91,7 +92,7 @@ fun AddCaseContent(
                 onExpandedChange = { willExpand -> expanded = willExpand }
             ) {
                 OutlinedTextField(
-                    value = state.caseModel.name,
+                    value = state.name,
                     onValueChange = { newValue ->
                         onAction(AddCaseViewAction.OnNameChanged(newValue))
                     },
@@ -122,7 +123,7 @@ fun AddCaseContent(
             }
 
             OutlinedTextField(
-                value = state.caseModel.amount,
+                value = state.amount,
                 onValueChange = { newValue -> onAction(AddCaseViewAction.OnAmountChanged(newValue)) },
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text("Amount of cases") },
@@ -134,7 +135,7 @@ fun AddCaseContent(
             )
 
             OutlinedTextField(
-                value = state.caseModel.price,
+                value = state.price,
                 onValueChange = { newValue -> onAction(AddCaseViewAction.OnPriceChanged(newValue)) },
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text("Purchase price") },
@@ -166,7 +167,7 @@ fun AddCaseContentPreview() {
     AppTheme {
         AddCaseScreen(
             state = AddCaseViewState.Content(
-                caseModel = AddCaseModel(name = "Chroma Case", amount = "37", price = "3.14"),
+                name = "Chroma Case", amount = "37", price = "3.14",
                 caseNameSearchQuery = "Chroma",
                 isAddCaseButtonActive = false,
                 caseNameSuggestionList = listOf("Chroma Case", "Chroma 2 Case")
