@@ -102,7 +102,7 @@ fun appColorsFrom(scheme: ColorScheme) = AppColors(
     onError = scheme.onError,
 )
 
-fun defaultColors(): AppColors = AppColors(
+fun lightColors(): AppColors = AppColors(
     primary = Color(0xFF40BBD6),
     onPrimary = Color.White,
     primaryContainer = Color(0xFF7CEEFF),
@@ -119,4 +119,21 @@ fun defaultColors(): AppColors = AppColors(
     onError = Color.White,
 )
 
-internal val LocalColors = staticCompositionLocalOf { defaultColors() }
+fun darkColors(): AppColors = AppColors(
+    primary = Color(0xFF40BBD6),
+    onPrimary = Color.Black,
+    primaryContainer = Color(0xFF006876),
+    onPrimaryContainer = Color(0xFF9CF0FF),
+    secondary = Color(0xFF1C2A30),
+    onSecondary = Color(0xFFE5F7FF),
+    secondaryContainer = Color(0xFF2E3F46),
+    onSecondaryContainer = Color(0xFFB3C4CC),
+    background = Color(0xFF121212),
+    onBackground = Color(0xFFB3C4CC),
+    surface = Color(0xFF1E1E1E),
+    onSurface = Color(0xFFB3C4CC),
+    error = Color(0xFFCF6679),
+    onError = Color.Black
+)
+
+internal val LocalColors = staticCompositionLocalOf { lightColors() }

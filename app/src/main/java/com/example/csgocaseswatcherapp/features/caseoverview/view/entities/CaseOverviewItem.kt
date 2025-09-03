@@ -125,7 +125,7 @@ private fun StatRow(
         Text(
             text = "$label: ",
             style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
+            color = AppTheme.colors.onSurface
         )
         Text(
             text = value,
@@ -139,7 +139,7 @@ private fun StatRow(
 @Preview(showBackground = true)
 @Composable
 private fun CaseOverviewItemPreview() {
-    AppTheme {
+    AppTheme(darkTheme = true) {
         CaseOverviewItem(
             item = CaseOverviewModel(
                 caseName = "Chroma Case",

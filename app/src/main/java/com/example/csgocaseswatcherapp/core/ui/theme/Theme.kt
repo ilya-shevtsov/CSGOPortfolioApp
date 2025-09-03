@@ -1,5 +1,6 @@
 package com.example.csgocaseswatcherapp.core.ui.theme
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
@@ -25,15 +26,17 @@ object AppTheme {
 
 @Composable
 fun AppTheme(
-    colors: AppColors = AppTheme.colors,
+    darkTheme: Boolean = isSystemInDarkTheme(),
     typography: AppTypography = AppTheme.typography,
     dimensions: AppDimensions = AppTheme.dimensions,
     shapes: AppShapes = AppTheme.shapes,
     content: @Composable () -> Unit
 ) {
 
+    val colors = if (darkTheme) darkColors() else lightColors()
 
-    val rememberedColors = remember { colors.copy() }.apply { updateFrom(colors) }
+    val rememberedColors = remember(darkTheme, colors) { colors.copy() }
+        .apply { updateFrom(colors) }
 
     CompositionLocalProvider(
         LocalColors provides rememberedColors,

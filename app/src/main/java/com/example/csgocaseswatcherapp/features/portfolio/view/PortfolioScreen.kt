@@ -25,6 +25,7 @@ import androidx.compose.material.icons.automirrored.filled.Sort
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -95,6 +96,7 @@ fun PortfolioContent(
         Spacer(Modifier.height(8.dp))
         Text(
             text = totalPortfolioValue,
+            color = AppTheme.colors.onBackground,
             style = MaterialTheme.typography.titleLarge.copy(
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold
@@ -121,6 +123,10 @@ fun PortfolioContent(
 
         ElevatedCard(
             modifier = Modifier.fillMaxWidth(),
+            colors = CardDefaults.cardColors(
+                containerColor = AppTheme.colors.surface,
+                contentColor = AppTheme.colors.onSurface
+            ),
             shape = MaterialTheme.shapes.large
         ) {
             Row(
@@ -206,6 +212,10 @@ fun PortfolioItemCard(
 ) {
     ElevatedCard(
         modifier = modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(
+            containerColor = AppTheme.colors.surface,
+            contentColor = AppTheme.colors.onSurface
+        ),
         shape = MaterialTheme.shapes.extraLarge,
     ) {
         Row(
@@ -251,7 +261,7 @@ fun PortfolioItemCard(
                 Text(
                     text = item.profitLoss,
                     style = MaterialTheme.typography.bodyMedium,
-                    color = androidx.compose.ui.graphics.Color.Black
+                    color = AppTheme.colors.onSecondaryContainer
                 )
             }
         }
