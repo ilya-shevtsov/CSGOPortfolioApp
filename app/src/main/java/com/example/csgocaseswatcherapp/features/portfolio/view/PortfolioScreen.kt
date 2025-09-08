@@ -165,7 +165,7 @@ fun PortfolioContent(
         LazyColumn(
             state = listState,
             modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(bottom = 16.dp),
+            contentPadding = PaddingValues(bottom = AppTheme.dimensions.paddingL),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             items(

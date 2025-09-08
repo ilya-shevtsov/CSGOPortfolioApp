@@ -1,5 +1,12 @@
 package com.example.csgocaseswatcherapp.features.currencychange.view
 
-data class CurrencyChangeViewState(
-    val currencyList: List<String>
-)
+
+sealed class CurrencyChangeViewState {
+    data object Loading : CurrencyChangeViewState()
+
+    data class Content(
+        val currencyList: List<String>
+    ) : CurrencyChangeViewState()
+
+}
+

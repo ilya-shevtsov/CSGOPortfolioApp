@@ -32,6 +32,6 @@ class CurrencyChangeViewModel @Inject constructor() : ViewModel() {
     //PlaceHolder for currencies (later get from database)
 
     private fun createInitialState(): CurrencyChangeViewState {
-        return CurrencyChangeViewState(listOf("USD", "RUB"))
+        return CurrencyChangeViewState.Content(listOf("USD", "RUB"))
     }
 }
