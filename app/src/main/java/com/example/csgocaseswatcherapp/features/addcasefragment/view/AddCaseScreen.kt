@@ -16,6 +16,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -28,14 +29,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.csgocaseswatcherapp.core.ui.BackgroundDecorations
 import com.example.csgocaseswatcherapp.core.ui.ErrorScreen
 import com.example.csgocaseswatcherapp.core.ui.LoadingScreen
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
-import com.example.csgocaseswatcherapp.features.addcasefragment.view.entities.AddCaseModel
 
 @Composable
 fun AddCaseScreen(
@@ -63,6 +62,26 @@ fun AddCaseContent(
 ) {
     var expanded by remember { mutableStateOf(false) }
     var hasFocus by remember { mutableStateOf(false) }
+
+
+    //temporary solution until I know how to move this to AppTheme
+    val outlinedTextFieldColors = OutlinedTextFieldDefaults.colors(
+        focusedTextColor = AppTheme.colors.onSurface,
+        unfocusedTextColor = AppTheme.colors.onSurface,
+
+        cursorColor = AppTheme.colors.primary,
+
+        focusedBorderColor = AppTheme.colors.primary,
+        unfocusedBorderColor = AppTheme.colors.onSurface.copy(alpha = 0.30f),
+
+        focusedLabelColor = AppTheme.colors.primary,
+        unfocusedLabelColor = AppTheme.colors.onSurface.copy(alpha = 0.60f),
+
+        errorTextColor = AppTheme.colors.onError,
+        errorBorderColor = AppTheme.colors.error,
+        errorLabelColor = AppTheme.colors.error,
+        errorCursorColor = AppTheme.colors.error,
+    )
 
     LaunchedEffect(hasFocus, state.caseNameSearchQuery, state.caseNameSuggestionList) {
         expanded = hasFocus &&
@@ -93,16 +112,18 @@ fun AddCaseContent(
                 onExpandedChange = { willExpand -> expanded = willExpand }
             ) {
                 OutlinedTextField(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .menuAnchor(MenuAnchorType.PrimaryEditable)
+                        .onFocusChanged { f -> hasFocus = f.isFocused },
                     value = state.name,
                     onValueChange = { newValue ->
                         onAction(AddCaseViewAction.OnNameChanged(newValue))
                     },
                     label = { Text("Case Name") },
                     singleLine = true,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .menuAnchor(MenuAnchorType.PrimaryEditable)
-                        .onFocusChanged { f -> hasFocus = f.isFocused }
+                    colors = outlinedTextFieldColors
+
                 )
 
                 ExposedDropdownMenu(
@@ -132,19 +153,23 @@ fun AddCaseContent(
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
                     imeAction = ImeAction.Next
-                )
+                ),
+                colors = outlinedTextFieldColors
             )
 
             OutlinedTextField(
                 value = state.price,
-                onValueChange = { newValue -> onAction(AddCaseViewAction.OnPriceChanged(newValue)) },
+                onValueChange = { newValue ->
+                    onAction(AddCaseViewAction.OnPriceChanged(newValue))
+                },
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text("Purchase price") },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Decimal,
                     imeAction = ImeAction.Done
-                )
+                ),
+                colors = outlinedTextFieldColors
             )
 
             Spacer(Modifier.weight(1f))
