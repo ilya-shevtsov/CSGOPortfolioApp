@@ -25,6 +25,7 @@ import androidx.compose.material.icons.automirrored.filled.Sort
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -33,6 +34,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -95,6 +97,7 @@ fun PortfolioContent(
         Spacer(Modifier.height(8.dp))
         Text(
             text = totalPortfolioValue,
+            color = AppTheme.colors.onBackground,
             style = MaterialTheme.typography.titleLarge.copy(
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold
@@ -121,6 +124,10 @@ fun PortfolioContent(
 
         ElevatedCard(
             modifier = Modifier.fillMaxWidth(),
+            colors = CardDefaults.cardColors(
+                containerColor = AppTheme.colors.surface,
+                contentColor = AppTheme.colors.onSurface
+            ),
             shape = MaterialTheme.shapes.large
         ) {
             Row(
@@ -206,6 +213,10 @@ fun PortfolioItemCard(
 ) {
     ElevatedCard(
         modifier = modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(
+            containerColor = AppTheme.colors.surface,
+            contentColor = AppTheme.colors.onSurface
+        ),
         shape = MaterialTheme.shapes.extraLarge,
     ) {
         Row(
@@ -251,7 +262,7 @@ fun PortfolioItemCard(
                 Text(
                     text = item.profitLoss,
                     style = MaterialTheme.typography.bodyMedium,
-                    color = androidx.compose.ui.graphics.Color.Black
+                    color = AppTheme.colors.onSecondaryContainer
                 )
             }
         }
@@ -264,8 +275,13 @@ private fun PortfolioBarChart(
     entries: List<BarEntry>,
     modifier: Modifier = Modifier,
 ) {
-
     val label = stringResource(R.string.portfolio_value)
+
+    val cs = AppTheme.colors
+    val barColor = cs.primary
+    val valueColor = cs.onSurface
+    val bgColor = cs.surface
+    val axisColor = cs.onSurface.copy(alpha = 0.75f)
 
     AndroidView(
         modifier = modifier,
@@ -274,19 +290,39 @@ private fun PortfolioBarChart(
                 layoutParams = ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT)
                 description = Description().apply { text = "" }
                 legend.isEnabled = false
-                axisRight.isEnabled = false
-                axisLeft.axisMinimum = 0f
-                xAxis.isEnabled = false
                 setDrawGridBackground(false)
+
+                setBackgroundColor(bgColor.toArgb())
+
+                axisRight.isEnabled = false
+                axisLeft.apply {
+                    axisMinimum = 0f
+                    textColor = axisColor.toArgb()
+                    setDrawAxisLine(false)
+                }
+                xAxis.apply {
+                    isEnabled = false
+                    textColor = axisColor.toArgb()
+                }
             }
         },
         update = { chart ->
             val set = BarDataSet(entries, label).apply {
-                color = Color.parseColor("#2FA1BA")
+                color = barColor.toArgb()
                 valueTextSize = 10f
-                valueTextColor = Color.BLACK
+                valueTextColor = valueColor.toArgb()
+                setDrawValues(true)
+
+                valueFormatter = object : com.github.mikephil.charting.formatter.ValueFormatter() {
+                    override fun getBarLabel(e: BarEntry): String =
+                        String.format(java.util.Locale.US, "$%.2f", e.y)
+                }
             }
-            chart.data = BarData(set)
+
+            chart.data = BarData(set).apply {
+                barWidth = 0.6f
+            }
+
             chart.invalidate()
             chart.animateY(1200, Easing.EaseInOutQuad)
         }
