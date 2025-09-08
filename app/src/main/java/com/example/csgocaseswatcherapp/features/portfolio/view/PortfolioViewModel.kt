@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.csgocaseswatcherapp.features.portfolio.domain.usecases.GetPortfolioDataUseCase
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItem
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemListArgs
+import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemModel
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioValueItem
-import com.example.csgocaseswatcherapp.features.portfolio.view.entities.toModel
 import com.example.csgocaseswatcherapp.features.sortingmodal.entities.SortingMethod
 import com.github.mikephil.charting.data.BarEntry
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -177,6 +177,20 @@ class PortfolioViewModel @Inject constructor(
 
     private fun Double.formatTotalValue(): String {
         return "Total: " + String.format(Locale.US, "$%.2f", this)
+    }
+
+    fun PortfolioItem.toModel(): PortfolioItemModel {
+        return PortfolioItemModel(
+            itemImage = caseImage,
+            itemName = caseName,
+            totalValue = String.format(Locale.US, "$%.2f", caseOverallValue),
+            amountPrice = "$caseAmount cases • ${
+                String.format(Locale.US, "$%.2f", casePrice)
+            }",
+            profitLoss = "${if (caseProfitLoss >= 0) "+" else ""}${
+                String.format(Locale.US, "%.2f", caseProfitLoss)
+            } $ (${caseProfitLoss} %)"
+        )
     }
 
     private suspend fun getPortfolioData() {
