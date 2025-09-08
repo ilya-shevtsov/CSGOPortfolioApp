@@ -29,6 +29,7 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.csgocaseswatcherapp.core.ui.BackgroundDecorations
 import com.example.csgocaseswatcherapp.core.ui.ErrorScreen
@@ -160,27 +161,10 @@ fun AddCaseContent(
         }
     }
 }
-
-@Preview
+@PreviewLightDark
 @Composable
 fun AddCaseContentPreview() {
-    AppTheme {
-        AddCaseScreen(
-            state = AddCaseViewState.Content(
-                name = "Chroma Case", amount = "37", price = "3.14",
-                caseNameSearchQuery = "Chroma",
-                isAddCaseButtonActive = false,
-                caseNameSuggestionList = listOf("Chroma Case", "Chroma 2 Case")
-            ),
-            onAction = {},
-        )
-    }
-}
-
-@Preview
-@Composable
-fun AddCaseContentPreviewDark() {
-    AppTheme(darkTheme = true) {
+    AppTheme{
         AddCaseScreen(
             state = AddCaseViewState.Content(
                 name = "Chroma Case", amount = "37", price = "3.14",

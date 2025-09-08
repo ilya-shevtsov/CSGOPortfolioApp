@@ -40,6 +40,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -141,7 +142,7 @@ fun PortfolioContent(
                 PortfolioButton(
                     modifier = Modifier.weight(1f),
                     onClick = { onAction(PortfolioViewAction.OnPortfolioDetailsClicked) },
-                    icon = Icons.AutoMirrored.Default.List,
+                    icon = Icons.AutoMirrored.Filled.List,
                     text = stringResource(R.string.details_button)
                 )
 
@@ -257,13 +258,14 @@ fun PortfolioItemCard(
             Column(horizontalAlignment = Alignment.End) {
                 Text(
                     text = item.totalValue,
-                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
+                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                    color = AppTheme.colors.onSurface
                 )
                 Spacer(Modifier.height(2.dp))
                 Text(
                     text = item.profitLoss,
                     style = MaterialTheme.typography.bodyMedium,
-                    color = AppTheme.colors.onSecondaryContainer
+                    color = AppTheme.colors.onSurface
                 )
             }
         }
@@ -314,9 +316,9 @@ private fun PortfolioBarChart(
                 valueTextColor = valueColor.toArgb()
                 setDrawValues(true)
 
-                valueFormatter = object : com.github.mikephil.charting.formatter.ValueFormatter() {
+                valueFormatter = object : ValueFormatter() {
                     override fun getBarLabel(e: BarEntry): String =
-                        String.format(java.util.Locale.US, "$%.2f", e.y)
+                        String.format(Locale.US, "$%.2f", e.y)
                 }
             }
 
@@ -330,7 +332,7 @@ private fun PortfolioBarChart(
     )
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 fun PortfolioScreenPreview() {
     AppTheme {
@@ -364,7 +366,7 @@ fun PortfolioScreenPreview() {
                 totalPortfolioValue = "Total: $10000.00", portfolioItemModelList = listOf(
                     PortfolioItemModel(
                         itemImage = "",
-                        itemName = "Chroma Case",
+                        itemName = "Chroma Case 2",
                         totalValue = "$60.00",
                         amountPrice = "23 cases • $12.00",
                         profitLoss = "12.00 $ (23.23 %)"
@@ -379,9 +381,9 @@ fun PortfolioScreenPreview() {
                 )
             ),
             onAction = {}, listState = listState
-           
-        
         )
     }
 }
+
+
 

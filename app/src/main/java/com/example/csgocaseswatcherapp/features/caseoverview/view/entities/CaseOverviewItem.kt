@@ -29,6 +29,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -135,31 +136,10 @@ private fun StatRow(
     }
 }
 
-
-@Preview(showBackground = true)
-@Composable
-private fun CaseOverviewItemPreviewDark() {
-    AppTheme(darkTheme = true) {
-        CaseOverviewItem(
-            item = CaseOverviewModel(
-                caseName = "Chroma Case",
-                lowestPrice = 6.63,
-                volume = 1013,
-                medianPrice = 7.45,
-                imageUrl = "https://api.steamapis.com/image/item/730/Recoil%20Case",
-                releaseDate = "01.07.2022",
-                dropStatus = "Active",
-                description = "—"
-            ),
-            onClick = {}
-        )
-    }
-}
-
-@Preview(showBackground = true)
+@PreviewLightDark
 @Composable
 private fun CaseOverviewItemPreviewLight() {
-    AppTheme(darkTheme = false) {
+    AppTheme {
         CaseOverviewItem(
             item = CaseOverviewModel(
                 caseName = "Chroma Case",

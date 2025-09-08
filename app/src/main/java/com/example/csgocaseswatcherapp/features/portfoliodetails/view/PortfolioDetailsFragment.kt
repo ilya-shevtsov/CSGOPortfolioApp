@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -151,20 +152,22 @@ class PortfolioDetailsFragment : Fragment(R.layout.fragment_portfolio_details) {
         )
     }
 
-    @Preview
+    @PreviewLightDark
     @Composable
     fun PortfolioDetailsScreenPreview() {
-        PortfolioDetailsScreen(
-            state = PortfolioDetailsViewState.Content(
-                portfolioPietEntryList = listOf(
-                    PieEntry(0.0f, 255.0f),
-                    PieEntry(0.0f, 20.0f),
-                    PieEntry(0.0f, 1.0f),
-                    PieEntry(0.0f, 10.0f),
-                    PieEntry(0.0f, 2.0f)
+        AppTheme {
+            PortfolioDetailsScreen(
+                state = PortfolioDetailsViewState.Content(
+                    portfolioPietEntryList = listOf(
+                        PieEntry(0.0f, 255.0f),
+                        PieEntry(0.0f, 20.0f),
+                        PieEntry(0.0f, 1.0f),
+                        PieEntry(0.0f, 10.0f),
+                        PieEntry(0.0f, 2.0f)
+                    )
                 )
             )
-        )
+        }
     }
 
     override fun onAttach(context: Context) {
