@@ -3,7 +3,6 @@ package com.example.csgocaseswatcherapp.features.caseoverview.view
 import androidx.compose.foundation.background
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -43,7 +42,7 @@ fun CaseOverviewScreen(
 @Preview
 @Composable
 fun CaseOverviewScreenPreview() {
-    AppTheme {
+    AppTheme(darkTheme = false) {
         val item = CaseOverviewModel(
             caseName = "Chroma Case",
             lowestPrice = 6.63,
@@ -67,5 +66,33 @@ fun CaseOverviewScreenPreview() {
             onCaseClick = {}
         )
     }
+}
 
+@Preview
+@Composable
+fun CaseOverviewScreenPreviewDark() {
+    AppTheme(darkTheme = true) {
+        val item = CaseOverviewModel(
+            caseName = "Chroma Case",
+            lowestPrice = 6.63,
+            volume = 1013,
+            medianPrice = 7.45,
+            imageUrl = "https://api.steamapis.com/image/item/730/Recoil%20Case",
+            releaseDate = "01.07.2022",
+            dropStatus = "Active",
+            description = "—"
+        )
+        CaseOverviewScreen(
+            state = CaseOverviewViewState.Content(
+                caseOverviewItemList = listOf(
+                    item,
+                    item,
+                    item,
+                    item,
+                    item,
+                )
+            ),
+            onCaseClick = {}
+        )
+    }
 }

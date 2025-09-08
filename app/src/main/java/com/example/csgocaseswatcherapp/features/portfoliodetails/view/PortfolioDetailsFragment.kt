@@ -116,7 +116,6 @@ class PortfolioDetailsFragment : Fragment(R.layout.fragment_portfolio_details) {
                         MATCH_PARENT
                     )
 
-                    // Chart settings
                     isDrawHoleEnabled = true
                     setUsePercentValues(true)
                     setEntryLabelTextSize(10f)

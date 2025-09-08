@@ -38,37 +38,24 @@ import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 @Composable
 fun StartScreen(
     state: StartViewState,
-    onCaseOverviewClicked: () -> Unit,
-    onCaseAnalyticsClicked: () -> Unit,
-    onPortfolioClicked: () -> Unit,
-    onCurrencyClicked: () -> Unit
+    onAction: (StartViewAction) -> Unit,
 ) {
-
 
     when (state) {
         is StartViewState.Content ->
             StartScreenContent(
-                state,
-                onCurrencyClicked,
-                onCaseOverviewClicked,
-                onCaseAnalyticsClicked,
-                onPortfolioClicked
+                state = state,
+                onAction = onAction,
             )
-
         is StartViewState.Error -> ErrorScreen()
-
         is StartViewState.Loading -> LoadingScreen()
     }
-
 }
 
 @Composable
 private fun StartScreenContent(
     state: StartViewState.Content,
-    onCurrencyClicked: () -> Unit,
-    onCaseOverviewClicked: () -> Unit,
-    onCaseAnalyticsClicked: () -> Unit,
-    onPortfolioClicked: () -> Unit
+    onAction: (StartViewAction) -> Unit
 ) {
 
     val isDark = isSystemInDarkTheme()
@@ -78,7 +65,6 @@ private fun StartScreenContent(
     } else {
         R.drawable.ic_frontpageimg
     }
-
 
     Box(
         modifier = Modifier
@@ -92,7 +78,7 @@ private fun StartScreenContent(
         ) {
             HeaderDecoration(
                 currencyButtonText = state.currencyButton,
-                onCurrencyClicked = onCurrencyClicked
+                onAction = { onAction(StartViewAction.OnCurrencyChangeClicked) }
             )
 
             LogoAndSlogan(
@@ -104,9 +90,7 @@ private fun StartScreenContent(
             )
 
             ButtonsSelectionSection(
-                onCaseOverviewClicked = onCaseOverviewClicked,
-                onCaseAnalyticsClicked = onCaseAnalyticsClicked,
-                onPortfolioClicked = onPortfolioClicked
+                onAction = onAction
             )
             Spacer(modifier = Modifier.size(80.dp))
         }
@@ -115,9 +99,7 @@ private fun StartScreenContent(
 
 @Composable
 fun ButtonsSelectionSection(
-    onCaseOverviewClicked: () -> Unit,
-    onCaseAnalyticsClicked: () -> Unit,
-    onPortfolioClicked: () -> Unit,
+    onAction: (StartViewAction) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -132,15 +114,15 @@ fun ButtonsSelectionSection(
         ) {
             MainMenuButton(
                 buttonText = stringResource(R.string.front_page_case_overview_button),
-                onClick = onCaseOverviewClicked
+                onClick = { onAction(StartViewAction.OnCaseOverviewClicked) }
             )
             MainMenuButton(
                 buttonText = stringResource(R.string.front_page_analytics_button),
-                onClick = onCaseAnalyticsClicked
+                onClick = { onAction(StartViewAction.OnAnalyticsClicked) }
             )
             MainMenuButton(
                 buttonText = stringResource(R.string.front_page_portfolio_button),
-                onClick = onPortfolioClicked
+                onClick = { onAction(StartViewAction.OnPortfolioClicked) }
             )
         }
     }
@@ -150,7 +132,7 @@ fun ButtonsSelectionSection(
 fun HeaderDecoration(
     modifier: Modifier = Modifier,
     currencyButtonText: String,
-    onCurrencyClicked: () -> Unit
+    onAction: (StartViewAction) -> Unit
 ) {
     Row(
         modifier = modifier
@@ -170,7 +152,7 @@ fun HeaderDecoration(
                 top = AppTheme.dimensions.paddingML,
                 end = AppTheme.dimensions.paddingML
             ),
-            onClick = onCurrencyClicked,
+            onClick = { onAction(StartViewAction.OnCurrencyChangeClicked) },
             buttonText = currencyButtonText
         )
     }
@@ -210,13 +192,21 @@ fun LogoAndSlogan(
 @Preview
 @Composable
 fun StartScreenPreview() {
-    AppTheme {
+    AppTheme(darkTheme = false) {
         StartScreen(
             state = StartViewState.Content(currencyButton = "RUB"),
-            onCaseOverviewClicked = {},
-            onCaseAnalyticsClicked = {},
-            onPortfolioClicked = {},
-            onCurrencyClicked = {}
+            onAction = {}
+        )
+    }
+}
+
+@Preview
+@Composable
+fun StartScreenPreviewDark() {
+    AppTheme(darkTheme = true) {
+        StartScreen(
+            state = StartViewState.Content(currencyButton = "RUB"),
+            onAction = {}
         )
     }
 }

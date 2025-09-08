@@ -76,10 +76,7 @@ class StartFragment : Fragment(R.layout.fragment_start) {
 
         StartScreen(
             state = state,
-            onCaseOverviewClicked = { viewModel.handleAction(StartViewAction.OnCaseOverviewClicked) },
-            onCaseAnalyticsClicked = { viewModel.handleAction(StartViewAction.OnAnalyticsClicked) },
-            onPortfolioClicked = { viewModel.handleAction(StartViewAction.OnPortfolioClicked) },
-            onCurrencyClicked = { viewModel.handleAction(StartViewAction.OnCurrencyChangeClicked) }
+            onAction = { action -> viewModel.handleAction(action = action)}
         )
     }
 
