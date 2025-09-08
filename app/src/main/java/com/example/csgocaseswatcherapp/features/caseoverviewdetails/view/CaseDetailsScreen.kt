@@ -24,9 +24,6 @@ import coil.request.ImageRequest
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.core.ui.LoadingScreen
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
-import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewModel
-import java.text.NumberFormat
-import java.util.Locale
 
 @Composable
 fun CaseDetailsScreen(
@@ -51,8 +48,7 @@ fun CaseDetailsContent(
 ) {
 
     val scrollState = rememberScrollState()
-    val currencyFmt = NumberFormat.getCurrencyInstance(Locale.US)
-    val numberFmt = NumberFormat.getIntegerInstance(Locale.US)
+
 
     Column(
         modifier = Modifier
@@ -63,7 +59,7 @@ fun CaseDetailsContent(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Text(
-            text = state.caseOverviewModel.caseName,
+            text = state.caseName,
             style = AppTheme.typography.m3.headlineSmall.copy(fontWeight = FontWeight.Bold),
             color = AppTheme.colors.onBackground
         )
@@ -75,10 +71,10 @@ fun CaseDetailsContent(
         ) {
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data(state.caseOverviewModel.imageUrl)
+                    .data(state.imageUrl)
                     .crossfade(true)
                     .build(),
-                contentDescription = state.caseOverviewModel.caseName,
+                contentDescription = state.caseName,
                 contentScale = ContentScale.Fit,
                 placeholder = painterResource(R.drawable.case_placeholder),
                 modifier = Modifier
@@ -94,40 +90,38 @@ fun CaseDetailsContent(
             ) {
                 DataRow(
                     label = stringResource(R.string.case_lowest_price),
-                    data = currencyFmt.format(state.caseOverviewModel.lowestPrice)
+                    data = state.lowestPrice
                 )
                 DataRow(
                     label = stringResource(R.string.case_volume),
-                    data = numberFmt.format(state.caseOverviewModel.volume)
+                    data = state.volume
                 )
                 DataRow(
                     label = stringResource(R.string.case_median_price),
-                    data = currencyFmt.format(state.caseOverviewModel.medianPrice)
+                    data = state.medianPrice
                 )
                 DataRow(
                     label = stringResource(R.string.case_release_date),
-                    data = state.caseOverviewModel.releaseDate
+                    data = state.releaseDate
                 )
                 DataRow(
                     label = stringResource(R.string.case_drop_status),
-                    data = state.caseOverviewModel.dropStatus
+                    data = state.dropStatus
                 )
             }
         }
 
         HorizontalDivider(thickness = 2.dp, color = AppTheme.colors.onSurface.copy(alpha = 0.20f))
 
-        if (state.caseOverviewModel.description.isNotBlank()) {
-            Text(
-                text = state.caseOverviewModel.description,
-                style = AppTheme.typography.m3.bodyLarge,
-                color = AppTheme.colors.onBackground,
-                textAlign = TextAlign.Justify,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 4.dp)
-            )
-        }
+        Text(
+            text = state.description,
+            style = AppTheme.typography.m3.bodyLarge,
+            color = AppTheme.colors.onBackground,
+            textAlign = TextAlign.Justify,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 4.dp)
+        )
         HorizontalDivider(thickness = 2.dp, color = AppTheme.colors.onSurface.copy(alpha = 0.20f))
     }
 }
@@ -163,16 +157,16 @@ fun CaseDetailsScreenPreview() {
     AppTheme(darkTheme = false) {
         CaseDetailsScreen(
             state = CaseDetailsViewState.Content(
-                caseOverviewModel = CaseOverviewModel(
-                    caseName = "Chroma Case",
-                    lowestPrice = 7.47,
-                    volume = 1034,
-                    medianPrice = 7.39,
-                    imageUrl = "https://api.steamapis.com/image/item/730/Chroma%20Case",
-                    releaseDate = "08.01.2015",
-                    dropStatus = "Inactive (Rare)",
-                    description = "The Chroma Case is a weapon case consisting of 14 community-desgined weapon skins released as part of the January 8, 2015 update. It requires a Chroma Case Key to be opened. The Chroma Case also has six exclusive community created knife finishes: Damascus Steel, Doppler, Marble Fade, Tiger Tooth, Rust Coat, and Ultraviolet. The Spectrum Case and Spectrum 2 Case includes these Chroma finishes on the Huntsman Knife, Butterfly Knife, Falchion Knife, Shadow Daggers and the Bowie Knife. The Prisma Case contains these Chroma finishes on the Navaja Knife, Stiletto Knife, Talon Knife, and the Ursus Knife."
-                )
+
+                caseName = "Chroma Case",
+                lowestPrice = "$7.47",
+                volume = "1,034",
+                medianPrice = "$7.39",
+                imageUrl = "https://api.steamapis.com/image/item/730/Chroma%20Case",
+                releaseDate = "08.01.2015",
+                dropStatus = "Inactive (Rare)",
+                description = "The Chroma Case is a weapon case consisting of 14 community-desgined weapon skins released as part of the January 8, 2015 update. It requires a Chroma Case Key to be opened. The Chroma Case also has six exclusive community created knife finishes: Damascus Steel, Doppler, Marble Fade, Tiger Tooth, Rust Coat, and Ultraviolet. The Spectrum Case and Spectrum 2 Case includes these Chroma finishes on the Huntsman Knife, Butterfly Knife, Falchion Knife, Shadow Daggers and the Bowie Knife. The Prisma Case contains these Chroma finishes on the Navaja Knife, Stiletto Knife, Talon Knife, and the Ursus Knife."
+
             ),
             onAction = {}
         )
@@ -185,16 +179,15 @@ fun CaseDetailsScreenPreviewDark() {
     AppTheme(darkTheme = true) {
         CaseDetailsScreen(
             state = CaseDetailsViewState.Content(
-                caseOverviewModel = CaseOverviewModel(
-                    caseName = "Chroma Case",
-                    lowestPrice = 7.47,
-                    volume = 1034,
-                    medianPrice = 7.39,
-                    imageUrl = "https://api.steamapis.com/image/item/730/Chroma%20Case",
-                    releaseDate = "08.01.2015",
-                    dropStatus = "Inactive (Rare)",
-                    description = "The Chroma Case is a weapon case consisting of 14 community-desgined weapon skins released as part of the January 8, 2015 update. It requires a Chroma Case Key to be opened. The Chroma Case also has six exclusive community created knife finishes: Damascus Steel, Doppler, Marble Fade, Tiger Tooth, Rust Coat, and Ultraviolet. The Spectrum Case and Spectrum 2 Case includes these Chroma finishes on the Huntsman Knife, Butterfly Knife, Falchion Knife, Shadow Daggers and the Bowie Knife. The Prisma Case contains these Chroma finishes on the Navaja Knife, Stiletto Knife, Talon Knife, and the Ursus Knife."
-                )
+                caseName = "Chroma Case",
+                lowestPrice = "$7.47",
+                volume = "1,034",
+                medianPrice = "$7.39",
+                imageUrl = "https://api.steamapis.com/image/item/730/Chroma%20Case",
+                releaseDate = "08.01.2015",
+                dropStatus = "Inactive (Rare)",
+                description = "The Chroma Case is a weapon case consisting of 14 community-desgined weapon skins released as part of the January 8, 2015 update. It requires a Chroma Case Key to be opened. The Chroma Case also has six exclusive community created knife finishes: Damascus Steel, Doppler, Marble Fade, Tiger Tooth, Rust Coat, and Ultraviolet. The Spectrum Case and Spectrum 2 Case includes these Chroma finishes on the Huntsman Knife, Butterfly Knife, Falchion Knife, Shadow Daggers and the Bowie Knife. The Prisma Case contains these Chroma finishes on the Navaja Knife, Stiletto Knife, Talon Knife, and the Ursus Knife."
+
             ),
             onAction = {}
         )

@@ -4,10 +4,17 @@ import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseO
 
 sealed class CaseDetailsViewState {
 
-    object Loading : CaseDetailsViewState()
+    data object Loading : CaseDetailsViewState()
 
     data class Content(
-        val caseOverviewModel: CaseOverviewModel
-    ) : CaseDetailsViewState()
+        val caseName: String,
+        val lowestPrice: String,
+        val volume: String,
+        val medianPrice: String,
+        val imageUrl: String,
+        val releaseDate: String,
+        val dropStatus: String,
+        val description: String
+    ): CaseDetailsViewState()
 }
 
