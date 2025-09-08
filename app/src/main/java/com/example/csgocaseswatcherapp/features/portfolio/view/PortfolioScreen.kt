@@ -1,6 +1,5 @@
 package com.example.csgocaseswatcherapp.features.portfolio.view
 
-import android.graphics.Color
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import androidx.compose.foundation.background
@@ -57,6 +56,8 @@ import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.formatter.ValueFormatter
+import java.util.Locale
 
 @Composable
 fun PortfolioScreen(
@@ -377,7 +378,7 @@ fun PortfolioScreenPreview() {
                     ),
                 )
             ),
-            onAction = {}, listState =listState
+            onAction = {}, listState = listState
            
         
         )

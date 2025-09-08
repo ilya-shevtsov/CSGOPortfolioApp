@@ -18,15 +18,4 @@ object CaseOverviewModelMapper {
             description = caseOverview.description
         )
     }
-
-    private fun price(value: Double): String {
-        val nf = NumberFormat.getNumberInstance(Locale.US)
-        nf.maximumFractionDigits = 2
-        nf.minimumFractionDigits = 0
-        return nf.format(value)
-    }
-
-    private fun formatInt(value: Int): String =
-        NumberFormat.getIntegerInstance(Locale.US).format(value)
-
 }

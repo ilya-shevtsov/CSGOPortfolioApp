@@ -138,8 +138,28 @@ private fun StatRow(
 
 @Preview(showBackground = true)
 @Composable
-private fun CaseOverviewItemPreview() {
+private fun CaseOverviewItemPreviewDark() {
     AppTheme(darkTheme = true) {
+        CaseOverviewItem(
+            item = CaseOverviewModel(
+                caseName = "Chroma Case",
+                lowestPrice = 6.63,
+                volume = 1013,
+                medianPrice = 7.45,
+                imageUrl = "https://api.steamapis.com/image/item/730/Recoil%20Case",
+                releaseDate = "01.07.2022",
+                dropStatus = "Active",
+                description = "—"
+            ),
+            onClick = {}
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun CaseOverviewItemPreviewLight() {
+    AppTheme(darkTheme = false) {
         CaseOverviewItem(
             item = CaseOverviewModel(
                 caseName = "Chroma Case",
