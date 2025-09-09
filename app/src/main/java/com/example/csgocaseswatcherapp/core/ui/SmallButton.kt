@@ -22,7 +22,7 @@ fun SmallButton(onClick: () -> Unit, modifier: Modifier = Modifier, buttonText: 
             containerColor = AppTheme.colors.primary,
             contentColor = AppTheme.colors.onPrimary
         ),
-        contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp)
+        contentPadding = PaddingValues(horizontal = AppTheme.dimensions.paddingML, vertical = AppTheme.dimensions.paddingM)
     ) {
         Text(buttonText)
     }

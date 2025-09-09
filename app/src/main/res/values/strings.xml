@@ -9,11 +9,11 @@
     <string name="front_page_analytics_button">Case Analytics</string>
 
     // case details
-    <string name="case_volume">Volume: %s</string>
-    <string name="case_median_price">Median Price: %s</string>
-    <string name="case_lowest_price">Lowest Price: %s</string>
-    <string name="case_release_date">Release Date: %s</string>
-    <string name="case_drop_status">Drop Status: %s</string>
+    <string name="case_volume">Volume:</string>
+    <string name="case_median_price">Median Price:</string>
+    <string name="case_lowest_price">Lowest Price:</string>
+    <string name="case_release_date">Release Date:</string>
+    <string name="case_drop_status">Drop Status:</string>
 
     // case analytics new
     <string name="monthly_avg_return_in_percent_new">Return in \%%: %s</string>

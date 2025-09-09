@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
@@ -57,7 +58,6 @@ fun SortingScreen(
                     contentColor = Color.White
                 ),
                 shape = RoundedCornerShape(8.dp),
-                contentPadding = PaddingValues(),
             ) {
                 Text(
                     text = entry.name,
@@ -70,7 +70,7 @@ fun SortingScreen(
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 fun SortingScreenPreview() {
     AppTheme { SortingScreen(state = SortingModalViewState(listOf()), onClick = {}) }

@@ -1,6 +1,5 @@
 package com.example.csgocaseswatcherapp.features.portfolio.view
 
-import android.graphics.Color
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import androidx.compose.foundation.background
@@ -40,7 +39,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -57,6 +56,8 @@ import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.formatter.ValueFormatter
+import java.util.Locale
 
 @Composable
 fun PortfolioScreen(
@@ -69,11 +70,9 @@ fun PortfolioScreen(
         is PortfolioViewState.Loading -> LoadingScreen()
         is PortfolioViewState.Error -> ErrorScreen()
         is PortfolioViewState.Content -> PortfolioContent(
-            totalPortfolioValue = state.totalPortfolioValue,
-            barEntries = state.portfolioBartEntryList,
+            state = state,
             listState = listState,
             onAction = onAction,
-            modelList = state.portfolioItemModelList
         )
     }
 }
@@ -81,11 +80,9 @@ fun PortfolioScreen(
 
 @Composable
 fun PortfolioContent(
-    totalPortfolioValue: String,
-    barEntries: List<BarEntry>,
+    state: PortfolioViewState.Content,
     onAction: (PortfolioViewAction) -> Unit,
     listState: LazyListState,
-    modelList: List<PortfolioItemModel>,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -96,7 +93,7 @@ fun PortfolioContent(
     ) {
         Spacer(Modifier.height(8.dp))
         Text(
-            text = totalPortfolioValue,
+            text = state.totalPortfolioValue,
             color = AppTheme.colors.onBackground,
             style = MaterialTheme.typography.titleLarge.copy(
                 fontSize = 20.sp,
@@ -114,7 +111,7 @@ fun PortfolioContent(
         Spacer(Modifier.height(8.dp))
 
         PortfolioBarChart(
-            entries = barEntries,
+            entries = state.portfolioBartEntryList,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(280.dp)
@@ -140,7 +137,7 @@ fun PortfolioContent(
                 PortfolioButton(
                     modifier = Modifier.weight(1f),
                     onClick = { onAction(PortfolioViewAction.OnPortfolioDetailsClicked) },
-                    icon = Icons.AutoMirrored.Default.List,
+                    icon = Icons.AutoMirrored.Filled.List,
                     text = stringResource(R.string.details_button)
                 )
 
@@ -164,11 +161,11 @@ fun PortfolioContent(
         LazyColumn(
             state = listState,
             modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(bottom = 16.dp),
+            contentPadding = PaddingValues(bottom = AppTheme.dimensions.paddingL),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             items(
-                items = modelList,
+                items = state.portfolioItemModelList,
                 key = { it.itemName }
             ) { item ->
                 PortfolioItemCard(
@@ -256,19 +253,19 @@ fun PortfolioItemCard(
             Column(horizontalAlignment = Alignment.End) {
                 Text(
                     text = item.totalValue,
-                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
+                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                    color = AppTheme.colors.onSurface
                 )
                 Spacer(Modifier.height(2.dp))
                 Text(
                     text = item.profitLoss,
                     style = MaterialTheme.typography.bodyMedium,
-                    color = AppTheme.colors.onSecondaryContainer
+                    color = AppTheme.colors.onSurface
                 )
             }
         }
     }
 }
-
 
 @Composable
 private fun PortfolioBarChart(
@@ -313,9 +310,9 @@ private fun PortfolioBarChart(
                 valueTextColor = valueColor.toArgb()
                 setDrawValues(true)
 
-                valueFormatter = object : com.github.mikephil.charting.formatter.ValueFormatter() {
+                valueFormatter = object : ValueFormatter() {
                     override fun getBarLabel(e: BarEntry): String =
-                        String.format(java.util.Locale.US, "$%.2f", e.y)
+                        String.format(Locale.US, "$%.2f", e.y)
                 }
             }
 
@@ -329,7 +326,7 @@ private fun PortfolioBarChart(
     )
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 fun PortfolioScreenPreview() {
     AppTheme {
@@ -363,7 +360,7 @@ fun PortfolioScreenPreview() {
                 totalPortfolioValue = "Total: $10000.00", portfolioItemModelList = listOf(
                     PortfolioItemModel(
                         itemImage = "",
-                        itemName = "Chroma Case",
+                        itemName = "Chroma Case 2",
                         totalValue = "$60.00",
                         amountPrice = "23 cases • $12.00",
                         profitLoss = "12.00 $ (23.23 %)"
@@ -377,10 +374,10 @@ fun PortfolioScreenPreview() {
                     ),
                 )
             ),
-            onAction = {}, listState =listState
-           
-        
+            onAction = {}, listState = listState
         )
     }
 }
+
+
 

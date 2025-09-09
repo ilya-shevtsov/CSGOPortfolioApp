@@ -29,6 +29,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -135,11 +136,10 @@ private fun StatRow(
     }
 }
 
-
-@Preview(showBackground = true)
+@PreviewLightDark
 @Composable
-private fun CaseOverviewItemPreview() {
-    AppTheme(darkTheme = true) {
+private fun CaseOverviewItemPreviewLight() {
+    AppTheme {
         CaseOverviewItem(
             item = CaseOverviewModel(
                 caseName = "Chroma Case",

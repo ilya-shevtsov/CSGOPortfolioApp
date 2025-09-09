@@ -3,10 +3,10 @@ package com.example.csgocaseswatcherapp.features.caseoverview.view
 import androidx.compose.foundation.background
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.example.csgocaseswatcherapp.core.ui.ErrorScreen
 import com.example.csgocaseswatcherapp.core.ui.LoadingScreen
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
@@ -40,10 +40,10 @@ fun CaseOverviewScreen(
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 fun CaseOverviewScreenPreview() {
-    AppTheme {
+    AppTheme{
         val item = CaseOverviewModel(
             caseName = "Chroma Case",
             lowestPrice = 6.63,
@@ -67,5 +67,4 @@ fun CaseOverviewScreenPreview() {
             onCaseClick = {}
         )
     }
-
 }
