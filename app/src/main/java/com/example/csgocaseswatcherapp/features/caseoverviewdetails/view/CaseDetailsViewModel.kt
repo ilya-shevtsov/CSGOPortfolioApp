@@ -1,7 +1,9 @@
 package com.example.csgocaseswatcherapp.features.caseoverviewdetails.view
 
 import androidx.lifecycle.ViewModel
+import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewModel
+import com.example.csgocaseswatcherapp.features.caseoverviewdetails.view.entities.DataRowModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.text.NumberFormat
 import java.util.Locale
@@ -23,13 +25,30 @@ class CaseDetailsViewModel @Inject constructor(
     private fun handleOnItemProvided(model: CaseOverviewModel) {
         val state = CaseDetailsViewState.Content(
             caseName = model.caseName,
-            lowestPrice = NumberFormat.getCurrencyInstance(Locale.US).format(model.lowestPrice),
-            volume = NumberFormat.getIntegerInstance(Locale.US).format(model.volume),
-            medianPrice = NumberFormat.getCurrencyInstance(Locale.US).format(model.medianPrice),
             imageUrl = model.imageUrl,
-            releaseDate = model.releaseDate,
-            dropStatus = model.dropStatus,
-            description = model.description
+            description = model.description,
+            dataRowModelList = listOf(
+                DataRowModel(
+                    labelId = R.string.case_lowest_price,
+                    value = NumberFormat.getCurrencyInstance(Locale.US).format(model.lowestPrice)
+                ),
+                DataRowModel(
+                    labelId = R.string.case_volume,
+                    value = NumberFormat.getIntegerInstance(Locale.US).format(model.volume)
+                ),
+                DataRowModel(
+                    labelId = R.string.case_median_price,
+                    value = NumberFormat.getCurrencyInstance(Locale.US).format(model.medianPrice)
+                ),
+                DataRowModel(
+                    labelId = R.string.case_release_date,
+                    value = model.releaseDate
+                ),
+                DataRowModel(
+                    labelId = R.string.case_drop_status,
+                    value = model.dropStatus
+                )
+            )
         )
         uiState.value = state
     }

@@ -1,7 +1,15 @@
 package com.example.csgocaseswatcherapp.features.caseoverviewdetails.view
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -17,7 +25,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -25,6 +32,7 @@ import coil.request.ImageRequest
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.core.ui.LoadingScreen
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
+import com.example.csgocaseswatcherapp.features.caseoverviewdetails.view.entities.DataRowModel
 
 @Composable
 fun CaseDetailsScreen(
@@ -55,7 +63,10 @@ fun CaseDetailsContent(
         modifier = Modifier
             .background(AppTheme.colors.background)
             .fillMaxSize()
-            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .padding(
+                horizontal = AppTheme.dimensions.paddingL,
+                vertical = AppTheme.dimensions.paddingM
+            )
             .verticalScroll(scrollState),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
@@ -89,26 +100,12 @@ fun CaseDetailsContent(
                     .align(Alignment.CenterVertically),
                 verticalArrangement = Arrangement.spacedBy(6.dp)
             ) {
-                DataRow(
-                    label = stringResource(R.string.case_lowest_price),
-                    data = state.lowestPrice
-                )
-                DataRow(
-                    label = stringResource(R.string.case_volume),
-                    data = state.volume
-                )
-                DataRow(
-                    label = stringResource(R.string.case_median_price),
-                    data = state.medianPrice
-                )
-                DataRow(
-                    label = stringResource(R.string.case_release_date),
-                    data = state.releaseDate
-                )
-                DataRow(
-                    label = stringResource(R.string.case_drop_status),
-                    data = state.dropStatus
-                )
+                state.dataRowModelList.forEach { item ->
+                    DataRow(
+                        label = stringResource(item.labelId),
+                        data = item.value
+                    )
+                }
             }
         }
 
@@ -151,20 +148,38 @@ private fun DataRow(
         )
     }
 }
+
 @PreviewLightDark
 @Composable
 fun CaseDetailsScreenPreview() {
     AppTheme {
         CaseDetailsScreen(
             state = CaseDetailsViewState.Content(
-
+                dataRowModelList = listOf(
+                    DataRowModel(
+                        labelId = R.string.case_lowest_price,
+                        value = "$7.47"
+                    ),
+                    DataRowModel(
+                        labelId = R.string.case_volume,
+                        value = "1,034"
+                    ),
+                    DataRowModel(
+                        labelId = R.string.case_median_price,
+                        value = "$7.39"
+                    ),
+                    DataRowModel(
+                        labelId = R.string.case_release_date,
+                        value = "08.01.2015"
+                    ),
+                    DataRowModel(
+                        labelId = R.string.case_drop_status,
+                        value = "Inactive (Rare)"
+                    ),
+                ),
                 caseName = "Chroma Case",
-                lowestPrice = "$7.47",
-                volume = "1,034",
-                medianPrice = "$7.39",
                 imageUrl = "https://api.steamapis.com/image/item/730/Chroma%20Case",
-                releaseDate = "08.01.2015",
-                dropStatus = "Inactive (Rare)",
+
                 description = "The Chroma Case is a weapon case consisting of 14 community-desgined weapon skins released as part of the January 8, 2015 update. It requires a Chroma Case Key to be opened. The Chroma Case also has six exclusive community created knife finishes: Damascus Steel, Doppler, Marble Fade, Tiger Tooth, Rust Coat, and Ultraviolet. The Spectrum Case and Spectrum 2 Case includes these Chroma finishes on the Huntsman Knife, Butterfly Knife, Falchion Knife, Shadow Daggers and the Bowie Knife. The Prisma Case contains these Chroma finishes on the Navaja Knife, Stiletto Knife, Talon Knife, and the Ursus Knife."
 
             ),
