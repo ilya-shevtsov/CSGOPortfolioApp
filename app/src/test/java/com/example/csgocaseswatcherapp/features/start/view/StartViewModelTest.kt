@@ -1,5 +1,6 @@
 package com.example.csgocaseswatcherapp.features.start.view
 
+import app.cash.turbine.test
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.example.csgocaseswatcherapp.features.start.domain.entities.PreferredCurrency
@@ -13,6 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Before
@@ -86,6 +88,17 @@ class StartViewModelTest {
 
         coVerify(exactly = 1) {
             sendPreferredCurrencyUseCase(PreferredCurrency(5))
+        }
+    }
+
+    @Test
+    fun `when currency clicked navigate to currency change screen`() = runTest {
+        viewModel = buildViewModel()
+
+        viewModel.uiEvent.test {
+            viewModel.handleAction(StartViewAction.OnCurrencyChangeClicked)
+
+            assertThat(awaitItem()).isEqualTo(StartViewEvent.NavigateToCurrencyChange)
         }
     }
 

@@ -34,7 +34,6 @@ class StartViewModel @Inject constructor(
                 uiState.value = StartViewState.Content(preferredCurrency)
             } catch (throwable: Throwable) {
                 showError()
-                Log.e("Logging_getCaseList", "${throwable.message}")
             }
         }
     }
