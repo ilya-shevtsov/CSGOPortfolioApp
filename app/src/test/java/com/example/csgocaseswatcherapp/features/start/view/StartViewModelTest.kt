@@ -103,6 +103,39 @@ class StartViewModelTest {
     }
 
     @Test
+    fun `when analytics clicked navigate to analysis`() = runTest {
+        viewModel = buildViewModel()
+
+        viewModel.uiEvent.test {
+            viewModel.handleAction(StartViewAction.OnAnalyticsClicked)
+
+            assertThat(awaitItem()).isEqualTo(StartViewEvent.NavigateToAnalytics)
+        }
+    }
+
+    @Test
+    fun `when portfolio clicked navigate to portfolio`() = runTest {
+        viewModel = buildViewModel()
+
+        viewModel.uiEvent.test {
+            viewModel.handleAction(StartViewAction.OnPortfolioClicked)
+
+            assertThat(awaitItem()).isEqualTo(StartViewEvent.NavigateToPortfolio)
+        }
+    }
+
+    @Test
+    fun `when overview clicked navigate to case overview`() = runTest {
+        viewModel = buildViewModel()
+
+        viewModel.uiEvent.test {
+            viewModel.handleAction(StartViewAction.OnCaseOverviewClicked)
+
+            assertThat(awaitItem()).isEqualTo(StartViewEvent.NavigateToCaseOverview)
+        }
+    }
+
+    @Test
     fun `init error path - sets Error when use case throws`() {
         coEvery { getPreferredCurrencyUseCase() } throws RuntimeException("error")
 
