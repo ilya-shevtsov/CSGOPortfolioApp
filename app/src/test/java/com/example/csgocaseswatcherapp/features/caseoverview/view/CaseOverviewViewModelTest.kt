@@ -94,17 +94,16 @@ class CaseOverviewViewModelTest {
 
     @Test
     fun `successful init maps caseOverviewList to Content`(){
-        val caseList = listOf(domainCase())
-        coEvery { getCaseListUseCase() } returns caseList
+        val caseDomainList = listOf(domainCase())
+        val caseModelList = listOf(caseModel())
+        coEvery { getCaseListUseCase() } returns caseDomainList
 
         viewModel = buildViewModel()
 
         testDispatcher.scheduler.advanceUntilIdle()
 
         assertThat(viewModel.uiState.value).isEqualTo(
-            CaseOverviewViewState.Content(
-                caseList.map { CaseOverviewModelMapper.map(it) }
-            )
+            CaseOverviewViewState.Content(caseModelList)
         )
     }
 
