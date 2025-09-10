@@ -73,11 +73,9 @@ class StartViewModel @Inject constructor(
             when (action.preferredCurrency) {
                 "USD" -> {
                     sendPreferredCurrencyUseCase(PreferredCurrency(1))
-                    Log.e("ServerSide", "SendUSD")
                 }
                 "RUB" -> {
                     sendPreferredCurrencyUseCase(PreferredCurrency(5))
-                    Log.e("ServerSide", "SendRUB")
                 }
             }
         }
