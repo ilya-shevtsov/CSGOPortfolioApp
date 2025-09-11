@@ -1,19 +1,14 @@
 package com.example.csgocaseswatcherapp.features.portfolio.view
 
-import app.cash.turbine.test
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.example.csgocaseswatcherapp.features.portfolio.domain.usecases.GetPortfolioDataUseCase
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItem
-import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemListArgs
-import com.example.csgocaseswatcherapp.features.sortingmodal.entities.SortingMethod
-import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Before
@@ -40,6 +35,16 @@ class PortfolioViewModelTest {
 
     private fun buildViewModel() = PortfolioViewModel(getPortfolioDataUseCase)
 
+
+    @Test
+    fun `init state is Loading`() {
+
+        viewModel = buildViewModel()
+
+        assertThat(viewModel.uiState.value).isEqualTo(PortfolioViewState.Loading)
+    }
+
+
     private fun portfolioItem(
         caseName: String = "Revolution Case",
         caseImage: String = "https://example.com/rev.png",
@@ -55,13 +60,4 @@ class PortfolioViewModelTest {
         caseOverallValue = caseOverallValue,
         caseProfitLoss = caseProfitLoss
     )
-
-
-    @Test
-    fun `init state is Loading`() {
-
-        viewModel = buildViewModel()
-
-        assertThat(viewModel.uiState.value).isEqualTo(PortfolioViewState.Loading)
-    }
 }

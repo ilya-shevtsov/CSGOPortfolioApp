@@ -1,22 +1,19 @@
 package com.example.csgocaseswatcherapp.features.portfolio.view
 
-import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItem
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemModel
-import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioValueItem
 import com.github.mikephil.charting.data.BarEntry
 
 sealed class PortfolioViewState {
 
     data class Content(
-        val portfolioValueList: List<PortfolioValueItem>,
         val portfolioBartEntryList: List<BarEntry>,
         val totalPortfolioValue: String,
         val portfolioItemModelList:List<PortfolioItemModel>,
         val isSortingSheetVisible: Boolean = false
     ) : PortfolioViewState()
 
-    object Loading : PortfolioViewState()
+    data object Loading : PortfolioViewState()
 
-    object Error : PortfolioViewState()
+    data object Error : PortfolioViewState()
 }
 

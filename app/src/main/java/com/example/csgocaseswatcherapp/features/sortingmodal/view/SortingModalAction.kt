@@ -1,10 +1,10 @@
 package com.example.csgocaseswatcherapp.features.sortingmodal.view
 
-import com.example.csgocaseswatcherapp.features.sortingmodal.entities.SortingMethod
+import com.example.csgocaseswatcherapp.features.sortingmodal.entities.SortState
 
 sealed class SortingModalAction {
 
     data class OnSortingMethodSelected(
-        val sortingMethod: SortingMethod
+        val sortState: SortState
     ) : SortingModalAction()
 }

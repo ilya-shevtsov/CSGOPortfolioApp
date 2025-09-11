@@ -334,7 +334,7 @@ fun PortfolioScreenPreview() {
 
         PortfolioScreen(
             state = PortfolioViewState.Content(
-                portfolioValueList = emptyList(), portfolioBartEntryList = listOf(
+               portfolioBartEntryList = listOf(
                     BarEntry(1f, 129f),
                     BarEntry(2f, 164f),
                     BarEntry(3f, 225f),

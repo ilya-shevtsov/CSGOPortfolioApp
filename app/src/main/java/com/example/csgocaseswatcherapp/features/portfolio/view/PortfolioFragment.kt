@@ -94,6 +94,10 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
         val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
         val listState = rememberLazyListState()
 
+        LaunchedEffect(Unit) {
+            viewModel.handleAction(PortfolioViewAction.OnCreate)
+        }
+
         LaunchedEffect(viewModel) {
             viewModel.uiEvent.collectLatest { event ->
                 when (event) {
