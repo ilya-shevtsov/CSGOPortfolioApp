@@ -8,15 +8,15 @@ object PortfolioItemMapper {
 
     fun map(addedCaseItem: AddedCase): PortfolioItem {
         return PortfolioItem(
-            caseImage = getCaseImage(addedCaseItem.name),
-            caseName = addedCaseItem.name,
-            caseAmount = addedCaseItem.amount,
-            casePrice = addedCaseItem.purchasePrice,
-            caseOverallValue = getOverAllValue(
+            image = getCaseImage(addedCaseItem.name),
+            name = addedCaseItem.name,
+            amount = addedCaseItem.amount,
+            price = addedCaseItem.purchasePrice,
+            overallValue = getOverAllValue(
                 addedCaseItem.amount,
                 addedCaseItem.purchasePrice
             ),
-            caseProfitLoss = 500.0
+            profitLoss = 500.0
         )
     }
 

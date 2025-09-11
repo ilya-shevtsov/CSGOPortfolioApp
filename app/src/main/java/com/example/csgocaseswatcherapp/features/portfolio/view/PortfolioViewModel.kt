@@ -33,6 +33,10 @@ class PortfolioViewModel @Inject constructor(
         initBusinessState()
     )
 
+    init {
+        createViewStateChain()
+    }
+
     private fun initBusinessState(): PortfolioState {
         return PortfolioState(
             portfolioItemListResult = PortfolioItemListResult.Loading,
@@ -42,10 +46,6 @@ class PortfolioViewModel @Inject constructor(
             isSortingSheetVisible = false,
             sortState = SortState.BY_OVERALL_VALUE
         )
-    }
-
-    init {
-        createViewStateChain()
     }
 
     private fun createViewStateChain() {
@@ -61,7 +61,7 @@ class PortfolioViewModel @Inject constructor(
 
                     val totalPortfolioValue =
                         state.portfolioItemListResult.portfolioItemList.sumOf { case ->
-                            case.caseOverallValue.roundToLong().toDouble()
+                            case.overallValue.roundToLong().toDouble()
                         }.formatTotalValue()
 
                     PortfolioViewState.Content(
@@ -74,6 +74,19 @@ class PortfolioViewModel @Inject constructor(
             }
             this.uiState.value = uiState
         }.launchIn(viewModelScope)
+    }
+
+    fun handleAction(action: PortfolioViewAction) {
+        when (action) {
+            is PortfolioViewAction.OnCreate -> onCreate()
+            is PortfolioViewAction.OnAddCaseClicked -> handleOnAddCaseClicked()
+            is PortfolioViewAction.OnCaseAdded -> handleOnCaseAdded()
+            is PortfolioViewAction.OnSortClicked -> handleOnOnSortClicked()
+            is PortfolioViewAction.OnSortingMethodSelected -> handleOnSortingMethodSelected(action)
+            is PortfolioViewAction.OnPortfolioDetailsClicked -> handleOnPortfolioDetailsClicked()
+            is PortfolioViewAction.HideSortingModal -> hideSortingSheet()
+
+        }
     }
 
     private fun onCreate() {
@@ -107,16 +120,16 @@ class PortfolioViewModel @Inject constructor(
         }
     }
 
-
     private fun List<PortfolioItem>.sortBySortState(state: SortState): List<PortfolioItem> =
         when (state) {
-            SortState.BY_NAME -> sortedBy { it.caseName }
-            SortState.BY_AMOUNT -> sortedByDescending { it.caseAmount }
-            SortState.BY_PRICE -> sortedBy { it.casePrice }
-            SortState.BY_OVERALL_VALUE -> sortedByDescending { it.caseOverallValue }
-            SortState.BY_PROFIT_LOSS -> sortedByDescending { it.caseProfitLoss }
+            SortState.BY_NAME -> sortedBy { it.name }
+            SortState.BY_AMOUNT -> sortedByDescending { it.amount }
+            SortState.BY_PRICE -> sortedByDescending { it.price }
+            SortState.BY_OVERALL_VALUE -> sortedByDescending { it.overallValue }
+            SortState.BY_PROFIT_LOSS -> sortedByDescending { it.profitLoss }
         }
 
+    // currently unused, but will be in the future (maybe lol)
     private fun mapToBarEntry(portfolioValueList: List<PortfolioValueItem>): List<BarEntry> {
         return portfolioValueList.map { value ->
             BarEntry(value.date, value.value)
@@ -124,18 +137,6 @@ class PortfolioViewModel @Inject constructor(
     }
 
 
-    fun handleAction(action: PortfolioViewAction) {
-        when (action) {
-            is PortfolioViewAction.OnCreate -> onCreate()
-            is PortfolioViewAction.OnAddCaseClicked -> handleOnAddCaseClicked()
-            is PortfolioViewAction.OnCaseAdded -> handleOnCaseAdded()
-            is PortfolioViewAction.OnSortClicked -> handleOnOnSortClicked()
-            is PortfolioViewAction.OnSortingMethodSelected -> handleOnSortingMethodSelected(action)
-            is PortfolioViewAction.OnPortfolioDetailsClicked -> handleOnPortfolioDetailsClicked()
-            is PortfolioViewAction.HideSortingModal -> hideSortingSheet()
-
-        }
-    }
 
     private fun handleOnPortfolioDetailsClicked() {
         val currentBusinessState = businessState.value.portfolioItemListResult as PortfolioItemListResult.Success
@@ -196,18 +197,17 @@ class PortfolioViewModel @Inject constructor(
 
     private fun PortfolioItem.toModel(): PortfolioItemModel {
         return PortfolioItemModel(
-            itemImage = caseImage,
-            itemName = caseName,
-            totalValue = String.format(Locale.US, "$%.2f", caseOverallValue),
-            amountPrice = "$caseAmount cases • ${
-                String.format(Locale.US, "$%.2f", casePrice)
+            itemImage = image,
+            itemName = name,
+            totalValue = String.format(Locale.US, "$%.2f", overallValue),
+            amountPrice = "$amount cases • ${
+                String.format(Locale.US, "$%.2f", price)
             }",
-            profitLoss = "${if (caseProfitLoss >= 0) "+" else ""}${
-                String.format(Locale.US, "%.2f", caseProfitLoss)
-            } $ (${caseProfitLoss} %)"
+            profitLoss = "${if (profitLoss >= 0) "+" else ""}${
+                String.format(Locale.US, "%.2f", profitLoss)
+            } $ (${profitLoss} %)"
         )
     }
-
 
     private val mockBarEntry = listOf(
         BarEntry(1f, 129f),
