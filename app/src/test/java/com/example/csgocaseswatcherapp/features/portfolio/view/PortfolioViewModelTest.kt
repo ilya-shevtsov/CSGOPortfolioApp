@@ -1,6 +1,5 @@
 package com.example.csgocaseswatcherapp.features.portfolio.view
 
-import app.cash.turbine.ReceiveTurbine
 import app.cash.turbine.test
 import assertk.Assert
 import assertk.assertThat
@@ -118,9 +117,9 @@ class PortfolioViewModelTest {
     @Test
     fun `when sorted by name, show in alphabetical order`() = runTest {
         assertSorted(
-            original = originalPortfolioData,
-            sort = SortState.BY_NAME,
-            expected = byNamePortfolioData
+            originalOrder = originalPortfolioData,
+            sortMethod = SortState.BY_NAME,
+            expectedOrder = byNamePortfolioData
         )
 
     }
@@ -128,36 +127,36 @@ class PortfolioViewModelTest {
     @Test
     fun `when sorted by about, show amount in descending order`() = runTest {
         assertSorted(
-            original = originalPortfolioData,
-            sort = SortState.BY_AMOUNT,
-            expected = byAmountPortfolioData
+            originalOrder = originalPortfolioData,
+            sortMethod = SortState.BY_AMOUNT,
+            expectedOrder = byAmountPortfolioData
         )
     }
 
     @Test
     fun `when sorted by price, show price in descending order`() = runTest {
         assertSorted(
-            original = originalPortfolioData,
-            sort = SortState.BY_PRICE,
-            expected = byPricePortfolioData
+            originalOrder = originalPortfolioData,
+            sortMethod = SortState.BY_PRICE,
+            expectedOrder = byPricePortfolioData
         )
     }
 
     @Test
     fun `when sorted by profit loss, show profit in descending order`() = runTest {
         assertSorted(
-            original = originalPortfolioData,
-            sort = SortState.BY_PROFIT_LOSS,
-            expected = byProfitLossPortfolioData
+            originalOrder = originalPortfolioData,
+            sortMethod = SortState.BY_PROFIT_LOSS,
+            expectedOrder = byProfitLossPortfolioData
         )
     }
 
     private suspend fun assertSorted(
-        original: List<PortfolioItem>,
-        sort: SortState,
-        expected: List<PortfolioItem>
+        originalOrder: List<PortfolioItem>,
+        sortMethod: SortState,
+        expectedOrder: List<PortfolioItem>
     ) {
-        mockGetPortfolioData(original)
+        mockGetPortfolioData(originalOrder)
         viewModel = buildViewModel()
 
         viewModel.uiState.test {
@@ -166,9 +165,9 @@ class PortfolioViewModelTest {
             viewModel.handleAction(PortfolioViewAction.OnCreate)
             awaitItem()
 
-            viewModel.handleAction(PortfolioViewAction.OnSortingMethodSelected(sort))
+            viewModel.handleAction(PortfolioViewAction.OnSortingMethodSelected(sortMethod))
 
-            assertThat(awaitItem()).hasCasesInOrder(expected)
+            assertThat(awaitItem()).hasCasesInOrder(expectedOrder)
         }
     }
 
