@@ -34,7 +34,6 @@ class StartViewModel @Inject constructor(
                 uiState.value = StartViewState.Content(preferredCurrency)
             } catch (throwable: Throwable) {
                 showError()
-                Log.e("Logging_getCaseList", "${throwable.message}")
             }
         }
     }
@@ -73,11 +72,9 @@ class StartViewModel @Inject constructor(
             when (action.preferredCurrency) {
                 "USD" -> {
                     sendPreferredCurrencyUseCase(PreferredCurrency(1))
-                    Log.e("ServerSide", "SendUSD")
                 }
                 "RUB" -> {
                     sendPreferredCurrencyUseCase(PreferredCurrency(5))
-                    Log.e("ServerSide", "SendRUB")
                 }
             }
         }

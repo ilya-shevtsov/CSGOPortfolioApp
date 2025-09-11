@@ -31,9 +31,7 @@ class CaseOverviewViewModel @Inject constructor(
                 )
             }.onFailure { t ->
                 if (t is CancellationException) throw t
-                Log.e("Logging_getCaseList", t.message ?: "error", t)
                 showError()
-
             }
         }
     }
