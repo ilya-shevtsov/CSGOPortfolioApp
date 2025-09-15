@@ -53,8 +53,7 @@ fun AddCaseScreen(
             state = state,
             onAction = onAction,
         )
-
-        AddCaseViewState.Error -> ErrorScreen()
+        is AddCaseViewState.Error -> ErrorScreen()
     }
 }
 

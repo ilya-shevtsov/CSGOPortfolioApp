@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -64,6 +65,7 @@ class AddCaseFragment : Fragment(R.layout.fragment_add_case) {
                     is AddCaseViewEvent.NavigateToPortfolioWithAddedCase -> {
                         navigateToPortfolioWithAddedCase(event)
                     }
+                    is AddCaseViewEvent.ShowValidationError -> showErrorMessage(event.message)
                 }
             }
         }
@@ -75,6 +77,9 @@ class AddCaseFragment : Fragment(R.layout.fragment_add_case) {
             )
     }
 
+    private fun showErrorMessage(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+    }
 
     private fun navigateToPortfolioWithAddedCase(uiEvent: AddCaseViewEvent.NavigateToPortfolioWithAddedCase) {
         setFragmentResult(

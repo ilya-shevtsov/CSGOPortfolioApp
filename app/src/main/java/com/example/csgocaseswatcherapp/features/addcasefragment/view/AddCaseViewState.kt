@@ -4,7 +4,7 @@ sealed class AddCaseViewState {
 
     data object Loading : AddCaseViewState()
 
-    data object Error: AddCaseViewState()
+    data object Error : AddCaseViewState()
 
     data class Content(
         val name: String,
