@@ -26,7 +26,7 @@ fun MainMenuButton(
     Button(
         onClick = onClick,
         modifier = Modifier
-            .padding(start = 8.dp, end = 8.dp, top = 16.dp)
+            .padding(start = AppTheme.dimensions.paddingM, end = AppTheme.dimensions.paddingM, top = AppTheme.dimensions.paddingL)
             .width(280.dp)
             .height(60.dp),
         shape = RoundedCornerShape(8.dp),
@@ -34,12 +34,6 @@ fun MainMenuButton(
             containerColor = AppTheme.colors.primary,
             contentColor = AppTheme.colors.onPrimary,
         ),
-        elevation = ButtonDefaults.buttonElevation(
-            defaultElevation = 0.dp,
-            pressedElevation = 0.dp,
-            focusedElevation = 0.dp,
-            hoveredElevation = 0.dp
-        )
     ) {
         Text(
             text = buttonText,
