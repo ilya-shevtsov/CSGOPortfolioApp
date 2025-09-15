@@ -21,8 +21,7 @@ import kotlin.math.roundToLong
 
 class PortfolioViewModel @Inject constructor(
     private val getPortfolioDataUseCase: GetPortfolioDataUseCase
-) :
-    ViewModel() {
+) : ViewModel() {
 
     val uiState: MutableStateFlow<PortfolioViewState> =
         MutableStateFlow(value = PortfolioViewState.Loading)
@@ -137,9 +136,9 @@ class PortfolioViewModel @Inject constructor(
     }
 
 
-
     private fun handleOnPortfolioDetailsClicked() {
-        val currentBusinessState = businessState.value.portfolioItemListResult as PortfolioItemListResult.Success
+        val currentBusinessState =
+            businessState.value.portfolioItemListResult as PortfolioItemListResult.Success
         val portfolioItemListArgs = PortfolioItemListArgs(currentBusinessState.portfolioItemList)
         viewModelScope.launch {
             uiEvent.emit(

@@ -106,7 +106,7 @@ class AddCaseViewModel @Inject constructor(
     }
 
 
-    // Как лучше збавиться тут от hardcode string-ов?
+    // Как тут лучше избавиться от hardcode string-ов?
     private fun String.validateName(allowedNames: List<String>): String? =
         when {
             this.isBlank() -> "Choose a case"
