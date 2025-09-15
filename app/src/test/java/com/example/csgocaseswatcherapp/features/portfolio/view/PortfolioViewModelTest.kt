@@ -114,23 +114,28 @@ class PortfolioViewModelTest {
         }
     }
 
-    // У меня тут проблема, тест падает, потому что originalPortfolioData такой же как и
-    // byNamePortfolioData, не уверен, как лучше сделать
+    @Test
+    fun `when sorted by name, show in alphabetical order`() = runTest {
+        mockGetPortfolioData(originalPortfolioData)
+        viewModel = buildViewModel()
 
-//    @Test
-//    fun `when sorted by name, show in alphabetical order`() = runTest {
-//        assertSorted(
-//            originalOrder = originalPortfolioData,
-//            sortMethod = SortState.BY_NAME,
-//            expectedOrder = byNamePortfolioData
-//        )
-//    }
+
+        viewModel.uiState.test {
+            assertThat(awaitItem()).isInstanceOf(PortfolioViewState.Loading::class)
+
+            viewModel.handleAction(PortfolioViewAction.OnCreate)
+
+            viewModel.handleAction(PortfolioViewAction.OnSortingMethodSelected(SortState.NAME))
+
+            assertThat(awaitItem()).hasCasesInOrder(byNamePortfolioData)
+        }
+    }
 
     @Test
     fun `when sorted by about, show amount in descending order`() = runTest {
         assertSorted(
             originalOrder = originalPortfolioData,
-            sortMethod = SortState.BY_AMOUNT,
+            sortMethod = SortState.AMOUNT,
             expectedOrder = byAmountPortfolioData
         )
     }
@@ -139,7 +144,7 @@ class PortfolioViewModelTest {
     fun `when sorted by price, show price in descending order`() = runTest {
         assertSorted(
             originalOrder = originalPortfolioData,
-            sortMethod = SortState.BY_PRICE,
+            sortMethod = SortState.PRICE,
             expectedOrder = byPricePortfolioData
         )
     }
@@ -148,7 +153,7 @@ class PortfolioViewModelTest {
     fun `when sorted by profit loss, show profit in descending order`() = runTest {
         assertSorted(
             originalOrder = originalPortfolioData,
-            sortMethod = SortState.BY_PROFIT_LOSS,
+            sortMethod = SortState.PROFIT_LOSS,
             expectedOrder = byProfitLossPortfolioData
         )
     }
@@ -204,6 +209,7 @@ class PortfolioViewModelTest {
         mockGetPortfolioData(originalOrder)
         viewModel = buildViewModel()
 
+
         viewModel.uiState.test {
             assertThat(awaitItem()).isInstanceOf(PortfolioViewState.Loading::class)
 
@@ -251,18 +257,18 @@ class PortfolioViewModelTest {
 
     private val originalPortfolioData = listOf(
         createPortfolioItem(
-            name = "A",
-            amount = 2,
-            price = 3.0,
-            overallValue = 6.0,
-            profitLoss = -1.0
-        ),
-        createPortfolioItem(
             name = "B",
             amount = 3,
             price = 1.0,
             overallValue = 3.0,
             profitLoss = 2.0
+        ),
+        createPortfolioItem(
+            name = "A",
+            amount = 2,
+            price = 3.0,
+            overallValue = 6.0,
+            profitLoss = -1.0
         ),
         createPortfolioItem(
             name = "C",

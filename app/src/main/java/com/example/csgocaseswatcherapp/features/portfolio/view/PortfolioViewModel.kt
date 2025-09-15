@@ -44,7 +44,7 @@ class PortfolioViewModel @Inject constructor(
             portfolioBartEntryList = listOf(),
             totalPortfolioValue = "",
             isSortingSheetVisible = false,
-            sortState = SortState.BY_OVERALL_VALUE
+            sortState = SortState.OVERALL_VALUE
         )
     }
 
@@ -105,7 +105,7 @@ class PortfolioViewModel @Inject constructor(
                     portfolioBartEntryList = listOf(),
                     totalPortfolioValue = "",
                     isSortingSheetVisible = false,
-                    sortState = SortState.BY_OVERALL_VALUE
+                    sortState = SortState.OVERALL_VALUE
                 )
             }
         } catch (throwable: Throwable) {
@@ -122,11 +122,11 @@ class PortfolioViewModel @Inject constructor(
 
     private fun List<PortfolioItem>.sortBySortState(state: SortState): List<PortfolioItem> =
         when (state) {
-            SortState.BY_NAME -> sortedBy { it.name }
-            SortState.BY_AMOUNT -> sortedByDescending { it.amount }
-            SortState.BY_PRICE -> sortedByDescending { it.price }
-            SortState.BY_OVERALL_VALUE -> sortedByDescending { it.overallValue }
-            SortState.BY_PROFIT_LOSS -> sortedByDescending { it.profitLoss }
+            SortState.NAME -> sortedBy { it.name }
+            SortState.AMOUNT -> sortedByDescending { it.amount }
+            SortState.PRICE -> sortedByDescending { it.price }
+            SortState.OVERALL_VALUE -> sortedByDescending { it.overallValue }
+            SortState.PROFIT_LOSS -> sortedByDescending { it.profitLoss }
         }
 
     // currently unused, but will be in the future (maybe lol)
