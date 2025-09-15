@@ -33,7 +33,7 @@ fun SortingScreen(
     ) {
         Text(
             "Sort",
-            style = MaterialTheme.typography.titleMedium,
+            style = MaterialTheme.typography.titleLarge,
             color = AppTheme.colors.primary
         )
 
