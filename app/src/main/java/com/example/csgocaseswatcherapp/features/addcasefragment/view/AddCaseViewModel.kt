@@ -175,6 +175,7 @@ class AddCaseViewModel @Inject constructor(
         }
     }
 
+
     private fun handleAddCaseClicked() {
         val addedCase = AddedCase(
             name = businessState.value.name,
