@@ -16,7 +16,7 @@ class SortingModalViewModel @Inject constructor() : ViewModel() {
 
     private fun initState(): SortingModalViewState {
         return SortingModalViewState(sortingEntryList = SortState.entries.map { sortingMethod ->
-            SortingEntry(name = sortingMethod.toText(), method = sortingMethod)
+            SortingEntry(name = sortingMethod.label, method = sortingMethod)
         })
     }
 
@@ -38,13 +38,5 @@ class SortingModalViewModel @Inject constructor() : ViewModel() {
                 )
             )
         }
-    }
-
-    private fun SortState.toText(): String {
-        return name
-            .replace(Regex("([a-z])([A-Z])"), "$1 $2")
-            .lowercase()
-            .split(" ")
-            .joinToString(" ") { it.replaceFirstChar(Char::titlecase) }
     }
 }
