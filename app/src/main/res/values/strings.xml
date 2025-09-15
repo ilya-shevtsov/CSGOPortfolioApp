@@ -37,6 +37,7 @@
     <string name="overall_value">%s $</string>
     <string name="profit_loss">%s $ (1.75 \%%)</string>
     <string name="portfolio_value">Portfolio Value</string>
+    <string name="portfolio_pie_chart_amount">Amount</string>
     <!--    (1.75 character \u0025)-->
 
 

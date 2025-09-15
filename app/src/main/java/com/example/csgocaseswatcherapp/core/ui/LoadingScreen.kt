@@ -39,7 +39,7 @@ fun LoadingScreen() {
         ) {
             Text(
                 text = stringResource(R.string.loading),
-                color = Color.Black,
+                color = AppTheme.colors.onPrimary,
                 style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
                 textAlign = TextAlign.Center
             )

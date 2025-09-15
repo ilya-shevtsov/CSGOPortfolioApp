@@ -1,5 +1,6 @@
 package com.example.csgocaseswatcherapp.features.sortingmodal.view
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -29,6 +30,7 @@ fun SortingScreen(
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            .background(AppTheme.colors.background)
             .padding(AppTheme.dimensions.paddingL)
     ) {
         Text(
@@ -53,7 +55,7 @@ fun SortingScreen(
                     ),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = AppTheme.colors.primary,
-                    contentColor = Color.White
+                    contentColor = AppTheme.colors.onPrimary,
                 ),
                 shape = RoundedCornerShape(8.dp),
             ) {
