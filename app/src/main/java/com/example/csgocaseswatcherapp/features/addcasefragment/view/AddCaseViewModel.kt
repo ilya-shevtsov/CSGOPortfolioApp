@@ -27,8 +27,10 @@ class AddCaseViewModel @Inject constructor(
     private fun initBusinessState(): AddCaseState {
         return AddCaseState(
             name = "",
+            amountInput = "",
             amount = 0,
-            purchasePrice = 0.0,
+            priceInput = "",
+            price = 0.0,
             caseNameSearchQuery = "",
             nameSuggestionResult = NameSuggestionResult.Loading,
             originalNameSuggestionList = listOf()
@@ -83,14 +85,14 @@ class AddCaseViewModel @Inject constructor(
                         }
 
                     val addCaseButtonIsActive =
-                        state.purchasePrice > 0.0 && state.amount > 0 && state.originalNameSuggestionList.contains(
+                        state.price > 0.0 && state.amount > 0 && state.originalNameSuggestionList.contains(
                             state.name
                         )
 
                     AddCaseViewState.Content(
                         name = state.name,
-                        amount = state.amount.toString(),
-                        price = state.purchasePrice.toString(),
+                        amount = state.amountInput,
+                        price = state.priceInput,
                         caseNameSearchQuery = state.caseNameSearchQuery,
                         isAddCaseButtonActive = addCaseButtonIsActive,
                         caseNameSuggestionList = filtered
@@ -120,19 +122,29 @@ class AddCaseViewModel @Inject constructor(
     }
 
     private fun handleOnAmountChanged(action: AddCaseViewAction.OnAmountChanged) {
-        viewModelScope.launch {
-            businessState.update {
-                it.copy(amount = action.amount.toIntOrNull() ?: 0)
-            }
+        val raw = action.amount
+
+        val parsed = raw.toIntOrNull()
+
+        businessState.update {
+            it.copy(
+                amountInput = raw,
+                amount = parsed ?: 0
+            )
         }
     }
 
+
     private fun handleOnPriceChanged(action: AddCaseViewAction.OnPriceChanged) {
-        viewModelScope.launch {
-            businessState.update {
-                val priceD = action.price.replace(',', '.').toDoubleOrNull() ?: 0.0
-                it.copy(purchasePrice = priceD)
-            }
+        val raw = action.price
+
+        val parsed = raw.replace(',', '.').toDoubleOrNull()
+
+        businessState.update {
+            it.copy(
+                priceInput = raw,                // keep what user typed
+                price = parsed ?: 0.0    // business value: only valid Double
+            )
         }
     }
 
@@ -167,7 +179,7 @@ class AddCaseViewModel @Inject constructor(
         val addedCase = AddedCase(
             name = businessState.value.name,
             amount = businessState.value.amount,
-            purchasePrice = businessState.value.purchasePrice
+            purchasePrice = businessState.value.price
         )
         sendAddedCaseUseCase.invoke(addedCase)
         viewModelScope.launch {

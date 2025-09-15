@@ -2,8 +2,10 @@ package com.example.csgocaseswatcherapp.features.addcasefragment.domain
 
 data class AddCaseState(
     val name: String,
+    val amountInput: String,
     val amount: Int,
-    val purchasePrice: Double,
+    val priceInput:String,
+    val price: Double,
     val caseNameSearchQuery: String = "",
     val nameSuggestionResult: NameSuggestionResult,
     val originalNameSuggestionList: List<String>
