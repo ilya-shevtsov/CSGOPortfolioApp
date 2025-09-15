@@ -42,45 +42,7 @@ class CaseOverviewViewModelTest {
 
     private fun buildViewModel() = CaseOverviewViewModel(getCaseListUseCase)
 
-    private fun domainCase(
-        name: String = "Revolution Case",
-        lowestPrice: Double = 2.15,
-        volume: Int = 1245,
-        medianPrice: Double = 2.30,
-        imageUrl: String = "https://example.com/revolution.png",
-        releaseDate: String = "2023-02-09",
-        dropStatus: String = "Active",
-        description: String = "Contains the AWP | Duality and other community-designed skins"
-    ) = CaseOverview(
-        name = name,
-        lowestPrice = lowestPrice,
-        volume = volume,
-        medianPrice = medianPrice,
-        imageUrl = imageUrl,
-        releaseDate = releaseDate,
-        dropStatus = dropStatus,
-        description = description
-    )
 
-    private fun caseModel(
-        name: String = "Revolution Case",
-        lowestPrice: Double = 2.15,
-        volume: Int = 1245,
-        medianPrice: Double = 2.30,
-        imageUrl: String = "https://example.com/revolution.png",
-        releaseDate: String = "2023-02-09",
-        dropStatus: String = "Active",
-        description: String = "Contains the AWP | Duality and other community-designed skins"
-    ) = CaseOverviewModel(
-        caseName = name,
-        lowestPrice = lowestPrice,
-        volume = volume,
-        medianPrice = medianPrice,
-        imageUrl = imageUrl,
-        releaseDate = releaseDate,
-        dropStatus = dropStatus,
-        description = description
-    )
 
 
     @Test
@@ -124,7 +86,6 @@ class CaseOverviewViewModelTest {
         coEvery { getCaseListUseCase() } returns emptyList()
 
         viewModel = buildViewModel()
-        testDispatcher.scheduler.advanceUntilIdle()
 
         viewModel.uiEvent.test {
             viewModel.handleAction(CaseOverviewViewAction.OnCaseClicked(case))
@@ -134,6 +95,45 @@ class CaseOverviewViewModelTest {
             )
             cancelAndIgnoreRemainingEvents()
         }
-
     }
+
+    private fun domainCase(
+        name: String = "Revolution Case",
+        lowestPrice: Double = 2.15,
+        volume: Int = 1245,
+        medianPrice: Double = 2.30,
+        imageUrl: String = "https://example.com/revolution.png",
+        releaseDate: String = "2023-02-09",
+        dropStatus: String = "Active",
+        description: String = "Contains the AWP | Duality and other community-designed skins"
+    ) = CaseOverview(
+        name = name,
+        lowestPrice = lowestPrice,
+        volume = volume,
+        medianPrice = medianPrice,
+        imageUrl = imageUrl,
+        releaseDate = releaseDate,
+        dropStatus = dropStatus,
+        description = description
+    )
+
+    private fun caseModel(
+        name: String = "Revolution Case",
+        lowestPrice: Double = 2.15,
+        volume: Int = 1245,
+        medianPrice: Double = 2.30,
+        imageUrl: String = "https://example.com/revolution.png",
+        releaseDate: String = "2023-02-09",
+        dropStatus: String = "Active",
+        description: String = "Contains the AWP | Duality and other community-designed skins"
+    ) = CaseOverviewModel(
+        caseName = name,
+        lowestPrice = lowestPrice,
+        volume = volume,
+        medianPrice = medianPrice,
+        imageUrl = imageUrl,
+        releaseDate = releaseDate,
+        dropStatus = dropStatus,
+        description = description
+    )
 }

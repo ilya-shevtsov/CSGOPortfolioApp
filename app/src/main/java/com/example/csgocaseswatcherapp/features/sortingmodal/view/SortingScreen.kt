@@ -1,7 +1,6 @@
 package com.example.csgocaseswatcherapp.features.sortingmodal.view
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -15,17 +14,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
-import com.example.csgocaseswatcherapp.features.sortingmodal.entities.SortingMethod
+import com.example.csgocaseswatcherapp.features.sortingmodal.entities.SortState
 
 @Composable
 fun SortingScreen(
     state: SortingModalViewState,
-    onClick: (method: SortingMethod) -> Unit
+    onClick: (method: SortState) -> Unit
 ) {
 
     Column(

@@ -4,14 +4,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.csgocaseswatcherapp.features.sortingmodal.entities.SortingMethod
+import com.example.csgocaseswatcherapp.features.sortingmodal.entities.SortState
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun SortingBottomModal(
     viewModel: SortingModalViewModel,
     onDismissRequest: () -> Unit,
-    onSortingSelected: (SortingMethod) -> Unit
+    onSortingSelected: (SortState) -> Unit
 ) {
 
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -20,7 +20,7 @@ fun SortingBottomModal(
         viewModel.uiEvent.collectLatest { event ->
             when (event) {
                 is SortingModalEvent.NavigateToPortfolioWithSelectedSortingMethod -> {
-                    onSortingSelected(event.sortingMethod)
+                    onSortingSelected(event.sortState)
                     onDismissRequest()
                 }
             }

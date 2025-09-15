@@ -21,8 +21,8 @@ class PortfolioDetailsViewModel @Inject constructor() : ViewModel() {
     private fun mapToPieEntry(portfolioItemList: List<PortfolioItem>): List<PieEntry> {
         return portfolioItemList.map { case ->
             PieEntry(
-                case.caseAmount.toFloat(),
-                case.caseName
+                case.amount.toFloat(),
+                case.name
                     .replace("Operation", "")
                     .replace("Case", "")
             )
