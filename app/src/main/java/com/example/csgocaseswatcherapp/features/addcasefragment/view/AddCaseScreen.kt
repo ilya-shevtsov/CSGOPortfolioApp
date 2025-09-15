@@ -124,6 +124,11 @@ fun AddCaseContent(
                     onValueChange = { newValue ->
                         onAction(AddCaseViewAction.OnNameChanged(newValue))
                     },
+                    supportingText = {
+                        state.nameError?.let { error ->
+                            Text(text = error, color = AppTheme.colors.error, style = AppTheme.typography.m3.bodySmall)
+                        }
+                    },
                     label = { Text("Case Name") },
                     singleLine = true,
                     colors = outlinedTextFieldColors
@@ -158,6 +163,11 @@ fun AddCaseContent(
                     keyboardType = KeyboardType.Number,
                     imeAction = ImeAction.Next
                 ),
+                supportingText = {
+                    state.amountError?.let { error ->
+                        Text(text = error, color = AppTheme.colors.error, style = AppTheme.typography.m3.bodySmall)
+                    }
+                },
                 colors = outlinedTextFieldColors
             )
 
@@ -173,6 +183,11 @@ fun AddCaseContent(
                     keyboardType = KeyboardType.Decimal,
                     imeAction = ImeAction.Done
                 ),
+                supportingText = {
+                    state.priceError?.let { error ->
+                        Text(text = error, color = AppTheme.colors.error, style = AppTheme.typography.m3.bodySmall)
+                    }
+                },
                 colors = outlinedTextFieldColors
             )
 

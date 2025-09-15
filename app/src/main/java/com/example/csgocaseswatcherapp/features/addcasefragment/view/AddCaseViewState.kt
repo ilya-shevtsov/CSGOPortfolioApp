@@ -1,7 +1,5 @@
 package com.example.csgocaseswatcherapp.features.addcasefragment.view
 
-import com.example.csgocaseswatcherapp.features.addcasefragment.view.entities.AddCaseModel
-
 sealed class AddCaseViewState {
 
     data object Loading : AddCaseViewState()
@@ -12,6 +10,9 @@ sealed class AddCaseViewState {
         val name: String,
         val amount:String,
         val price: String,
+        val amountError: String? = null,
+        val priceError: String? = null,
+        val nameError: String? = null,
         val caseNameSearchQuery: String = "",
         val isAddCaseButtonActive: Boolean = false,
         val caseNameSuggestionList: List<String>

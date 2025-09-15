@@ -77,17 +77,15 @@ class AddCaseViewModel @Inject constructor(
                             emptyList()
                         } else {
                             result.suggestionList.filter {
-                                it.contains(
-                                    state.caseNameSearchQuery,
-                                    ignoreCase = true
-                                )
+                                it.contains(state.caseNameSearchQuery, ignoreCase = true)
                             }
                         }
 
-                    val addCaseButtonIsActive =
-                        state.price > 0.0 && state.amount > 0 && state.originalNameSuggestionList.contains(
-                            state.name
-                        )
+                    val nameError   = state.name.validateName(state.originalNameSuggestionList)
+                    val amountError = state.amountInput.validateAmount()
+                    val priceError  = state.priceInput.validatePrice()
+
+                    val addCaseButtonIsActive = nameError == null && amountError == null && priceError == null
 
                     AddCaseViewState.Content(
                         name = state.name,
@@ -95,12 +93,46 @@ class AddCaseViewModel @Inject constructor(
                         price = state.priceInput,
                         caseNameSearchQuery = state.caseNameSearchQuery,
                         isAddCaseButtonActive = addCaseButtonIsActive,
-                        caseNameSuggestionList = filtered
+                        caseNameSuggestionList = filtered,
+                        nameError = nameError,
+                        amountError = amountError,
+                        priceError = priceError
                     )
                 }
             }
             uiState.value = ui
         }.launchIn(viewModelScope)
+    }
+
+
+    // Как лучше збавиться тут от hardcode string-ов?
+    private fun String.validateName(allowedNames: List<String>): String? =
+        when {
+            this.isBlank() -> "Choose a case"
+            !allowedNames.contains(this) -> "Unknown case"
+            else -> null
+        }
+
+    private fun String.validateAmount(): String? {
+        val amountInt = this.toIntOrNull()
+        return when {
+            this.isBlank() -> "Enter amount"
+            amountInt == null -> "Amount must be an integer"
+            amountInt <= 0 -> "Amount must be > 0"
+            else -> null
+        }
+    }
+
+    private fun String.validatePrice(): String? {
+        val danglingDecimal = endsWith('.') || endsWith(',')
+        val priceDouble = this.toDoubleOrNull()
+        return when {
+            isBlank() -> "Enter price"
+            danglingDecimal -> "Finish the number (e.g., 0.0)"
+            priceDouble == null -> "Price must be a number"
+            priceDouble <= 0.0 -> "Price must be > 0"
+            else -> null
+        }
     }
 
     private fun handleOnSuggestionClicked(action: AddCaseViewAction.OnSuggestionClicked) {
@@ -177,17 +209,28 @@ class AddCaseViewModel @Inject constructor(
 
 
     private fun handleAddCaseClicked() {
+        val s = businessState.value
+
+        // Defensive: only proceed if button would be active
+        val contentState = (uiState.value as? AddCaseViewState.Content)
+        if (contentState == null || !contentState.isAddCaseButtonActive) {
+            return
+        }
+
+        val amount = s.amountInput.toIntOrNull() ?: return
+        val price = s.priceInput.replace(',', '.').toDoubleOrNull() ?: return
+
         val addedCase = AddedCase(
-            name = businessState.value.name,
-            amount = businessState.value.amount,
-            purchasePrice = businessState.value.price
+            name = s.name,
+            amount = amount,
+            purchasePrice = price
         )
+
         sendAddedCaseUseCase.invoke(addedCase)
+
         viewModelScope.launch {
             uiEvent.emit(
-                AddCaseViewEvent.NavigateToPortfolioWithAddedCase(
-                    addedCase
-                )
+                AddCaseViewEvent.NavigateToPortfolioWithAddedCase(addedCase)
             )
         }
     }
