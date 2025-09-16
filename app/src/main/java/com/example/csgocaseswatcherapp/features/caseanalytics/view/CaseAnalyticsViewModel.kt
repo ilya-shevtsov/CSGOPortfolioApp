@@ -1,9 +1,7 @@
 package com.example.csgocaseswatcherapp.features.caseanalytics.view
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.csgocaseswatcherapp.features.caseanalytics.domain.entities.CaseAnalytics
 import com.example.csgocaseswatcherapp.features.caseanalytics.domain.usecases.GetCaseAnalyticsListUseCase
 import com.example.csgocaseswatcherapp.features.caseanalytics.view.entities.CaseAnalyticsItemMapper
 import com.example.csgocaseswatcherapp.features.caseanalytics.view.entities.CaseAnalyticsModel
@@ -17,7 +15,7 @@ class CaseAnalyticsViewModel @Inject constructor(
 ) : ViewModel() {
 
     val uiState: MutableStateFlow<CaseAnalyticsViewState> =
-        MutableStateFlow(value = CaseAnalyticsViewState.Loading)
+        MutableStateFlow(value = initState())
 
     val uiEvent = MutableSharedFlow<CaseAnalyticsViewEvent>()
 
@@ -25,11 +23,11 @@ class CaseAnalyticsViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response = getCaseAnalyticsListUseCase.getCaseAnalyticsList()
-                showCaseAnalyticsList(response)
+                uiState.value = CaseAnalyticsViewState.Content(
+                    caseAnalyticsItemList = response.map(CaseAnalyticsItemMapper::map),
+                )
             } catch (throwable: Throwable) {
                 showError()
-                Log.e("Logging_CasesAnalyticsViewModel.getCaseList", "${throwable.message}")
-
             }
         }
     }
@@ -46,13 +44,11 @@ class CaseAnalyticsViewModel @Inject constructor(
         }
     }
 
-    private fun showError() {
-        uiState.value = CaseAnalyticsViewState.Error
+    private fun initState(): CaseAnalyticsViewState {
+        return CaseAnalyticsViewState.Loading
     }
 
-    private fun showCaseAnalyticsList(caseAnalyticsList: List<CaseAnalytics>) {
-        uiState.value = CaseAnalyticsViewState.Content(
-            caseAnalyticsItemList = caseAnalyticsList.map(CaseAnalyticsItemMapper::map),
-        )
+    private fun showError() {
+        uiState.value = CaseAnalyticsViewState.Error
     }
 }
