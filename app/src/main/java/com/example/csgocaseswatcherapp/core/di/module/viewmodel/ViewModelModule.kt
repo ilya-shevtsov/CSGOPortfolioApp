@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.csgocaseswatcherapp.features.addcasefragment.view.AddCaseViewModel
 import com.example.csgocaseswatcherapp.features.caseanalytics.view.CaseAnalyticsViewModel
-import com.example.csgocaseswatcherapp.features.caseanalyticsdetails.view.CaseAnalyticsDetailsViewModel
 import com.example.csgocaseswatcherapp.features.caseoverview.view.CaseOverviewViewModel
 import com.example.csgocaseswatcherapp.features.caseoverviewdetails.view.CaseDetailsViewModel
 import com.example.csgocaseswatcherapp.features.currencychange.view.CurrencyChangeViewModel
@@ -38,11 +37,6 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(CaseAnalyticsViewModel::class)
     fun caseAnalyticsViewModel(viewModel: CaseAnalyticsViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(CaseAnalyticsDetailsViewModel::class)
-    fun CaseAnalyticsDetailsViewModel(viewModel: CaseAnalyticsDetailsViewModel): ViewModel
 
     @Binds
     @IntoMap

@@ -42,15 +42,13 @@ import kotlin.math.round
 @Composable
 fun CaseAnalyticsItem(
     item: CaseAnalyticsModel,
-    onClick: () -> Unit,
 ) {
 
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(AppTheme.dimensions.paddingML)
-            .clickable { onClick() },
+            .padding(AppTheme.dimensions.paddingML),
         colors = CardDefaults.cardColors(
             containerColor = AppTheme.colors.surface,
             contentColor = AppTheme.colors.onSurface
@@ -161,7 +159,6 @@ private fun CaseAnalyticsItemPreview() {
                 monthlySharpRatio = 0.21576985108546862,
                 imageUrl = "https://api.steamapis.com/image/item/730/Chroma%20Case"
             ),
-            onClick = {}
         )
     }
 }

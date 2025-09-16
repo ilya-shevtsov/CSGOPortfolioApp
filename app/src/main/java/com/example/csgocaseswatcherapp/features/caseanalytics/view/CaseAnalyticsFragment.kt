@@ -62,7 +62,6 @@ class CaseAnalyticsFragment : Fragment(R.layout.fragment_case_analytics) {
             AppTheme {
                 CaseAnalyticsIntegration(
                     viewModel = viewModel,
-                    onNavigateToDetails = { model -> navigateToCaseAnalyticsDetails(model) }
                 )
             }
         }
@@ -71,38 +70,12 @@ class CaseAnalyticsFragment : Fragment(R.layout.fragment_case_analytics) {
     @Composable
     fun CaseAnalyticsIntegration(
         viewModel: CaseAnalyticsViewModel,
-        onNavigateToDetails: (CaseAnalyticsModel) -> Unit
     ) {
         val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-        LaunchedEffect(viewModel) {
-            viewModel.uiEvent.collectLatest { event ->
-                when (event) {
-                    is CaseAnalyticsViewEvent.NavigateToCaseAnalyticsDetails -> onNavigateToDetails(
-                        event.case
-                    )
-                }
-            }
-        }
-
         CaseAnalyticsScreen(
             state = state,
-            onCaseClick = { clicked ->
-                viewModel.handleAction(
-                    CaseAnalyticsViewAction.OnCaseClicked(
-                        clicked
-                    )
-                )
-            }
         )
-    }
-
-    private fun navigateToCaseAnalyticsDetails(model: CaseAnalyticsModel) {
-        val action =
-            CaseAnalyticsFragmentDirections.actionCaseAnalyticsFragmentToCaseAnalyticsDetailsFragment(
-                model
-            )
-        findNavController().navigate(action)
     }
 
     override fun onAttach(context: Context) {

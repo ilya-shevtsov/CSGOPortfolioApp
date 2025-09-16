@@ -15,7 +15,6 @@ import com.example.csgocaseswatcherapp.features.caseanalytics.view.entities.Case
 @Composable
 fun CaseAnalyticsScreen(
     state: CaseAnalyticsViewState,
-    onCaseClick: (CaseAnalyticsModel) -> Unit
 ) {
     when (state) {
         is CaseAnalyticsViewState.Error -> ErrorScreen()
@@ -28,7 +27,6 @@ fun CaseAnalyticsScreen(
                 ) { item ->
                     CaseAnalyticsItem(
                         item = item,
-                        onClick = { onCaseClick(item) }
                     )
                 }
             }
@@ -62,7 +60,6 @@ fun CaseAnalyticsScreenPreview() {
                     item,
                 )
             ),
-            onCaseClick = {}
         )
     }
 }

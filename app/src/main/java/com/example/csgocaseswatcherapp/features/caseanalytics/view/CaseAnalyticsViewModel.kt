@@ -32,18 +32,6 @@ class CaseAnalyticsViewModel @Inject constructor(
         }
     }
 
-    fun handleAction(action: CaseAnalyticsViewAction) {
-        when (action) {
-            is CaseAnalyticsViewAction.OnCaseClicked -> handleOnCaseClicked(action.case)
-        }
-    }
-
-    private fun handleOnCaseClicked(case: CaseAnalyticsModel) {
-        viewModelScope.launch {
-            uiEvent.emit(CaseAnalyticsViewEvent.NavigateToCaseAnalyticsDetails(case))
-        }
-    }
-
     private fun initState(): CaseAnalyticsViewState {
         return CaseAnalyticsViewState.Loading
     }
