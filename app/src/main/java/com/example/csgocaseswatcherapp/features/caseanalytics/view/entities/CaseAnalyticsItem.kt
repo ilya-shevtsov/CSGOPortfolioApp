@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.features.caseoverview.view.entities
+package com.example.csgocaseswatcherapp.features.caseanalytics.view.entities
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -11,37 +11,40 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Inventory2
-import androidx.compose.material.icons.outlined.Leaderboard
-import androidx.compose.material.icons.outlined.Sell
+import androidx.compose.material.icons.automirrored.outlined.TrendingUp
+import androidx.compose.material.icons.outlined.CalendarToday
+import androidx.compose.material.icons.outlined.CurrencyRuble
+import androidx.compose.material.icons.outlined.QueryStats
+import androidx.compose.material.icons.outlined.Scale
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
-
+import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.StatRow
+import kotlin.math.pow
+import kotlin.math.round
 
 @Composable
-fun CaseOverviewItem(
-    item: CaseOverviewModel,
+fun CaseAnalyticsItem(
+    item: CaseAnalyticsModel,
     onClick: () -> Unit,
 ) {
+
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -54,8 +57,7 @@ fun CaseOverviewItem(
         elevation = CardDefaults.cardElevation(defaultElevation = 3.dp)
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
+            modifier = Modifier.fillMaxWidth()
                 .padding(AppTheme.dimensions.paddingM),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -72,9 +74,7 @@ fun CaseOverviewItem(
                     .size(100.dp)
                     .clip(RoundedCornerShape(16.dp))
             )
-
             Spacer(Modifier.width(16.dp))
-
             Column(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -86,70 +86,72 @@ fun CaseOverviewItem(
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
-
                 StatRow(
-                    icon = Icons.Outlined.Sell,
-                    label = "Lowest Price",
-                    value = item.lowestPrice.toString(),
+                    icon = Icons.Outlined.CalendarToday,
+                    label = "Monthly Avg Return",
+                    value = "${item.monthlyAvgReturnInPercent} %",
                 )
                 StatRow(
-                    icon = Icons.Outlined.Inventory2,
-                    label = "Volume",
-                    value = item.volume.toString()
+                    icon = Icons.Outlined.CurrencyRuble,
+                    label = "Monthly Avg Return (₽)",
+                    value = "${item.monthlyAvgReturnInRUB}",
                 )
                 StatRow(
-                    icon = Icons.Outlined.Leaderboard,
-                    label = "Median Price",
-                    value = item.medianPrice.toString()
+                    icon = Icons.Outlined.QueryStats,
+                    label = "Monthly Volatility (Std)",
+                    value = "${item.monthlyStandardDeviation.toDoubleWith5Decimals()}"
+                )
+                StatRow(
+                    icon = Icons.Outlined.Scale,
+                    label = "Monthly Sharpe Ratio",
+                    value = "${item.monthlySharpRatio.toDoubleWith5Decimals()}"
+                )
+                StatRow(
+                    icon = Icons.AutoMirrored.Outlined.TrendingUp,
+                    label = "Daily Avg Return",
+                    value = "${item.dailyAvgReturnInPercent} %",
+                )
+                StatRow(
+                    icon = Icons.Outlined.CurrencyRuble,
+                    label = "Daily Avg Return (₽)",
+                    value = "${item.dailyAvgReturnInRUB}",
+                )
+                StatRow(
+                    icon = Icons.Outlined.QueryStats,
+                    label = "Daily Volatility (Std)",
+                    value = "${item.dailyStandardDeviation.toDoubleWith5Decimals()}"
+                )
+                StatRow(
+                    icon = Icons.Outlined.Scale,
+                    label = "Daily Sharpe Ratio",
+                    value = "${item.dailySharpRatio.toDoubleWith5Decimals()}"
                 )
             }
         }
     }
 }
 
-@Composable
-fun StatRow(
-    icon: ImageVector,
-    label: String,
-    value: String,
-) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        Icon(
-            imageVector = icon,
-            contentDescription = null,
-            tint = AppTheme.colors.primary,
-            modifier = Modifier.size(18.dp)
-        )
-        Text(
-            text = "$label: ",
-            style = MaterialTheme.typography.bodyMedium,
-            color = AppTheme.colors.onSurface
-        )
-        Text(
-            text = value,
-            style = MaterialTheme.typography.bodyMedium,
-            color = AppTheme.colors.onSurface
-        )
-    }
+fun Double.toDoubleWith5Decimals(): Double {
+    val factor = 10.0.pow(5)
+    return round(this * factor) / factor
 }
 
 @PreviewLightDark
 @Composable
-private fun CaseOverviewItemPreview() {
+private fun CaseAnalyticsItemPreview() {
     AppTheme {
-        CaseOverviewItem(
-            item = CaseOverviewModel(
+        CaseAnalyticsItem(
+            item = CaseAnalyticsModel(
                 caseName = "Chroma Case",
-                lowestPrice = 6.63,
-                volume = 1013,
-                medianPrice = 7.45,
-                imageUrl = "https://api.steamapis.com/image/item/730/Recoil%20Case",
-                releaseDate = "01.07.2022",
-                dropStatus = "Active",
-                description = "—"
+                dailyAvgReturnInPercent = 0.14,
+                dailyAvgReturnInRUB = -0.31,
+                dailyStandardDeviation = 0.06421299942865188,
+                dailySharpRatio = 0.03216030151453114,
+                monthlyAvgReturnInPercent = 4.11,
+                monthlyAvgReturnInRUB = -3.24,
+                monthlyStandardDeviation = 0.22929070765645318,
+                monthlySharpRatio = 0.21576985108546862,
+                imageUrl = "https://api.steamapis.com/image/item/730/Chroma%20Case"
             ),
             onClick = {}
         )
