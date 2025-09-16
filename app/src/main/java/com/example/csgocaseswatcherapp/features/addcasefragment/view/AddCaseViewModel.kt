@@ -226,7 +226,7 @@ class AddCaseViewModel @Inject constructor(
 
         viewModelScope.launch {
             uiEvent.emit(
-                AddCaseViewEvent.NavigateToPortfolioWithAddedCase(addedCase)
+                AddCaseViewEvent.NavigateToPortfolioWithAddedCase
             )
         }
     }

@@ -54,11 +54,6 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        setFragmentResultListener("addedCase") { _, bundle ->
-            val addedCase = bundle.getSerializable("addedCase") as AddedCase
-            viewModel.handleAction(PortfolioViewAction.OnCaseAdded(addedCase))
-        }
-
         composeView.setViewCompositionStrategy(
             ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed
         )

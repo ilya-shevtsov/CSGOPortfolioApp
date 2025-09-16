@@ -63,7 +63,7 @@ class AddCaseFragment : Fragment(R.layout.fragment_add_case) {
             viewModel.uiEvent.collectLatest { event ->
                 when (event) {
                     is AddCaseViewEvent.NavigateToPortfolioWithAddedCase -> {
-                        navigateToPortfolioWithAddedCase(event)
+                        navigateToPortfolioWithAddedCase()
                     }
                     is AddCaseViewEvent.ShowValidationError -> showErrorMessage(event.message)
                 }
@@ -81,11 +81,7 @@ class AddCaseFragment : Fragment(R.layout.fragment_add_case) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
     }
 
-    private fun navigateToPortfolioWithAddedCase(uiEvent: AddCaseViewEvent.NavigateToPortfolioWithAddedCase) {
-        setFragmentResult(
-            ADD_CASE_REQUEST_KEY,
-            bundleOf(ADD_CASE_REQUEST_KEY to uiEvent.addedCase)
-        )
+    private fun navigateToPortfolioWithAddedCase() {
         findNavController().popBackStack()
     }
 

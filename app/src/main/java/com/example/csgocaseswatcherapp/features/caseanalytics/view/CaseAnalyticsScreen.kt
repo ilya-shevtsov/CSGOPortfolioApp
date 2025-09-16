@@ -40,14 +40,14 @@ fun CaseAnalyticsScreenPreview() {
     AppTheme {
         val item = CaseAnalyticsModel(
             caseName = "Chroma Case",
-            dailyAvgReturnInPercent = 0.14,
-            dailyAvgReturnInRUB = -0.31,
-            dailyStandardDeviation = 0.06421299942865188,
-            dailySharpRatio = 0.03216030151453114,
-            monthlyAvgReturnInPercent = 4.11,
-            monthlyAvgReturnInRUB = -3.24,
-            monthlyStandardDeviation = 0.22929070765645318,
-            monthlySharpRatio = 0.21576985108546862,
+            dailyAvgReturnInPercent = "0.14 %",
+            dailyAvgReturnInRUB = "-0.31",
+            dailyStandardDeviation = "0.06421",
+            dailySharpRatio = "0.03216",
+            monthlyAvgReturnInPercent = "4.11 %",
+            monthlyAvgReturnInRUB = "-3.24",
+            monthlyStandardDeviation = "0.22929",
+            monthlySharpRatio = "0.21576",
             imageUrl = "https://api.steamapis.com/image/item/730/Chroma%20Case"
         )
         CaseAnalyticsScreen(

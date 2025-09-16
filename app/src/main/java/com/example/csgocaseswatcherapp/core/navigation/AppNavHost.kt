@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewModel
 import kotlinx.serialization.Serializable
 
 @Composable
@@ -36,4 +37,24 @@ fun AppNavHost(){
 sealed class Screen {
     @Serializable
     data object Start : Screen()
+
+    @Serializable
+    data object CaseOverView : Screen()
+
+//    @Serializable
+//    data class CaseOverViewDetails(val caseOverviewModel: CaseOverviewModel) : Screen()
+
+    @Serializable
+    data object CaseAnalytics : Screen()
+
+    @Serializable
+    data object CurrencyChange : Screen()
+
+    @Serializable
+    data object Portfolio : Screen()
+
+    @Serializable
+    data object AddCase : Screen()
+
+
 }
