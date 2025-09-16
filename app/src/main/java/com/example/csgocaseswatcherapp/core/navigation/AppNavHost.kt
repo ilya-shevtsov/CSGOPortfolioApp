@@ -10,10 +10,11 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItem
 import kotlinx.serialization.Serializable
 
 @Composable
-fun AppNavHost(){
+fun AppNavHost() {
     val navController = rememberNavController()
 
     Box(
@@ -21,11 +22,11 @@ fun AppNavHost(){
             .fillMaxSize()
             .windowInsetsPadding(WindowInsets.systemBars)
 
-    ){
+    ) {
         NavHost(
             navController = navController,
             startDestination = Screen.CaseOverView
-        ){
+        ) {
             composable<Screen.CaseOverView> {
 
             }
@@ -51,6 +52,9 @@ sealed class Screen {
 
     @Serializable
     data object Portfolio : Screen()
+
+//    @Serializable
+//    data class PortfolioDetails(val portfolioItemList: List<PortfolioItem>) : Screen()
 
     @Serializable
     data object AddCase : Screen()
