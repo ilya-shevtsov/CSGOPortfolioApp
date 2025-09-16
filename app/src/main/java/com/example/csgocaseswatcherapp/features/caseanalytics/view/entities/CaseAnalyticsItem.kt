@@ -1,5 +1,6 @@
 package com.example.csgocaseswatcherapp.features.caseanalytics.view.entities
 
+import ExpandableStatSection
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -57,7 +58,8 @@ fun CaseAnalyticsItem(
         elevation = CardDefaults.cardElevation(defaultElevation = 3.dp)
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(AppTheme.dimensions.paddingM),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -86,46 +88,52 @@ fun CaseAnalyticsItem(
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
+
                 StatRow(
                     icon = Icons.Outlined.CalendarToday,
                     label = "Monthly Avg Return",
                     value = "${item.monthlyAvgReturnInPercent} %",
                 )
                 StatRow(
-                    icon = Icons.Outlined.CurrencyRuble,
-                    label = "Monthly Avg Return (₽)",
-                    value = "${item.monthlyAvgReturnInRUB}",
+                    icon =
+                    Icons.Outlined.CurrencyRuble,
+                    label = "Monthly Avg Return (₽)", value = "${item.monthlyAvgReturnInRUB}",
                 )
                 StatRow(
-                    icon = Icons.Outlined.QueryStats,
+                    icon =
+                    Icons.Outlined.QueryStats,
                     label = "Monthly Volatility (Std)",
                     value = "${item.monthlyStandardDeviation.toDoubleWith5Decimals()}"
                 )
                 StatRow(
-                    icon = Icons.Outlined.Scale,
+                    icon =
+                    Icons.Outlined.Scale,
                     label = "Monthly Sharpe Ratio",
                     value = "${item.monthlySharpRatio.toDoubleWith5Decimals()}"
                 )
-                StatRow(
-                    icon = Icons.AutoMirrored.Outlined.TrendingUp,
-                    label = "Daily Avg Return",
-                    value = "${item.dailyAvgReturnInPercent} %",
-                )
-                StatRow(
-                    icon = Icons.Outlined.CurrencyRuble,
-                    label = "Daily Avg Return (₽)",
-                    value = "${item.dailyAvgReturnInRUB}",
-                )
-                StatRow(
-                    icon = Icons.Outlined.QueryStats,
-                    label = "Daily Volatility (Std)",
-                    value = "${item.dailyStandardDeviation.toDoubleWith5Decimals()}"
-                )
-                StatRow(
-                    icon = Icons.Outlined.Scale,
-                    label = "Daily Sharpe Ratio",
-                    value = "${item.dailySharpRatio.toDoubleWith5Decimals()}"
-                )
+
+                ExpandableStatSection(title = "Daily Stats") {
+                    StatRow(
+                        icon = Icons.AutoMirrored.Outlined.TrendingUp,
+                        label = "Avg Return",
+                        value = "${item.dailyAvgReturnInPercent} %",
+                    )
+                    StatRow(
+                        icon = Icons.Outlined.CurrencyRuble,
+                        label = "Avg Return (₽)",
+                        value = "${item.dailyAvgReturnInRUB}",
+                    )
+                    StatRow(
+                        icon = Icons.Outlined.QueryStats,
+                        label = "Volatility (Std)",
+                        value = item.dailyStandardDeviation.toDoubleWith5Decimals().toString()
+                    )
+                    StatRow(
+                        icon = Icons.Outlined.Scale,
+                        label = "Sharpe Ratio",
+                        value = item.dailySharpRatio.toDoubleWith5Decimals().toString()
+                    )
+                }
             }
         }
     }
