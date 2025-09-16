@@ -1,7 +1,6 @@
 package com.example.csgocaseswatcherapp.features.caseanalytics.view.entities
 
 import ExpandableStatSection
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -36,8 +35,6 @@ import coil.request.ImageRequest
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.StatRow
-import kotlin.math.pow
-import kotlin.math.round
 
 @Composable
 fun CaseAnalyticsItem(
@@ -90,46 +87,47 @@ fun CaseAnalyticsItem(
                 StatRow(
                     icon = Icons.Outlined.CalendarToday,
                     label = "Monthly Avg Return",
-                    value = "${item.monthlyAvgReturnInPercent} %",
+                    value = item.monthlyAvgReturnInPercent,
                 )
                 StatRow(
                     icon =
                     Icons.Outlined.CurrencyRuble,
-                    label = "Monthly Avg Return (₽)", value = "${item.monthlyAvgReturnInRUB}",
+                    label = "Monthly Avg Return (₽)",
+                    value = item.monthlyAvgReturnInRUB,
                 )
                 StatRow(
                     icon =
                     Icons.Outlined.QueryStats,
                     label = "Monthly Volatility (Std)",
-                    value = "${item.monthlyStandardDeviation.toDoubleWith5Decimals()}"
+                    value = item.monthlyStandardDeviation
                 )
                 StatRow(
                     icon =
                     Icons.Outlined.Scale,
                     label = "Monthly Sharpe Ratio",
-                    value = "${item.monthlySharpRatio.toDoubleWith5Decimals()}"
+                    value = item.monthlySharpRatio
                 )
 
                 ExpandableStatSection(title = "Daily Stats") {
                     StatRow(
                         icon = Icons.AutoMirrored.Outlined.TrendingUp,
                         label = "Avg Return",
-                        value = "${item.dailyAvgReturnInPercent} %",
+                        value = item.dailyAvgReturnInPercent,
                     )
                     StatRow(
                         icon = Icons.Outlined.CurrencyRuble,
                         label = "Avg Return (₽)",
-                        value = "${item.dailyAvgReturnInRUB}",
+                        value = item.dailyAvgReturnInRUB,
                     )
                     StatRow(
                         icon = Icons.Outlined.QueryStats,
                         label = "Volatility (Std)",
-                        value = item.dailyStandardDeviation.toDoubleWith5Decimals().toString()
+                        value = item.dailyStandardDeviation
                     )
                     StatRow(
                         icon = Icons.Outlined.Scale,
                         label = "Sharpe Ratio",
-                        value = item.dailySharpRatio.toDoubleWith5Decimals().toString()
+                        value = item.dailySharpRatio
                     )
                 }
             }
@@ -137,10 +135,6 @@ fun CaseAnalyticsItem(
     }
 }
 
-fun Double.toDoubleWith5Decimals(): Double {
-    val factor = 10.0.pow(5)
-    return round(this * factor) / factor
-}
 
 @PreviewLightDark
 @Composable
@@ -149,14 +143,14 @@ private fun CaseAnalyticsItemPreview() {
         CaseAnalyticsItem(
             item = CaseAnalyticsModel(
                 caseName = "Chroma Case",
-                dailyAvgReturnInPercent = 0.14,
-                dailyAvgReturnInRUB = -0.31,
-                dailyStandardDeviation = 0.06421299942865188,
-                dailySharpRatio = 0.03216030151453114,
-                monthlyAvgReturnInPercent = 4.11,
-                monthlyAvgReturnInRUB = -3.24,
-                monthlyStandardDeviation = 0.22929070765645318,
-                monthlySharpRatio = 0.21576985108546862,
+                dailyAvgReturnInPercent = "0.14 %",
+                dailyAvgReturnInRUB = "-0.31",
+                dailyStandardDeviation = "0.06421",
+                dailySharpRatio = "0.03216",
+                monthlyAvgReturnInPercent = "4.11 %",
+                monthlyAvgReturnInRUB = "-3.24",
+                monthlyStandardDeviation = "0.22929",
+                monthlySharpRatio = "0.21576",
                 imageUrl = "https://api.steamapis.com/image/item/730/Chroma%20Case"
             ),
         )
