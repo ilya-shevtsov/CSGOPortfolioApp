@@ -31,6 +31,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -123,11 +124,7 @@ fun AddCaseContent(
                     onValueChange = { newValue ->
                         onAction(AddCaseViewAction.OnNameChanged(newValue))
                     },
-                    supportingText = {
-                        state.nameError?.let { error ->
-                            Text(text = error, color = AppTheme.colors.error, style = AppTheme.typography.m3.bodySmall)
-                        }
-                    },
+                    supportingText = { state.nameError?.let { ShowSupportText(stringResource(it)) } },
                     label = { Text("Case Name") },
                     singleLine = true,
                     colors = outlinedTextFieldColors
@@ -162,11 +159,7 @@ fun AddCaseContent(
                     keyboardType = KeyboardType.Number,
                     imeAction = ImeAction.Next
                 ),
-                supportingText = {
-                    state.amountError?.let { error ->
-                        Text(text = error, color = AppTheme.colors.error, style = AppTheme.typography.m3.bodySmall)
-                    }
-                },
+                supportingText = { state.amountError?.let { ShowSupportText(stringResource(it)) } },
                 colors = outlinedTextFieldColors
             )
 
@@ -182,11 +175,7 @@ fun AddCaseContent(
                     keyboardType = KeyboardType.Decimal,
                     imeAction = ImeAction.Done
                 ),
-                supportingText = {
-                    state.priceError?.let { error ->
-                        Text(text = error, color = AppTheme.colors.error, style = AppTheme.typography.m3.bodySmall)
-                    }
-                },
+                supportingText = {state.priceError?.let { ShowSupportText(stringResource(it)) }},
                 colors = outlinedTextFieldColors
             )
 
@@ -195,9 +184,9 @@ fun AddCaseContent(
             Button(
                 colors = ButtonColors(
                     containerColor = AppTheme.colors.primary,
-                    contentColor =AppTheme.colors.onPrimary,
-                    disabledContainerColor =AppTheme.colors.onSurface.copy(alpha = 0.12f),
-                    disabledContentColor =AppTheme.colors.onSurface.copy(alpha = 0.38f)
+                    contentColor = AppTheme.colors.onPrimary,
+                    disabledContainerColor = AppTheme.colors.onSurface.copy(alpha = 0.12f),
+                    disabledContentColor = AppTheme.colors.onSurface.copy(alpha = 0.38f)
                 ),
                 onClick = { onAction(AddCaseViewAction.OnAddCaseClicked) },
                 enabled = state.isAddCaseButtonActive,
@@ -211,10 +200,24 @@ fun AddCaseContent(
         }
     }
 }
+
+@Composable
+fun ShowSupportText(
+    error: String?,
+) {
+    error?.let {
+        Text(
+            text = it,
+            color = AppTheme.colors.error,
+            style = AppTheme.typography.m3.bodySmall
+        )
+    }
+}
+
 @PreviewLightDark
 @Composable
 fun AddCaseContentPreview() {
-    AppTheme{
+    AppTheme {
         AddCaseScreen(
             state = AddCaseViewState.Content(
                 name = "Chroma Case", amount = "37", price = "3.14",

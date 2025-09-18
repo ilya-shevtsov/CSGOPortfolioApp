@@ -23,10 +23,11 @@ import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 
 @Composable
 fun ErrorScreen(
+    modifier: Modifier = Modifier,
     message: String? = null,
 ) {
     Surface(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         color = AppTheme.colors.background,
         shadowElevation = 2.dp
     ) {
@@ -61,7 +62,7 @@ fun ErrorScreen(
 private fun ErrorScreenPreview() {
     AppTheme {
         ErrorScreen(
-            null
+            message = null
         )
     }
 }
