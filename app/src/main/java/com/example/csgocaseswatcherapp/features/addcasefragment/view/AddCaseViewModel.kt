@@ -87,7 +87,7 @@ class AddCaseViewModel @Inject constructor(
                     val amountErr = state.amountField.result.toErrorResOrNull()
                     val priceErr  = state.priceField.result.toErrorResOrNull()
 
-                    val nameErrRes = addCaseErrorToResIdOrNull(nameErr)
+                    val nameErrRes = nameErr?.resId
 
                     val addCaseButtonIsActive = nameErrRes == null && amountErr == null && priceErr == null
 
@@ -136,9 +136,6 @@ class AddCaseViewModel @Inject constructor(
             else -> PriceValidationResult.Success(price)
         }
     }
-
-    @StringRes
-    private fun addCaseErrorToResIdOrNull(error: AddCaseError?): Int? = error?.resId
 
     @StringRes
     private fun AmountValidationResult.toErrorResOrNull(): Int? = when (this) {
