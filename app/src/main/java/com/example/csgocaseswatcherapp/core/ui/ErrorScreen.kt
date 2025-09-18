@@ -16,7 +16,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.csgocaseswatcherapp.R
@@ -24,10 +23,10 @@ import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 
 @Composable
 fun ErrorScreen(
-    modifier: Modifier = Modifier
+    message: String? = null,
 ) {
     Surface(
-        modifier = modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         color = AppTheme.colors.background,
         shadowElevation = 2.dp
     ) {
@@ -48,7 +47,7 @@ fun ErrorScreen(
             )
 
             Text(
-                text = stringResource(R.string.error_screen_case_overview),
+                text = message ?: stringResource(R.string.error_screen_case_overview),
                 color = AppTheme.colors.error,
                 style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
                 textAlign = TextAlign.Center
@@ -62,7 +61,7 @@ fun ErrorScreen(
 private fun ErrorScreenPreview() {
     AppTheme {
         ErrorScreen(
-            modifier = Modifier
+            null
         )
     }
 }

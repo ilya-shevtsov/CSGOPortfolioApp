@@ -29,8 +29,8 @@ class CaseOverviewViewModel @Inject constructor(
                 uiState.value = CaseOverviewViewState.Content(
                     caseOverviewItemList = response.map(CaseOverviewModelMapper::map)
                 )
-            }.onFailure { t ->
-                if (t is CancellationException) throw t
+            }.onFailure { throwable ->
+                if (throwable is CancellationException) throw throwable
                 showError()
             }
         }

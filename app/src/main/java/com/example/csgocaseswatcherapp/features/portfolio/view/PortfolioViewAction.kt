@@ -8,9 +8,7 @@ sealed class PortfolioViewAction {
     data object OnCreate: PortfolioViewAction()
 
 
-    data class OnCaseAdded(
-        val addedCase: AddedCase
-    ) : PortfolioViewAction()
+    data object OnCaseAdded: PortfolioViewAction()
 
     data class OnSortingMethodSelected(
         val sortState: SortState

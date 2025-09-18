@@ -4,11 +4,11 @@ import com.example.csgocaseswatcherapp.features.caseanalytics.view.entities.Case
 
 sealed class CaseAnalyticsViewState {
 
-    object Loading : CaseAnalyticsViewState()
+    data object Loading : CaseAnalyticsViewState()
 
     data class Content(
         val caseAnalyticsItemList: List<CaseAnalyticsModel>
     ) : CaseAnalyticsViewState()
 
-    object Error : CaseAnalyticsViewState()
+    data object Error : CaseAnalyticsViewState()
 }
