@@ -1,9 +1,7 @@
 package com.example.csgocaseswatcherapp.features.start.view
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.csgocaseswatcherapp.features.start.data.entities.PreferredCurrencyDto
 import com.example.csgocaseswatcherapp.features.start.domain.entities.PreferredCurrency
 import com.example.csgocaseswatcherapp.features.start.domain.usecases.GetPreferredCurrencyUseCase
 import com.example.csgocaseswatcherapp.features.start.domain.usecases.SendPreferredCurrencyUseCase
@@ -21,7 +19,7 @@ class StartViewModel @Inject constructor(
 
     val uiState = MutableStateFlow(value = createInitialState())
 
-    val uiEvent = MutableSharedFlow<StartViewEvent>()
+    val uiEvent = MutableSharedFlow<StartEvent>()
 
     init {
         viewModelScope.launch {
@@ -40,34 +38,34 @@ class StartViewModel @Inject constructor(
         }
     }
 
-    fun handleAction(action: StartViewAction) {
+    fun handleAction(action: StartAction) {
         when (action) {
-            is StartViewAction.OnCurrencySelected -> handleCurrencySelected(action)
-            is StartViewAction.OnCaseOverviewClicked -> handleOnCaseOverviewClicked()
-            is StartViewAction.OnPortfolioClicked -> handleOnPortfolioClickedClicked()
-            is StartViewAction.OnAnalyticsClicked -> handleOnAnalyticsClickedClicked()
-            is StartViewAction.OnCurrencyChangeClicked -> handleOnCurrencyChangeClickedClicked()
+            is StartAction.OnCurrencySelected -> handleCurrencySelected(action)
+            is StartAction.OnCaseOverviewClicked -> handleOnCaseOverviewClicked()
+            is StartAction.OnPortfolioClicked -> handleOnPortfolioClickedClicked()
+            is StartAction.OnAnalyticsClicked -> handleOnAnalyticsClickedClicked()
+            is StartAction.OnCurrencyChangeClicked -> handleOnCurrencyChangeClickedClicked()
         }
     }
 
     private fun handleOnCurrencyChangeClickedClicked() {
-        viewModelScope.launch { uiEvent.emit(StartViewEvent.NavigateToCurrencyChange) }
+        viewModelScope.launch { uiEvent.emit(StartEvent.NavigateToCurrencyChange) }
     }
 
     private fun handleOnAnalyticsClickedClicked() {
-        viewModelScope.launch { uiEvent.emit(StartViewEvent.NavigateToAnalytics) }
+        viewModelScope.launch { uiEvent.emit(StartEvent.NavigateToAnalytics) }
     }
 
     private fun handleOnPortfolioClickedClicked() {
-        viewModelScope.launch { uiEvent.emit(StartViewEvent.NavigateToPortfolio) }
+        viewModelScope.launch { uiEvent.emit(StartEvent.NavigateToPortfolio) }
     }
 
     private fun handleOnCaseOverviewClicked() {
-        viewModelScope.launch { uiEvent.emit(StartViewEvent.NavigateToCaseOverview) }
+        viewModelScope.launch { uiEvent.emit(StartEvent.NavigateToCaseOverview) }
 
     }
 
-    private fun handleCurrencySelected(action: StartViewAction.OnCurrencySelected) {
+    private fun handleCurrencySelected(action: StartAction.OnCurrencySelected) {
         if (action.preferredCurrency != null) {
             uiState.value = StartViewState.Content(action.preferredCurrency)
 

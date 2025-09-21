@@ -20,11 +20,11 @@ fun AddCaseRoute(
     LaunchedEffect(viewModel, context) {
         viewModel.uiEvent.collectLatest { event ->
             when (event) {
-                is AddCaseViewEvent.NavigateToPortfolioWithAddedCase -> {
+                is AddCaseEvent.NavigateToPortfolioWithAddedCase -> {
                     navigateToPortfolio(Destination.Portfolio)
                 }
 
-                is AddCaseViewEvent.ShowValidationError -> {
+                is AddCaseEvent.ShowValidationError -> {
                     Toast.makeText(context, event.message, Toast.LENGTH_LONG).show()
                 }
             }

@@ -44,7 +44,7 @@ class AddCaseViewModel @Inject constructor(
     val uiState: MutableStateFlow<AddCaseViewState> =
         MutableStateFlow(value = initState())
 
-    val uiEvent = MutableSharedFlow<AddCaseViewEvent>()
+    val uiEvent = MutableSharedFlow<AddCaseEvent>()
 
     private val businessState = MutableStateFlow(
         initBusinessState()
@@ -54,19 +54,19 @@ class AddCaseViewModel @Inject constructor(
         createViewStateChain()
     }
 
-    fun handleAction(action: AddCaseViewAction) {
+    fun handleAction(action: AddCaseAction) {
         when (action) {
-            is AddCaseViewAction.OnCreate -> onCreate()
+            is AddCaseAction.OnCreate -> onCreate()
 
-            is AddCaseViewAction.OnNameChanged -> handleOnNameChanged(action)
+            is AddCaseAction.OnNameChanged -> handleOnNameChanged(action)
 
-            is AddCaseViewAction.OnAmountChanged -> handleOnAmountChanged(action)
+            is AddCaseAction.OnAmountChanged -> handleOnAmountChanged(action)
 
-            is AddCaseViewAction.OnPriceChanged -> handleOnPriceChanged(action)
+            is AddCaseAction.OnPriceChanged -> handleOnPriceChanged(action)
 
-            is AddCaseViewAction.OnAddCaseClicked -> handleAddCaseClicked()
+            is AddCaseAction.OnAddCaseClicked -> handleAddCaseClicked()
 
-            is AddCaseViewAction.OnSuggestionClicked -> handleOnSuggestionClicked(action)
+            is AddCaseAction.OnSuggestionClicked -> handleOnSuggestionClicked(action)
         }
     }
 
@@ -151,13 +151,13 @@ class AddCaseViewModel @Inject constructor(
         is PriceValidationResult.Fail -> this.error.resId
     }
 
-    private fun handleOnSuggestionClicked(action: AddCaseViewAction.OnSuggestionClicked) {
+    private fun handleOnSuggestionClicked(action: AddCaseAction.OnSuggestionClicked) {
         viewModelScope.launch {
             businessState.update { it.copy(name = action.name) }
         }
     }
 
-    private fun handleOnNameChanged(action: AddCaseViewAction.OnNameChanged) {
+    private fun handleOnNameChanged(action: AddCaseAction.OnNameChanged) {
         viewModelScope.launch {
             businessState.update {
                 it.copy(
@@ -168,14 +168,14 @@ class AddCaseViewModel @Inject constructor(
         }
     }
 
-    private fun handleOnAmountChanged(action: AddCaseViewAction.OnAmountChanged) {
+    private fun handleOnAmountChanged(action: AddCaseAction.OnAmountChanged) {
         val raw = action.amount
         businessState.update { state ->
             state.copy(amountField = AddCaseFieldData(input = raw, result = parseAmount(raw)))
         }
     }
 
-    private fun handleOnPriceChanged(action: AddCaseViewAction.OnPriceChanged) {
+    private fun handleOnPriceChanged(action: AddCaseAction.OnPriceChanged) {
         val raw = action.price
         businessState.update { state ->
             state.copy(priceField = AddCaseFieldData(input = raw, result = parsePrice(raw)))
@@ -218,7 +218,7 @@ class AddCaseViewModel @Inject constructor(
 
         if (amount == null || price == null) {
             viewModelScope.launch {
-                uiEvent.emit(AddCaseViewEvent.ShowValidationError("Please fill amount and price correctly"))
+                uiEvent.emit(AddCaseEvent.ShowValidationError("Please fill amount and price correctly"))
             }
             return
         }
@@ -232,7 +232,7 @@ class AddCaseViewModel @Inject constructor(
         sendAddedCaseUseCase.invoke(addedCase)
 
         viewModelScope.launch {
-            uiEvent.emit(AddCaseViewEvent.NavigateToPortfolioWithAddedCase)
+            uiEvent.emit(AddCaseEvent.NavigateToPortfolioWithAddedCase)
         }
     }
 }

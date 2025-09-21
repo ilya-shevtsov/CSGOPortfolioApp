@@ -2,9 +2,9 @@ package com.example.csgocaseswatcherapp.features.caseoverview.view
 
 import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewModel
 
-sealed class CaseOverviewViewEvent {
+sealed class CaseOverviewAction {
 
-    data class NavigateToCaseDetails(
+    data class OnCaseClicked(
         val case: CaseOverviewModel
-    ) : CaseOverviewViewEvent()
+    ) : CaseOverviewAction()
 }

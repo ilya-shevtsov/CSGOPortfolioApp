@@ -1,11 +1,10 @@
 package com.example.csgocaseswatcherapp.features.caseoverview.view
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewModelMapper
-import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewModel
 import com.example.csgocaseswatcherapp.features.caseoverview.domain.usecases.GetCaseOverviewListUseCase
+import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewModel
+import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewModelMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,7 +20,7 @@ class CaseOverviewViewModel @Inject constructor(
     val uiState: MutableStateFlow<CaseOverviewViewState> =
         MutableStateFlow(value = initState())
 
-    val uiEvent = MutableSharedFlow<CaseOverviewViewEvent>()
+    val uiEvent = MutableSharedFlow<CaseOverviewEvent>()
 
     init {
         viewModelScope.launch {
@@ -38,15 +37,15 @@ class CaseOverviewViewModel @Inject constructor(
         }
     }
 
-    fun handleAction(action: CaseOverviewViewAction) {
+    fun handleAction(action: CaseOverviewAction) {
         when (action) {
-            is CaseOverviewViewAction.OnCaseClicked -> handleOnCaseClicked(action.case)
+            is CaseOverviewAction.OnCaseClicked -> handleOnCaseClicked(action.case)
         }
     }
 
     private fun handleOnCaseClicked(case: CaseOverviewModel) {
         viewModelScope.launch {
-            uiEvent.emit(CaseOverviewViewEvent.NavigateToCaseDetails(case))
+            uiEvent.emit(CaseOverviewEvent.NavigateToCaseDetails(case))
         }
     }
 

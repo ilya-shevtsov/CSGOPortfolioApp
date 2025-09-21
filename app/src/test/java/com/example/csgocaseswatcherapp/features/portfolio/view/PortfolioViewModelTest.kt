@@ -63,7 +63,7 @@ class PortfolioViewModelTest {
             assertThat(awaitItem()).isInstanceOf(PortfolioViewState.Loading::class)
 
 
-            viewModel.handleAction(PortfolioViewAction.OnCreate)
+            viewModel.handleAction(PortfolioAction.OnCreate)
 
             assertThat(awaitItem()).isInstanceOf(PortfolioViewState.Content::class)
         }
@@ -73,7 +73,7 @@ class PortfolioViewModelTest {
     fun `content contains correct data`() = runTest {
         viewModel = buildViewModel()
 
-        viewModel.handleAction(PortfolioViewAction.OnCreate)
+        viewModel.handleAction(PortfolioAction.OnCreate)
 
         viewModel.uiState.test {
             assertThat(awaitItem()).isInstanceOf(PortfolioViewState.Loading::class)
@@ -89,9 +89,9 @@ class PortfolioViewModelTest {
         viewModel = buildViewModel()
 
         viewModel.uiEvent.test {
-            viewModel.handleAction(PortfolioViewAction.OnAddCaseClicked)
+            viewModel.handleAction(PortfolioAction.OnAddCaseClicked)
 
-            assertThat(awaitItem()).isEqualTo(PortfolioViewEvent.NavigateToAddCase)
+            assertThat(awaitItem()).isEqualTo(PortfolioEvent.NavigateToAddCase)
         }
     }
 
@@ -102,11 +102,11 @@ class PortfolioViewModelTest {
         viewModel.uiState.test {
             assertThat(awaitItem()).isInstanceOf(PortfolioViewState.Loading::class)
 
-            viewModel.handleAction(PortfolioViewAction.OnCreate)
+            viewModel.handleAction(PortfolioAction.OnCreate)
 
             assertThat(awaitItem()).isInstanceOf(PortfolioViewState.Content::class)
 
-            viewModel.handleAction(PortfolioViewAction.OnSortClicked)
+            viewModel.handleAction(PortfolioAction.OnSortClicked)
 
             assertThat(awaitItem()).isInstanceOf(PortfolioViewState.Content::class)
                 .prop(PortfolioViewState.Content::isSortingSheetVisible)
@@ -123,9 +123,9 @@ class PortfolioViewModelTest {
         viewModel.uiState.test {
             assertThat(awaitItem()).isInstanceOf(PortfolioViewState.Loading::class)
 
-            viewModel.handleAction(PortfolioViewAction.OnCreate)
+            viewModel.handleAction(PortfolioAction.OnCreate)
 
-            viewModel.handleAction(PortfolioViewAction.OnSortingMethodSelected(SortState.NAME))
+            viewModel.handleAction(PortfolioAction.OnSortingMethodSelected(SortState.NAME))
 
             assertThat(awaitItem()).hasCasesInOrder(byNamePortfolioData)
         }
@@ -182,7 +182,7 @@ class PortfolioViewModelTest {
             viewModel.uiState.test {
                 assertThat(awaitItem()).isInstanceOf(PortfolioViewState.Loading::class)
 
-                viewModel.handleAction(PortfolioViewAction.OnCreate)
+                viewModel.handleAction(PortfolioAction.OnCreate)
 
                 assertThat(awaitItem()).isInstanceOf(PortfolioViewState.Content::class)
 
@@ -190,12 +190,12 @@ class PortfolioViewModelTest {
             }
 
             viewModel.uiEvent.test {
-                viewModel.handleAction(PortfolioViewAction.OnPortfolioDetailsClicked)
+                viewModel.handleAction(PortfolioAction.OnPortfolioDetailsClicked)
 
                 val event = awaitItem()
-                assertThat(event).isInstanceOf(PortfolioViewEvent.NavigateToPortfolioDetails::class)
+                assertThat(event).isInstanceOf(PortfolioEvent.NavigateToPortfolioDetails::class)
 
-                val nav = event as PortfolioViewEvent.NavigateToPortfolioDetails
+                val nav = event as PortfolioEvent.NavigateToPortfolioDetails
 
                 assertThat(nav.portfolioItemListArgs.portfolioItemList).isEqualTo(portfolioData)
             }
@@ -213,10 +213,10 @@ class PortfolioViewModelTest {
         viewModel.uiState.test {
             assertThat(awaitItem()).isInstanceOf(PortfolioViewState.Loading::class)
 
-            viewModel.handleAction(PortfolioViewAction.OnCreate)
+            viewModel.handleAction(PortfolioAction.OnCreate)
             awaitItem()
 
-            viewModel.handleAction(PortfolioViewAction.OnSortingMethodSelected(sortMethod))
+            viewModel.handleAction(PortfolioAction.OnSortingMethodSelected(sortMethod))
 
             assertThat(awaitItem()).hasCasesInOrder(expectedOrder)
         }

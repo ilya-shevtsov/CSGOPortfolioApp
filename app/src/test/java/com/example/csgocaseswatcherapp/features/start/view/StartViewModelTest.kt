@@ -9,7 +9,6 @@ import com.example.csgocaseswatcherapp.features.start.domain.usecases.SendPrefer
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
-import io.mockk.verify
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -80,7 +79,7 @@ class StartViewModelTest {
 
         testDispatcher.scheduler.advanceUntilIdle()
 
-        viewModel.handleAction(StartViewAction.OnCurrencySelected("RUB"))
+        viewModel.handleAction(StartAction.OnCurrencySelected("RUB"))
 
         testDispatcher.scheduler.advanceUntilIdle()
 
@@ -96,9 +95,9 @@ class StartViewModelTest {
         viewModel = buildViewModel()
 
         viewModel.uiEvent.test {
-            viewModel.handleAction(StartViewAction.OnCurrencyChangeClicked)
+            viewModel.handleAction(StartAction.OnCurrencyChangeClicked)
 
-            assertThat(awaitItem()).isEqualTo(StartViewEvent.NavigateToCurrencyChange)
+            assertThat(awaitItem()).isEqualTo(StartEvent.NavigateToCurrencyChange)
         }
     }
 
@@ -107,9 +106,9 @@ class StartViewModelTest {
         viewModel = buildViewModel()
 
         viewModel.uiEvent.test {
-            viewModel.handleAction(StartViewAction.OnAnalyticsClicked)
+            viewModel.handleAction(StartAction.OnAnalyticsClicked)
 
-            assertThat(awaitItem()).isEqualTo(StartViewEvent.NavigateToAnalytics)
+            assertThat(awaitItem()).isEqualTo(StartEvent.NavigateToAnalytics)
         }
     }
 
@@ -118,9 +117,9 @@ class StartViewModelTest {
         viewModel = buildViewModel()
 
         viewModel.uiEvent.test {
-            viewModel.handleAction(StartViewAction.OnPortfolioClicked)
+            viewModel.handleAction(StartAction.OnPortfolioClicked)
 
-            assertThat(awaitItem()).isEqualTo(StartViewEvent.NavigateToPortfolio)
+            assertThat(awaitItem()).isEqualTo(StartEvent.NavigateToPortfolio)
         }
     }
 
@@ -129,9 +128,9 @@ class StartViewModelTest {
         viewModel = buildViewModel()
 
         viewModel.uiEvent.test {
-            viewModel.handleAction(StartViewAction.OnCaseOverviewClicked)
+            viewModel.handleAction(StartAction.OnCaseOverviewClicked)
 
-            assertThat(awaitItem()).isEqualTo(StartViewEvent.NavigateToCaseOverview)
+            assertThat(awaitItem()).isEqualTo(StartEvent.NavigateToCaseOverview)
         }
     }
 

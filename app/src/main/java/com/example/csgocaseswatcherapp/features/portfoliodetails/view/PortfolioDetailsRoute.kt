@@ -5,7 +5,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItem
-import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemListArgs
 
 @Composable
 fun PortfolioDetailsRoute(
@@ -14,7 +13,7 @@ fun PortfolioDetailsRoute(
 ) {
 
     LaunchedEffect(portfolioItemList) {
-        viewModel.handleAction(PortfolioDetailsViewAction.OnPortfolioDataProvided(portfolioItemList))
+        viewModel.handleAction(PortfolioDetailsAction.OnPortfolioDataProvided(portfolioItemList))
     }
 
     val state by viewModel.uiState.collectAsStateWithLifecycle()

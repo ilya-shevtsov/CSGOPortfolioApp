@@ -42,9 +42,9 @@ import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 @Composable
 fun AddCaseScreen(
     state: AddCaseViewState,
-    onAction: (AddCaseViewAction) -> Unit,
+    onAction: (AddCaseAction) -> Unit,
 ) {
-    LaunchedEffect(Unit) { onAction(AddCaseViewAction.OnCreate) }
+    LaunchedEffect(Unit) { onAction(AddCaseAction.OnCreate) }
 
     when (state) {
         is AddCaseViewState.Loading -> LoadingScreen()
@@ -61,7 +61,7 @@ fun AddCaseScreen(
 @Composable
 fun AddCaseContent(
     state: AddCaseViewState.Content,
-    onAction: (AddCaseViewAction) -> Unit,
+    onAction: (AddCaseAction) -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }
     var hasFocus by remember { mutableStateOf(false) }
@@ -121,7 +121,7 @@ fun AddCaseContent(
                         .onFocusChanged { f -> hasFocus = f.isFocused },
                     value = state.name,
                     onValueChange = { newValue ->
-                        onAction(AddCaseViewAction.OnNameChanged(newValue))
+                        onAction(AddCaseAction.OnNameChanged(newValue))
                     },
                     supportingText = { state.nameError?.let { ShowSupportText(stringResource(it)) } },
                     label = { Text("Case Name") },
@@ -140,7 +140,7 @@ fun AddCaseContent(
                             DropdownMenuItem(
                                 text = { Text(suggestion) },
                                 onClick = {
-                                    onAction(AddCaseViewAction.OnSuggestionClicked(suggestion))
+                                    onAction(AddCaseAction.OnSuggestionClicked(suggestion))
                                     expanded = false
                                 }
                             )
@@ -150,7 +150,7 @@ fun AddCaseContent(
 
             OutlinedTextField(
                 value = state.amount,
-                onValueChange = { newValue -> onAction(AddCaseViewAction.OnAmountChanged(newValue)) },
+                onValueChange = { newValue -> onAction(AddCaseAction.OnAmountChanged(newValue)) },
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text("Amount of cases") },
                 singleLine = true,
@@ -165,7 +165,7 @@ fun AddCaseContent(
             OutlinedTextField(
                 value = state.price,
                 onValueChange = { newValue ->
-                    onAction(AddCaseViewAction.OnPriceChanged(newValue))
+                    onAction(AddCaseAction.OnPriceChanged(newValue))
                 },
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text("Purchase price") },
@@ -187,7 +187,7 @@ fun AddCaseContent(
                     disabledContainerColor = AppTheme.colors.onSurface.copy(alpha = 0.12f),
                     disabledContentColor = AppTheme.colors.onSurface.copy(alpha = 0.38f)
                 ),
-                onClick = { onAction(AddCaseViewAction.OnAddCaseClicked) },
+                onClick = { onAction(AddCaseAction.OnAddCaseClicked) },
                 enabled = state.isAddCaseButtonActive,
                 shape = RoundedCornerShape(8.dp),
                 modifier = Modifier

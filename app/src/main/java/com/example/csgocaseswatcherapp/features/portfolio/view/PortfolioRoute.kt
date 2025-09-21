@@ -28,17 +28,18 @@ fun PortfolioRoute(
     val listState = rememberLazyListState()
 
     LaunchedEffect(Unit) {
-        viewModel.handleAction(PortfolioViewAction.OnCreate)
+        viewModel.handleAction(PortfolioAction.OnCreate)
     }
 
     LaunchedEffect(viewModel) {
         viewModel.uiEvent.collectLatest { event ->
             when (event) {
-                is PortfolioViewEvent.NavigateToAddCase -> onNavigateToAddCase(Destination.AddCase)
-                is PortfolioViewEvent.NavigateToPortfolioDetails -> onNavigateToPortfolioDetails(
+                is PortfolioEvent.NavigateToAddCase -> onNavigateToAddCase(Destination.AddCase)
+                is PortfolioEvent.NavigateToPortfolioDetails -> onNavigateToPortfolioDetails(
                     event.portfolioItemListArgs.portfolioItemList
                 )
-                is PortfolioViewEvent.ScrollToTop -> {
+
+                is PortfolioEvent.ScrollToTop -> {
                     listState.animateScrollToItem(0)
                 }
             }
@@ -54,15 +55,15 @@ fun PortfolioRoute(
     val isVisible = (state as? PortfolioViewState.Content)?.isSortingSheetVisible == true
     if (isVisible) {
         ModalBottomSheet(
-            onDismissRequest = { viewModel.handleAction(PortfolioViewAction.HideSortingModal) },
+            onDismissRequest = { viewModel.handleAction(PortfolioAction.HideSortingModal) },
             sheetState = sheetState
         ) {
             SortingBottomModal(
                 viewModel = sortingViewModel,
-                onDismissRequest = { viewModel.handleAction(PortfolioViewAction.HideSortingModal) },
+                onDismissRequest = { viewModel.handleAction(PortfolioAction.HideSortingModal) },
                 onSortingSelected = { sortingMethod ->
                     viewModel.handleAction(
-                        PortfolioViewAction.OnSortingMethodSelected(sortingMethod)
+                        PortfolioAction.OnSortingMethodSelected(sortingMethod)
                     )
                 }
             )

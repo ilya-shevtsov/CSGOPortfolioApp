@@ -1,8 +1,8 @@
 package com.example.csgocaseswatcherapp.features.currencychange.view
 
-sealed class CurrencyChangeViewEvent {
+sealed class CurrencyChangeEvent {
 
     data class NavigateToStartWithPreferredCurrency(
         val currencyName: String
-    ) : CurrencyChangeViewEvent()
+    ) : CurrencyChangeEvent()
 }

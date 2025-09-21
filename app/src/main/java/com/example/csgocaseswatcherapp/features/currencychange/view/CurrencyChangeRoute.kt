@@ -16,13 +16,21 @@ fun CurrencyChangeRoute(
     LaunchedEffect(viewModel) {
         viewModel.uiEvent.collectLatest { event ->
             when (event) {
-                is CurrencyChangeViewEvent.NavigateToStartWithPreferredCurrency -> navigateToStartWithPreferredCurrency(event.currencyName)
+                is CurrencyChangeEvent.NavigateToStartWithPreferredCurrency -> navigateToStartWithPreferredCurrency(
+                    event.currencyName
+                )
             }
         }
     }
 
     CurrencyChangeScreen(
         state = state,
-        onCurrencyClicked = {clicked -> viewModel.handleAction(CurrencyChangeViewAction.OnCurrencyClicked(clicked))}
+        onCurrencyClicked = { clicked ->
+            viewModel.handleAction(
+                CurrencyChangeAction.OnCurrencyClicked(
+                    clicked
+                )
+            )
+        }
     )
 }

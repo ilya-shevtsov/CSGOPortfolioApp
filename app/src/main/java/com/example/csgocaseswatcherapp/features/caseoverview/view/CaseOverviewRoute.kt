@@ -18,7 +18,7 @@ fun CaseOverViewRoute(
     LaunchedEffect(viewModel) {
         viewModel.uiEvent.collectLatest { event ->
             when (event) {
-                is CaseOverviewViewEvent.NavigateToCaseDetails -> onNavigateToDetails(
+                is CaseOverviewEvent.NavigateToCaseDetails -> onNavigateToDetails(
                     event.case
                 )
             }
@@ -28,7 +28,7 @@ fun CaseOverViewRoute(
     CaseOverviewScreen(
         state = state,
         onCaseClick = { clicked ->
-            viewModel.handleAction(CaseOverviewViewAction.OnCaseClicked(clicked))
+            viewModel.handleAction(CaseOverviewAction.OnCaseClicked(clicked))
         }
     )
 

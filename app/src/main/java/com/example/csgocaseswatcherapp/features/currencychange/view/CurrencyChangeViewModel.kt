@@ -13,18 +13,18 @@ class CurrencyChangeViewModel @Inject constructor() : ViewModel() {
 
     val uiState = MutableStateFlow(value = createInitialState())
 
-    val uiEvent = MutableSharedFlow<CurrencyChangeViewEvent>()
+    val uiEvent = MutableSharedFlow<CurrencyChangeEvent>()
 
-    fun handleAction(action: CurrencyChangeViewAction) {
+    fun handleAction(action: CurrencyChangeAction) {
         when (action) {
-            is CurrencyChangeViewAction.OnCurrencyClicked -> handleCurrencyItemClicked(action.preferredCurrency)
+            is CurrencyChangeAction.OnCurrencyClicked -> handleCurrencyItemClicked(action.preferredCurrency)
         }
     }
 
     private fun handleCurrencyItemClicked(currencyName: String) {
         viewModelScope.launch {
             uiEvent.emit(
-                CurrencyChangeViewEvent.NavigateToStartWithPreferredCurrency(
+                CurrencyChangeEvent.NavigateToStartWithPreferredCurrency(
                     currencyName
                 )
             )

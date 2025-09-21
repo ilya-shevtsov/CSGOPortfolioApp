@@ -62,7 +62,7 @@ import java.util.Locale
 @Composable
 fun PortfolioScreen(
     state: PortfolioViewState,
-    onAction: (PortfolioViewAction) -> Unit,
+    onAction: (PortfolioAction) -> Unit,
     listState: LazyListState
 ) {
 
@@ -81,7 +81,7 @@ fun PortfolioScreen(
 @Composable
 fun PortfolioContent(
     state: PortfolioViewState.Content,
-    onAction: (PortfolioViewAction) -> Unit,
+    onAction: (PortfolioAction) -> Unit,
     listState: LazyListState,
     modifier: Modifier = Modifier
 ) {
@@ -136,20 +136,20 @@ fun PortfolioContent(
             ) {
                 PortfolioButton(
                     modifier = Modifier.weight(1f),
-                    onClick = { onAction(PortfolioViewAction.OnPortfolioDetailsClicked) },
+                    onClick = { onAction(PortfolioAction.OnPortfolioDetailsClicked) },
                     icon = Icons.AutoMirrored.Filled.List,
                     text = stringResource(R.string.details_button)
                 )
 
                 PortfolioButton(
                     modifier = Modifier.weight(1f),
-                    onClick = { onAction(PortfolioViewAction.OnSortClicked) },
+                    onClick = { onAction(PortfolioAction.OnSortClicked) },
                     icon = Icons.AutoMirrored.Filled.Sort,
                     text = stringResource(R.string.sorting_button)
                 )
                 PortfolioButton(
                     modifier = Modifier.weight(1f),
-                    onClick = { onAction(PortfolioViewAction.OnAddCaseClicked) },
+                    onClick = { onAction(PortfolioAction.OnAddCaseClicked) },
                     icon = Icons.Default.Add,
                     text = stringResource(R.string.add_case_button)
                 )

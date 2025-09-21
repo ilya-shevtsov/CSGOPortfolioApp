@@ -2,13 +2,13 @@ package com.example.csgocaseswatcherapp.features.portfolio.view
 
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemListArgs
 
-sealed class PortfolioViewEvent {
+sealed class PortfolioEvent {
 
-    data object NavigateToAddCase : PortfolioViewEvent()
+    data object NavigateToAddCase : PortfolioEvent()
 
     data class NavigateToPortfolioDetails(
         val portfolioItemListArgs: PortfolioItemListArgs
-    ) : PortfolioViewEvent()
+    ) : PortfolioEvent()
 
-    data object ScrollToTop: PortfolioViewEvent()
+    data object ScrollToTop : PortfolioEvent()
 }

@@ -16,16 +16,16 @@ fun StartRoute(
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(currency) {
-        viewModel.handleAction(StartViewAction.OnCurrencySelected(currency))
+        viewModel.handleAction(StartAction.OnCurrencySelected(currency))
     }
 
     LaunchedEffect(viewModel) {
         viewModel.uiEvent.collectLatest { event ->
             when (event) {
-                StartViewEvent.NavigateToCaseOverview -> onNavigate(Destination.CaseOverView)
-                StartViewEvent.NavigateToPortfolio -> onNavigate(Destination.Portfolio)
-                StartViewEvent.NavigateToAnalytics -> onNavigate(Destination.CaseAnalytics)
-                StartViewEvent.NavigateToCurrencyChange -> onNavigate(Destination.CurrencyChange)
+                StartEvent.NavigateToCaseOverview -> onNavigate(Destination.CaseOverView)
+                StartEvent.NavigateToPortfolio -> onNavigate(Destination.Portfolio)
+                StartEvent.NavigateToAnalytics -> onNavigate(Destination.CaseAnalytics)
+                StartEvent.NavigateToCurrencyChange -> onNavigate(Destination.CurrencyChange)
             }
         }
     }
