@@ -1,0 +1,35 @@
+package com.example.csgocaseswatcherapp.features.caseoverview.view
+
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewModel
+import kotlinx.coroutines.flow.collectLatest
+
+@Composable
+fun CaseOverViewRoute(
+    viewModel: CaseOverviewViewModel,
+    onNavigateToDetails: (CaseOverviewModel) -> Unit,
+) {
+
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(viewModel) {
+        viewModel.uiEvent.collectLatest { event ->
+            when (event) {
+                is CaseOverviewViewEvent.NavigateToCaseDetails -> onNavigateToDetails(
+                    event.case
+                )
+            }
+        }
+    }
+
+    CaseOverviewScreen(
+        state = state,
+        onCaseClick = { clicked ->
+            viewModel.handleAction(CaseOverviewViewAction.OnCaseClicked(clicked))
+        }
+    )
+
+}

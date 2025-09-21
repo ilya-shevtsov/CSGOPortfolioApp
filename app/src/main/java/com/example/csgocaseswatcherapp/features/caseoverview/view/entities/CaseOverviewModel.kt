@@ -1,10 +1,10 @@
 package com.example.csgocaseswatcherapp.features.caseoverview.view.entities
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+
+import kotlinx.serialization.Serializable
 
 
-@Parcelize
+@Serializable
 data class CaseOverviewModel(
     val caseName: String,
     val lowestPrice: Double,
@@ -14,4 +14,4 @@ data class CaseOverviewModel(
     val releaseDate: String,
     val dropStatus: String,
     val description: String
-) : Parcelable
+)
