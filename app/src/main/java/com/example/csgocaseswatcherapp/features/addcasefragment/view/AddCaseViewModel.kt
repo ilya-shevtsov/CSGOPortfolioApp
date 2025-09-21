@@ -1,9 +1,13 @@
 package com.example.csgocaseswatcherapp.features.addcasefragment.view
 
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.csgocaseswatcherapp.features.addcasefragment.domain.AddCaseFieldData
 import com.example.csgocaseswatcherapp.features.addcasefragment.domain.AddCaseState
+import com.example.csgocaseswatcherapp.features.addcasefragment.domain.AmountValidationResult
 import com.example.csgocaseswatcherapp.features.addcasefragment.domain.NameSuggestionResult
+import com.example.csgocaseswatcherapp.features.addcasefragment.domain.PriceValidationResult
 import com.example.csgocaseswatcherapp.features.addcasefragment.domain.usecases.GetCaseSuggestionListUseCase
 import com.example.csgocaseswatcherapp.features.addcasefragment.domain.usecases.SendAddedCaseUseCase
 import com.example.csgocaseswatcherapp.features.addcasefragment.view.entities.AddedCase
@@ -27,13 +31,11 @@ class AddCaseViewModel @Inject constructor(
     private fun initBusinessState(): AddCaseState {
         return AddCaseState(
             name = "",
-            amountInput = "",
-            amount = null,
-            priceInput = "",
-            price = null,
             caseNameSearchQuery = "",
             nameSuggestionResult = NameSuggestionResult.Loading,
-            originalNameSuggestionList = listOf()
+            originalNameSuggestionList = emptyList(),
+            amountField = AddCaseFieldData(input = "", result = AmountValidationResult.Fail(error = AddCaseError.AMOUNT_EMPTY)),
+            priceField  = AddCaseFieldData(input = "", result = PriceValidationResult.Fail(error = AddCaseError.PRICE_EMPTY))
         )
     }
 
@@ -81,23 +83,24 @@ class AddCaseViewModel @Inject constructor(
                             }
                         }
 
-                    val nameError = state.name.validateName(state.originalNameSuggestionList)
-                    val amountError = state.amountInput.validateAmount()
-                    val priceError = state.priceInput.validatePrice()
+                    val nameErr   = state.name.validateName(state.originalNameSuggestionList)
+                    val amountErr = state.amountField.result.toErrorResOrNull()
+                    val priceErr  = state.priceField.result.toErrorResOrNull()
 
-                    val addCaseButtonIsActive =
-                        nameError == null && amountError == null && priceError == null
+                    val nameErrRes = nameErr?.resId
+
+                    val addCaseButtonIsActive = nameErrRes == null && amountErr == null && priceErr == null
 
                     AddCaseViewState.Content(
                         name = state.name,
-                        amount = state.amountInput,
-                        price = state.priceInput,
+                        amount = state.amountField.input,
+                        price = state.priceField.input,
                         caseNameSearchQuery = state.caseNameSearchQuery,
                         isAddCaseButtonActive = addCaseButtonIsActive,
                         caseNameSuggestionList = filtered,
-                        nameError = nameError,
-                        amountError = amountError,
-                        priceError = priceError
+                        nameError = nameErrRes,
+                        amountError = amountErr,
+                        priceError = priceErr
                     )
                 }
             }
@@ -105,35 +108,45 @@ class AddCaseViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-
-    // Как тут лучше избавиться от hardcode string-ов?
-    private fun String.validateName(allowedNames: List<String>): String? =
+    private fun String.validateName(allowedNames: List<String>): AddCaseError? =
         when {
-            this.isBlank() -> "Choose a case"
-            !allowedNames.contains(this) -> "Unknown case"
+            this.isBlank() -> AddCaseError.NAME_EMPTY
+            !allowedNames.contains(this) -> AddCaseError.NAME_UNKNOWN
             else -> null
         }
 
-    private fun String.validateAmount(): String? {
-        val amountInt = this.toIntOrNull()
+    private fun parseAmount(raw: String): AmountValidationResult =
+        when {
+            raw.isBlank() -> AmountValidationResult.Fail(AddCaseError.AMOUNT_EMPTY)
+            raw.toIntOrNull() == null -> AmountValidationResult.Fail(AddCaseError.AMOUNT_NOT_INT)
+            raw.toInt() <= 0 -> AmountValidationResult.Fail(AddCaseError.AMOUNT_NOT_POSITIVE)
+            else -> AmountValidationResult.Success(raw.toInt())
+        }
+
+    private fun parsePrice(raw: String): PriceValidationResult {
+        val dangling = raw.endsWith('.') || raw.endsWith(',')
+        val normalized = raw.replace(',', '.')
+        val price = normalized.toDoubleOrNull()
+
         return when {
-            this.isBlank() -> "Enter amount"
-            amountInt == null -> "Amount must be an integer"
-            amountInt <= 0 -> "Amount must be > 0"
-            else -> null
+            raw.isBlank() -> PriceValidationResult.Fail(AddCaseError.PRICE_EMPTY)
+            dangling -> PriceValidationResult.Fail(AddCaseError.PRICE_DANGLING_DECIMAL)
+            price == null -> PriceValidationResult.Fail(AddCaseError.PRICE_NOT_NUMBER)
+            price <= 0.0 -> PriceValidationResult.Fail(AddCaseError.PRICE_NOT_POSITIVE)
+            else -> PriceValidationResult.Success(price)
         }
     }
 
-    private fun String.validatePrice(): String? {
-        val danglingDecimal = endsWith('.') || endsWith(',')
-        val priceDouble = this.toDoubleOrNull()
-        return when {
-            isBlank() -> "Enter price"
-            danglingDecimal -> "Finish the number (e.g., 0.0)"
-            priceDouble == null -> "Price must be a number"
-            priceDouble <= 0.0 -> "Price must be > 0"
-            else -> null
-        }
+    @StringRes
+    private fun AmountValidationResult.toErrorResOrNull(): Int? = when (this) {
+        is AmountValidationResult.Success -> null
+        is AmountValidationResult.Fail -> this.error.resId
+    }
+
+    @StringRes
+    private fun PriceValidationResult.toErrorResOrNull(): Int? = when (this) {
+        is PriceValidationResult.Success -> null
+        is PriceValidationResult.Fail -> this.error.resId
     }
 
     private fun handleOnSuggestionClicked(action: AddCaseViewAction.OnSuggestionClicked) {
@@ -156,22 +169,14 @@ class AddCaseViewModel @Inject constructor(
     private fun handleOnAmountChanged(action: AddCaseViewAction.OnAmountChanged) {
         val raw = action.amount
         businessState.update { state ->
-            state.copy(
-                amountInput = raw,
-                amount = raw.toIntOrNull()
-            )
+            state.copy(amountField = AddCaseFieldData(input = raw, result = parseAmount(raw)))
         }
     }
 
-
     private fun handleOnPriceChanged(action: AddCaseViewAction.OnPriceChanged) {
         val raw = action.price
-
         businessState.update { state ->
-            state.copy(
-                priceInput = raw,
-                price = raw.toDoubleOrNull()
-            )
+            state.copy(priceField = AddCaseFieldData(input = raw, result = parsePrice(raw)))
         }
     }
 
@@ -204,10 +209,10 @@ class AddCaseViewModel @Inject constructor(
 
 
     private fun handleAddCaseClicked() {
-        val currentState = businessState.value
+        val current = businessState.value
 
-        val amount = currentState.amount
-        val price = currentState.price
+        val amount = (current.amountField.result as? AmountValidationResult.Success)?.amount
+        val price  = (current.priceField.result  as? PriceValidationResult.Success)?.price
 
         if (amount == null || price == null) {
             viewModelScope.launch {
@@ -217,7 +222,7 @@ class AddCaseViewModel @Inject constructor(
         }
 
         val addedCase = AddedCase(
-            name = currentState.name,
+            name = current.name,
             amount = amount,
             purchasePrice = price
         )
@@ -225,9 +230,7 @@ class AddCaseViewModel @Inject constructor(
         sendAddedCaseUseCase.invoke(addedCase)
 
         viewModelScope.launch {
-            uiEvent.emit(
-                AddCaseViewEvent.NavigateToPortfolioWithAddedCase
-            )
+            uiEvent.emit(AddCaseViewEvent.NavigateToPortfolioWithAddedCase)
         }
     }
 }
