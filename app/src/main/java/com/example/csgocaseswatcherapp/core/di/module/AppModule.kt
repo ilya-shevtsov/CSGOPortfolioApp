@@ -18,7 +18,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-interface DataModule {
+interface AppModule {
 
     @Binds @Singleton
     fun caseRepository(impl: CaseOverviewServerRepository): CaseRepository
