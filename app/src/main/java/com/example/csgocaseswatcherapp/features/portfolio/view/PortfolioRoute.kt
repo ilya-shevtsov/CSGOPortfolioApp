@@ -10,9 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.csgocaseswatcherapp.core.navigation.Screen
+import com.example.csgocaseswatcherapp.core.navigation.Destination
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItem
-import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemListArgs
 import com.example.csgocaseswatcherapp.features.sortingmodal.view.SortingBottomModal
 import com.example.csgocaseswatcherapp.features.sortingmodal.view.SortingModalViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -21,7 +20,7 @@ import kotlinx.coroutines.flow.collectLatest
 fun PortfolioRoute(
     viewModel: PortfolioViewModel,
     sortingViewModel: SortingModalViewModel,
-    onNavigateToAddCase: (Screen.AddCase) -> Unit,
+    onNavigateToAddCase: (Destination.AddCase) -> Unit,
     onNavigateToPortfolioDetails: (List<PortfolioItem>) -> Unit
 ){
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -35,7 +34,7 @@ fun PortfolioRoute(
     LaunchedEffect(viewModel) {
         viewModel.uiEvent.collectLatest { event ->
             when (event) {
-                is PortfolioViewEvent.NavigateToAddCase -> onNavigateToAddCase(Screen.AddCase)
+                is PortfolioViewEvent.NavigateToAddCase -> onNavigateToAddCase(Destination.AddCase)
                 is PortfolioViewEvent.NavigateToPortfolioDetails -> onNavigateToPortfolioDetails(
                     event.portfolioItemListArgs.portfolioItemList
                 )

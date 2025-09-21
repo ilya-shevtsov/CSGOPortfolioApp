@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -16,7 +15,6 @@ import androidx.navigation.toRoute
 import com.example.csgocaseswatcherapp.features.addcasefragment.view.AddCaseRoute
 import com.example.csgocaseswatcherapp.features.addcasefragment.view.AddCaseViewModel
 import com.example.csgocaseswatcherapp.features.caseanalytics.view.CaseAnalyticsRoute
-import com.example.csgocaseswatcherapp.features.caseanalytics.view.CaseAnalyticsScreen
 import com.example.csgocaseswatcherapp.features.caseanalytics.view.CaseAnalyticsViewModel
 import com.example.csgocaseswatcherapp.features.caseoverview.view.CaseOverViewRoute
 import com.example.csgocaseswatcherapp.features.caseoverview.view.CaseOverviewViewModel
@@ -26,7 +24,6 @@ import com.example.csgocaseswatcherapp.features.caseoverviewdetails.view.CaseOve
 import com.example.csgocaseswatcherapp.features.currencychange.view.CurrencyChangeRoute
 import com.example.csgocaseswatcherapp.features.currencychange.view.CurrencyChangeViewModel
 import com.example.csgocaseswatcherapp.features.portfolio.view.PortfolioRoute
-import com.example.csgocaseswatcherapp.features.portfolio.view.PortfolioScreen
 import com.example.csgocaseswatcherapp.features.portfolio.view.PortfolioViewModel
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItem
 import com.example.csgocaseswatcherapp.features.portfoliodetails.view.PortfolioDetailsRoute
@@ -49,88 +46,88 @@ fun AppNavHost() {
     ) {
         NavHost(
             navController = navController,
-            startDestination = Screen.Start::class
+            startDestination = Destination.Start::class
         ) {
-            composable<Screen.Start> { entry ->
+            composable<Destination.Start> { entry ->
                 val viewModel: StartViewModel = hiltViewModel()
-                val args = entry.toRoute<Screen.Start>()
+                val args = entry.toRoute<Destination.Start>()
                 StartRoute(
                     viewModel = viewModel,
-                    onNavigate = { screen -> navController.navigate(screen) },
+                    onNavigate = { destination -> navController.navigate(destination) },
                     currency = args.preferredCurrency
                 )
             }
-            composable<Screen.CaseOverView> {
+            composable<Destination.CaseOverView> {
                 val viewModel: CaseOverviewViewModel = hiltViewModel()
                 CaseOverViewRoute(
                     viewModel = viewModel,
                     onNavigateToDetails = { caseOverViewModel ->
                         navController.navigate(
-                            Screen.CaseDetails(
+                            Destination.CaseDetails(
                                 caseOverviewModel = caseOverViewModel
                             )
                         )
                     }
                 )
             }
-            composable<Screen.CaseDetails>(
+            composable<Destination.CaseDetails>(
                 typeMap = mapOf(
                     typeOf<CaseOverviewModel>() to CustomNavType.CaseOverviewModelType
                 )
             ) { entry ->
                 val viewModel: CaseDetailsViewModel = hiltViewModel()
-                val args = entry.toRoute<Screen.CaseDetails>()
+                val args = entry.toRoute<Destination.CaseDetails>()
                 CaseOverviewDetailsRoute(
                     viewModel = viewModel,
                     currentCase = args.caseOverviewModel
                 )
             }
-            composable<Screen.CaseAnalytics> {
+            composable<Destination.CaseAnalytics> {
                 val viewModel: CaseAnalyticsViewModel = hiltViewModel()
                 CaseAnalyticsRoute(
                     viewModel = viewModel
                 )
             }
-            composable<Screen.Portfolio> {
+            composable<Destination.Portfolio> {
                 val viewModel: PortfolioViewModel = hiltViewModel()
                 val sortingViewModel: SortingModalViewModel = hiltViewModel()
                 PortfolioRoute(
                     viewModel = viewModel,
                     sortingViewModel = sortingViewModel,
-                    onNavigateToAddCase = { screen -> navController.navigate(screen) },
+                    onNavigateToAddCase = { destination -> navController.navigate(destination) },
                     onNavigateToPortfolioDetails = { portfolioItemList ->
                         navController.navigate(
-                            Screen.PortfolioDetails(portfolioItemList = portfolioItemList)
+                            Destination.PortfolioDetails(portfolioItemList = portfolioItemList)
                         )
                     }
                 )
             }
-            composable<Screen.PortfolioDetails>(
+            composable<Destination.PortfolioDetails>(
                 typeMap = mapOf(
                     typeOf<List<PortfolioItem>>() to CustomNavType.PortfolioItemListType
                 )
             ) { entry ->
                 val viewModel: PortfolioDetailsViewModel = hiltViewModel()
-                val args = entry.toRoute<Screen.PortfolioDetails>()
+                val args = entry.toRoute<Destination.PortfolioDetails>()
                 PortfolioDetailsRoute(
                     viewModel = viewModel,
                     portfolioItemList = args.portfolioItemList
                 )
             }
-            composable<Screen.AddCase> {
+            composable<Destination.AddCase> {
                 val viewModel: AddCaseViewModel = hiltViewModel()
                 AddCaseRoute(
                     viewModel = viewModel,
-                    navigateToPortfolio = { screen -> navController.navigate(screen) }
+                    navigateToPortfolio = { destination -> navController.navigate(destination) }
                 )
             }
-            composable<Screen.CurrencyChange> {
+            composable<Destination.CurrencyChange> {
                 val viewModel: CurrencyChangeViewModel = hiltViewModel()
                 CurrencyChangeRoute(
                     viewModel = viewModel,
                     navigateToStartWithPreferredCurrency = { currency ->
                         navController.navigate(
-                            Screen.Start(preferredCurrency = currency)
+                            Destination.Start(preferredCurrency = currency)
                         )
                     }
                 )
@@ -139,28 +136,28 @@ fun AppNavHost() {
     }
 }
 
-sealed class Screen {
+sealed class Destination {
     @Serializable
-    data class Start(val preferredCurrency: String? = null) : Screen()
+    data class Start(val preferredCurrency: String? = null) : Destination()
 
     @Serializable
-    data object CaseOverView : Screen()
+    data object CaseOverView : Destination()
 
     @Serializable
-    data class CaseDetails(val caseOverviewModel: CaseOverviewModel) : Screen()
+    data class CaseDetails(val caseOverviewModel: CaseOverviewModel) : Destination()
 
     @Serializable
-    data object CaseAnalytics : Screen()
+    data object CaseAnalytics : Destination()
 
     @Serializable
-    data object CurrencyChange : Screen()
+    data object CurrencyChange : Destination()
 
     @Serializable
-    data object Portfolio : Screen()
+    data object Portfolio : Destination()
 
     @Serializable
-    data class PortfolioDetails(val portfolioItemList: List<PortfolioItem>) : Screen()
+    data class PortfolioDetails(val portfolioItemList: List<PortfolioItem>) : Destination()
 
     @Serializable
-    data object AddCase : Screen()
+    data object AddCase : Destination()
 }

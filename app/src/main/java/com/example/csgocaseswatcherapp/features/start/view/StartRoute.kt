@@ -4,14 +4,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.csgocaseswatcherapp.core.navigation.Screen
+import com.example.csgocaseswatcherapp.core.navigation.Destination
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun StartRoute(
     viewModel:StartViewModel,
     currency: String?,
-    onNavigate: (Screen) -> Unit
+    onNavigate: (Destination) -> Unit
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -22,10 +22,10 @@ fun StartRoute(
     LaunchedEffect(viewModel) {
         viewModel.uiEvent.collectLatest { event ->
             when (event) {
-                StartViewEvent.NavigateToCaseOverview -> onNavigate(Screen.CaseOverView)
-                StartViewEvent.NavigateToPortfolio -> onNavigate(Screen.Portfolio)
-                StartViewEvent.NavigateToAnalytics -> onNavigate(Screen.CaseAnalytics)
-                StartViewEvent.NavigateToCurrencyChange -> onNavigate(Screen.CurrencyChange)
+                StartViewEvent.NavigateToCaseOverview -> onNavigate(Destination.CaseOverView)
+                StartViewEvent.NavigateToPortfolio -> onNavigate(Destination.Portfolio)
+                StartViewEvent.NavigateToAnalytics -> onNavigate(Destination.CaseAnalytics)
+                StartViewEvent.NavigateToCurrencyChange -> onNavigate(Destination.CurrencyChange)
             }
         }
     }
