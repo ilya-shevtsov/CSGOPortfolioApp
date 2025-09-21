@@ -60,12 +60,12 @@ class CurrencyChangeFragment : Fragment(R.layout.fragment_currency_change) {
 
 
     private fun navigateToStartWithPreferredCurrency(
-        uiEvent: CurrencyChangeViewEvent.NavigateToStartWithPreferredCurrency
+
     ) {
-        setFragmentResult(
-            "preferredCurrency",
-            bundleOf("preferredCurrency" to uiEvent.currencyName)
-        )
+//        setFragmentResult(
+//            "preferredCurrency",
+//            bundleOf("preferredCurrency" to uiEvent.currencyName)
+//        )
         findNavController().popBackStack()
     }
 
@@ -77,7 +77,7 @@ class CurrencyChangeFragment : Fragment(R.layout.fragment_currency_change) {
         LaunchedEffect(viewModel) {
             viewModel.uiEvent.collectLatest { event ->
                 when (event) {
-                    is CurrencyChangeViewEvent.NavigateToStartWithPreferredCurrency -> navigateToStartWithPreferredCurrency(event)
+                    is CurrencyChangeViewEvent.NavigateToStartWithPreferredCurrency -> navigateToStartWithPreferredCurrency()
                 }
             }
         }
@@ -88,10 +88,10 @@ class CurrencyChangeFragment : Fragment(R.layout.fragment_currency_change) {
         )
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (context.applicationContext as CaseWatcherApplication)
-            .getAppComponent()
-            .inject(this)
-    }
+//    override fun onAttach(context: Context) {
+//        super.onAttach(context)
+//        (context.applicationContext as CaseWatcherApplication)
+//            .getAppComponent()
+//            .inject(this)
+//    }
 }

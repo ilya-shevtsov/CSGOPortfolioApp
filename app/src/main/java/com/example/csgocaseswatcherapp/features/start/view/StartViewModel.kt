@@ -7,10 +7,12 @@ import com.example.csgocaseswatcherapp.features.start.data.entities.PreferredCur
 import com.example.csgocaseswatcherapp.features.start.domain.entities.PreferredCurrency
 import com.example.csgocaseswatcherapp.features.start.domain.usecases.GetPreferredCurrencyUseCase
 import com.example.csgocaseswatcherapp.features.start.domain.usecases.SendPreferredCurrencyUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+@HiltViewModel
 
 class StartViewModel @Inject constructor(
     private val getPreferredCurrencyUseCase: GetPreferredCurrencyUseCase,

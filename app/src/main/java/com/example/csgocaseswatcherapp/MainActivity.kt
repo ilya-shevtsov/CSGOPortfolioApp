@@ -1,21 +1,23 @@
 package com.example.csgocaseswatcherapp
 
 import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.csgocaseswatcherapp.core.navigation.AppNavHost
+import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
-open class MainActivity : AppCompatActivity() {
-
+@AndroidEntryPoint
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        setupActionBarWithNavController(findNavController(R.id.fragment))
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.fragment)
-        return navController.navigateUp() || super.onSupportNavigateUp()
+        setContent {
+            AppTheme {
+                AppNavHost()
+            }
+        }
     }
 }

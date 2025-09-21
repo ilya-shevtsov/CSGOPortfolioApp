@@ -7,6 +7,7 @@ import com.example.csgocaseswatcherapp.features.portfolio.view.entities.Portfoli
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItem
 import com.example.csgocaseswatcherapp.features.portfoliodetails.domain.PortfolioDetailsState
 import com.github.mikephil.charting.data.PieEntry
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -14,6 +15,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
+@HiltViewModel
 class PortfolioDetailsViewModel @Inject constructor() : ViewModel() {
 
     val uiState: MutableStateFlow<PortfolioDetailsViewState> =
@@ -36,7 +38,7 @@ class PortfolioDetailsViewModel @Inject constructor() : ViewModel() {
     fun handleAction(action: PortfolioDetailsViewAction) {
         when (action) {
             is PortfolioDetailsViewAction.OnPortfolioDataProvided -> handleOnPortfolioDataProvided(
-                action.portfolioItemListArgs
+                action.portfolioItemList
             )
         }
     }
@@ -50,9 +52,9 @@ class PortfolioDetailsViewModel @Inject constructor() : ViewModel() {
         }.launchIn(viewModelScope)
     }
 
-    private fun handleOnPortfolioDataProvided(portfolioItemListArgs: PortfolioItemListArgs) {
+    private fun handleOnPortfolioDataProvided(portfolioItemList: List<PortfolioItem>) {
         businessState.update { state ->
-            state.copy(portfolioItemList = portfolioItemListArgs.portfolioItemList)
+            state.copy(portfolioItemList = portfolioItemList)
         }
     }
 

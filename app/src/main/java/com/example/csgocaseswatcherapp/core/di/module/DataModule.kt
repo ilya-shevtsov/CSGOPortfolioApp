@@ -12,28 +12,26 @@ import com.example.csgocaseswatcherapp.features.start.data.StartServerRepository
 import com.example.csgocaseswatcherapp.features.start.domain.StartRepository
 import dagger.Binds
 import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
+@InstallIn(SingletonComponent::class)
 interface DataModule {
 
-    @Binds
-    @Singleton
+    @Binds @Singleton
     fun caseRepository(impl: CaseOverviewServerRepository): CaseRepository
 
-    @Binds
-    @Singleton
+    @Binds @Singleton
     fun caseAnalyticsRepository(impl: CaseAnalyticsServerRepository): CaseAnalyticsRepository
 
-    @Binds
-    @Singleton
+    @Binds @Singleton
     fun portfolioServerRepository(impl: PortfolioServerRepository): PortfolioRepository
 
-    @Binds
-    @Singleton
+    @Binds @Singleton
     fun addCaseServerRepository(impl: AddCaseServerRepository): AddCaseRepository
 
-    @Binds
-    @Singleton
+    @Binds @Singleton
     fun startServerRepository(impl: StartServerRepository): StartRepository
 }

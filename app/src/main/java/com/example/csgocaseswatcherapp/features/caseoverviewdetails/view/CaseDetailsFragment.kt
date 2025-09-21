@@ -70,10 +70,10 @@ class CaseDetailsFragment : Fragment(R.layout.fragment_case_details) {
         CaseDetailsScreen(state, onAction = { action -> viewModel.handleAction(action) })
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (context.applicationContext as CaseWatcherApplication)
-            .getAppComponent()
-            .inject(this)
-    }
+//    override fun onAttach(context: Context) {
+//        super.onAttach(context)
+//        (context.applicationContext as CaseWatcherApplication)
+//            .getAppComponent()
+//            .inject(this)
+//    }
 }

@@ -132,10 +132,10 @@ class PortfolioFragment : Fragment(R.layout.fragment_portfolio) {
         }
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (context.applicationContext as CaseWatcherApplication)
-            .getAppComponent()
-            .inject(this)
-    }
+//    override fun onAttach(context: Context) {
+//        super.onAttach(context)
+//        (context.applicationContext as CaseWatcherApplication)
+//            .getAppComponent()
+//            .inject(this)
+//    }
 }

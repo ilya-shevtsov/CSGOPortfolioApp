@@ -63,6 +63,7 @@ class StartFragment : Fragment(R.layout.fragment_start) {
 
         val state by viewModel.uiState.collectAsStateWithLifecycle()
 
+
         LaunchedEffect(viewModel) {
             viewModel.uiEvent.collectLatest { event ->
                 when (event) {
@@ -84,10 +85,10 @@ class StartFragment : Fragment(R.layout.fragment_start) {
         findNavController().navigate(distinction)
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (context.applicationContext as CaseWatcherApplication).getAppComponent().inject(this)
-    }
+//    override fun onAttach(context: Context) {
+//        super.onAttach(context)
+//        (context.applicationContext as CaseWatcherApplication).getAppComponent().inject(this)
+//    }
 }
 
 

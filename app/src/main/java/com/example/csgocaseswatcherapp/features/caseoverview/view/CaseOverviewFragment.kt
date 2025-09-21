@@ -95,10 +95,10 @@ class CaseOverviewFragment : Fragment(R.layout.fragment_case_overview) {
 
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (context.applicationContext as CaseWatcherApplication)
-            .getAppComponent()
-            .inject(this)
-    }
+//    override fun onAttach(context: Context) {
+//        super.onAttach(context)
+//        (context.applicationContext as CaseWatcherApplication)
+//            .getAppComponent()
+//            .inject(this)
+//    }
 }

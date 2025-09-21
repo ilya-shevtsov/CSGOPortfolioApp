@@ -85,12 +85,12 @@ class AddCaseFragment : Fragment(R.layout.fragment_add_case) {
         findNavController().popBackStack()
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (context.applicationContext as CaseWatcherApplication)
-            .getAppComponent()
-            .inject(this)
-    }
+//    override fun onAttach(context: Context) {
+//        super.onAttach(context)
+//        (context.applicationContext as CaseWatcherApplication)
+//            .getAppComponent()
+//            .inject(this)
+//    }
 
     companion object {
         const val ADD_CASE_REQUEST_KEY = "addedCase"

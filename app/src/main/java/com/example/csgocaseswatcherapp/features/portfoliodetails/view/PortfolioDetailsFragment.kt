@@ -79,7 +79,7 @@ class PortfolioDetailsFragment : Fragment(R.layout.fragment_portfolio_details) {
     fun PortfolioDetailsIntegration(
         viewModel: PortfolioDetailsViewModel
     ) {
-        viewModel.handleAction(PortfolioDetailsViewAction.OnPortfolioDataProvided(args.portfolioItemListArgs))
+        viewModel.handleAction(PortfolioDetailsViewAction.OnPortfolioDataProvided(args.portfolioItemListArgs.portfolioItemList))
 
         val state by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -88,11 +88,11 @@ class PortfolioDetailsFragment : Fragment(R.layout.fragment_portfolio_details) {
         )
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (context.applicationContext as CaseWatcherApplication)
-            .getAppComponent()
-            .inject(this)
-    }
+//    override fun onAttach(context: Context) {
+//        super.onAttach(context)
+//        (context.applicationContext as CaseWatcherApplication)
+//            .getAppComponent()
+//            .inject(this)
+//    }
 }
 

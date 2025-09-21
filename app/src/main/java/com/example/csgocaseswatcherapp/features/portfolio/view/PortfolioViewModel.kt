@@ -9,6 +9,7 @@ import com.example.csgocaseswatcherapp.features.portfolio.view.entities.Portfoli
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioValueItem
 import com.example.csgocaseswatcherapp.features.sortingmodal.entities.SortState
 import com.github.mikephil.charting.data.BarEntry
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -19,6 +20,7 @@ import java.util.Locale
 import javax.inject.Inject
 import kotlin.math.roundToLong
 
+@HiltViewModel
 class PortfolioViewModel @Inject constructor(
     private val getPortfolioDataUseCase: GetPortfolioDataUseCase
 ) : ViewModel() {

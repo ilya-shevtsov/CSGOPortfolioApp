@@ -5,11 +5,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.csgocaseswatcherapp.features.caseanalytics.domain.usecases.GetCaseAnalyticsListUseCase
 import com.example.csgocaseswatcherapp.features.caseanalytics.view.entities.CaseAnalyticsItemMapper
 import com.example.csgocaseswatcherapp.features.caseanalytics.view.entities.CaseAnalyticsModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class CaseAnalyticsViewModel @Inject constructor(
     private val getCaseAnalyticsListUseCase: GetCaseAnalyticsListUseCase
 ) : ViewModel() {
