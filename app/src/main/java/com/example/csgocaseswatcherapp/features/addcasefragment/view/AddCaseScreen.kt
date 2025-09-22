@@ -8,12 +8,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.MenuAnchorType
@@ -38,6 +38,8 @@ import com.example.csgocaseswatcherapp.core.ui.BackgroundDecorations
 import com.example.csgocaseswatcherapp.core.ui.ErrorScreen
 import com.example.csgocaseswatcherapp.core.ui.LoadingScreen
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
+import com.example.csgocaseswatcherapp.features.addcasefragment.data.entities.AddCaseSuggestion
+import com.example.csgocaseswatcherapp.features.addcasefragment.view.entities.CaseSuggestionItem
 
 @Composable
 fun AddCaseScreen(
@@ -132,15 +134,21 @@ fun AddCaseContent(
 
                 ExposedDropdownMenu(
                     expanded = expanded,
-                    onDismissRequest = { expanded = false }
+                    onDismissRequest = { expanded = false },
+                    modifier = Modifier
+                        .exposedDropdownSize(matchTextFieldWidth = true) // same width as text field
+                        .heightIn(max = 320.dp),                         // constrain height, makes it feel lighter
+                    containerColor = AppTheme.colors.surface,            // dark surface
+                    tonalElevation = 2.dp,
+                    shadowElevation = 8.dp
                 ) {
                     state.caseNameSuggestionList
                         .take(8)
-                        .forEach { suggestion ->
-                            DropdownMenuItem(
-                                text = { Text(suggestion) },
+                        .forEach { suggestionData ->
+                            CaseSuggestionItem(
+                                suggestion = suggestionData,
                                 onClick = {
-                                    onAction(AddCaseAction.OnSuggestionClicked(suggestion))
+                                    onAction(AddCaseAction.OnSuggestionClicked(suggestionData.name))
                                     expanded = false
                                 }
                             )
@@ -222,7 +230,16 @@ fun AddCaseContentPreview() {
                 name = "Chroma Case", amount = "37", price = "3.14",
                 caseNameSearchQuery = "Chroma",
                 isAddCaseButtonActive = false,
-                caseNameSuggestionList = listOf("Chroma Case", "Chroma 2 Case")
+                caseNameSuggestionList = listOf(
+                    AddCaseSuggestion(
+                        name = "Chroma Case",
+                        imageUrl = "https://api.steamapis.com/image/item/730/Chroma%20Case"
+                    ),
+                    AddCaseSuggestion(
+                        name = "Chroma 2 Case",
+                        imageUrl = "https://api.steamapis.com/image/item/730/Chroma%202%20Case"
+                    )
+                )
             ),
             onAction = {},
         )
