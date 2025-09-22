@@ -27,7 +27,10 @@ import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 import com.example.csgocaseswatcherapp.features.addcasefragment.data.entities.AddCaseSuggestion
 
 @Composable
-fun CaseSuggestionItem(suggestion: AddCaseSuggestion, onClick: () -> Unit) {
+fun CaseSuggestionItem(
+    suggestion: AddCaseSuggestion,
+    onClick: () -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()

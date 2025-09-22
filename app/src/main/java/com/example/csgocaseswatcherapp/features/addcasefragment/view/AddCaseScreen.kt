@@ -16,6 +16,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -136,23 +137,32 @@ fun AddCaseContent(
                     expanded = expanded,
                     onDismissRequest = { expanded = false },
                     modifier = Modifier
-                        .exposedDropdownSize(matchTextFieldWidth = true) // same width as text field
-                        .heightIn(max = 320.dp),                         // constrain height, makes it feel lighter
-                    containerColor = AppTheme.colors.surface,            // dark surface
+                        .exposedDropdownSize(matchTextFieldWidth = true)
+                        .heightIn(max = 320.dp),
+                    containerColor = AppTheme.colors.surface,
                     tonalElevation = 2.dp,
                     shadowElevation = 8.dp
                 ) {
-                    state.caseNameSuggestionList
-                        .take(8)
-                        .forEach { suggestionData ->
-                            CaseSuggestionItem(
-                                suggestion = suggestionData,
-                                onClick = {
-                                    onAction(AddCaseAction.OnSuggestionClicked(suggestionData.name))
-                                    expanded = false
-                                }
+
+                    val suggestions = state.caseNameSuggestionList.take(8)
+
+                    suggestions.forEachIndexed { index, suggestionData ->
+                        CaseSuggestionItem(
+                            suggestion = suggestionData,
+                            onClick = {
+                                onAction(AddCaseAction.OnSuggestionClicked(suggestionData.name))
+                                expanded = false
+                            }
+                        )
+
+                        if (index < suggestions.lastIndex) {
+                            HorizontalDivider(
+                                modifier = Modifier.padding(horizontal = 12.dp),
+                                color = AppTheme.colors.onSurface.copy(alpha = 0.08f),
+                                thickness = 2.dp
                             )
                         }
+                    }
                 }
             }
 
