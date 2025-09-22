@@ -15,10 +15,12 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
@@ -45,6 +47,7 @@ import com.example.csgocaseswatcherapp.features.portfolio.view.entities.Portfoli
 import com.example.csgocaseswatcherapp.features.portfoliodetails.view.PortfolioDetailsRoute
 import com.example.csgocaseswatcherapp.features.portfoliodetails.view.PortfolioDetailsViewModel
 import com.example.csgocaseswatcherapp.features.sortingmodal.view.SortingModalViewModel
+import com.example.csgocaseswatcherapp.features.start.view.StartAction
 import com.example.csgocaseswatcherapp.features.start.view.StartRoute
 import com.example.csgocaseswatcherapp.features.start.view.StartViewModel
 import kotlinx.serialization.Serializable
@@ -96,12 +99,25 @@ fun AppNavHost(
                 startDestination = Destination.Start::class
             ) {
                 composable<Destination.Start> { entry ->
-                    val viewModel: StartViewModel = hiltViewModel()
+                    val viewModel: StartViewModel = hiltViewModel(entry)
                     val args = entry.toRoute<Destination.Start>()
+
+                    val currencyFlow = remember(entry) {
+                        entry.savedStateHandle.getStateFlow<String?>("preferred_currency", null)
+                    }
+                    val returnedCurrency by currencyFlow.collectAsStateWithLifecycle()
+
+                    LaunchedEffect(returnedCurrency, args.preferredCurrency) {
+                        val picked = returnedCurrency ?: args.preferredCurrency
+                        if (picked != null) {
+                            viewModel.handleAction(StartAction.OnCurrencySelected(picked))
+                            entry.savedStateHandle["preferred_currency"] = null
+                        }
+                    }
+
                     StartRoute(
                         viewModel = viewModel,
                         onNavigate = { destination -> navController.navigate(destination) },
-                        currency = args.preferredCurrency
                     )
                 }
                 composable<Destination.CaseOverView> {
@@ -122,7 +138,7 @@ fun AppNavHost(
                         typeOf<CaseOverviewModel>() to CustomNavType.CaseOverviewModelType
                     )
                 ) { entry ->
-                    val viewModel: CaseDetailsViewModel = hiltViewModel()
+                    val viewModel: CaseDetailsViewModel = hiltViewModel(entry)
                     val args = entry.toRoute<Destination.CaseDetails>()
                     CaseOverviewDetailsRoute(
                         viewModel = viewModel,
@@ -152,7 +168,7 @@ fun AppNavHost(
                         typeOf<List<PortfolioItem>>() to CustomNavType.PortfolioItemListType
                     )
                 ) { entry ->
-                    val viewModel: PortfolioDetailsViewModel = hiltViewModel()
+                    val viewModel: PortfolioDetailsViewModel = hiltViewModel(entry)
                     val args = entry.toRoute<Destination.PortfolioDetails>()
                     PortfolioDetailsRoute(
                         viewModel = viewModel,
@@ -171,9 +187,10 @@ fun AppNavHost(
                     CurrencyChangeRoute(
                         viewModel = viewModel,
                         navigateToStartWithPreferredCurrency = { currency ->
-                            navController.navigate(
-                                Destination.Start(preferredCurrency = currency)
-                            )
+                            navController.previousBackStackEntry
+                                ?.savedStateHandle
+                                ?.set("preferred_currency", currency)
+                            navController.popBackStack()
                         }
                     )
                 }

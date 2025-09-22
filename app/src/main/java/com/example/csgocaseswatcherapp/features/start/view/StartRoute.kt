@@ -10,14 +10,9 @@ import kotlinx.coroutines.flow.collectLatest
 @Composable
 fun StartRoute(
     viewModel:StartViewModel,
-    currency: String?,
     onNavigate: (Destination) -> Unit
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
-
-    LaunchedEffect(currency) {
-        viewModel.handleAction(StartAction.OnCurrencySelected(currency))
-    }
 
     LaunchedEffect(viewModel) {
         viewModel.uiEvent.collectLatest { event ->
