@@ -2,9 +2,7 @@ package com.example.csgocaseswatcherapp.features.start.view
 
 sealed class StartAction {
 
-    data class OnCurrencySelected(
-        val preferredCurrency: String?
-    ) : StartAction()
+    data object OnCreate : StartAction()
 
     data object OnCaseOverviewClicked : StartAction()
 

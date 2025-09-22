@@ -40,7 +40,6 @@ fun StartScreen(
     state: StartViewState,
     onAction: (StartAction) -> Unit,
 ) {
-
     when (state) {
         is StartViewState.Content ->
             StartScreenContent(
@@ -57,6 +56,8 @@ private fun StartScreenContent(
     state: StartViewState.Content,
     onAction: (StartAction) -> Unit
 ) {
+
+    onAction(StartAction.OnCreate)
 
     val isDark = isSystemInDarkTheme()
 

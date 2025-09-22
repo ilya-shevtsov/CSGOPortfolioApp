@@ -15,12 +15,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
@@ -47,7 +45,6 @@ import com.example.csgocaseswatcherapp.features.portfolio.view.entities.Portfoli
 import com.example.csgocaseswatcherapp.features.portfoliodetails.view.PortfolioDetailsRoute
 import com.example.csgocaseswatcherapp.features.portfoliodetails.view.PortfolioDetailsViewModel
 import com.example.csgocaseswatcherapp.features.sortingmodal.view.SortingModalViewModel
-import com.example.csgocaseswatcherapp.features.start.view.StartAction
 import com.example.csgocaseswatcherapp.features.start.view.StartRoute
 import com.example.csgocaseswatcherapp.features.start.view.StartViewModel
 import kotlinx.serialization.Serializable
@@ -98,27 +95,13 @@ fun AppNavHost(
                 navController = navController,
                 startDestination = Destination.Start::class
             ) {
-                composable<Destination.Start> { entry ->
-                    val viewModel: StartViewModel = hiltViewModel(entry)
-                    val args = entry.toRoute<Destination.Start>()
-
-                    val currencyFlow = remember(entry) {
-                        entry.savedStateHandle.getStateFlow<String?>("preferred_currency", null)
-                    }
-                    val returnedCurrency by currencyFlow.collectAsStateWithLifecycle()
-
-                    LaunchedEffect(returnedCurrency, args.preferredCurrency) {
-                        val picked = returnedCurrency ?: args.preferredCurrency
-                        if (picked != null) {
-                            viewModel.handleAction(StartAction.OnCurrencySelected(picked))
-                            entry.savedStateHandle["preferred_currency"] = null
-                        }
-                    }
-
+                composable<Destination.Start> {
+                    val viewModel: StartViewModel = hiltViewModel()
                     StartRoute(
                         viewModel = viewModel,
                         onNavigate = { destination -> navController.navigate(destination) },
                     )
+
                 }
                 composable<Destination.CaseOverView> {
                     val viewModel: CaseOverviewViewModel = hiltViewModel()
@@ -186,11 +169,12 @@ fun AppNavHost(
                     val viewModel: CurrencyChangeViewModel = hiltViewModel()
                     CurrencyChangeRoute(
                         viewModel = viewModel,
-                        navigateToStartWithPreferredCurrency = { currency ->
-                            navController.previousBackStackEntry
-                                ?.savedStateHandle
-                                ?.set("preferred_currency", currency)
-                            navController.popBackStack()
+                        navigateToStart = { destination ->
+                            navController.navigate(destination) {
+                                popUpTo(navController.graph.startDestinationId) { inclusive = true }
+                                launchSingleTop = true
+                            }
+
                         }
                     )
                 }
@@ -220,6 +204,7 @@ private fun computeTitle(entry: NavBackStackEntry?): String {
         else -> ""
     }
 }
+
 sealed class Destination {
     @Serializable
     data class Start(val preferredCurrency: String? = null) : Destination()
