@@ -162,7 +162,12 @@ fun AppNavHost(
                     val viewModel: AddCaseViewModel = hiltViewModel()
                     AddCaseRoute(
                         viewModel = viewModel,
-                        navigateToPortfolio = { destination -> navController.navigate(destination) }
+                        navigateToPortfolio = { destination ->
+                            navController.navigate(destination) {
+                                popUpTo(Destination.Portfolio::class) { inclusive = true }
+                                launchSingleTop = true
+                            }
+                        }
                     )
                 }
                 composable<Destination.CurrencyChange> {
@@ -174,7 +179,6 @@ fun AppNavHost(
                                 popUpTo(navController.graph.startDestinationId) { inclusive = true }
                                 launchSingleTop = true
                             }
-
                         }
                     )
                 }
