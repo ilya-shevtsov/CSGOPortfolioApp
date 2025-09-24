@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class LocalStartServerRepository @Inject constructor() : StartRepository {
 
-    private val mockServerResponse = PreferredCurrencyDto(1)
+    private var mockServerResponse = PreferredCurrencyDto(1)
 
     override suspend fun getPreferredCurrency(): PreferredCurrency {
         val response = mockServerResponse
@@ -16,6 +16,6 @@ class LocalStartServerRepository @Inject constructor() : StartRepository {
     }
 
     override fun sendPreferredCurrency(preferredCurrency: PreferredCurrency) {
-        // TO-DO
+        mockServerResponse = PreferredCurrencyDto(preferredCurrency.preferredCurrency)
     }
 }
