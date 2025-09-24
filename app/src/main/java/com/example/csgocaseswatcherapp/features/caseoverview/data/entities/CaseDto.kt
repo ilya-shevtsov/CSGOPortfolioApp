@@ -5,7 +5,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CaseDto(
-    val success: Boolean,
     val name: String,
     val releaseDate: String,
     val dropStatus: String,
