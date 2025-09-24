@@ -17,16 +17,15 @@ fun AddCaseRoute(
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
 
-    LaunchedEffect(viewModel, context) {
+    LaunchedEffect(viewModel) {
         viewModel.uiEvent.collectLatest { event ->
             when (event) {
-                is AddCaseEvent.NavigateToPortfolioWithAddedCase -> {
-                    navigateToPortfolio(Destination.Portfolio)
-                }
-
-                is AddCaseEvent.ShowValidationError -> {
-                    Toast.makeText(context, event.message, Toast.LENGTH_LONG).show()
-                }
+                is AddCaseEvent.NavigateToPortfolioWithAddedCase -> navigateToPortfolio(Destination.Portfolio)
+                is AddCaseEvent.ShowValidationError -> Toast.makeText(
+                    context,
+                    event.message,
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
     }
