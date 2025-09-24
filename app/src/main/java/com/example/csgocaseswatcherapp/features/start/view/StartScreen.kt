@@ -23,7 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -39,9 +38,8 @@ import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 @Composable
 fun StartScreen(
     state: StartViewState,
-    onAction: (StartViewAction) -> Unit,
+    onAction: (StartAction) -> Unit,
 ) {
-
     when (state) {
         is StartViewState.Content ->
             StartScreenContent(
@@ -56,8 +54,10 @@ fun StartScreen(
 @Composable
 private fun StartScreenContent(
     state: StartViewState.Content,
-    onAction: (StartViewAction) -> Unit
+    onAction: (StartAction) -> Unit
 ) {
+
+    onAction(StartAction.OnCreate)
 
     val isDark = isSystemInDarkTheme()
 
@@ -79,7 +79,7 @@ private fun StartScreenContent(
         ) {
             HeaderDecoration(
                 currencyButtonText = state.currencyButton,
-                onAction = { onAction(StartViewAction.OnCurrencyChangeClicked) }
+                onAction = { onAction(StartAction.OnCurrencyChangeClicked) }
             )
 
             LogoAndSlogan(
@@ -100,7 +100,7 @@ private fun StartScreenContent(
 
 @Composable
 fun ButtonsSelectionSection(
-    onAction: (StartViewAction) -> Unit,
+    onAction: (StartAction) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -115,15 +115,15 @@ fun ButtonsSelectionSection(
         ) {
             MainMenuButton(
                 buttonText = stringResource(R.string.front_page_case_overview_button),
-                onClick = { onAction(StartViewAction.OnCaseOverviewClicked) }
+                onClick = { onAction(StartAction.OnCaseOverviewClicked) }
             )
             MainMenuButton(
                 buttonText = stringResource(R.string.front_page_analytics_button),
-                onClick = { onAction(StartViewAction.OnAnalyticsClicked) }
+                onClick = { onAction(StartAction.OnAnalyticsClicked) }
             )
             MainMenuButton(
                 buttonText = stringResource(R.string.front_page_portfolio_button),
-                onClick = { onAction(StartViewAction.OnPortfolioClicked) }
+                onClick = { onAction(StartAction.OnPortfolioClicked) }
             )
         }
     }
@@ -133,7 +133,7 @@ fun ButtonsSelectionSection(
 fun HeaderDecoration(
     modifier: Modifier = Modifier,
     currencyButtonText: String,
-    onAction: (StartViewAction) -> Unit
+    onAction: (StartAction) -> Unit
 ) {
     Row(
         modifier = modifier
@@ -153,7 +153,7 @@ fun HeaderDecoration(
                 top = AppTheme.dimensions.paddingML,
                 end = AppTheme.dimensions.paddingML
             ),
-            onClick = { onAction(StartViewAction.OnCurrencyChangeClicked) },
+            onClick = { onAction(StartAction.OnCurrencyChangeClicked) },
             buttonText = currencyButtonText
         )
     }

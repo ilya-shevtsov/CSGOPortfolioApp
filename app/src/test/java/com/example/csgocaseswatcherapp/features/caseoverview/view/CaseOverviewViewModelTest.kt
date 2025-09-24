@@ -6,7 +6,6 @@ import assertk.assertions.isEqualTo
 import com.example.csgocaseswatcherapp.features.caseoverview.domain.entities.CaseOverview
 import com.example.csgocaseswatcherapp.features.caseoverview.domain.usecases.GetCaseOverviewListUseCase
 import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewModel
-import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewModelMapper
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
@@ -88,10 +87,10 @@ class CaseOverviewViewModelTest {
         viewModel = buildViewModel()
 
         viewModel.uiEvent.test {
-            viewModel.handleAction(CaseOverviewViewAction.OnCaseClicked(case))
+            viewModel.handleAction(CaseOverviewAction.OnCaseClicked(case))
 
             assertThat(awaitItem()).isEqualTo(
-                CaseOverviewViewEvent.NavigateToCaseDetails(case)
+                CaseOverviewEvent.NavigateToCaseDetails(case)
             )
             cancelAndIgnoreRemainingEvents()
         }

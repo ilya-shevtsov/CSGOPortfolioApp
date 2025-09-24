@@ -4,11 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.csgocaseswatcherapp.features.sortingmodal.entities.SortingEntry
 import com.example.csgocaseswatcherapp.features.sortingmodal.entities.SortState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
+@HiltViewModel
 class SortingModalViewModel @Inject constructor() : ViewModel() {
 
 

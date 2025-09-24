@@ -1,12 +1,11 @@
 package com.example.csgocaseswatcherapp.features.portfoliodetails.view
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemListArgs
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItem
 import com.example.csgocaseswatcherapp.features.portfoliodetails.domain.PortfolioDetailsState
 import com.github.mikephil.charting.data.PieEntry
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -14,12 +13,13 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
+@HiltViewModel
 class PortfolioDetailsViewModel @Inject constructor() : ViewModel() {
 
     val uiState: MutableStateFlow<PortfolioDetailsViewState> =
         MutableStateFlow(value = PortfolioDetailsViewState.Loading)
 
-    val uiEvent = MutableSharedFlow<PortfolioDetailsViewEvent>()
+    val uiEvent = MutableSharedFlow<PortfolioDetailsEvent>()
 
     private val businessState = MutableStateFlow(
         initBusinessState()
@@ -33,10 +33,10 @@ class PortfolioDetailsViewModel @Inject constructor() : ViewModel() {
         return PortfolioDetailsState(portfolioItemList = listOf())
     }
 
-    fun handleAction(action: PortfolioDetailsViewAction) {
+    fun handleAction(action: PortfolioDetailsAction) {
         when (action) {
-            is PortfolioDetailsViewAction.OnPortfolioDataProvided -> handleOnPortfolioDataProvided(
-                action.portfolioItemListArgs
+            is PortfolioDetailsAction.OnPortfolioDataProvided -> handleOnPortfolioDataProvided(
+                action.portfolioItemList
             )
         }
     }
@@ -50,9 +50,9 @@ class PortfolioDetailsViewModel @Inject constructor() : ViewModel() {
         }.launchIn(viewModelScope)
     }
 
-    private fun handleOnPortfolioDataProvided(portfolioItemListArgs: PortfolioItemListArgs) {
+    private fun handleOnPortfolioDataProvided(portfolioItemList: List<PortfolioItem>) {
         businessState.update { state ->
-            state.copy(portfolioItemList = portfolioItemListArgs.portfolioItemList)
+            state.copy(portfolioItemList = portfolioItemList)
         }
     }
 

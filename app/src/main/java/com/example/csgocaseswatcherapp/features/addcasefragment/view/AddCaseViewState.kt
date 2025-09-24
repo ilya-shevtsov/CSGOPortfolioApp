@@ -1,6 +1,7 @@
 package com.example.csgocaseswatcherapp.features.addcasefragment.view
 
 import androidx.annotation.StringRes
+import com.example.csgocaseswatcherapp.features.addcasefragment.data.entities.AddCaseSuggestion
 
 sealed class AddCaseViewState {
     data object Loading : AddCaseViewState()
@@ -15,6 +16,6 @@ sealed class AddCaseViewState {
         @StringRes val nameError: Int? = null,
         val caseNameSearchQuery: String = "",
         val isAddCaseButtonActive: Boolean = false,
-        val caseNameSuggestionList: List<String>
+        val caseNameSuggestionList: List<AddCaseSuggestion>
     ) : AddCaseViewState()
 }

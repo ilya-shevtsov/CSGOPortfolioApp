@@ -15,7 +15,6 @@ class StartServerRepository @Inject constructor() : StartRepository {
     override suspend fun getPreferredCurrency(): PreferredCurrency {
         val response = ApiTools.getApiService().getPreferredCurrency()
         return PreferredCurrencyMapper.map(response)
-
     }
 
     override fun sendPreferredCurrency(preferredCurrency: PreferredCurrency) {

@@ -9,6 +9,7 @@ import com.example.csgocaseswatcherapp.features.portfolio.view.entities.Portfoli
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioValueItem
 import com.example.csgocaseswatcherapp.features.sortingmodal.entities.SortState
 import com.github.mikephil.charting.data.BarEntry
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -19,6 +20,7 @@ import java.util.Locale
 import javax.inject.Inject
 import kotlin.math.roundToLong
 
+@HiltViewModel
 class PortfolioViewModel @Inject constructor(
     private val getPortfolioDataUseCase: GetPortfolioDataUseCase
 ) : ViewModel() {
@@ -26,7 +28,7 @@ class PortfolioViewModel @Inject constructor(
     val uiState: MutableStateFlow<PortfolioViewState> =
         MutableStateFlow(value = PortfolioViewState.Loading)
 
-    val uiEvent = MutableSharedFlow<PortfolioViewEvent>()
+    val uiEvent = MutableSharedFlow<PortfolioEvent>()
 
     private val businessState = MutableStateFlow(
         initBusinessState()
@@ -75,15 +77,15 @@ class PortfolioViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-    fun handleAction(action: PortfolioViewAction) {
+    fun handleAction(action: PortfolioAction) {
         when (action) {
-            is PortfolioViewAction.OnCreate -> onCreate()
-            is PortfolioViewAction.OnAddCaseClicked -> handleOnAddCaseClicked()
-            is PortfolioViewAction.OnCaseAdded -> handleOnCaseAdded()
-            is PortfolioViewAction.OnSortClicked -> handleOnOnSortClicked()
-            is PortfolioViewAction.OnSortingMethodSelected -> handleOnSortingMethodSelected(action)
-            is PortfolioViewAction.OnPortfolioDetailsClicked -> handleOnPortfolioDetailsClicked()
-            is PortfolioViewAction.HideSortingModal -> hideSortingSheet()
+            is PortfolioAction.OnCreate -> onCreate()
+            is PortfolioAction.OnAddCaseClicked -> handleOnAddCaseClicked()
+            is PortfolioAction.OnCaseAdded -> handleOnCaseAdded()
+            is PortfolioAction.OnSortClicked -> handleOnOnSortClicked()
+            is PortfolioAction.OnSortingMethodSelected -> handleOnSortingMethodSelected(action)
+            is PortfolioAction.OnPortfolioDetailsClicked -> handleOnPortfolioDetailsClicked()
+            is PortfolioAction.HideSortingModal -> hideSortingSheet()
 
         }
     }
@@ -142,7 +144,7 @@ class PortfolioViewModel @Inject constructor(
         val portfolioItemListArgs = PortfolioItemListArgs(currentBusinessState.portfolioItemList)
         viewModelScope.launch {
             uiEvent.emit(
-                PortfolioViewEvent.NavigateToPortfolioDetails(
+                PortfolioEvent.NavigateToPortfolioDetails(
                     portfolioItemListArgs
                 )
             )
@@ -153,12 +155,12 @@ class PortfolioViewModel @Inject constructor(
         businessState.update { state -> state.copy(isSortingSheetVisible = false) }
     }
 
-    private fun handleOnSortingMethodSelected(action: PortfolioViewAction.OnSortingMethodSelected) {
+    private fun handleOnSortingMethodSelected(action: PortfolioAction.OnSortingMethodSelected) {
         businessState.update { state ->
             state.copy(sortState = action.sortState, isSortingSheetVisible = false)
         }
         viewModelScope.launch {
-            uiEvent.emit(PortfolioViewEvent.ScrollToTop)
+            uiEvent.emit(PortfolioEvent.ScrollToTop)
         }
     }
 
@@ -187,7 +189,7 @@ class PortfolioViewModel @Inject constructor(
     }
 
     private fun handleOnAddCaseClicked() {
-        viewModelScope.launch { uiEvent.emit(PortfolioViewEvent.NavigateToAddCase) }
+        viewModelScope.launch { uiEvent.emit(PortfolioEvent.NavigateToAddCase) }
     }
 
     private fun Double.formatTotalValue(): String {

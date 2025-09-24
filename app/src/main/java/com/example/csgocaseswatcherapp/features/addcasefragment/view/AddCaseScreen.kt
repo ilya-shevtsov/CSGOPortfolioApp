@@ -8,16 +8,15 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -40,13 +39,15 @@ import com.example.csgocaseswatcherapp.core.ui.BackgroundDecorations
 import com.example.csgocaseswatcherapp.core.ui.ErrorScreen
 import com.example.csgocaseswatcherapp.core.ui.LoadingScreen
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
+import com.example.csgocaseswatcherapp.features.addcasefragment.data.entities.AddCaseSuggestion
+import com.example.csgocaseswatcherapp.features.addcasefragment.view.entities.CaseSuggestionItem
 
 @Composable
 fun AddCaseScreen(
     state: AddCaseViewState,
-    onAction: (AddCaseViewAction) -> Unit,
+    onAction: (AddCaseAction) -> Unit,
 ) {
-    LaunchedEffect(Unit) { onAction(AddCaseViewAction.OnCreate) }
+    LaunchedEffect(Unit) { onAction(AddCaseAction.OnCreate) }
 
     when (state) {
         is AddCaseViewState.Loading -> LoadingScreen()
@@ -58,11 +59,12 @@ fun AddCaseScreen(
     }
 }
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddCaseContent(
     state: AddCaseViewState.Content,
-    onAction: (AddCaseViewAction) -> Unit,
+    onAction: (AddCaseAction) -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }
     var hasFocus by remember { mutableStateOf(false) }
@@ -122,7 +124,7 @@ fun AddCaseContent(
                         .onFocusChanged { f -> hasFocus = f.isFocused },
                     value = state.name,
                     onValueChange = { newValue ->
-                        onAction(AddCaseViewAction.OnNameChanged(newValue))
+                        onAction(AddCaseAction.OnNameChanged(newValue))
                     },
                     supportingText = { state.nameError?.let { ShowSupportText(stringResource(it)) } },
                     label = { Text("Case Name") },
@@ -133,25 +135,40 @@ fun AddCaseContent(
 
                 ExposedDropdownMenu(
                     expanded = expanded,
-                    onDismissRequest = { expanded = false }
+                    onDismissRequest = { expanded = false },
+                    modifier = Modifier
+                        .exposedDropdownSize(matchTextFieldWidth = true)
+                        .heightIn(max = 320.dp),
+                    containerColor = AppTheme.colors.surface,
+                    tonalElevation = 2.dp,
+                    shadowElevation = 8.dp
                 ) {
-                    state.caseNameSuggestionList
-                        .take(8)
-                        .forEach { suggestion ->
-                            DropdownMenuItem(
-                                text = { Text(suggestion) },
-                                onClick = {
-                                    onAction(AddCaseViewAction.OnSuggestionClicked(suggestion))
-                                    expanded = false
-                                }
+
+                    val suggestions = state.caseNameSuggestionList.take(8)
+
+                    suggestions.forEachIndexed { index, suggestionData ->
+                        CaseSuggestionItem(
+                            suggestion = suggestionData,
+                            onClick = {
+                                onAction(AddCaseAction.OnSuggestionClicked(suggestionData.name))
+                                expanded = false
+                            }
+                        )
+
+                        if (index < suggestions.lastIndex) {
+                            HorizontalDivider(
+                                modifier = Modifier.padding(horizontal = 12.dp),
+                                color = AppTheme.colors.onSurface.copy(alpha = 0.08f),
+                                thickness = 2.dp
                             )
                         }
+                    }
                 }
             }
 
             OutlinedTextField(
                 value = state.amount,
-                onValueChange = { newValue -> onAction(AddCaseViewAction.OnAmountChanged(newValue)) },
+                onValueChange = { newValue -> onAction(AddCaseAction.OnAmountChanged(newValue)) },
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text("Amount of cases") },
                 singleLine = true,
@@ -166,7 +183,7 @@ fun AddCaseContent(
             OutlinedTextField(
                 value = state.price,
                 onValueChange = { newValue ->
-                    onAction(AddCaseViewAction.OnPriceChanged(newValue))
+                    onAction(AddCaseAction.OnPriceChanged(newValue))
                 },
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text("Purchase price") },
@@ -188,7 +205,7 @@ fun AddCaseContent(
                     disabledContainerColor = AppTheme.colors.onSurface.copy(alpha = 0.12f),
                     disabledContentColor = AppTheme.colors.onSurface.copy(alpha = 0.38f)
                 ),
-                onClick = { onAction(AddCaseViewAction.OnAddCaseClicked) },
+                onClick = { onAction(AddCaseAction.OnAddCaseClicked) },
                 enabled = state.isAddCaseButtonActive,
                 shape = RoundedCornerShape(8.dp),
                 modifier = Modifier
@@ -223,7 +240,16 @@ fun AddCaseContentPreview() {
                 name = "Chroma Case", amount = "37", price = "3.14",
                 caseNameSearchQuery = "Chroma",
                 isAddCaseButtonActive = false,
-                caseNameSuggestionList = listOf("Chroma Case", "Chroma 2 Case")
+                caseNameSuggestionList = listOf(
+                    AddCaseSuggestion(
+                        name = "Chroma Case",
+                        imageUrl = "https://api.steamapis.com/image/item/730/Chroma%20Case"
+                    ),
+                    AddCaseSuggestion(
+                        name = "Chroma 2 Case",
+                        imageUrl = "https://api.steamapis.com/image/item/730/Chroma%202%20Case"
+                    )
+                )
             ),
             onAction = {},
         )
