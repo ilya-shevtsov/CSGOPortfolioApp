@@ -1,7 +1,7 @@
-package com.example.csgocaseswatcherapp.features.addcasefragment.view
+package com.example.csgocaseswatcherapp.features.addcase.view
 
 import androidx.annotation.StringRes
-import com.example.csgocaseswatcherapp.features.addcasefragment.data.entities.AddCaseSuggestion
+import com.example.csgocaseswatcherapp.features.addcase.data.entities.AddCaseSuggestion
 
 sealed class AddCaseViewState {
     data object Loading : AddCaseViewState()

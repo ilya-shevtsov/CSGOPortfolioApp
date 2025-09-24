@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.features.addcasefragment.view.entities
+package com.example.csgocaseswatcherapp.features.addcase.view.entities
 
 import java.io.Serializable
 

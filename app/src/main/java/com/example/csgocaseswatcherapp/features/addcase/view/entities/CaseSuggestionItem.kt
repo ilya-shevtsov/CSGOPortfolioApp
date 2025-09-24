@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.features.addcasefragment.view.entities
+package com.example.csgocaseswatcherapp.features.addcase.view.entities
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
@@ -24,7 +24,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
-import com.example.csgocaseswatcherapp.features.addcasefragment.data.entities.AddCaseSuggestion
+import com.example.csgocaseswatcherapp.features.addcase.data.entities.AddCaseSuggestion
 
 @Composable
 fun CaseSuggestionItem(

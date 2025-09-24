@@ -1,9 +1,9 @@
-package com.example.csgocaseswatcherapp.features.addcasefragment.data
+package com.example.csgocaseswatcherapp.features.addcase.data
 
 import com.LocalMockStore
-import com.example.csgocaseswatcherapp.features.addcasefragment.data.entities.AddCaseSuggestion
-import com.example.csgocaseswatcherapp.features.addcasefragment.domain.AddCaseRepository
-import com.example.csgocaseswatcherapp.features.addcasefragment.view.entities.AddedCase
+import com.example.csgocaseswatcherapp.features.addcase.data.entities.AddCaseSuggestion
+import com.example.csgocaseswatcherapp.features.addcase.domain.AddCaseRepository
+import com.example.csgocaseswatcherapp.features.addcase.view.entities.AddedCase
 
 import javax.inject.Inject
 

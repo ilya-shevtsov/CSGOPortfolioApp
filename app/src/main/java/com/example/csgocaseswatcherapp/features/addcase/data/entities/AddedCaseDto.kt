@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.features.addcasefragment.data.entities
+package com.example.csgocaseswatcherapp.features.addcase.data.entities
 
 import kotlinx.serialization.Serializable
 

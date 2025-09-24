@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.features.addcasefragment.view
+package com.example.csgocaseswatcherapp.features.addcase.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -39,8 +39,8 @@ import com.example.csgocaseswatcherapp.core.ui.BackgroundDecorations
 import com.example.csgocaseswatcherapp.core.ui.ErrorScreen
 import com.example.csgocaseswatcherapp.core.ui.LoadingScreen
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
-import com.example.csgocaseswatcherapp.features.addcasefragment.data.entities.AddCaseSuggestion
-import com.example.csgocaseswatcherapp.features.addcasefragment.view.entities.CaseSuggestionItem
+import com.example.csgocaseswatcherapp.features.addcase.data.entities.AddCaseSuggestion
+import com.example.csgocaseswatcherapp.features.addcase.view.entities.CaseSuggestionItem
 
 @Composable
 fun AddCaseScreen(

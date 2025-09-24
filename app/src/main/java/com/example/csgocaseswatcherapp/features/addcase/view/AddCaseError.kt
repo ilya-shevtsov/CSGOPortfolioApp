@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.features.addcasefragment.view
+package com.example.csgocaseswatcherapp.features.addcase.view
 
 import androidx.annotation.StringRes
 import com.example.csgocaseswatcherapp.R

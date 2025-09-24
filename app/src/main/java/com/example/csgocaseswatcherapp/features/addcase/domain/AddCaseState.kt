@@ -1,6 +1,6 @@
-package com.example.csgocaseswatcherapp.features.addcasefragment.domain
+package com.example.csgocaseswatcherapp.features.addcase.domain
 
-import com.example.csgocaseswatcherapp.features.addcasefragment.data.entities.AddCaseSuggestion
+import com.example.csgocaseswatcherapp.features.addcase.data.entities.AddCaseSuggestion
 
 
 data class AddCaseState(

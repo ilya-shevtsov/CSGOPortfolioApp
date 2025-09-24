@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.features.addcasefragment.view
+package com.example.csgocaseswatcherapp.features.addcase.view
 
 import android.widget.Toast
 import androidx.compose.runtime.Composable

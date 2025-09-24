@@ -1,6 +1,6 @@
-package com.example.csgocaseswatcherapp.features.addcasefragment.domain
+package com.example.csgocaseswatcherapp.features.addcase.domain
 
-import com.example.csgocaseswatcherapp.features.addcasefragment.view.AddCaseError
+import com.example.csgocaseswatcherapp.features.addcase.view.AddCaseError
 
 sealed interface AmountValidationResult {
     data class Success(val amount: Int) : AmountValidationResult
