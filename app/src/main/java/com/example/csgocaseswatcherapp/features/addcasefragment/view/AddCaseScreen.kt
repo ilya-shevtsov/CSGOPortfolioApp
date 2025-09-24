@@ -144,7 +144,7 @@ fun AddCaseContent(
                     shadowElevation = 8.dp
                 ) {
 
-                    val suggestions = state.caseNameSuggestionList.take(8)
+                    val suggestions = state.caseNameSuggestionList
 
                     suggestions.forEachIndexed { index, suggestionData ->
                         CaseSuggestionItem(
@@ -157,7 +157,7 @@ fun AddCaseContent(
 
                         if (index < suggestions.lastIndex) {
                             HorizontalDivider(
-                                modifier = Modifier.padding(horizontal = 12.dp),
+                                modifier = Modifier.padding(horizontal = AppTheme.dimensions.paddingML),
                                 color = AppTheme.colors.onSurface.copy(alpha = 0.08f),
                                 thickness = 2.dp
                             )

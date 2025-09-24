@@ -83,7 +83,7 @@ class AddCaseViewModel @Inject constructor(
                             result.suggestionList.filter {
                                 it.name.contains(state.caseNameSearchQuery, ignoreCase = true)
                             }
-                        }
+                        }.take(8)
                     val nameErr =
                         state.name.validateName(state.originalNameSuggestionList.map { addCaseSuggestion -> addCaseSuggestion.name })
                     val amountErr = state.amountField.result.toErrorResOrNull()
