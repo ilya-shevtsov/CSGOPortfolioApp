@@ -2,7 +2,6 @@ package com
 
 import com.example.csgocaseswatcherapp.features.addcasefragment.view.entities.AddedCase
 import com.example.csgocaseswatcherapp.features.portfolio.data.entities.PortfolioItemDto
-import com.example.csgocaseswatcherapp.features.start.data.entities.PreferredCurrencyDto
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -11,9 +10,6 @@ import javax.inject.Singleton
 
 @Singleton
 class LocalMockStore @Inject constructor() {
-
-    private var mockServerResponse = PreferredCurrencyDto(1)
-
 
     private val _portfolio = MutableStateFlow(
         listOf(
