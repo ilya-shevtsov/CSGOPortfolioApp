@@ -18,6 +18,3 @@ class CaseOverviewServerRepository @Inject constructor(
         return caseOverViewList
     }
 }
-
-
-
