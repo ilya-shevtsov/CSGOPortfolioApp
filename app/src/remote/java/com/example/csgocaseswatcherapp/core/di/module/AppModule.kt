@@ -20,18 +20,23 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 interface AppModule {
 
-    @Binds @Singleton
+    @Binds
+    @Singleton
     fun caseRepository(impl: CaseOverviewServerRepository): CaseRepository
 
-    @Binds @Singleton
+    @Binds
+    @Singleton
     fun caseAnalyticsRepository(impl: CaseAnalyticsServerRepository): CaseAnalyticsRepository
 
-    @Binds @Singleton
+    @Binds
+    @Singleton
     fun portfolioServerRepository(impl: PortfolioServerRepository): PortfolioRepository
 
-    @Binds @Singleton
+    @Binds
+    @Singleton
     fun addCaseServerRepository(impl: AddCaseServerRepository): AddCaseRepository
 
-    @Binds @Singleton
+    @Binds
+    @Singleton
     fun startServerRepository(impl: StartServerRepository): StartRepository
 }

@@ -11,10 +11,17 @@ plugins {
 android {
     namespace 'com.example.csgocaseswatcherapp'
     compileSdkVersion 35
+    flavorDimensions += "data"
 
     buildFeatures {
+        buildConfig true
         compose true
         viewBinding = true
+    }
+
+    productFlavors {
+        create("remote") { dimension = "data" }
+        create("local") { dimension = "data" }
     }
 
     defaultConfig {
