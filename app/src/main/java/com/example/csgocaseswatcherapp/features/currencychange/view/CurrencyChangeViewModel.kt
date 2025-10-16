@@ -30,11 +30,10 @@ class CurrencyChangeViewModel @Inject constructor(
         viewModelScope.launch {
             when (currencyName) {
                 "USD" -> {
-                    sendPreferredCurrencyUseCase(PreferredCurrency(1))
+                    sendPreferredCurrencyUseCase(PreferredCurrency(USD_VALUE))
                 }
-
                 "RUB" -> {
-                    sendPreferredCurrencyUseCase(PreferredCurrency(5))
+                    sendPreferredCurrencyUseCase(PreferredCurrency(RUB_VALUE))
                 }
             }
             uiEvent.emit(
@@ -46,8 +45,13 @@ class CurrencyChangeViewModel @Inject constructor(
     }
 
     //PlaceHolder for currencies (later get from database)
-
     private fun createInitialState(): CurrencyChangeViewState {
         return CurrencyChangeViewState.Content(listOf("USD", "RUB"))
     }
+
+    companion object {
+        const val USD_VALUE = 1
+        const val RUB_VALUE = 1
+    }
+
 }

@@ -28,8 +28,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
-import com.example.csgocaseswatcherapp.features.addcasefragment.view.AddCaseRoute
-import com.example.csgocaseswatcherapp.features.addcasefragment.view.AddCaseViewModel
+import com.example.csgocaseswatcherapp.features.addcase.view.AddCaseRoute
+import com.example.csgocaseswatcherapp.features.addcase.view.AddCaseViewModel
 import com.example.csgocaseswatcherapp.features.caseanalytics.view.CaseAnalyticsRoute
 import com.example.csgocaseswatcherapp.features.caseanalytics.view.CaseAnalyticsViewModel
 import com.example.csgocaseswatcherapp.features.caseoverview.view.CaseOverViewRoute
