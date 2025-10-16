@@ -101,7 +101,6 @@ fun AppNavHost(
                         viewModel = viewModel,
                         onNavigate = { destination -> navController.navigate(destination) },
                     )
-
                 }
                 composable<Destination.CaseOverView> {
                     val viewModel: CaseOverviewViewModel = hiltViewModel()

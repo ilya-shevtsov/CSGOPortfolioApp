@@ -130,7 +130,6 @@ fun AddCaseContent(
                     label = { Text("Case Name") },
                     singleLine = true,
                     colors = outlinedTextFieldColors
-
                 )
 
                 ExposedDropdownMenu(
