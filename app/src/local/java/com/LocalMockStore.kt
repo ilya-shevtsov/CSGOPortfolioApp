@@ -50,32 +50,50 @@ class LocalMockStore @Inject constructor() {
     val portfolio: StateFlow<List<PortfolioItemDto>> = _portfolio
 
     fun addCaseToPortfolio(added: AddedCase, imageUrl: String) {
-        _portfolio.update { currentState ->
-            val caseIndex = currentState.indexOfFirst { it.name == added.name }
-            if (caseIndex >= 0) {
-                val caseData = currentState[caseIndex]
-                val newAmount = caseData.amount + added.amount
-                val newPurchasePrice =
-                    if (newAmount == 0) caseData.purchasePrice
-                    else ((caseData.purchasePrice * caseData.amount) + (added.purchasePrice * added.amount)) / newAmount
-
-                val updated = caseData.copy(
-                    amount = newAmount,
-                    purchasePrice = newPurchasePrice,
-                    overallValue = newPurchasePrice * newAmount,
-                    imageUrl = caseData.imageUrl.ifBlank { imageUrl }
-                )
-                currentState.toMutableList().apply { set(caseIndex, updated) }
+        _portfolio.update { currentPortfolio ->
+            val addedCaseAlreadyInPortfolio = currentPortfolio.any { it.name == added.name }
+            if (addedCaseAlreadyInPortfolio) {
+                currentPortfolio.map { case ->
+                    if (case.name == added.name) mergeCase(
+                        case,
+                        added,
+                        imageUrl
+                    ) else case
+                }
             } else {
-                currentState + PortfolioItemDto(
-                    name = added.name,
-                    amount = added.amount,
-                    purchasePrice = added.purchasePrice,
-                    overallValue = added.purchasePrice * added.amount,
-                    profitLoss = 0.0,
-                    imageUrl = imageUrl
-                )
+                currentPortfolio + newCase(added, imageUrl)
             }
         }
     }
+
+    private fun mergeCase(
+        case: PortfolioItemDto,
+        added: AddedCase,
+        fallbackImageUrl: String
+    ): PortfolioItemDto {
+        val newAmount = case.amount + added.amount
+        val newPrice = getNewPurchasePrice(case, added, newAmount)
+        return case.copy(
+            amount = newAmount,
+            purchasePrice = newPrice,
+            overallValue = newPrice * newAmount,
+            imageUrl = case.imageUrl.ifBlank { fallbackImageUrl }
+        )
+    }
+
+    private fun newCase(added: AddedCase, imageUrl: String) = PortfolioItemDto(
+        name = added.name,
+        amount = added.amount,
+        purchasePrice = added.purchasePrice,
+        overallValue = added.purchasePrice * added.amount,
+        profitLoss = 0.0,
+        imageUrl = imageUrl
+    )
+
+    private fun getNewPurchasePrice(
+        existingCaseData: PortfolioItemDto,
+        addedCase: AddedCase,
+        newAmount: Int
+    ) =
+        ((existingCaseData.purchasePrice * existingCaseData.amount) + (addedCase.purchasePrice * addedCase.amount)) / newAmount
 }

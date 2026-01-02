@@ -1,6 +1,6 @@
 package com.example.csgocaseswatcherapp.features.caseoverview.data
 
-import com.example.csgocaseswatcherapp.api.ApiTools
+import com.example.csgocaseswatcherapp.api.ServerApi
 import com.example.csgocaseswatcherapp.features.caseoverview.data.entities.CaseOverviewMapper
 import com.example.csgocaseswatcherapp.features.caseoverview.domain.CaseRepository
 import com.example.csgocaseswatcherapp.features.caseoverview.domain.entities.CaseOverview
@@ -8,11 +8,11 @@ import com.example.csgocaseswatcherapp.features.caseoverview.domain.entities.Cas
 import javax.inject.Inject
 
 class CaseOverviewServerRepository @Inject constructor(
-
+    private val api: ServerApi
 ) : CaseRepository {
 
     override suspend fun getCaseOverviewList(): List<CaseOverview> {
-        val caseDtoListResponse = ApiTools.getApiService().getCaseList()
+        val caseDtoListResponse = api.getCaseList()
         val caseOverViewList =
             caseDtoListResponse.map { caseDto -> CaseOverviewMapper.map(caseDto) }
         return caseOverViewList

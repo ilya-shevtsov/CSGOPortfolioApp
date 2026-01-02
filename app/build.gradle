@@ -49,11 +49,10 @@ android {
 
     kotlinOptions {
         jvmTarget = '17'
-        freeCompilerArgs = ['-Xjvm-default=all'] 
+        freeCompilerArgs = ['-Xjvm-default=all']
 
     }
 }
-
 
 dependencies {
     implementation 'androidx.core:core-ktx:1.16.0'
@@ -81,7 +80,6 @@ dependencies {
 
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3"
     implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0"
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.11.0'
 
     implementation "com.google.dagger:hilt-android:2.52"
     kapt "com.google.dagger:hilt-android-compiler:2.52"
@@ -90,16 +88,9 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.12.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
     implementation 'com.squareup.retrofit2:retrofit:2.11.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.11.0'
 
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
-    implementation "io.reactivex.rxjava2:rxkotlin:2.4.0"
 
-    implementation 'com.facebook.fresco:fresco:3.4.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
-    implementation "com.github.lisawray.groupie:groupie:2.10.1"
-    implementation "com.github.lisawray.groupie:groupie-viewbinding:2.10.1"
     implementation "io.coil-kt:coil-compose:2.7.0"
 
     testImplementation 'junit:junit:4.13.2'
