@@ -1,7 +1,7 @@
 package com.example.csgocaseswatcherapp.features.caseoverview.data
 
 import com.example.csgocaseswatcherapp.api.ServerApi
-import com.example.csgocaseswatcherapp.features.caseoverview.data.entities.CaseOverviewMapper
+import com.example.csgocaseswatcherapp.features.caseoverview.data.CaseOverviewMapper
 import com.example.csgocaseswatcherapp.features.caseoverview.domain.CaseRepository
 import com.example.csgocaseswatcherapp.features.caseoverview.domain.entities.CaseOverview
 

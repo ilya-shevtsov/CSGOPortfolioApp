@@ -73,6 +73,7 @@ dependencies {
 
     implementation project(':feature:portfolio')
     implementation project(':domain:portfolio')
+    implementation project(':data:portfolio')
 
     implementation project(':feature:addcase')
     implementation project(':domain:addcase')

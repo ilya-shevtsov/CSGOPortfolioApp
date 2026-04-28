@@ -1,5 +1,6 @@
 package com.example.csgocaseswatcherapp.features.caseanalytics.data
 
+import com.example.csgocaseswatcherapp.features.caseanalytics.data.entities.CaseAnalyticsDto
 import com.example.csgocaseswatcherapp.features.caseanalytics.domain.entities.CaseAnalytics
 
 

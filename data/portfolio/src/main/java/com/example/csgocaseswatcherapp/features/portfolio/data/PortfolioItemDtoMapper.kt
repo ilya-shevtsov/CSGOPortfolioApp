@@ -1,5 +1,6 @@
-package com.example.csgocaseswatcherapp.features.portfolio.data.entities
+package com.example.csgocaseswatcherapp.features.portfolio.data
 
+import com.example.csgocaseswatcherapp.features.portfolio.data.entities.PortfolioItemDto
 import com.example.csgocaseswatcherapp.features.portfolio.domain.entities.PortfolioItem
 
 object PortfolioItemDtoMapper {
