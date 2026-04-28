@@ -10,3 +10,5 @@ include ':domain:start'
 
 include ':domain:caseoverview'
 include ':feature:caseoverview'
+include ':domain:caseanalytics'
+include ':feature:caseanalytics'

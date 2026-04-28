@@ -32,9 +32,10 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.example.csgocaseswatcherapp.R
+import com.example.csgocaseswatcherapp.core.ui.StatRow
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
-import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.StatRow
+import com.example.csgocaseswatcherapp.core.ui.R as UiR
+
 
 @Composable
 fun CaseAnalyticsItem(
@@ -64,8 +65,8 @@ fun CaseAnalyticsItem(
                     .crossfade(true)
                     .build(),
                 contentDescription = item.caseName,
-                placeholder = painterResource(R.drawable.case_placeholder),
-                error = painterResource(R.drawable.ic_error),
+                placeholder = painterResource(UiR.drawable.case_placeholder),
+                error = painterResource(UiR.drawable.ic_error),
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .size(100.dp)
