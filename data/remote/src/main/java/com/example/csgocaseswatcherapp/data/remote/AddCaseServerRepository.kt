@@ -1,5 +1,4 @@
-package com.example.csgocaseswatcherapp.features.addcase.data
-
+package com.example.csgocaseswatcherapp.data.remote
 
 import com.example.csgocaseswatcherapp.api.ServerApi
 import com.example.csgocaseswatcherapp.features.addcase.data.entities.AddedCaseDto

@@ -1,14 +1,15 @@
 package com.example.csgocaseswatcherapp.core.di.module
 
+import com.example.csgocaseswatcherapp.data.remote.AddCaseServerRepository
+import com.example.csgocaseswatcherapp.data.remote.CaseAnalyticsServerRepository
+import com.example.csgocaseswatcherapp.data.remote.CaseOverviewServerRepository
+import com.example.csgocaseswatcherapp.data.remote.PortfolioServerRepository
+import com.example.csgocaseswatcherapp.data.remote.StartServerRepository
 import com.example.csgocaseswatcherapp.features.addcase.domain.AddCaseRepository
-import com.example.csgocaseswatcherapp.features.addcase.data.AddCaseServerRepository
-import com.example.csgocaseswatcherapp.features.caseanalytics.data.CaseAnalyticsServerRepository
+
 import com.example.csgocaseswatcherapp.features.caseanalytics.domain.CaseAnalyticsRepository
-import com.example.csgocaseswatcherapp.features.caseoverview.data.CaseOverviewServerRepository
 import com.example.csgocaseswatcherapp.features.caseoverview.domain.CaseRepository
-import com.example.csgocaseswatcherapp.features.portfolio.data.PortfolioServerRepository
 import com.example.csgocaseswatcherapp.features.portfolio.domain.PortfolioRepository
-import com.example.csgocaseswatcherapp.features.start.data.StartServerRepository
 import com.example.csgocaseswatcherapp.features.start.domain.StartRepository
 import dagger.Binds
 import dagger.Module

@@ -1,10 +1,9 @@
-package com.example.csgocaseswatcherapp.features.caseoverview.data
+package com.example.csgocaseswatcherapp.data.remote
 
 import com.example.csgocaseswatcherapp.api.ServerApi
 import com.example.csgocaseswatcherapp.features.caseoverview.data.CaseOverviewMapper
 import com.example.csgocaseswatcherapp.features.caseoverview.domain.CaseRepository
 import com.example.csgocaseswatcherapp.features.caseoverview.domain.entities.CaseOverview
-
 import javax.inject.Inject
 
 class CaseOverviewServerRepository @Inject constructor(
