@@ -3,7 +3,7 @@ package com.example.csgocaseswatcherapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.example.csgocaseswatcherapp.core.navigation.AppNavHost
+import com.example.csgocaseswatcherapp.navigation.AppNavHost
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 

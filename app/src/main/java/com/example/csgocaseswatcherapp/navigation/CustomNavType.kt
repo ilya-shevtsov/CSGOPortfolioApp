@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.core.navigation
+package com.example.csgocaseswatcherapp.navigation
 
 import com.example.csgocaseswatcherapp.core.serialization.NavArgCodec.listSerializer
 import com.example.csgocaseswatcherapp.core.serialization.navTypeOf
