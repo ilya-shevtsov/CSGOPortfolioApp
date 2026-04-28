@@ -10,17 +10,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.csgocaseswatcherapp.core.navigation.Destination
 import com.example.csgocaseswatcherapp.features.portfolio.domain.entities.PortfolioItem
-import com.example.csgocaseswatcherapp.features.sortingmodal.view.SortingBottomModal
-import com.example.csgocaseswatcherapp.features.sortingmodal.view.SortingModalViewModel
+import com.example.csgocaseswatcherapp.features.portfolio.view.sortingmodal.view.SortingBottomModal
+import com.example.csgocaseswatcherapp.features.portfolio.view.sortingmodal.view.SortingModalViewModel
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun PortfolioRoute(
     viewModel: PortfolioViewModel,
     sortingViewModel: SortingModalViewModel,
-    onNavigateToAddCase: (Destination.AddCase) -> Unit,
+    onNavigateToAddCase: () -> Unit,
     onNavigateToPortfolioDetails: (List<PortfolioItem>) -> Unit
 ){
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -34,7 +33,7 @@ fun PortfolioRoute(
     LaunchedEffect(viewModel) {
         viewModel.uiEvent.collectLatest { event ->
             when (event) {
-                is PortfolioEvent.NavigateToAddCase -> onNavigateToAddCase(Destination.AddCase)
+                is PortfolioEvent.NavigateToAddCase -> onNavigateToAddCase()
                 is PortfolioEvent.NavigateToPortfolioDetails -> onNavigateToPortfolioDetails(
                     event.portfolioItemListArgs.portfolioItemList
                 )

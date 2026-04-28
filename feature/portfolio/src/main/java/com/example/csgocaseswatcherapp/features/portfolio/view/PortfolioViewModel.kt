@@ -7,7 +7,7 @@ import com.example.csgocaseswatcherapp.features.portfolio.domain.usecases.GetPor
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemListArgs
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemModel
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioValueItem
-import com.example.csgocaseswatcherapp.features.sortingmodal.entities.SortState
+import com.example.csgocaseswatcherapp.features.portfolio.view.sortingmodal.entities.SortState
 import com.github.mikephil.charting.data.BarEntry
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow

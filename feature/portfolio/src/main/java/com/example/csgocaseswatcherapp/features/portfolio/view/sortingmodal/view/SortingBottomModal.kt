@@ -1,10 +1,10 @@
-package com.example.csgocaseswatcherapp.features.sortingmodal.view
+package com.example.csgocaseswatcherapp.features.portfolio.view.sortingmodal.view
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.csgocaseswatcherapp.features.sortingmodal.entities.SortState
+import com.example.csgocaseswatcherapp.features.portfolio.view.sortingmodal.entities.SortState
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable

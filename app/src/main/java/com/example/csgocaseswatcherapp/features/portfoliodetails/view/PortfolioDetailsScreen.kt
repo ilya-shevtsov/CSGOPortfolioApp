@@ -11,10 +11,10 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.viewinterop.AndroidView
-import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.core.ui.ErrorScreen
 import com.example.csgocaseswatcherapp.core.ui.LoadingScreen
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
+import com.example.csgocaseswatcherapp.features.portfolio.R
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
@@ -108,8 +108,8 @@ fun PortfolioDetailsContent(
             }
 
 
-             chart.legend.textColor = theme.onSurface.toArgb()
-             chart.description.textColor = theme.onSurface.toArgb()
+            chart.legend.textColor = theme.onSurface.toArgb()
+            chart.description.textColor = theme.onSurface.toArgb()
 
             chart.invalidate()
             chart.animateY(1000, Easing.EaseInOutQuad)

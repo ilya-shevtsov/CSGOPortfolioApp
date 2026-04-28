@@ -1,9 +1,9 @@
-package com.example.csgocaseswatcherapp.features.sortingmodal.view
+package com.example.csgocaseswatcherapp.features.portfolio.view.sortingmodal.view
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.csgocaseswatcherapp.features.sortingmodal.entities.SortingEntry
-import com.example.csgocaseswatcherapp.features.sortingmodal.entities.SortState
+import com.example.csgocaseswatcherapp.features.portfolio.view.sortingmodal.entities.SortingEntry
+import com.example.csgocaseswatcherapp.features.portfolio.view.sortingmodal.entities.SortState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -45,10 +45,10 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.core.ui.ErrorScreen
 import com.example.csgocaseswatcherapp.core.ui.LoadingScreen
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
+import com.example.csgocaseswatcherapp.features.portfolio.R
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemModel
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.BarChart
@@ -58,6 +58,8 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.ValueFormatter
 import java.util.Locale
+import com.example.csgocaseswatcherapp.core.ui.R as UiR
+
 
 @Composable
 fun PortfolioScreen(
@@ -228,7 +230,7 @@ fun PortfolioItemCard(
                     .crossfade(true)
                     .build(),
                 contentDescription = null,
-                placeholder = painterResource(R.drawable.case_placeholder),
+                placeholder = painterResource(UiR.drawable.case_placeholder),
                 modifier = Modifier
                     .size(width = 85.dp, height = 66.dp)
             )
@@ -285,10 +287,10 @@ private fun PortfolioBarChart(
         factory = { context ->
             BarChart(context).apply {
                 layoutParams = ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+
                 description = Description().apply { text = "" }
                 legend.isEnabled = false
                 setDrawGridBackground(false)
-
                 setBackgroundColor(bgColor.toArgb())
 
                 axisRight.isEnabled = false
@@ -334,7 +336,7 @@ fun PortfolioScreenPreview() {
 
         PortfolioScreen(
             state = PortfolioViewState.Content(
-               portfolioBartEntryList = listOf(
+                portfolioBartEntryList = listOf(
                     BarEntry(1f, 129f),
                     BarEntry(2f, 164f),
                     BarEntry(3f, 225f),

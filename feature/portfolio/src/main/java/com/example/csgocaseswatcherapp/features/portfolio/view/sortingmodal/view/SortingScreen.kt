@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.features.sortingmodal.view
+package com.example.csgocaseswatcherapp.features.portfolio.view.sortingmodal.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -18,7 +18,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
-import com.example.csgocaseswatcherapp.features.sortingmodal.entities.SortState
+import com.example.csgocaseswatcherapp.features.portfolio.view.sortingmodal.entities.SortState
 
 @Composable
 fun SortingScreen(

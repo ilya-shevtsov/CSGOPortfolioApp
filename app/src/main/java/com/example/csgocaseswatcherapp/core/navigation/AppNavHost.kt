@@ -44,7 +44,7 @@ import com.example.csgocaseswatcherapp.features.portfolio.view.PortfolioRoute
 import com.example.csgocaseswatcherapp.features.portfolio.view.PortfolioViewModel
 import com.example.csgocaseswatcherapp.features.portfoliodetails.view.PortfolioDetailsRoute
 import com.example.csgocaseswatcherapp.features.portfoliodetails.view.PortfolioDetailsViewModel
-import com.example.csgocaseswatcherapp.features.sortingmodal.view.SortingModalViewModel
+import com.example.csgocaseswatcherapp.features.portfolio.view.sortingmodal.view.SortingModalViewModel
 import com.example.csgocaseswatcherapp.features.start.view.StartRoute
 import com.example.csgocaseswatcherapp.features.start.view.StartViewModel
 import kotlinx.serialization.Serializable
@@ -148,7 +148,7 @@ fun AppNavHost(
                     PortfolioRoute(
                         viewModel = viewModel,
                         sortingViewModel = sortingViewModel,
-                        onNavigateToAddCase = { destination -> navController.navigate(destination) },
+                        onNavigateToAddCase = { navController.navigate(Destination.AddCase) },
                         onNavigateToPortfolioDetails = { portfolioItemList ->
                             navController.navigate(
                                 Destination.PortfolioDetails(portfolioItemList = portfolioItemList)

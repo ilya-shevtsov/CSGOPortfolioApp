@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.features.sortingmodal.entities
+package com.example.csgocaseswatcherapp.features.portfolio.view.sortingmodal.entities
 
 enum class SortState(val label: String) {
     NAME("Name"),

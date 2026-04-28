@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="portfolio_total_value">Value: %s $</string>
+    <string name="amount_of_cases">%s Cases</string>
+    <string name="average_price">• %s $</string>
+    <string name="overall_value">%s $</string>
+    <string name="profit_loss">%s $ (1.75 \%%)</string>
+    <string name="portfolio_value">Portfolio Value</string>
+    <string name="portfolio_pie_chart_amount">Amount</string>
+    <string name="add_case_button">Add Case</string>
+    <string name="sorting_button">Sorting</string>
+    <string name="details_button">Details</string>
+</resources>
