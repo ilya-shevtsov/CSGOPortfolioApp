@@ -9,3 +9,4 @@ include ':feature:start'
 include ':domain:start'
 
 include ':domain:caseoverview'
+include ':feature:caseoverview'

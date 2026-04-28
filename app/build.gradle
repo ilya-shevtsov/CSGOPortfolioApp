@@ -62,7 +62,7 @@ dependencies {
     implementation project(':domain:start')
     implementation project(':feature:start')
     implementation project(':domain:caseoverview')
-
+    implementation project(':feature:caseoverview')
 
 
     implementation 'androidx.core:core-ktx:1.16.0'

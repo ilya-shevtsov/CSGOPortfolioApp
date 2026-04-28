@@ -32,8 +32,8 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
+import com.example.csgocaseswatcherapp.features.caseoverview.R
 
 
 @Composable
