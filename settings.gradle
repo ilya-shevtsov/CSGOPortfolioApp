@@ -8,3 +8,4 @@ include ':feature:currencychange'
 include ':feature:start'
 include ':domain:start'
 
+include ':domain:caseoverview'

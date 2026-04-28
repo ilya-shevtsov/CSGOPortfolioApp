@@ -1,8 +1,6 @@
 package com.example.csgocaseswatcherapp.features.caseoverview.view.entities
 
 import com.example.csgocaseswatcherapp.features.caseoverview.domain.entities.CaseOverview
-import java.text.NumberFormat
-import java.util.Locale
 
 object CaseOverviewModelMapper {
 
