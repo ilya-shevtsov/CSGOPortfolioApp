@@ -51,7 +51,7 @@ class CurrencyChangeViewModel @Inject constructor(
 
     companion object {
         const val USD_VALUE = 1
-        const val RUB_VALUE = 1
+        const val RUB_VALUE = 5
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.csgocaseswatcherapp.features.start.view
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.csgocaseswatcherapp.features.start.domain.usecases.GetPreferredCurrencyUseCase
@@ -31,6 +32,8 @@ class StartViewModel @Inject constructor(
 
     private fun onCreate() {
         viewModelScope.launch {
+            Log.e("KEK","Start.onCreate: ${getPreferredCurrencyUseCase().preferredCurrency}")
+
             try {
                 val preferredCurrency = when (getPreferredCurrencyUseCase().preferredCurrency) {
                     1 -> "USD"
@@ -39,6 +42,7 @@ class StartViewModel @Inject constructor(
                         "Choose Currency"
                     }
                 }
+
                 uiState.value = StartViewState.Content(preferredCurrency)
             } catch (throwable: Throwable) {
                 showError()

@@ -1,5 +1,6 @@
 package com.example.csgocaseswatcherapp.features.start.data
 
+import android.util.Log
 import com.example.csgocaseswatcherapp.features.start.data.entities.PreferredCurrencyDto
 import com.example.csgocaseswatcherapp.features.start.domain.StartRepository
 import com.example.csgocaseswatcherapp.features.start.domain.entities.PreferredCurrency
@@ -15,6 +16,7 @@ class LocalStartServerRepository @Inject constructor() : StartRepository {
     }
 
     override fun sendPreferredCurrency(preferredCurrency: PreferredCurrency) {
+        Log.e("KEK","sendPreferredCurrency: $preferredCurrency")
         mockServerResponse = PreferredCurrencyDto(preferredCurrency.preferredCurrency)
     }
 }
