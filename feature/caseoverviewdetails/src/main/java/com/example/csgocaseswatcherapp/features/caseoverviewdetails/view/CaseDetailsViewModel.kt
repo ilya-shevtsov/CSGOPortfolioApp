@@ -1,8 +1,8 @@
 package com.example.csgocaseswatcherapp.features.caseoverviewdetails.view
 
 import androidx.lifecycle.ViewModel
-import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewModel
+import com.example.csgocaseswatcherapp.features.caseoverviewdetails.R
 import com.example.csgocaseswatcherapp.features.caseoverviewdetails.view.entities.DataRowModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

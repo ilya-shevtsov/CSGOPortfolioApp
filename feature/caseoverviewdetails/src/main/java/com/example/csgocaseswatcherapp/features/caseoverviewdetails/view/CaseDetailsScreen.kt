@@ -29,10 +29,11 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.core.ui.LoadingScreen
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
+import com.example.csgocaseswatcherapp.features.caseoverviewdetails.R
 import com.example.csgocaseswatcherapp.features.caseoverviewdetails.view.entities.DataRowModel
+import com.example.csgocaseswatcherapp.core.ui.R as UiR
 
 @Composable
 fun CaseDetailsScreen(
@@ -88,7 +89,7 @@ fun CaseDetailsContent(
                     .build(),
                 contentDescription = state.caseName,
                 contentScale = ContentScale.Fit,
-                placeholder = painterResource(R.drawable.case_placeholder),
+                placeholder = painterResource(UiR.drawable.case_placeholder),
                 modifier = Modifier
                     .size(160.dp)
                     .clip(RoundedCornerShape(12.dp))

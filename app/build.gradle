@@ -65,6 +65,7 @@ dependencies {
     implementation project(':feature:caseoverview')
     implementation project(':domain:caseanalytics')
     implementation project(':feature:caseanalytics')
+    implementation project(':feature:caseoverviewdetails')
 
     implementation 'androidx.core:core-ktx:1.16.0'
     implementation 'androidx.appcompat:appcompat:1.7.1'
