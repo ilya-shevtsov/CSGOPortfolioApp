@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">CS:GO Portfolio</string>
-    <string name="error_screen_case_overview">Could not connect to the server, try again later</string>
 
     // start screen
     <string name="front_page_slogan">Invest Smart with CS:GO Portfolio Tracker</string>
@@ -122,8 +121,6 @@
     <string name="add_case_button">Add Case</string>
     <string name="sorting_button">Sorting</string>
     <string name="details_button">Details</string>
-    <string name="loading">LOADING</string>
-    <string name="errorIconDesc">errorIcon</string>
 
 
 </resources>
