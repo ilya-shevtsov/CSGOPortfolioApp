@@ -2,10 +2,7 @@
     <string name="app_name">CS:GO Portfolio</string>
 
     // start screen
-    <string name="front_page_slogan">Invest Smart with CS:GO Portfolio Tracker</string>
-    <string name="front_page_case_overview_button">Case Overview</string>
-    <string name="front_page_portfolio_button">Portfolio</string>
-    <string name="front_page_analytics_button">Case Analytics</string>
+
 
     // case details
     <string name="case_volume">Volume:</string>

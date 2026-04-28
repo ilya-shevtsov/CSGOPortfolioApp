@@ -99,7 +99,18 @@ fun AppNavHost(
                     val viewModel: StartViewModel = hiltViewModel()
                     StartRoute(
                         viewModel = viewModel,
-                        onNavigate = { destination -> navController.navigate(destination) },
+                        onNavigateToCaseOverview = {
+                            navController.navigate(Destination.CaseOverView)
+                        },
+                        onNavigateToCaseAnalytics = {
+                            navController.navigate(Destination.CaseAnalytics)
+                        },
+                        onNavigateToPortfolio = {
+                            navController.navigate(Destination.Portfolio)
+                        },
+                        onNavigateToCurrencyChange = {
+                            navController.navigate(Destination.CurrencyChange)
+                        }
                     )
                 }
                 composable<Destination.CaseOverView> {

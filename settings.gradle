@@ -5,4 +5,6 @@ include ':app'
 include ':core:ui'
 include ':core:serialization'
 include ':feature:currencychange'
+include ':feature:start'
 include ':domain:start'
+

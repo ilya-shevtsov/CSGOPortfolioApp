@@ -60,6 +60,7 @@ dependencies {
     implementation project(':core:serialization')
     implementation project(':feature:currencychange')
     implementation project(':domain:start')
+    implementation project(':feature:start')
 
     implementation 'androidx.core:core-ktx:1.16.0'
     implementation 'androidx.appcompat:appcompat:1.7.1'
