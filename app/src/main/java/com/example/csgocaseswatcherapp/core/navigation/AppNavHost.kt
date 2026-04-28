@@ -172,8 +172,8 @@ fun AppNavHost(
                     val viewModel: AddCaseViewModel = hiltViewModel()
                     AddCaseRoute(
                         viewModel = viewModel,
-                        navigateToPortfolio = { destination ->
-                            navController.navigate(destination) {
+                        navigateToPortfolio = {
+                            navController.navigate(Destination.Portfolio) {
                                 popUpTo(Destination.Portfolio::class) { inclusive = true }
                                 launchSingleTop = true
                             }

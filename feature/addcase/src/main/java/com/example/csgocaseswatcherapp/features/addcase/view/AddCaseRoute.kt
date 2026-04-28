@@ -6,13 +6,12 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.csgocaseswatcherapp.core.navigation.Destination
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun AddCaseRoute(
     viewModel: AddCaseViewModel,
-    navigateToPortfolio: (Destination.Portfolio) -> Unit,
+    navigateToPortfolio: () -> Unit,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
@@ -20,7 +19,7 @@ fun AddCaseRoute(
     LaunchedEffect(viewModel) {
         viewModel.uiEvent.collectLatest { event ->
             when (event) {
-                is AddCaseEvent.NavigateToPortfolioWithAddedCase -> navigateToPortfolio(Destination.Portfolio)
+                is AddCaseEvent.NavigateToPortfolioWithAddedCase -> navigateToPortfolio()
                 is AddCaseEvent.ShowValidationError -> Toast.makeText(
                     context,
                     event.message,

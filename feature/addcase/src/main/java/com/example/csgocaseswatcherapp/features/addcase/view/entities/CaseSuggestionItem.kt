@@ -22,9 +22,9 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.example.csgocaseswatcherapp.R
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 import com.example.csgocaseswatcherapp.features.addcase.domain.entities.AddCaseSuggestion
+import com.example.csgocaseswatcherapp.core.ui.R as UiR
 
 @Composable
 fun CaseSuggestionItem(
@@ -44,8 +44,8 @@ fun CaseSuggestionItem(
                 .data(suggestion.imageUrl)
                 .crossfade(true)
                 .build(),
-            placeholder = painterResource(R.drawable.case_placeholder),
-            error = painterResource(R.drawable.ic_error),
+            placeholder = painterResource(UiR.drawable.case_placeholder),
+            error = painterResource(UiR.drawable.ic_error),
             contentDescription = suggestion.name,
             contentScale = ContentScale.Fit,
             modifier = Modifier
