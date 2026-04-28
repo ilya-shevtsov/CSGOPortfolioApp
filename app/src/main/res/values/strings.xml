@@ -16,27 +16,10 @@
     <string name="daily_standard_deviation">Daily standard deviation: %s </string>
     <string name="daily_sharp_ratio">Daily Sharp ratio: %s</string>
 
-    // Portfolio
-
-
-
     // Add Case
     <string name="add_case_case_name">Case Name:</string>
     <string name="add_case_number_of_cases">Number of cases:</string>
     <string name="add_case_purchase_price">Purchase price:</string>
-
-    // Add Case Errors
-    <string name="error_choose_case">Choose a case</string>
-    <string name="error_unknown_case">Unknown case</string>
-
-    <string name="error_enter_amount">Enter amount</string>
-    <string name="error_amount_integer">Amount must be an integer</string>
-    <string name="error_amount_positive">Amount must be &gt; 0</string>
-
-    <string name="error_enter_price">Enter price</string>
-    <string name="error_finish_decimal">Finish the number (e.g., 0.0)</string>
-    <string name="error_price_number">Price must be a number</string>
-    <string name="error_price_positive">Price must be &gt; 0</string>
 
     <string-array name="case_name_array">
         <item>Chroma Case</item>

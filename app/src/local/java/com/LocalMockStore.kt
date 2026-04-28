@@ -1,6 +1,6 @@
 package com
 
-import com.example.csgocaseswatcherapp.features.addcase.view.entities.AddedCase
+import com.example.csgocaseswatcherapp.features.addcase.domain.entities.AddedCase
 import com.example.csgocaseswatcherapp.features.portfolio.data.entities.PortfolioItemDto
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

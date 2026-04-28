@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.features.addcase.view.entities
+package com.example.csgocaseswatcherapp.features.addcase.domain.entities
 
 import java.io.Serializable
 

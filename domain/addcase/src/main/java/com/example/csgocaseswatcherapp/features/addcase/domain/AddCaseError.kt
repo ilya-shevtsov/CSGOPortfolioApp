@@ -1,7 +1,6 @@
-package com.example.csgocaseswatcherapp.features.addcase.view
+package com.example.csgocaseswatcherapp.features.addcase.domain
 
 import androidx.annotation.StringRes
-import com.example.csgocaseswatcherapp.R
 
 enum class AddCaseError(@StringRes val resId: Int) {
     NAME_EMPTY(R.string.error_choose_case),

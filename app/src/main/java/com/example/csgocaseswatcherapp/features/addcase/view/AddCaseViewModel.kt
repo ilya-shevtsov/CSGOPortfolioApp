@@ -3,14 +3,15 @@ package com.example.csgocaseswatcherapp.features.addcase.view
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.csgocaseswatcherapp.features.addcase.domain.AddCaseError
 import com.example.csgocaseswatcherapp.features.addcase.domain.AddCaseFieldData
 import com.example.csgocaseswatcherapp.features.addcase.domain.AddCaseState
 import com.example.csgocaseswatcherapp.features.addcase.domain.AmountValidationResult
 import com.example.csgocaseswatcherapp.features.addcase.domain.NameSuggestionResult
 import com.example.csgocaseswatcherapp.features.addcase.domain.PriceValidationResult
+import com.example.csgocaseswatcherapp.features.addcase.domain.entities.AddedCase
 import com.example.csgocaseswatcherapp.features.addcase.domain.usecases.GetCaseSuggestionListUseCase
 import com.example.csgocaseswatcherapp.features.addcase.domain.usecases.SendAddedCaseUseCase
-import com.example.csgocaseswatcherapp.features.addcase.view.entities.AddedCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.features.addcase.data.entities
+package com.example.csgocaseswatcherapp.features.addcase.domain.entities
 
 data class AddCaseSuggestion(
     val name: String,

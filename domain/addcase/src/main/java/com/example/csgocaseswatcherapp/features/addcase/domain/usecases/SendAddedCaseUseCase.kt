@@ -1,7 +1,7 @@
 package com.example.csgocaseswatcherapp.features.addcase.domain.usecases
 
 import com.example.csgocaseswatcherapp.features.addcase.domain.AddCaseRepository
-import com.example.csgocaseswatcherapp.features.addcase.view.entities.AddedCase
+import com.example.csgocaseswatcherapp.features.addcase.domain.entities.AddedCase
 import javax.inject.Inject
 
 class SendAddedCaseUseCase @Inject constructor(

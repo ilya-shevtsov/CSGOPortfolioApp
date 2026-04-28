@@ -39,8 +39,9 @@ import com.example.csgocaseswatcherapp.core.ui.BackgroundDecorations
 import com.example.csgocaseswatcherapp.core.ui.ErrorScreen
 import com.example.csgocaseswatcherapp.core.ui.LoadingScreen
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
-import com.example.csgocaseswatcherapp.features.addcase.data.entities.AddCaseSuggestion
+import com.example.csgocaseswatcherapp.features.addcase.domain.entities.AddCaseSuggestion
 import com.example.csgocaseswatcherapp.features.addcase.view.entities.CaseSuggestionItem
+
 
 @Composable
 fun AddCaseScreen(
@@ -55,6 +56,7 @@ fun AddCaseScreen(
             state = state,
             onAction = onAction,
         )
+
         is AddCaseViewState.Error -> ErrorScreen()
     }
 }
@@ -191,7 +193,7 @@ fun AddCaseContent(
                     keyboardType = KeyboardType.Decimal,
                     imeAction = ImeAction.Done
                 ),
-                supportingText = {state.priceError?.let { ShowSupportText(stringResource(it)) }},
+                supportingText = { state.priceError?.let { ShowSupportText(stringResource(it)) } },
                 colors = outlinedTextFieldColors
             )
 
