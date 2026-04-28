@@ -58,19 +58,26 @@ dependencies {
 
     implementation project(':core:ui')
     implementation project(':core:serialization')
-    implementation project(':feature:currencychange')
-    implementation project(':domain:start')
+
     implementation project(':feature:start')
-    implementation project(':domain:caseoverview')
+    implementation project(':domain:start')
+    implementation project(':data:start')
+
     implementation project(':feature:caseoverview')
-    implementation project(':domain:caseanalytics')
+    implementation project(':domain:caseoverview')
+
     implementation project(':feature:caseanalytics')
-    implementation project(':feature:caseoverviewdetails')
-    implementation project(':domain:portfolio')
+    implementation project(':domain:caseanalytics')
+
     implementation project(':feature:portfolio')
-    implementation project(':feature:portfoliodetails')
-    implementation project(':domain:addcase')
+    implementation project(':domain:portfolio')
+
     implementation project(':feature:addcase')
+    implementation project(':domain:addcase')
+
+    implementation project(':feature:currencychange')
+    implementation project(':feature:portfoliodetails')
+    implementation project(':feature:caseoverviewdetails')
 
     implementation 'androidx.core:core-ktx:1.16.0'
     implementation 'androidx.appcompat:appcompat:1.7.1'

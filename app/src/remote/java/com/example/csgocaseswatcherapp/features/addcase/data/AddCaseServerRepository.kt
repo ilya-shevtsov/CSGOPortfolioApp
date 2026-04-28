@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.features.addcasefragment.data
+package com.example.csgocaseswatcherapp.features.addcase.data
 
 
 import com.example.csgocaseswatcherapp.api.ServerApi
