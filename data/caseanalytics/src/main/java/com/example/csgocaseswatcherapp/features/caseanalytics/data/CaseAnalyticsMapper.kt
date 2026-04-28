@@ -1,12 +1,11 @@
-package com.example.csgocaseswatcherapp.features.caseanalytics.data.entities
+package com.example.csgocaseswatcherapp.features.caseanalytics.data
 
 import com.example.csgocaseswatcherapp.features.caseanalytics.domain.entities.CaseAnalytics
 
+
 object CaseAnalyticsMapper {
 
-    fun map(
-        caseAnalyticsDto: CaseAnalyticsDto,
-    ): CaseAnalytics {
+    fun map(caseAnalyticsDto: CaseAnalyticsDto): CaseAnalytics {
         return CaseAnalytics(
             caseName = caseAnalyticsDto.name,
             dailyAvgReturnInPercent = caseAnalyticsDto.dailyAvgReturnInPercent,
@@ -17,6 +16,6 @@ object CaseAnalyticsMapper {
             monthlyAvgReturnInRUB = caseAnalyticsDto.monthlyAvgReturnInRUB,
             monthlyStandardDeviation = caseAnalyticsDto.monthlyStandardDeviation,
             monthlySharpRatio = caseAnalyticsDto.monthlySharpRatio,
-            )
+        )
     }
 }

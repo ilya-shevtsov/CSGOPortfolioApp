@@ -28,3 +28,4 @@ include ':feature:caseoverviewdetails'
 
 include ':feature:portfoliodetails'
 include ':data:caseoverview'
+include ':data:caseanalytics'

@@ -69,6 +69,7 @@ dependencies {
 
     implementation project(':feature:caseanalytics')
     implementation project(':domain:caseanalytics')
+    implementation project(':data:caseanalytics')
 
     implementation project(':feature:portfolio')
     implementation project(':domain:portfolio')
