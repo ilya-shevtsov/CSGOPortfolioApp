@@ -4,7 +4,6 @@ import com.example.csgocaseswatcherapp.api.ServerApi
 import com.example.csgocaseswatcherapp.features.start.data.entities.PreferredCurrencyDtoMapper
 import com.example.csgocaseswatcherapp.features.start.domain.StartRepository
 import com.example.csgocaseswatcherapp.features.start.domain.entities.PreferredCurrency
-import com.example.csgocaseswatcherapp.features.start.domain.entities.PreferredCurrencyMapper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
