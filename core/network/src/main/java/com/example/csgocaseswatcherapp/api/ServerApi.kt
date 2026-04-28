@@ -29,4 +29,3 @@ interface ServerApi {
     @POST("/postAddedCase")
     suspend fun postAddedCase(@Body addedCaseDto: AddedCaseDto): AddedCaseDto
 }
-
