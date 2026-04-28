@@ -27,3 +27,4 @@ include ':feature:currencychange'
 include ':feature:caseoverviewdetails'
 
 include ':feature:portfoliodetails'
+include ':data:caseoverview'
