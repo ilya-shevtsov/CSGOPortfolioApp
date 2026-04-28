@@ -2,7 +2,7 @@ package com.example.csgocaseswatcherapp.features.portfoliodetails.view
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItem
+import com.example.csgocaseswatcherapp.features.portfolio.domain.entities.PortfolioItem
 import com.example.csgocaseswatcherapp.features.portfoliodetails.domain.PortfolioDetailsState
 import com.github.mikephil.charting.data.PieEntry
 import dagger.hilt.android.lifecycle.HiltViewModel

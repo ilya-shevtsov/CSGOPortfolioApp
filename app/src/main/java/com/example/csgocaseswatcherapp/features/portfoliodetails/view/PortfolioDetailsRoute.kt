@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItem
+import com.example.csgocaseswatcherapp.features.portfolio.domain.entities.PortfolioItem
 
 @Composable
 fun PortfolioDetailsRoute(

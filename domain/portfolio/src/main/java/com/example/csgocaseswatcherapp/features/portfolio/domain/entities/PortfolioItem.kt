@@ -1,7 +1,5 @@
-package com.example.csgocaseswatcherapp.features.portfolio.view.entities
+package com.example.csgocaseswatcherapp.features.portfolio.domain.entities
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -13,7 +11,3 @@ data class PortfolioItem(
     val overallValue: Double,
     val profitLoss: Double,
 )
-
-
-
-

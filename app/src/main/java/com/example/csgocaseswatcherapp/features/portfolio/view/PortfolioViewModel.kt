@@ -2,8 +2,8 @@ package com.example.csgocaseswatcherapp.features.portfolio.view
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.csgocaseswatcherapp.features.portfolio.domain.entities.PortfolioItem
 import com.example.csgocaseswatcherapp.features.portfolio.domain.usecases.GetPortfolioDataUseCase
-import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItem
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemListArgs
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemModel
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioValueItem

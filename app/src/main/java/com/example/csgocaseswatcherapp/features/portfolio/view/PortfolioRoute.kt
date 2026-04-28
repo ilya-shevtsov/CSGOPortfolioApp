@@ -11,7 +11,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.csgocaseswatcherapp.core.navigation.Destination
-import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItem
+import com.example.csgocaseswatcherapp.features.portfolio.domain.entities.PortfolioItem
 import com.example.csgocaseswatcherapp.features.sortingmodal.view.SortingBottomModal
 import com.example.csgocaseswatcherapp.features.sortingmodal.view.SortingModalViewModel
 import kotlinx.coroutines.flow.collectLatest

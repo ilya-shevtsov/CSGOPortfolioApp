@@ -1,7 +1,6 @@
 package com.example.csgocaseswatcherapp.features.portfolio.view.entities
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import com.example.csgocaseswatcherapp.features.portfolio.domain.entities.PortfolioItem
 import kotlinx.serialization.Serializable
 
 @Serializable
