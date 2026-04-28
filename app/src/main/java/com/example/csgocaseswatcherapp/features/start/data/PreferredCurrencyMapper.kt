@@ -1,6 +1,7 @@
-package com.example.csgocaseswatcherapp.features.start.domain.entities
+package com.example.csgocaseswatcherapp.features.start.data
 
 import com.example.csgocaseswatcherapp.features.start.data.entities.PreferredCurrencyDto
+import com.example.csgocaseswatcherapp.features.start.domain.entities.PreferredCurrency
 
 object PreferredCurrencyMapper {
 

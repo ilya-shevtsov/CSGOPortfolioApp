@@ -173,8 +173,8 @@ fun AppNavHost(
                     val viewModel: CurrencyChangeViewModel = hiltViewModel()
                     CurrencyChangeRoute(
                         viewModel = viewModel,
-                        navigateToStart = { destination ->
-                            navController.navigate(destination) {
+                        navigateToStart = { preferredCurrency ->
+                            navController.navigate(Destination.Start(preferredCurrency = preferredCurrency)) {
                                 popUpTo(navController.graph.startDestinationId) { inclusive = true }
                                 launchSingleTop = true
                             }

@@ -3,7 +3,6 @@ package com.example.csgocaseswatcherapp.features.start.data
 import com.example.csgocaseswatcherapp.features.start.data.entities.PreferredCurrencyDto
 import com.example.csgocaseswatcherapp.features.start.domain.StartRepository
 import com.example.csgocaseswatcherapp.features.start.domain.entities.PreferredCurrency
-import com.example.csgocaseswatcherapp.features.start.domain.entities.PreferredCurrencyMapper
 import javax.inject.Inject
 
 class LocalStartServerRepository @Inject constructor() : StartRepository {
