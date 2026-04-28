@@ -1,5 +1,7 @@
 package com.example.csgocaseswatcherapp.features.portfoliodetails.view
 
+import android.graphics.Color
+import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import androidx.compose.foundation.background
@@ -14,7 +16,6 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.example.csgocaseswatcherapp.core.ui.ErrorScreen
 import com.example.csgocaseswatcherapp.core.ui.LoadingScreen
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
-import com.example.csgocaseswatcherapp.features.portfolio.R
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
@@ -22,7 +23,7 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
-
+import com.example.csgocaseswatcherapp.core.ui.R as UiR
 @Composable
 fun PortfolioDetailsScreen(
     state: PortfolioDetailsViewState
@@ -43,7 +44,7 @@ fun PortfolioDetailsContent(
     portfolioPietEntryList: List<PieEntry>,
     modifier: Modifier = Modifier
 ) {
-    val label = stringResource(R.string.portfolio_pie_chart_amount)
+    val label = stringResource(UiR.string.pie_chart_amount)
 
     val theme = AppTheme.colors
 
@@ -60,7 +61,7 @@ fun PortfolioDetailsContent(
                 val onSurfaceInt = theme.onSurface.toArgb()
                 val surfaceInt = theme.surface.toArgb()
 
-                setBackgroundColor(android.graphics.Color.TRANSPARENT)
+                setBackgroundColor(Color.TRANSPARENT)
 
                 isDrawHoleEnabled = true
                 setHoleColor(surfaceInt)

@@ -19,8 +19,6 @@ class PortfolioDetailsViewModel @Inject constructor() : ViewModel() {
     val uiState: MutableStateFlow<PortfolioDetailsViewState> =
         MutableStateFlow(value = PortfolioDetailsViewState.Loading)
 
-    val uiEvent = MutableSharedFlow<PortfolioDetailsEvent>()
-
     private val businessState = MutableStateFlow(
         initBusinessState()
     )
