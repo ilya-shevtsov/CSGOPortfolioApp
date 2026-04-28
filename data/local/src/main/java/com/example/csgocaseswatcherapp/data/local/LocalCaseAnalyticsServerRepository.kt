@@ -1,7 +1,7 @@
-package com.example.csgocaseswatcherapp.features.caseanalytics.data
+package com.example.csgocaseswatcherapp.data.local
 
+import com.example.csgocaseswatcherapp.features.caseanalytics.data.CaseAnalyticsMapper
 import com.example.csgocaseswatcherapp.features.caseanalytics.data.entities.CaseAnalyticsDto
-import com.example.csgocaseswatcherapp.features.caseanalytics.data.entities.CaseAnalyticsMapper
 import com.example.csgocaseswatcherapp.features.caseanalytics.domain.CaseAnalyticsRepository
 import com.example.csgocaseswatcherapp.features.caseanalytics.domain.entities.CaseAnalytics
 import javax.inject.Inject
@@ -383,4 +383,3 @@ class LocalCaseAnalyticsServerRepository @Inject constructor() : CaseAnalyticsRe
         )
     )
 }
-

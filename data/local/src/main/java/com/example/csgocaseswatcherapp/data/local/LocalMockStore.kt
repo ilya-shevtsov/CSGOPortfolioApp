@@ -1,4 +1,4 @@
-package com
+package com.example.csgocaseswatcherapp.data.local
 
 import com.example.csgocaseswatcherapp.features.addcase.domain.entities.AddedCase
 import com.example.csgocaseswatcherapp.features.portfolio.data.entities.PortfolioItemDto

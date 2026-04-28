@@ -1,10 +1,9 @@
-package com.example.csgocaseswatcherapp.features.caseoverview.data
+package com.example.csgocaseswatcherapp.data.local
 
+import com.example.csgocaseswatcherapp.features.caseoverview.data.CaseOverviewMapper
 import com.example.csgocaseswatcherapp.features.caseoverview.data.entities.CaseDto
-import com.example.csgocaseswatcherapp.features.caseoverview.data.entities.CaseOverviewMapper
 import com.example.csgocaseswatcherapp.features.caseoverview.domain.CaseRepository
 import com.example.csgocaseswatcherapp.features.caseoverview.domain.entities.CaseOverview
-
 import javax.inject.Inject
 
 class LocalCaseOverviewServerRepository @Inject constructor(
@@ -391,6 +390,3 @@ class LocalCaseOverviewServerRepository @Inject constructor(
         )
     )
 }
-
-
-
