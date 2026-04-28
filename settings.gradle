@@ -1,3 +1,6 @@
-include ':app'
 rootProject.name = "CSGOCasesWatcherApp"
+
+
+include ':app'
 include ':core:ui'
+include ':core:serialization'
