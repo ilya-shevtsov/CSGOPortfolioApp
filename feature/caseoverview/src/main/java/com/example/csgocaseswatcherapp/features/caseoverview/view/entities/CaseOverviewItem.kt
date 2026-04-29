@@ -32,7 +32,6 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.csgocaseswatcherapp.core.ui.StatRow
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
-import com.example.csgocaseswatcherapp.features.caseoverview.R
 import com.example.csgocaseswatcherapp.core.ui.R as UiR
 
 @Composable
@@ -63,7 +62,6 @@ fun CaseOverviewItem(
                     .crossfade(true)
                     .build(),
                 contentDescription = item.caseName,
-                placeholder = painterResource(UiR.drawable.case_placeholder),
                 error = painterResource(UiR.drawable.ic_error),
                 contentScale = ContentScale.Fit,
                 modifier = Modifier

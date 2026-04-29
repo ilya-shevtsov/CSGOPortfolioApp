@@ -5,7 +5,6 @@ include ':app'
 include ':core:ui'
 include ':core:serialization'
 
-
 include ':feature:start'
 include ':domain:start'
 include ':data:start'
@@ -19,8 +18,9 @@ include ':domain:caseoverview'
 include ':feature:caseanalytics'
 include ':domain:caseanalytics'
 
-include ':feature:addcase'
+include ':feature:addcase:view'
 include ':domain:addcase'
+include ':data:addcase'
 
 include ':feature:currencychange'
 
@@ -30,7 +30,6 @@ include ':feature:portfoliodetails'
 include ':data:caseoverview'
 include ':data:caseanalytics'
 include ':data:portfolio'
-include ':data:addcase'
 include ':core:network'
 include ':data:remote'
 include ':data:local'

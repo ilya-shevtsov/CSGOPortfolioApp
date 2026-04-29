@@ -30,7 +30,8 @@ fun CaseOverviewScreen(
                 modifier = Modifier.background(AppTheme.colors.background)
             ) {
                 items(
-                    items = caseItems
+                    items = caseItems,
+                    key = { item -> item.caseName }
                 ) { item ->
                     CaseOverviewItem(
                         item = item,
