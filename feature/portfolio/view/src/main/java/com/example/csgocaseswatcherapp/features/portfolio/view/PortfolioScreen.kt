@@ -40,7 +40,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -350,7 +350,20 @@ private fun PortfolioBarChart(
     )
 }
 
-@PreviewLightDark
+@Preview(
+    name = "Portfolio - long preview light",
+    showBackground = true,
+    widthDp = 420,
+    heightDp = 1600,
+    uiMode = android.content.res.Configuration.UI_MODE_NIGHT_NO
+)
+@Preview(
+    name = "Portfolio - long preview dark",
+    showBackground = true,
+    widthDp = 420,
+    heightDp = 1600,
+    uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES
+)
 @Composable
 fun PortfolioScreenPreview() {
     AppTheme {
@@ -364,43 +377,83 @@ fun PortfolioScreenPreview() {
                     BarEntry(3f, 44f),
                     BarEntry(4f, 58f),
                 ),
-                totalPortfolioValue = 58.0,
+                totalPortfolioValue = 1_690.65,
                 portfolioItemModelList = listOf(
+                    // Big positive position
                     PortfolioItemModel(
                         itemImage = "",
                         itemName = "Chroma 3 Case",
-                        totalValue = 40.0,
-                        amount = 20,
-                        price = 2.0,
-                        profitLoss = 0.0,
-                        profitLossPercent = 0.0
+                        totalValue = 460.00,
+                        amount = 200,
+                        price = 2.30,
+                        profitLoss = 60.00,
+                        profitLossPercent = 15.00
                     ),
+
+                    // Single expensive case
                     PortfolioItemModel(
                         itemImage = "",
                         itemName = "eSports 2013 Case",
-                        totalValue = 6.0,
+                        totalValue = 72.50,
                         amount = 1,
-                        price = 6.0,
-                        profitLoss = 0.0,
-                        profitLossPercent = 0.0
+                        price = 72.50,
+                        profitLoss = 66.50,
+                        profitLossPercent = 1108.33
                     ),
+
+                    // Negative profit/loss
+                    PortfolioItemModel(
+                        itemImage = "",
+                        itemName = "Revolution Case",
+                        totalValue = 225.00,
+                        amount = 75,
+                        price = 3.00,
+                        profitLoss = -37.50,
+                        profitLossPercent = -14.29
+                    ),
+
+                    // Zero profit/loss
                     PortfolioItemModel(
                         itemImage = "",
                         itemName = "Chroma Case",
-                        totalValue = 6.0,
-                        amount = 2,
-                        price = 3.0,
-                        profitLoss = 0.0,
-                        profitLossPercent = 0.0
+                        totalValue = 96.00,
+                        amount = 32,
+                        price = 3.00,
+                        profitLoss = 0.00,
+                        profitLossPercent = 0.00
                     ),
+
+                    // Long name, useful for checking wrapping/maxLines
+                    PortfolioItemModel(
+                        itemImage = "",
+                        itemName = "Dreams & Nightmares Case",
+                        totalValue = 352.50,
+                        amount = 150,
+                        price = 2.35,
+                        profitLoss = 52.50,
+                        profitLossPercent = 17.50
+                    ),
+
+                    // Small cheap stack
+                    PortfolioItemModel(
+                        itemImage = "",
+                        itemName = "Snakebite Case",
+                        totalValue = 84.00,
+                        amount = 300,
+                        price = 0.28,
+                        profitLoss = -21.00,
+                        profitLossPercent = -20.00
+                    ),
+
+                    // Medium rare case
                     PortfolioItemModel(
                         itemImage = "",
                         itemName = "Operation Bravo Case",
-                        totalValue = 6.0,
+                        totalValue = 400.65,
                         amount = 3,
-                        price = 2.0,
-                        profitLoss = 0.0,
-                        profitLossPercent = 0.0
+                        price = 133.55,
+                        profitLoss = 340.65,
+                        profitLossPercent = 567.75
                     )
                 )
             ),
