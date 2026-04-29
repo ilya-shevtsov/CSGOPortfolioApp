@@ -35,7 +35,7 @@ android {
 
 dependencies {
     implementation project(':core:ui')
-    implementation project(':feature:caseoverview')
+    implementation project(':feature:caseoverview:view')
 
     implementation 'androidx.core:core-ktx:1.16.0'
 

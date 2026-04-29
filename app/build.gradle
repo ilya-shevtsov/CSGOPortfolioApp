@@ -68,9 +68,9 @@ dependencies {
     implementation project(':domain:start')
     implementation project(':data:start')
 
-    implementation project(':feature:caseoverview')
-    implementation project(':domain:caseoverview')
-    implementation project(':data:caseoverview')
+    implementation project(':feature:caseoverview:view')
+    implementation project(':feature:caseoverview:domain')
+    implementation project(':feature:caseoverview:data')
 
     implementation project(':feature:caseanalytics:view')
     implementation project(':feature:caseanalytics:domain')
