@@ -32,13 +32,13 @@ dependencies {
 
     implementation project(':domain:start')
     implementation project(':domain:caseoverview')
-    implementation project(':domain:caseanalytics')
+    implementation project(':feature:caseanalytics:domain')
     implementation project(':domain:portfolio')
     implementation project(':feature:addcase:domain')
 
     implementation project(':data:start')
     implementation project(':data:caseoverview')
-    implementation project(':data:caseanalytics')
+    implementation project(':feature:caseanalytics:data')
     implementation project(':data:portfolio')
     implementation project(':feature:addcase:data')
 

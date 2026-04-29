@@ -15,8 +15,10 @@ include ':feature:portfolio'
 include ':feature:caseoverview'
 include ':domain:caseoverview'
 
-include ':feature:caseanalytics'
-include ':domain:caseanalytics'
+include ':feature:caseanalytics:view'
+include ':feature:caseanalytics:domain'
+include ':feature:caseanalytics:data'
+
 
 include ':feature:addcase:view'
 include ':feature:addcase:domain'
@@ -28,7 +30,6 @@ include ':feature:caseoverviewdetails'
 
 include ':feature:portfoliodetails'
 include ':data:caseoverview'
-include ':data:caseanalytics'
 include ':data:portfolio'
 include ':core:network'
 include ':data:remote'
