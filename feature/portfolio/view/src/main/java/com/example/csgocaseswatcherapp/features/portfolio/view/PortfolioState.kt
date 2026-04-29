@@ -9,7 +9,7 @@ data class PortfolioState(
     val portfolioItemListResult:PortfolioItemListResult,
     val portfolioValueList: List<PortfolioValueItem>,
     val portfolioBartEntryList: List<BarEntry>,
-    val totalPortfolioValue: String,
+    val totalPortfolioValue: Double,
     val isSortingSheetVisible: Boolean,
     val sortState: SortState
 )

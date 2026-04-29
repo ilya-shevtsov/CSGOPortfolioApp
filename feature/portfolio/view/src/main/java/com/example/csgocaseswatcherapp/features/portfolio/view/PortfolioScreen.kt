@@ -37,6 +37,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -87,6 +88,12 @@ fun PortfolioContent(
     listState: LazyListState,
     modifier: Modifier = Modifier
 ) {
+
+    val totalPortfolioValueText = stringResource(
+        id = R.string.portfolio_total_value,
+        formatUsd(state.totalPortfolioValue)
+    )
+
     Column(
         modifier
             .background(AppTheme.colors.background)
@@ -95,7 +102,7 @@ fun PortfolioContent(
     ) {
         Spacer(Modifier.height(8.dp))
         Text(
-            text = state.totalPortfolioValue,
+            text = totalPortfolioValueText,
             color = AppTheme.colors.onBackground,
             style = MaterialTheme.typography.titleLarge.copy(
                 fontSize = 20.sp,
@@ -210,6 +217,7 @@ fun PortfolioItemCard(
     item: PortfolioItemModel,
     modifier: Modifier = Modifier
 ) {
+
     ElevatedCard(
         modifier = modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
@@ -229,8 +237,8 @@ fun PortfolioItemCard(
                     .data(item.itemImage)
                     .crossfade(true)
                     .build(),
-                contentDescription = null,
                 placeholder = painterResource(UiR.drawable.case_placeholder),
+                contentDescription = null,
                 modifier = Modifier
                     .size(width = 85.dp, height = 66.dp)
             )
@@ -243,24 +251,38 @@ fun PortfolioItemCard(
                     style = MaterialTheme.typography.titleMedium,
                     maxLines = 2
                 )
+
                 Spacer(Modifier.height(4.dp))
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(
-                        text = item.amountPrice,
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                }
+
+                Text(
+                    text = stringResource(
+                        id = R.string.portfolio_amount_price,
+                        pluralStringResource(
+                            id = R.plurals.portfolio_cases_count,
+                            count = item.amount,
+                            item.amount
+                        ),
+                        formatUsd(item.price)
+                    ),
+                    style = MaterialTheme.typography.bodyMedium
+                )
             }
 
             Column(horizontalAlignment = Alignment.End) {
                 Text(
-                    text = item.totalValue,
+                    text = formatUsd(item.totalValue),
                     style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
                     color = AppTheme.colors.onSurface
                 )
+
                 Spacer(Modifier.height(2.dp))
+
                 Text(
-                    text = item.profitLoss,
+                    text = stringResource(
+                        id = R.string.portfolio_profit_loss,
+                        formatSignedUsd(item.profitLoss),
+                        formatSignedPercent(item.profitLossPercent)
+                    ),
                     style = MaterialTheme.typography.bodyMedium,
                     color = AppTheme.colors.onSurface
                 )
@@ -337,46 +359,53 @@ fun PortfolioScreenPreview() {
         PortfolioScreen(
             state = PortfolioViewState.Content(
                 portfolioBartEntryList = listOf(
-                    BarEntry(1f, 129f),
-                    BarEntry(2f, 164f),
-                    BarEntry(3f, 225f),
-                    BarEntry(4f, 236f),
-                    BarEntry(5f, 334f),
-                    BarEntry(6f, 479f),
-                    BarEntry(7f, 429f),
-                    BarEntry(8f, 424f),
-                    BarEntry(9f, 448f),
-                    BarEntry(10f, 335f),
-                    BarEntry(11f, 315f),
-                    BarEntry(12f, 322f),
-                    BarEntry(13f, 414f),
-                    BarEntry(14f, 458f),
-                    BarEntry(15f, 509f),
-                    BarEntry(16f, 546f),
-                    BarEntry(17f, 668f),
-                    BarEntry(18f, 741f),
-                    BarEntry(19f, 685f),
-                    BarEntry(20f, 840f),
-                    BarEntry(21f, 834f),
+                    BarEntry(1f, 20f),
+                    BarEntry(2f, 32f),
+                    BarEntry(3f, 44f),
+                    BarEntry(4f, 58f),
                 ),
-                totalPortfolioValue = "Total: $10000.00", portfolioItemModelList = listOf(
+                totalPortfolioValue = 58.0,
+                portfolioItemModelList = listOf(
                     PortfolioItemModel(
                         itemImage = "",
-                        itemName = "Chroma Case 2",
-                        totalValue = "$60.00",
-                        amountPrice = "23 cases • $12.00",
-                        profitLoss = "12.00 $ (23.23 %)"
+                        itemName = "Chroma 3 Case",
+                        totalValue = 40.0,
+                        amount = 20,
+                        price = 2.0,
+                        profitLoss = 0.0,
+                        profitLossPercent = 0.0
+                    ),
+                    PortfolioItemModel(
+                        itemImage = "",
+                        itemName = "eSports 2013 Case",
+                        totalValue = 6.0,
+                        amount = 1,
+                        price = 6.0,
+                        profitLoss = 0.0,
+                        profitLossPercent = 0.0
                     ),
                     PortfolioItemModel(
                         itemImage = "",
                         itemName = "Chroma Case",
-                        totalValue = "$60.00",
-                        amountPrice = "23 cases • $12.00",
-                        profitLoss = "12.00 $ (23.23 %)"
+                        totalValue = 6.0,
+                        amount = 2,
+                        price = 3.0,
+                        profitLoss = 0.0,
+                        profitLossPercent = 0.0
                     ),
+                    PortfolioItemModel(
+                        itemImage = "",
+                        itemName = "Operation Bravo Case",
+                        totalValue = 6.0,
+                        amount = 3,
+                        price = 2.0,
+                        profitLoss = 0.0,
+                        profitLossPercent = 0.0
+                    )
                 )
             ),
-            onAction = {}, listState = listState
+            onAction = {},
+            listState = listState
         )
     }
 }

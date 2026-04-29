@@ -7,7 +7,7 @@ sealed class PortfolioViewState {
 
     data class Content(
         val portfolioBartEntryList: List<BarEntry>,
-        val totalPortfolioValue: String,
+        val totalPortfolioValue: Double,
         val portfolioItemModelList:List<PortfolioItemModel>,
         val isSortingSheetVisible: Boolean = false
     ) : PortfolioViewState()

@@ -16,9 +16,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.util.Locale
 import javax.inject.Inject
-import kotlin.math.roundToLong
 
 @HiltViewModel
 class PortfolioViewModel @Inject constructor(
@@ -43,7 +41,7 @@ class PortfolioViewModel @Inject constructor(
             portfolioItemListResult = PortfolioItemListResult.Loading,
             portfolioValueList = listOf(),
             portfolioBartEntryList = listOf(),
-            totalPortfolioValue = "",
+            totalPortfolioValue = 0.0,
             isSortingSheetVisible = false,
             sortState = SortState.OVERALL_VALUE
         )
@@ -62,8 +60,8 @@ class PortfolioViewModel @Inject constructor(
 
                     val totalPortfolioValue =
                         state.portfolioItemListResult.portfolioItemList.sumOf { case ->
-                            case.overallValue.roundToLong().toDouble()
-                        }.formatTotalValue()
+                            case.overallValue
+                        }
 
                     PortfolioViewState.Content(
                         portfolioItemModelList = models,
@@ -104,7 +102,7 @@ class PortfolioViewModel @Inject constructor(
                     portfolioItemListResult = PortfolioItemListResult.Success(portfolioData),
                     portfolioValueList = listOf(),
                     portfolioBartEntryList = listOf(),
-                    totalPortfolioValue = "",
+                    totalPortfolioValue = 0.0,
                     isSortingSheetVisible = false,
                     sortState = SortState.OVERALL_VALUE
                 )
@@ -192,21 +190,24 @@ class PortfolioViewModel @Inject constructor(
         viewModelScope.launch { uiEvent.emit(PortfolioEvent.NavigateToAddCase) }
     }
 
-    private fun Double.formatTotalValue(): String {
-        return "Total: " + String.format(Locale.US, "$%.2f", this)
+    //TODO: this is a calculated here for now, since backend does not supply the % profit/loss.
+    private fun PortfolioItem.calculateProfitLossPercent(): Double {
+        val investedValue = overallValue - profitLoss
+
+        if (investedValue == 0.0) return 0.0
+
+        return (profitLoss / investedValue) * 100
     }
 
     private fun PortfolioItem.toModel(): PortfolioItemModel {
         return PortfolioItemModel(
             itemImage = image,
             itemName = name,
-            totalValue = String.format(Locale.US, "$%.2f", overallValue),
-            amountPrice = "$amount cases • ${
-                String.format(Locale.US, "$%.2f", price)
-            }",
-            profitLoss = "${if (profitLoss >= 0) "+" else ""}${
-                String.format(Locale.US, "%.2f", profitLoss)
-            } $ (${profitLoss} %)"
+            totalValue = overallValue,
+            amount = amount,
+            price = price,
+            profitLoss = profitLoss,
+            profitLossPercent = calculateProfitLossPercent()
         )
     }
 
