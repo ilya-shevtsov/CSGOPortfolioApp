@@ -30,7 +30,7 @@ dependencies {
     implementation project(':data:start')
     implementation project(':feature:caseoverview:data')
     implementation project(':feature:caseanalytics:data')
-    implementation project(':data:portfolio')
+    implementation project(':feature:portfolio:data')
     implementation project(':feature:addcase:data')
 
     implementation 'androidx.core:core-ktx:1.16.0'

@@ -76,9 +76,9 @@ dependencies {
     implementation project(':feature:caseanalytics:domain')
     implementation project(':feature:caseanalytics:data')
 
-    implementation project(':feature:portfolio')
-    implementation project(':domain:portfolio')
-    implementation project(':data:portfolio')
+    implementation project(':feature:portfolio:view')
+    implementation project(':feature:portfolio:domain')
+    implementation project(':feature:portfolio:data')
     implementation project(':feature:addcase:view')
 
     implementation project(':feature:addcase:domain')
