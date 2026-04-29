@@ -5,9 +5,9 @@ include ':app'
 include ':core:ui'
 include ':core:serialization'
 
-include ':feature:start'
-include ':domain:start'
-include ':data:start'
+include ':feature:start:view'
+include ':feature:start:domain'
+include ':feature:start:data'
 
 include ':feature:portfolio:domain'
 include ':feature:portfolio:view'

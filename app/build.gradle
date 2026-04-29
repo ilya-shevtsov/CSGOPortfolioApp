@@ -64,9 +64,9 @@ dependencies {
     implementation project(':core:serialization')
     implementation project(':core:network')
 
-    implementation project(':feature:start')
-    implementation project(':domain:start')
-    implementation project(':data:start')
+    implementation project(':feature:start:view')
+    implementation project(':feature:start:domain')
+    implementation project(':feature:start:data')
 
     implementation project(':feature:caseoverview:view')
     implementation project(':feature:caseoverview:domain')

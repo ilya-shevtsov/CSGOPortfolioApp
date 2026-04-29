@@ -30,13 +30,13 @@ android {
 dependencies {
     implementation project(':core:network')
 
-    implementation project(':domain:start')
+    implementation project(':feature:start:domain')
     implementation project(':feature:caseoverview:domain')
     implementation project(':feature:caseanalytics:domain')
     implementation project(':feature:portfolio:domain')
     implementation project(':feature:addcase:domain')
 
-    implementation project(':data:start')
+    implementation project(':feature:start:data')
     implementation project(':feature:caseoverview:data')
     implementation project(':feature:caseanalytics:data')
     implementation project(':feature:portfolio:data')
