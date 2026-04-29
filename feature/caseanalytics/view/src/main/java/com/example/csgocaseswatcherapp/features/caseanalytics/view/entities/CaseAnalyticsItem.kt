@@ -27,6 +27,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
@@ -34,15 +35,13 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.csgocaseswatcherapp.core.ui.StatRow
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
+import com.example.csgocaseswatcherapp.features.caseanalytics.R
 import com.example.csgocaseswatcherapp.core.ui.R as UiR
-
 
 @Composable
 fun CaseAnalyticsItem(
     item: CaseAnalyticsModel,
 ) {
-
-
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -65,7 +64,6 @@ fun CaseAnalyticsItem(
                     .crossfade(true)
                     .build(),
                 contentDescription = item.caseName,
-                placeholder = painterResource(UiR.drawable.case_placeholder),
                 error = painterResource(UiR.drawable.ic_error),
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
@@ -87,47 +85,47 @@ fun CaseAnalyticsItem(
 
                 StatRow(
                     icon = Icons.Outlined.CalendarToday,
-                    label = "Monthly Avg Return",
+                    label = stringResource(R.string.monthly_avg_return),
                     value = item.monthlyAvgReturnInPercent,
                 )
                 StatRow(
                     icon =
-                    Icons.Outlined.CurrencyRuble,
-                    label = "Monthly Avg Return (₽)",
+                        Icons.Outlined.CurrencyRuble,
+                    label = stringResource(R.string.monthly_avg_return_rub),
                     value = item.monthlyAvgReturnInRUB,
                 )
                 StatRow(
                     icon =
-                    Icons.Outlined.QueryStats,
-                    label = "Monthly Volatility (Std)",
+                        Icons.Outlined.QueryStats,
+                    label = stringResource(R.string.monthly_volatility_std),
                     value = item.monthlyStandardDeviation
                 )
                 StatRow(
                     icon =
-                    Icons.Outlined.Scale,
-                    label = "Monthly Sharpe Ratio",
+                        Icons.Outlined.Scale,
+                    label = stringResource(R.string.monthly_sharpe_ratio),
                     value = item.monthlySharpRatio
                 )
 
-                ExpandableStatSection(title = "Daily Stats") {
+                ExpandableStatSection(title = stringResource(R.string.expandable_stat_section_title)) {
                     StatRow(
                         icon = Icons.AutoMirrored.Outlined.TrendingUp,
-                        label = "Avg Return",
+                        label = stringResource(R.string.avg_return),
                         value = item.dailyAvgReturnInPercent,
                     )
                     StatRow(
                         icon = Icons.Outlined.CurrencyRuble,
-                        label = "Avg Return (₽)",
+                        label = stringResource(R.string.avg_return_rub),
                         value = item.dailyAvgReturnInRUB,
                     )
                     StatRow(
                         icon = Icons.Outlined.QueryStats,
-                        label = "Volatility (Std)",
+                        label = stringResource(R.string.volatility_std),
                         value = item.dailyStandardDeviation
                     )
                     StatRow(
                         icon = Icons.Outlined.Scale,
-                        label = "Sharpe Ratio",
+                        label = stringResource(R.string.sharpe_ratio),
                         value = item.dailySharpRatio
                     )
                 }
