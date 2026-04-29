@@ -1,2 +1,36 @@
-include ':app'
 rootProject.name = "CSGOCasesWatcherApp"
+
+
+include ':app'
+include ':core:ui'
+include ':core:serialization'
+
+include ':feature:start:view'
+include ':feature:start:domain'
+include ':feature:start:data'
+
+include ':feature:portfolio:domain'
+include ':feature:portfolio:view'
+
+include ':feature:caseoverview:view'
+include ':feature:caseoverview:domain'
+include ':feature:caseoverview:data'
+
+include ':feature:caseanalytics:view'
+include ':feature:caseanalytics:domain'
+include ':feature:caseanalytics:data'
+
+
+include ':feature:addcase:view'
+include ':feature:addcase:domain'
+include ':feature:addcase:data'
+
+include ':feature:currencychange'
+
+include ':feature:caseoverviewdetails'
+
+include ':feature:portfoliodetails'
+include ':feature:portfolio:data'
+include ':core:network'
+include ':data:remote'
+include ':data:local'

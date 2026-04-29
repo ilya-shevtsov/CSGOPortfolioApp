@@ -7,3 +7,4 @@
 *.iws
 /caseDatabase.*
 /resources/.idea
+.kotlin/

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="error_screen_case_overview">Could not connect to the server, try again later</string>
+    <string name="loading">LOADING</string>
+    <string name="errorIconDesc">errorIcon</string>
+    <string name="pie_chart_amount">Amount</string>
+
+</resources>

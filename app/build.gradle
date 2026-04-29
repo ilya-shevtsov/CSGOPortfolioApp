@@ -55,6 +55,39 @@ android {
 }
 
 dependencies {
+
+    remoteImplementation project(':data:remote')
+
+    localImplementation project(':data:local')
+
+    implementation project(':core:ui')
+    implementation project(':core:serialization')
+    implementation project(':core:network')
+
+    implementation project(':feature:start:view')
+    implementation project(':feature:start:domain')
+    implementation project(':feature:start:data')
+
+    implementation project(':feature:caseoverview:view')
+    implementation project(':feature:caseoverview:domain')
+    implementation project(':feature:caseoverview:data')
+
+    implementation project(':feature:caseanalytics:view')
+    implementation project(':feature:caseanalytics:domain')
+    implementation project(':feature:caseanalytics:data')
+
+    implementation project(':feature:portfolio:view')
+    implementation project(':feature:portfolio:domain')
+    implementation project(':feature:portfolio:data')
+    implementation project(':feature:addcase:view')
+
+    implementation project(':feature:addcase:domain')
+    implementation project(':feature:addcase:data')
+
+    implementation project(':feature:currencychange')
+    implementation project(':feature:portfoliodetails')
+    implementation project(':feature:caseoverviewdetails')
+
     implementation 'androidx.core:core-ktx:1.16.0'
     implementation 'androidx.appcompat:appcompat:1.7.1'
     implementation 'com.google.android.material:material:1.12.0'

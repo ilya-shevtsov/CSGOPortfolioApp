@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Portfolio header -->
+    <string name="portfolio_total_value">Value: %1$s</string>
+
+    <!-- Portfolio item card -->
+    <string name="portfolio_amount_price">%1$s • %2$s</string>
+    <string name="portfolio_profit_loss">%1$s (%2$s)</string>
+    <!-- Chart -->
+    <string name="portfolio_value">Portfolio Value</string>
+
+    <!-- Buttons -->
+    <string name="add_case_button">Add Case</string>
+    <string name="sorting_button">Sorting</string>
+    <string name="details_button">Details</string>
+
+    <!-- Sorting states -->
+    <string name="sort_state_name">Name</string>
+    <string name="sort_state_amount">Amount</string>
+    <string name="sort_state_price">Price</string>
+    <string name="sort_state_overall_value">Overall Value</string>
+    <string name="sort_state_profit_loss">Profit/Loss</string>
+
+    <!-- Plurals -->
+    <plurals name="portfolio_cases_count">
+        <item quantity="one">%d case</item>
+        <item quantity="other">%d cases</item>
+    </plurals>
+
+</resources>
