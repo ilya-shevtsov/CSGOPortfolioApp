@@ -1,12 +1,14 @@
 package com.example.csgocaseswatcherapp.features.portfolio.view.sortingmodal.entities
 
-enum class SortState(val label: String) {
-    NAME("Name"),
-    AMOUNT("Amount"),
-    PRICE("Price"),
-    OVERALL_VALUE("Overall Value"),
-    PROFIT_LOSS("Profit/Loss");
+import androidx.annotation.StringRes
+import com.example.csgocaseswatcherapp.features.portfolio.R
 
-    override fun toString(): String = label
+enum class SortState(@get:StringRes val labelResId: Int) {
+    NAME(R.string.sort_state_name),
+    AMOUNT(R.string.sort_state_amount),
+    PRICE(R.string.sort_state_price),
+    OVERALL_VALUE(R.string.sort_state_overall_value),
+    PROFIT_LOSS(R.string.sort_state_profit_loss);
+
 }
 

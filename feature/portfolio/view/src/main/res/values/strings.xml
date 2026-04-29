@@ -9,4 +9,9 @@
     <string name="add_case_button">Add Case</string>
     <string name="sorting_button">Sorting</string>
     <string name="details_button">Details</string>
+    <string name="sort_state_name">Name</string>
+    <string name="sort_state_amount">Amount</string>
+    <string name="sort_state_price">Price</string>
+    <string name="sort_state_overall_value">Overall Value</string>
+    <string name="sort_state_profit_loss">Profit/Loss</string>
 </resources>

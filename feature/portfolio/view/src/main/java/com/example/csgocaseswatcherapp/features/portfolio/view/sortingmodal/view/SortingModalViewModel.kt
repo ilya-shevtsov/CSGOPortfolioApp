@@ -2,13 +2,14 @@ package com.example.csgocaseswatcherapp.features.portfolio.view.sortingmodal.vie
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.csgocaseswatcherapp.features.portfolio.view.sortingmodal.entities.SortingEntry
 import com.example.csgocaseswatcherapp.features.portfolio.view.sortingmodal.entities.SortState
+import com.example.csgocaseswatcherapp.features.portfolio.view.sortingmodal.entities.SortingEntry
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 @HiltViewModel
 class SortingModalViewModel @Inject constructor() : ViewModel() {
 
@@ -17,7 +18,7 @@ class SortingModalViewModel @Inject constructor() : ViewModel() {
 
     private fun initState(): SortingModalViewState {
         return SortingModalViewState(sortingEntryList = SortState.entries.map { sortingMethod ->
-            SortingEntry(name = sortingMethod.label, method = sortingMethod)
+            SortingEntry(resId = sortingMethod.labelResId, method = sortingMethod)
         })
     }
 
