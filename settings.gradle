@@ -19,8 +19,8 @@ include ':feature:caseanalytics'
 include ':domain:caseanalytics'
 
 include ':feature:addcase:view'
-include ':domain:addcase'
-include ':data:addcase'
+include ':feature:addcase:domain'
+include ':feature:addcase:data'
 
 include ':feature:currencychange'
 
