@@ -19,6 +19,5 @@ fun CaseOverviewDetailsRoute(
 
     CaseDetailsScreen(
         state = state,
-        onAction = viewModel::handleAction
     )
 }

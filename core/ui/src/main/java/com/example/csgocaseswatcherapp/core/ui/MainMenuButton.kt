@@ -1,9 +1,7 @@
 package com.example.csgocaseswatcherapp.core.ui
 
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -19,15 +17,19 @@ import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 @Composable
 fun MainMenuButton(
     buttonText: String,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Button(
         onClick = onClick,
-        modifier = Modifier
-            .padding(start = AppTheme.dimensions.paddingM, end = AppTheme.dimensions.paddingM, top = AppTheme.dimensions.paddingL)
-            .width(280.dp)
-            .height(60.dp),
-        shape = RoundedCornerShape(8.dp),
+        modifier = modifier
+            .heightIn(min = 56.dp)
+            .padding(
+                start = AppTheme.dimensions.paddingM,
+                end = AppTheme.dimensions.paddingM,
+                top = AppTheme.dimensions.paddingL
+            ),
+        shape = AppTheme.shapes.button,
         colors = ButtonDefaults.buttonColors(
             containerColor = AppTheme.colors.primary,
             contentColor = AppTheme.colors.onPrimary,
@@ -42,6 +44,7 @@ fun MainMenuButton(
         )
     }
 }
+
 
 @PreviewLightDark
 @Composable

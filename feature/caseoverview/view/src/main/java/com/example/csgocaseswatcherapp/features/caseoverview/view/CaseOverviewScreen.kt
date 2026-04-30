@@ -47,24 +47,59 @@ fun CaseOverviewScreen(
 @Composable
 fun CaseOverviewScreenPreview() {
     AppTheme{
-        val item = CaseOverviewModel(
-            caseName = "Chroma Case",
-            lowestPrice = 6.63,
-            volume = 1013,
-            medianPrice = 7.45,
-            imageUrl = "https://api.steamapis.com/image/item/730/Recoil%20Case",
-            releaseDate = "01.07.2022",
-            dropStatus = "Active",
-            description = "—"
-        )
         CaseOverviewScreen(
             state = CaseOverviewViewState.Content(
                 caseOverviewItemList = listOf(
-                    item,
-                    item,
-                    item,
-                    item,
-                    item,
+                    CaseOverviewModel(
+                        caseName = "Recoil Case",
+                        lowestPrice = 0.42,
+                        volume = 24891,
+                        medianPrice = 0.47,
+                        imageUrl = "https://api.steamapis.com/image/item/730/Recoil%20Case",
+                        releaseDate = "01.07.2022",
+                        dropStatus = "Active",
+                        description = "—"
+                    ),
+                    CaseOverviewModel(
+                        caseName = "Fracture Case",
+                        lowestPrice = 0.31,
+                        volume = 18452,
+                        medianPrice = 0.36,
+                        imageUrl = "https://api.steamapis.com/image/item/730/Fracture%20Case",
+                        releaseDate = "06.08.2020",
+                        dropStatus = "Active",
+                        description = "—"
+                    ),
+                    CaseOverviewModel(
+                        caseName = "Snakebite Case",
+                        lowestPrice = 0.28,
+                        volume = 21337,
+                        medianPrice = 0.33,
+                        imageUrl = "https://api.steamapis.com/image/item/730/Snakebite%20Case",
+                        releaseDate = "03.05.2021",
+                        dropStatus = "Active",
+                        description = "—"
+                    ),
+                    CaseOverviewModel(
+                        caseName = "Operation Broken Fang Case",
+                        lowestPrice = 5.84,
+                        volume = 3921,
+                        medianPrice = 6.15,
+                        imageUrl = "https://api.steamapis.com/image/item/730/Operation%20Broken%20Fang%20Case",
+                        releaseDate = "03.12.2020",
+                        dropStatus = "Rare",
+                        description = "—"
+                    ),
+                    CaseOverviewModel(
+                        caseName = "Dreams & Nightmares Case",
+                        lowestPrice = 1.12,
+                        volume = 12408,
+                        medianPrice = 1.24,
+                        imageUrl = "https://api.steamapis.com/image/item/730/Dreams%20%26%20Nightmares%20Case",
+                        releaseDate = "20.01.2022",
+                        dropStatus = "Active",
+                        description = "—"
+                    )
                 )
             ),
             onCaseClick = {}

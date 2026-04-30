@@ -16,17 +16,22 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.Text
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.csgocaseswatcherapp.core.ui.BackgroundDecorations
+import com.example.csgocaseswatcherapp.core.ui.DeviceConfiguration
 import com.example.csgocaseswatcherapp.core.ui.ErrorScreen
 import com.example.csgocaseswatcherapp.core.ui.LoadingScreen
 import com.example.csgocaseswatcherapp.core.ui.MainMenuButton
@@ -46,6 +51,7 @@ fun StartScreen(
                 state = state,
                 onAction = onAction,
             )
+
         is StartViewState.Error -> ErrorScreen()
         is StartViewState.Loading -> LoadingScreen()
     }
@@ -57,7 +63,12 @@ private fun StartScreenContent(
     onAction: (StartAction) -> Unit
 ) {
 
-    onAction(StartAction.OnCreate)
+    LaunchedEffect(Unit) {
+        onAction(StartAction.OnCreate)
+    }
+
+    val windowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
+    val deviceConfiguration = DeviceConfiguration.fromWindowSizeClass(windowSizeClass)
 
     val isDark = isSystemInDarkTheme()
 
@@ -67,36 +78,89 @@ private fun StartScreenContent(
         R.drawable.ic_frontpageimg
     }
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(AppTheme.colors.background)
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = AppTheme.dimensions.paddingL)
-        ) {
-            HeaderDecoration(
-                currencyButtonText = state.currencyButton,
-                onAction = { onAction(StartAction.OnCurrencyChangeClicked) }
-            )
-
-            LogoAndSlogan(
+    when (deviceConfiguration) {
+        DeviceConfiguration.MOBILE_PORTRAIT -> {
+            Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f),
-                imageResource = imageRes,
-                sloganResource = R.string.front_page_slogan
-            )
+                    .fillMaxSize()
+                    .background(AppTheme.colors.background)
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(horizontal = AppTheme.dimensions.paddingL)
+                ) {
+                    HeaderDecoration(
+                        currencyButtonText = state.currencyButton,
+                        onAction = { onAction(StartAction.OnCurrencyChangeClicked) }
+                    )
 
-            ButtonsSelectionSection(
-                onAction = onAction
-            )
-            Spacer(modifier = Modifier.size(80.dp))
+                    LogoAndSlogan(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1f),
+                        imageResource = imageRes,
+                        sloganResource = R.string.front_page_slogan,
+                        imageModifier = Modifier.size(width = 280.dp, height = 240.dp)
+                    )
+
+                    ButtonsSelectionSection(
+                        onAction = onAction
+                    )
+                    Spacer(modifier = Modifier.size(80.dp))
+                }
+            }
+        }
+
+        DeviceConfiguration.MOBILE_LANDSCAPE -> {
+            Row(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(AppTheme.colors.background)
+                    .padding(AppTheme.dimensions.paddingL),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight()
+                ) {
+                    BackgroundDecorations(modifier = Modifier.matchParentSize())
+
+                    LogoAndSlogan(
+                        modifier = Modifier.fillMaxSize(),
+                        imageResource = imageRes,
+                        sloganResource = R.string.front_page_slogan,
+                        imageModifier = Modifier.size(width = 320.dp, height = 280.dp)
+                    )
+                }
+
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight()
+                        .padding(horizontal = AppTheme.dimensions.paddingL),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    SmallButton(
+                        onClick = { onAction(StartAction.OnCurrencyChangeClicked) },
+                        buttonText = state.currencyButton,
+                        modifier = Modifier.align(Alignment.End)
+                    )
+
+                    Spacer(modifier = Modifier.height(AppTheme.dimensions.paddingL))
+
+                    ButtonsSelectionSection(
+                        onAction = onAction,
+                        modifier = Modifier.widthIn(max = 420.dp)
+                    )
+                }
+            }
         }
     }
 }
+
 
 @Composable
 fun ButtonsSelectionSection(
@@ -115,15 +179,16 @@ fun ButtonsSelectionSection(
         ) {
             MainMenuButton(
                 buttonText = stringResource(R.string.front_page_case_overview_button),
-                onClick = { onAction(StartAction.OnCaseOverviewClicked) }
+                onClick = { onAction(StartAction.OnCaseOverviewClicked) },
             )
             MainMenuButton(
                 buttonText = stringResource(R.string.front_page_analytics_button),
-                onClick = { onAction(StartAction.OnAnalyticsClicked) }
-            )
+                onClick = { onAction(StartAction.OnAnalyticsClicked) },
+
+                )
             MainMenuButton(
                 buttonText = stringResource(R.string.front_page_portfolio_button),
-                onClick = { onAction(StartAction.OnPortfolioClicked) }
+                onClick = { onAction(StartAction.OnPortfolioClicked) },
             )
         }
     }
@@ -164,6 +229,7 @@ fun LogoAndSlogan(
     modifier: Modifier = Modifier,
     @DrawableRes imageResource: Int,
     @StringRes sloganResource: Int,
+    imageModifier: Modifier = Modifier.size(width = 280.dp, height = 240.dp),
 ) {
     Row(
         modifier = modifier,
@@ -176,15 +242,18 @@ fun LogoAndSlogan(
             Image(
                 painter = painterResource(imageResource),
                 contentDescription = null,
-                modifier = Modifier.size(width = 280.dp, height = 240.dp),
+                modifier = imageModifier,
                 alignment = Alignment.Center,
             )
-            Spacer(modifier = Modifier.size(50.dp))
+
+            Spacer(modifier = Modifier.size(AppTheme.dimensions.paddingL))
+
             Text(
                 text = stringResource(sloganResource),
                 color = AppTheme.colors.onBackground,
                 fontWeight = FontWeight.Bold,
-                fontSize = 18.sp
+                fontSize = 18.sp,
+                textAlign = TextAlign.Center
             )
         }
     }

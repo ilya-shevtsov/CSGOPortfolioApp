@@ -63,6 +63,7 @@ fun CaseOverviewItem(
                     .build(),
                 contentDescription = item.caseName,
                 error = painterResource(UiR.drawable.ic_error),
+                placeholder = painterResource(UiR.drawable.case_placeholder),
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .size(100.dp)
