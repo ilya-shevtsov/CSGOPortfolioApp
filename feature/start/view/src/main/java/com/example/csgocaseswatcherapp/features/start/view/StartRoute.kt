@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.csgocaseswatcherapp.core.ui.rememberDeviceConfigurationType
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
@@ -15,6 +16,7 @@ fun StartRoute(
     onNavigateToCurrencyChange: () -> Unit
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val deviceConfigurationType = rememberDeviceConfigurationType()
 
     LaunchedEffect(viewModel) {
         viewModel.uiEvent.collectLatest { event ->
@@ -27,5 +29,5 @@ fun StartRoute(
         }
     }
 
-    StartScreen(state = state, onAction = viewModel::handleAction)
+    StartScreen(state = state, onAction = viewModel::handleAction, deviceConfigurationType = deviceConfigurationType)
 }

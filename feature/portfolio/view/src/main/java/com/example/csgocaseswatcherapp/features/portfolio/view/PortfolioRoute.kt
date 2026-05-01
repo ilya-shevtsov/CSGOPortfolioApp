@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.csgocaseswatcherapp.core.ui.rememberDeviceConfigurationType
 import com.example.csgocaseswatcherapp.features.portfolio.domain.entities.PortfolioItem
 import com.example.csgocaseswatcherapp.features.portfolio.view.sortingmodal.view.SortingBottomModal
 import com.example.csgocaseswatcherapp.features.portfolio.view.sortingmodal.view.SortingModalViewModel
@@ -25,6 +26,7 @@ fun PortfolioRoute(
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val listState = rememberLazyListState()
+    val deviceConfigurationType = rememberDeviceConfigurationType()
 
     LaunchedEffect(Unit) {
         viewModel.handleAction(PortfolioAction.OnCreate)
@@ -48,7 +50,8 @@ fun PortfolioRoute(
     PortfolioScreen(
         state = state,
         onAction = { action -> viewModel.handleAction(action = action) },
-        listState = listState
+        listState = listState,
+        deviceConfigurationType = deviceConfigurationType
     )
 
     val isVisible = (state as? PortfolioViewState.Content)?.isSortingSheetVisible == true

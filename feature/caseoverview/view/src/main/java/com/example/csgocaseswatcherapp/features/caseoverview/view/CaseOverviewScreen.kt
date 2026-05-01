@@ -1,11 +1,13 @@
 package com.example.csgocaseswatcherapp.features.caseoverview.view
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import com.example.csgocaseswatcherapp.core.ui.DeviceConfigurationType
 import com.example.csgocaseswatcherapp.core.ui.ErrorScreen
 import com.example.csgocaseswatcherapp.core.ui.LoadingScreen
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
@@ -16,21 +18,21 @@ import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseO
 fun CaseOverviewScreen(
     state: CaseOverviewViewState,
     onCaseClick: (CaseOverviewModel) -> Unit,
+    deviceConfigurationType: DeviceConfigurationType
 ) {
-
     when (state) {
         is CaseOverviewViewState.Error -> ErrorScreen()
 
         is CaseOverviewViewState.Loading -> LoadingScreen()
 
         is CaseOverviewViewState.Content -> {
-            val caseItems = state.caseOverviewItemList
-
             LazyColumn(
-                modifier = Modifier.background(AppTheme.colors.background)
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(AppTheme.colors.background)
             ) {
                 items(
-                    items = caseItems,
+                    items = state.caseOverviewItemList,
                     key = { item -> item.caseName }
                 ) { item ->
                     CaseOverviewItem(
@@ -46,7 +48,7 @@ fun CaseOverviewScreen(
 @PreviewLightDark
 @Composable
 fun CaseOverviewScreenPreview() {
-    AppTheme{
+    AppTheme {
         CaseOverviewScreen(
             state = CaseOverviewViewState.Content(
                 caseOverviewItemList = listOf(
@@ -102,7 +104,8 @@ fun CaseOverviewScreenPreview() {
                     )
                 )
             ),
-            onCaseClick = {}
+            onCaseClick = {},
+            deviceConfigurationType = DeviceConfigurationType.MOBILE_PORTRAIT
         )
     }
 }

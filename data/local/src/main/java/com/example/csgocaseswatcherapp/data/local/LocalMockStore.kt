@@ -44,6 +44,30 @@ class LocalMockStore @Inject constructor() {
                 overallValue = 6.0,
                 profitLoss = 0.0,
                 imageUrl = "https://api.steamapis.com/image/item/730/Operation%20Bravo%20Case"
+            ),
+            PortfolioItemDto(
+                name = "Test 1",
+                amount = 3,
+                purchasePrice = 2.0,
+                overallValue = 6.0,
+                profitLoss = 0.0,
+                imageUrl = "https://api.steamapis.com/image/item/730/Operation%20Bravo%20Case"
+            ),
+            PortfolioItemDto(
+                name = "Test 2",
+                amount = 3,
+                purchasePrice = 2.0,
+                overallValue = 6.0,
+                profitLoss = 0.0,
+                imageUrl = "https://api.steamapis.com/image/item/730/Operation%20Bravo%20Case"
+            ),
+            PortfolioItemDto(
+                name = "Test 3",
+                amount = 3,
+                purchasePrice = 2.0,
+                overallValue = 6.0,
+                profitLoss = 0.0,
+                imageUrl = "https://api.steamapis.com/image/item/730/Operation%20Bravo%20Case"
             )
         )
     )

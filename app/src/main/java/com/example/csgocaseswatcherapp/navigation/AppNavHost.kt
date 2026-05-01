@@ -1,25 +1,35 @@
 package com.example.csgocaseswatcherapp.navigation
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -27,6 +37,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.example.csgocaseswatcherapp.core.ui.DeviceConfigurationType
+import com.example.csgocaseswatcherapp.core.ui.rememberDeviceConfigurationType
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 import com.example.csgocaseswatcherapp.features.addcase.view.AddCaseRoute
 import com.example.csgocaseswatcherapp.features.addcase.view.AddCaseViewModel
@@ -42,9 +54,9 @@ import com.example.csgocaseswatcherapp.features.currencychange.view.CurrencyChan
 import com.example.csgocaseswatcherapp.features.portfolio.domain.entities.PortfolioItem
 import com.example.csgocaseswatcherapp.features.portfolio.view.PortfolioRoute
 import com.example.csgocaseswatcherapp.features.portfolio.view.PortfolioViewModel
+import com.example.csgocaseswatcherapp.features.portfolio.view.sortingmodal.view.SortingModalViewModel
 import com.example.csgocaseswatcherapp.features.portfoliodetails.view.PortfolioDetailsRoute
 import com.example.csgocaseswatcherapp.features.portfoliodetails.view.PortfolioDetailsViewModel
-import com.example.csgocaseswatcherapp.features.portfolio.view.sortingmodal.view.SortingModalViewModel
 import com.example.csgocaseswatcherapp.features.start.view.StartRoute
 import com.example.csgocaseswatcherapp.features.start.view.StartViewModel
 import kotlinx.serialization.Serializable
@@ -58,143 +70,265 @@ fun AppNavHost(
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
 
-    val title = remember(backStackEntry) { computeTitle(backStackEntry) }
-    val canNavigateBack = navController.previousBackStackEntry != null
-    val onBack: () -> Unit = { navController.popBackStack() }
+    val currentDestination = backStackEntry?.destination
+
+    val isStartDestination = currentDestination
+        ?.hierarchy
+        ?.any { it.hasRoute<Destination.Start>() } == true
+
+    val showTopBar = !isStartDestination
+
+    val title = remember(backStackEntry) {
+        computeTitle(backStackEntry)
+    }
+
+    val canNavigateBack =
+        navController.previousBackStackEntry != null && !isStartDestination
+
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(
+        state = rememberTopAppBarState()
+    )
+
+    val deviceConfigurationType = rememberDeviceConfigurationType()
 
     Scaffold(
+        modifier = modifier.fillMaxSize(),
         topBar = {
-            TopAppBar(
-                title = { Text(text = title, color = AppTheme.colors.onSurface) },
-                navigationIcon = {
-                    if (canNavigateBack && !isOnStartDestination(navController)) {
-                        IconButton(onClick = onBack) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = "Back",
-                                tint = AppTheme.colors.onSurface
-                            )
-                        }
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = AppTheme.colors.surface,
-                    titleContentColor = AppTheme.colors.onSurface,
-                    navigationIconContentColor = AppTheme.colors.onSurface
-                )
-            )
-        },
-        contentWindowInsets = WindowInsets.systemBars
-    ) { innerPadding ->
-        Box(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-        ) {
-            NavHost(
-                navController = navController,
-                startDestination = Destination.Start::class
-            ) {
-                composable<Destination.Start> {
-                    val viewModel: StartViewModel = hiltViewModel()
-                    StartRoute(
-                        viewModel = viewModel,
-                        onNavigateToCaseOverview = {
-                            navController.navigate(Destination.CaseOverView)
-                        },
-                        onNavigateToCaseAnalytics = {
-                            navController.navigate(Destination.CaseAnalytics)
-                        },
-                        onNavigateToPortfolio = {
-                            navController.navigate(Destination.Portfolio)
-                        },
-                        onNavigateToCurrencyChange = {
-                            navController.navigate(Destination.CurrencyChange)
-                        }
+            if (showTopBar) {
+                if (deviceConfigurationType == DeviceConfigurationType.MOBILE_LANDSCAPE) {
+                    CompactLandscapeTopBar(
+                        title = title,
+                        canNavigateBack = canNavigateBack,
+                        onBack = { navController.popBackStack() }
                     )
-                }
-                composable<Destination.CaseOverView> {
-                    val viewModel: CaseOverviewViewModel = hiltViewModel()
-                    CaseOverViewRoute(
-                        viewModel = viewModel,
-                        onNavigateToDetails = { caseOverViewModel ->
-                            navController.navigate(
-                                Destination.CaseDetails(
-                                    caseOverviewModel = caseOverViewModel
-                                )
-                            )
-                        }
-                    )
-                }
-                composable<Destination.CaseDetails>(
-                    typeMap = mapOf(
-                        typeOf<CaseOverviewModel>() to CustomNavType.CaseOverviewModelType
-                    )
-                ) { entry ->
-                    val viewModel: CaseDetailsViewModel = hiltViewModel(entry)
-                    val args = entry.toRoute<Destination.CaseDetails>()
-                    CaseOverviewDetailsRoute(
-                        viewModel = viewModel,
-                        currentCase = args.caseOverviewModel
-                    )
-                }
-                composable<Destination.CaseAnalytics> {
-                    val viewModel: CaseAnalyticsViewModel = hiltViewModel()
-                    CaseAnalyticsRoute(viewModel = viewModel)
-                }
-                composable<Destination.Portfolio> {
-                    val viewModel: PortfolioViewModel = hiltViewModel()
-                    val sortingViewModel: SortingModalViewModel = hiltViewModel()
-                    PortfolioRoute(
-                        viewModel = viewModel,
-                        sortingViewModel = sortingViewModel,
-                        onNavigateToAddCase = { navController.navigate(Destination.AddCase) },
-                        onNavigateToPortfolioDetails = { portfolioItemList ->
-                            navController.navigate(
-                                Destination.PortfolioDetails(portfolioItemList = portfolioItemList)
-                            )
-                        }
-                    )
-                }
-                composable<Destination.PortfolioDetails>(
-                    typeMap = mapOf(
-                        typeOf<List<PortfolioItem>>() to CustomNavType.PortfolioItemListType
-                    )
-                ) { entry ->
-                    val viewModel: PortfolioDetailsViewModel = hiltViewModel(entry)
-                    val args = entry.toRoute<Destination.PortfolioDetails>()
-                    PortfolioDetailsRoute(
-                        viewModel = viewModel,
-                        portfolioItemList = args.portfolioItemList
-                    )
-                }
-                composable<Destination.AddCase> {
-                    val viewModel: AddCaseViewModel = hiltViewModel()
-                    AddCaseRoute(
-                        viewModel = viewModel,
-                        navigateToPortfolio = {
-                            navController.navigate(Destination.Portfolio) {
-                                popUpTo(Destination.Portfolio::class) { inclusive = true }
-                                launchSingleTop = true
-                            }
-                        }
-                    )
-                }
-                composable<Destination.CurrencyChange> {
-                    val viewModel: CurrencyChangeViewModel = hiltViewModel()
-                    CurrencyChangeRoute(
-                        viewModel = viewModel,
-                        navigateToStart = { preferredCurrency ->
-                            navController.navigate(Destination.Start(preferredCurrency = preferredCurrency)) {
-                                popUpTo(navController.graph.startDestinationId) { inclusive = true }
-                                launchSingleTop = true
-                            }
-                        }
+                } else {
+                    MyAppTopBar(
+                        title = title,
+                        canNavigateBack = canNavigateBack,
+                        onBack = { navController.popBackStack() },
+                        scrollBehavior = scrollBehavior
                     )
                 }
             }
+        },
+        contentWindowInsets = WindowInsets(0.dp)
+    ) { paddingValues ->
+
+        NavHost(
+            navController = navController,
+            startDestination = Destination.Start::class,
+            modifier = Modifier
+                .fillMaxSize()
+                .background(AppTheme.colors.background)
+                .padding(paddingValues)
+        ) {
+            composable<Destination.Start> {
+                val viewModel: StartViewModel = hiltViewModel()
+                StartRoute(
+                    viewModel = viewModel,
+                    onNavigateToCaseOverview = {
+                        navController.navigate(Destination.CaseOverView)
+                    },
+                    onNavigateToCaseAnalytics = {
+                        navController.navigate(Destination.CaseAnalytics)
+                    },
+                    onNavigateToPortfolio = {
+                        navController.navigate(Destination.Portfolio)
+                    },
+                    onNavigateToCurrencyChange = {
+                        navController.navigate(Destination.CurrencyChange)
+                    }
+                )
+            }
+            composable<Destination.CaseOverView> {
+                val viewModel: CaseOverviewViewModel = hiltViewModel()
+                CaseOverViewRoute(
+                    viewModel = viewModel,
+                    onNavigateToDetails = { caseOverViewModel ->
+                        navController.navigate(
+                            Destination.CaseDetails(
+                                caseOverviewModel = caseOverViewModel
+                            )
+                        )
+                    }
+                )
+            }
+            composable<Destination.CaseDetails>(
+                typeMap = mapOf(
+                    typeOf<CaseOverviewModel>() to CustomNavType.CaseOverviewModelType
+                )
+            ) { entry ->
+                val viewModel: CaseDetailsViewModel = hiltViewModel(entry)
+                val args = entry.toRoute<Destination.CaseDetails>()
+                CaseOverviewDetailsRoute(
+                    viewModel = viewModel,
+                    currentCase = args.caseOverviewModel
+                )
+            }
+            composable<Destination.CaseAnalytics> {
+                val viewModel: CaseAnalyticsViewModel = hiltViewModel()
+                CaseAnalyticsRoute(viewModel = viewModel)
+            }
+            composable<Destination.Portfolio> {
+                val viewModel: PortfolioViewModel = hiltViewModel()
+                val sortingViewModel: SortingModalViewModel = hiltViewModel()
+                PortfolioRoute(
+                    viewModel = viewModel,
+                    sortingViewModel = sortingViewModel,
+                    onNavigateToAddCase = { navController.navigate(Destination.AddCase) },
+                    onNavigateToPortfolioDetails = { portfolioItemList ->
+                        navController.navigate(
+                            Destination.PortfolioDetails(portfolioItemList = portfolioItemList)
+                        )
+                    }
+                )
+            }
+            composable<Destination.PortfolioDetails>(
+                typeMap = mapOf(
+                    typeOf<List<PortfolioItem>>() to CustomNavType.PortfolioItemListType
+                )
+            ) { entry ->
+                val viewModel: PortfolioDetailsViewModel = hiltViewModel(entry)
+                val args = entry.toRoute<Destination.PortfolioDetails>()
+                PortfolioDetailsRoute(
+                    viewModel = viewModel,
+                    portfolioItemList = args.portfolioItemList
+                )
+            }
+            composable<Destination.AddCase> {
+                val viewModel: AddCaseViewModel = hiltViewModel()
+                AddCaseRoute(
+                    viewModel = viewModel,
+                    navigateToPortfolio = {
+                        navController.navigate(Destination.Portfolio) {
+                            popUpTo(Destination.Portfolio::class) { inclusive = true }
+                            launchSingleTop = true
+                        }
+                    }
+                )
+            }
+            composable<Destination.CurrencyChange> {
+                val viewModel: CurrencyChangeViewModel = hiltViewModel()
+                CurrencyChangeRoute(
+                    viewModel = viewModel,
+                    navigateToStart = { preferredCurrency ->
+                        navController.navigate(Destination.Start(preferredCurrency = preferredCurrency)) {
+                            popUpTo(navController.graph.startDestinationId) { inclusive = true }
+                            launchSingleTop = true
+                        }
+                    }
+                )
+            }
         }
     }
+}
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun MyAppTopBar(
+    title: String,
+    canNavigateBack: Boolean,
+    onBack: () -> Unit,
+    scrollBehavior: TopAppBarScrollBehavior,
+    modifier: Modifier = Modifier
+) {
+    TopAppBar(
+        modifier = modifier,
+        scrollBehavior = scrollBehavior,
+        title = {
+            Text(
+                text = title,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                style = MaterialTheme.typography.titleLarge,
+                color = AppTheme.colors.onBackground
+            )
+        },
+        navigationIcon = {
+            if (canNavigateBack) {
+                IconButton(onClick = onBack) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Back",
+                        tint = AppTheme.colors.onBackground
+                    )
+                }
+            }
+        },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = AppTheme.colors.background,
+            scrolledContainerColor = AppTheme.colors.background,
+            titleContentColor = AppTheme.colors.onBackground,
+            navigationIconContentColor = AppTheme.colors.onBackground
+        )
+    )
+}
+
+@Composable
+fun CompactLandscapeTopBar(
+    title: String,
+    canNavigateBack: Boolean,
+    onBack: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .background(AppTheme.colors.background)
+            .statusBarsPadding()
+            .height(48.dp)
+            .padding(horizontal = 8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        if (canNavigateBack) {
+            IconButton(onClick = onBack) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = "Back",
+                    tint = AppTheme.colors.onBackground
+                )
+            }
+        }
+
+        Text(
+            text = title,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            color = AppTheme.colors.onBackground,
+            style = MaterialTheme.typography.titleMedium
+        )
+    }
+}
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun OldAppBar(
+    title: String,
+    canNavigateBack: Boolean,
+    navController: NavHostController,
+    onBack: () -> Unit
+) {
+    TopAppBar(
+        title = { Text(text = title, color = AppTheme.colors.onSurface) },
+        navigationIcon = {
+            if (canNavigateBack && !isOnStartDestination(navController)) {
+                IconButton(onClick = onBack) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Back",
+                        tint = AppTheme.colors.onSurface
+                    )
+                }
+            }
+        },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = AppTheme.colors.surface,
+            titleContentColor = AppTheme.colors.onSurface,
+            navigationIconContentColor = AppTheme.colors.onSurface
+        )
+    )
 }
 
 private fun isOnStartDestination(navController: NavHostController): Boolean {

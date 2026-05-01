@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.csgocaseswatcherapp.core.ui.rememberDeviceConfigurationType
 import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewModel
 import kotlinx.coroutines.flow.collectLatest
 
@@ -14,6 +15,7 @@ fun CaseOverViewRoute(
 ) {
 
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val deviceConfigurationType = rememberDeviceConfigurationType()
 
     LaunchedEffect(viewModel) {
         viewModel.uiEvent.collectLatest { event ->
@@ -29,7 +31,8 @@ fun CaseOverViewRoute(
         state = state,
         onCaseClick = { clicked ->
             viewModel.handleAction(CaseOverviewAction.OnCaseClicked(clicked))
-        }
+        },
+        deviceConfigurationType = deviceConfigurationType
     )
 
 }

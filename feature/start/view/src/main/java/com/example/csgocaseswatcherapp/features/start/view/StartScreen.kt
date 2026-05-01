@@ -15,10 +15,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.Text
-import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -27,11 +27,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.csgocaseswatcherapp.core.ui.BackgroundDecorations
-import com.example.csgocaseswatcherapp.core.ui.DeviceConfiguration
+import com.example.csgocaseswatcherapp.core.ui.DeviceConfigurationType
 import com.example.csgocaseswatcherapp.core.ui.ErrorScreen
 import com.example.csgocaseswatcherapp.core.ui.LoadingScreen
 import com.example.csgocaseswatcherapp.core.ui.MainMenuButton
@@ -39,18 +40,20 @@ import com.example.csgocaseswatcherapp.core.ui.SmallButton
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 import com.example.csgocaseswatcherapp.features.start.R
 
-
 @Composable
 fun StartScreen(
+    deviceConfigurationType: DeviceConfigurationType,
     state: StartViewState,
     onAction: (StartAction) -> Unit,
 ) {
     when (state) {
-        is StartViewState.Content ->
+        is StartViewState.Content -> {
             StartScreenContent(
                 state = state,
                 onAction = onAction,
+                deviceConfigurationType = deviceConfigurationType
             )
+        }
 
         is StartViewState.Error -> ErrorScreen()
         is StartViewState.Loading -> LoadingScreen()
@@ -60,15 +63,12 @@ fun StartScreen(
 @Composable
 private fun StartScreenContent(
     state: StartViewState.Content,
-    onAction: (StartAction) -> Unit
+    onAction: (StartAction) -> Unit,
+    deviceConfigurationType: DeviceConfigurationType
 ) {
-
     LaunchedEffect(Unit) {
         onAction(StartAction.OnCreate)
     }
-
-    val windowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
-    val deviceConfiguration = DeviceConfiguration.fromWindowSizeClass(windowSizeClass)
 
     val isDark = isSystemInDarkTheme()
 
@@ -78,117 +78,164 @@ private fun StartScreenContent(
         R.drawable.ic_frontpageimg
     }
 
-    when (deviceConfiguration) {
-        DeviceConfiguration.MOBILE_PORTRAIT -> {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(AppTheme.colors.background)
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(horizontal = AppTheme.dimensions.paddingL)
-                ) {
-                    HeaderDecoration(
-                        currencyButtonText = state.currencyButton,
-                        onAction = { onAction(StartAction.OnCurrencyChangeClicked) }
-                    )
-
-                    LogoAndSlogan(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .weight(1f),
-                        imageResource = imageRes,
-                        sloganResource = R.string.front_page_slogan,
-                        imageModifier = Modifier.size(width = 280.dp, height = 240.dp)
-                    )
-
-                    ButtonsSelectionSection(
-                        onAction = onAction
-                    )
-                    Spacer(modifier = Modifier.size(80.dp))
-                }
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(AppTheme.colors.background)
+    ) {
+        when (deviceConfigurationType) {
+            DeviceConfigurationType.MOBILE_PORTRAIT -> {
+                StartScreenPortraitContent(
+                    state = state,
+                    onAction = onAction,
+                    imageRes = imageRes
+                )
             }
-        }
 
-        DeviceConfiguration.MOBILE_LANDSCAPE -> {
-            Row(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(AppTheme.colors.background)
-                    .padding(AppTheme.dimensions.paddingL),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxHeight()
-                ) {
-                    BackgroundDecorations(modifier = Modifier.matchParentSize())
-
-                    LogoAndSlogan(
-                        modifier = Modifier.fillMaxSize(),
-                        imageResource = imageRes,
-                        sloganResource = R.string.front_page_slogan,
-                        imageModifier = Modifier.size(width = 320.dp, height = 280.dp)
-                    )
-                }
-
-                Column(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxHeight()
-                        .padding(horizontal = AppTheme.dimensions.paddingL),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    SmallButton(
-                        onClick = { onAction(StartAction.OnCurrencyChangeClicked) },
-                        buttonText = state.currencyButton,
-                        modifier = Modifier.align(Alignment.End)
-                    )
-
-                    Spacer(modifier = Modifier.height(AppTheme.dimensions.paddingL))
-
-                    ButtonsSelectionSection(
-                        onAction = onAction,
-                        modifier = Modifier.widthIn(max = 420.dp)
-                    )
-                }
+            DeviceConfigurationType.MOBILE_LANDSCAPE -> {
+                StartScreenLandscapeContent(
+                    state = state,
+                    onAction = onAction,
+                    imageRes = imageRes
+                )
             }
         }
     }
 }
 
+@Composable
+private fun StartScreenPortraitContent(
+    state: StartViewState.Content,
+    onAction: (StartAction) -> Unit,
+    @DrawableRes imageRes: Int
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .safeDrawingPadding()
+            .padding(horizontal = AppTheme.dimensions.paddingL),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        HeaderDecoration(
+            currencyButtonText = state.currencyButton,
+            onAction = onAction
+        )
+
+        LogoAndSlogan(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f),
+            imageResource = imageRes,
+            sloganResource = R.string.front_page_slogan,
+            imageModifier = Modifier.size(width = 240.dp, height = 210.dp)
+        )
+
+        ButtonsSelectionSection(
+            onAction = onAction,
+            modifier = Modifier
+                .padding(bottom = AppTheme.dimensions.paddingXL)
+                .weight(1.5f)
+        )
+    }
+}
+
+@Composable
+private fun StartScreenLandscapeContent(
+    state: StartViewState.Content,
+    onAction: (StartAction) -> Unit,
+    @DrawableRes imageRes: Int
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxSize()
+            .safeDrawingPadding()
+            .padding(horizontal = AppTheme.dimensions.paddingL),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight()
+        ) {
+            BackgroundDecorations(modifier = Modifier.matchParentSize())
+
+            LogoAndSlogan(
+                modifier = Modifier.fillMaxSize(),
+                imageResource = imageRes,
+                sloganResource = R.string.front_page_slogan,
+                imageModifier = Modifier.size(width = 250.dp, height = 210.dp),
+                compact = true
+            )
+        }
+
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight()
+                .padding(
+                    start = AppTheme.dimensions.paddingXL,
+                    end = AppTheme.dimensions.paddingXL
+                ),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            SmallButton(
+                onClick = { onAction(StartAction.OnCurrencyChangeClicked) },
+                buttonText = state.currencyButton,
+                modifier = Modifier
+                    .align(Alignment.End)
+                    .padding(end = AppTheme.dimensions.paddingM, bottom = AppTheme.dimensions.paddingL)
+            )
+
+            Spacer(modifier = Modifier.height(AppTheme.dimensions.paddingM))
+
+            ButtonsSelectionSection(
+                onAction = onAction,
+                modifier = Modifier.widthIn(max = 360.dp),
+                compact = true
+            )
+        }
+    }
+}
 
 @Composable
 fun ButtonsSelectionSection(
     onAction: (StartAction) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    compact: Boolean = false
 ) {
-    Row(
+    Box(
         modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.Center
+        contentAlignment = Alignment.Center
     ) {
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(12.dp),
             modifier = Modifier
-                .fillMaxWidth()
+                .widthIn(max = 420.dp)
+                .fillMaxWidth(),
+            horizontalAlignment = Alignment.End,
+            verticalArrangement = Arrangement.spacedBy(
+                if (compact) 8.dp else 12.dp
+            )
         ) {
             MainMenuButton(
                 buttonText = stringResource(R.string.front_page_case_overview_button),
                 onClick = { onAction(StartAction.OnCaseOverviewClicked) },
+                modifier = Modifier.fillMaxWidth(),
+                compact = compact
             )
+
             MainMenuButton(
                 buttonText = stringResource(R.string.front_page_analytics_button),
                 onClick = { onAction(StartAction.OnAnalyticsClicked) },
+                modifier = Modifier.fillMaxWidth(),
+                compact = compact
+            )
 
-                )
             MainMenuButton(
                 buttonText = stringResource(R.string.front_page_portfolio_button),
                 onClick = { onAction(StartAction.OnPortfolioClicked) },
+                modifier = Modifier.fillMaxWidth(),
+                compact = compact
             )
         }
     }
@@ -203,21 +250,20 @@ fun HeaderDecoration(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .height(140.dp),
+            .height(96.dp),
         verticalAlignment = Alignment.Top
     ) {
         Box(
-            Modifier
+            modifier = Modifier
                 .weight(1f)
                 .fillMaxHeight()
+                .padding(start = AppTheme.dimensions.paddingM)
         ) {
             BackgroundDecorations(modifier = Modifier.matchParentSize())
         }
+
         SmallButton(
-            modifier = Modifier.padding(
-                top = AppTheme.dimensions.paddingML,
-                end = AppTheme.dimensions.paddingML
-            ),
+            modifier = Modifier.padding(top = AppTheme.dimensions.paddingM),
             onClick = { onAction(StartAction.OnCurrencyChangeClicked) },
             buttonText = currencyButtonText
         )
@@ -229,43 +275,103 @@ fun LogoAndSlogan(
     modifier: Modifier = Modifier,
     @DrawableRes imageResource: Int,
     @StringRes sloganResource: Int,
-    imageModifier: Modifier = Modifier.size(width = 280.dp, height = 240.dp),
+    imageModifier: Modifier = Modifier.size(width = 240.dp, height = 210.dp),
+    compact: Boolean = false
 ) {
-    Row(
+    Column(
         modifier = modifier,
-        horizontalArrangement = Arrangement.Center
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Image(
-                painter = painterResource(imageResource),
-                contentDescription = null,
-                modifier = imageModifier,
-                alignment = Alignment.Center,
-            )
+        Image(
+            painter = painterResource(imageResource),
+            contentDescription = null,
+            modifier = imageModifier,
+            alignment = Alignment.Center,
+        )
 
-            Spacer(modifier = Modifier.size(AppTheme.dimensions.paddingL))
-
-            Text(
-                text = stringResource(sloganResource),
-                color = AppTheme.colors.onBackground,
-                fontWeight = FontWeight.Bold,
-                fontSize = 18.sp,
-                textAlign = TextAlign.Center
+        Spacer(
+            modifier = Modifier.height(
+                if (compact) AppTheme.dimensions.paddingM
+                else AppTheme.dimensions.paddingM
             )
-        }
+        )
+
+        Text(
+            text = stringResource(sloganResource),
+            color = AppTheme.colors.onBackground,
+            fontWeight = FontWeight.Bold,
+            fontSize = if (compact) 14.sp else 16.sp,
+            textAlign = TextAlign.Center,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.padding(horizontal = AppTheme.dimensions.paddingM)
+        )
     }
 }
 
-@PreviewLightDark
+@Preview(
+    widthDp = 360,
+    heightDp = 800,
+    showBackground = true
+)
 @Composable
-fun StartScreenPreview() {
-    AppTheme {
+fun StartScreenPortraitLightPreview() {
+    StartScreenPreviewContent(
+        darkTheme = false,
+        deviceConfigurationType = DeviceConfigurationType.MOBILE_PORTRAIT
+    )
+}
+
+@Preview(
+    widthDp = 360,
+    heightDp = 800,
+    showBackground = true
+)
+@Composable
+fun StartScreenPortraitDarkPreview() {
+    StartScreenPreviewContent(
+        darkTheme = true,
+        deviceConfigurationType = DeviceConfigurationType.MOBILE_PORTRAIT
+    )
+}
+
+@Preview(
+    widthDp = 800,
+    heightDp = 360,
+    showBackground = true
+)
+@Composable
+fun StartScreenLandscapeLightPreview() {
+    StartScreenPreviewContent(
+        darkTheme = false,
+        deviceConfigurationType = DeviceConfigurationType.MOBILE_LANDSCAPE
+    )
+}
+
+@Preview(
+    widthDp = 800,
+    heightDp = 360,
+    showBackground = true
+)
+@Composable
+fun StartScreenLandscapeDarkPreview() {
+    StartScreenPreviewContent(
+        darkTheme = true,
+        deviceConfigurationType = DeviceConfigurationType.MOBILE_LANDSCAPE
+    )
+}
+
+@Composable
+private fun StartScreenPreviewContent(
+    darkTheme: Boolean,
+    deviceConfigurationType: DeviceConfigurationType
+) {
+    AppTheme(darkTheme = darkTheme) {
         StartScreen(
-            state = StartViewState.Content(currencyButton = "RUB"),
-            onAction = {}
+            state = StartViewState.Content(currencyButton = "USD"),
+            onAction = {},
+            deviceConfigurationType = deviceConfigurationType
         )
     }
 }
