@@ -10,4 +10,7 @@
     <string name="volatility_std">Volatility (Std)</string>
     <string name="sharpe_ratio">Sharpe Ratio</string>
     <string name="expandable_stat_section_title">Daily Stats</string>
+    <string name="monthly_sharpe_value">Monthly Sharpe: %1$s</string>
+    <string name="analytics_stat_group_title_monthly">Monthly</string>
+    <string name="analytics_stat_group_title_daily">Daily</string>
 </resources>
