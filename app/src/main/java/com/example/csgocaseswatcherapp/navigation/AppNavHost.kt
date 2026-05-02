@@ -277,7 +277,7 @@ fun CompactLandscapeTopBar(
             .fillMaxWidth()
             .background(AppTheme.colors.background)
             .statusBarsPadding()
-            .height(48.dp)
+            .height(32.dp)
             .padding(horizontal = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
