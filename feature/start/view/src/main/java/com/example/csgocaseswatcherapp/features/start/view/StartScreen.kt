@@ -10,14 +10,16 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -82,6 +84,7 @@ private fun StartScreenContent(
         modifier = Modifier
             .fillMaxSize()
             .background(AppTheme.colors.background)
+            .windowInsetsPadding(WindowInsets.safeDrawing),
     ) {
         when (deviceConfigurationType) {
             DeviceConfigurationType.MOBILE_PORTRAIT -> {
@@ -112,9 +115,8 @@ private fun StartScreenPortraitContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .safeDrawingPadding()
             .padding(horizontal = AppTheme.dimensions.paddingL),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         HeaderDecoration(
             currencyButtonText = state.currencyButton,
@@ -148,7 +150,6 @@ private fun StartScreenLandscapeContent(
     Row(
         modifier = Modifier
             .fillMaxSize()
-            .safeDrawingPadding()
             .padding(horizontal = AppTheme.dimensions.paddingL),
         verticalAlignment = Alignment.CenterVertically
     ) {

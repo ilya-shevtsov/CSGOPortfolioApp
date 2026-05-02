@@ -1,6 +1,9 @@
 package com.example.csgocaseswatcherapp.features.caseanalytics.view
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -35,7 +38,10 @@ fun CaseAnalyticsScreenContent(
     items: List<CaseAnalyticsModel>,
     deviceConfigurationType: DeviceConfigurationType
 ) {
-    LazyColumn(modifier = Modifier.background(AppTheme.colors.background)) {
+    LazyColumn(
+        modifier = Modifier.background(AppTheme.colors.background),
+        contentPadding = WindowInsets.safeDrawing.asPaddingValues()
+    ) {
         items(
             items = items,
         ) { item ->
