@@ -10,7 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.example.csgocaseswatcherapp.core.ui.shimmer.ShimmerCircle
+import com.example.csgocaseswatcherapp.core.ui.shimmer.ShimmerTextLine
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 
 @Composable
@@ -38,6 +41,23 @@ fun StatRow(
             text = value,
             style = MaterialTheme.typography.bodyMedium,
             color = AppTheme.colors.onSurface
+        )
+    }
+}
+
+@Composable
+fun StatRowShimmer(
+    width: Dp,
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        ShimmerCircle(size = 18.dp)
+
+        ShimmerTextLine(
+            width = width,
+            height = 16.dp
         )
     }
 }

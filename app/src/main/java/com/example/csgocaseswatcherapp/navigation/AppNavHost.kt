@@ -31,7 +31,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -76,7 +75,6 @@ fun AppNavHost(
         ?.hierarchy
         ?.any { it.hasRoute<Destination.Start>() } == true
 
-    val showTopBar = !isStartDestination
 
     val title = remember(backStackEntry) {
         computeTitle(backStackEntry)
@@ -94,21 +92,19 @@ fun AppNavHost(
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
-            if (showTopBar) {
-                if (deviceConfigurationType == DeviceConfigurationType.MOBILE_LANDSCAPE) {
-                    CompactLandscapeTopBar(
-                        title = title,
-                        canNavigateBack = canNavigateBack,
-                        onBack = { navController.popBackStack() }
-                    )
-                } else {
-                    MyAppTopBar(
-                        title = title,
-                        canNavigateBack = canNavigateBack,
-                        onBack = { navController.popBackStack() },
-                        scrollBehavior = scrollBehavior
-                    )
-                }
+            if (deviceConfigurationType == DeviceConfigurationType.MOBILE_LANDSCAPE) {
+                CompactLandscapeTopBar(
+                    title = title,
+                    canNavigateBack = canNavigateBack,
+                    onBack = { navController.popBackStack() }
+                )
+            } else {
+                MyAppTopBar(
+                    title = title,
+                    canNavigateBack = canNavigateBack,
+                    onBack = { navController.popBackStack() },
+                    scrollBehavior = scrollBehavior
+                )
             }
         },
         contentWindowInsets = WindowInsets(0.dp)
@@ -299,43 +295,6 @@ fun CompactLandscapeTopBar(
             style = MaterialTheme.typography.titleMedium
         )
     }
-}
-
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun OldAppBar(
-    title: String,
-    canNavigateBack: Boolean,
-    navController: NavHostController,
-    onBack: () -> Unit
-) {
-    TopAppBar(
-        title = { Text(text = title, color = AppTheme.colors.onSurface) },
-        navigationIcon = {
-            if (canNavigateBack && !isOnStartDestination(navController)) {
-                IconButton(onClick = onBack) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Back",
-                        tint = AppTheme.colors.onSurface
-                    )
-                }
-            }
-        },
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = AppTheme.colors.surface,
-            titleContentColor = AppTheme.colors.onSurface,
-            navigationIconContentColor = AppTheme.colors.onSurface
-        )
-    )
-}
-
-private fun isOnStartDestination(navController: NavHostController): Boolean {
-    val startRoute = Destination.Start::class.qualifiedName
-    return navController.currentDestination
-        ?.hierarchy
-        ?.any { it.route == startRoute } == true
 }
 
 private fun computeTitle(entry: NavBackStackEntry?): String {

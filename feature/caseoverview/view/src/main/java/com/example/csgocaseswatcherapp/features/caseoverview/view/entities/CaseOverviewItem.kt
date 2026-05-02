@@ -31,6 +31,10 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.csgocaseswatcherapp.core.ui.StatRow
+import com.example.csgocaseswatcherapp.core.ui.StatRowShimmer
+import com.example.csgocaseswatcherapp.core.ui.shimmer.ShimmerBox
+import com.example.csgocaseswatcherapp.core.ui.shimmer.ShimmerCard
+import com.example.csgocaseswatcherapp.core.ui.shimmer.ShimmerTextLine
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 import com.example.csgocaseswatcherapp.core.ui.R as UiR
 
@@ -38,9 +42,10 @@ import com.example.csgocaseswatcherapp.core.ui.R as UiR
 fun CaseOverviewItem(
     item: CaseOverviewModel,
     onClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(AppTheme.dimensions.paddingML)
             .clickable { onClick() },
@@ -101,6 +106,49 @@ fun CaseOverviewItem(
                 )
             }
         }
+    }
+}
+
+@Composable
+fun CaseOverviewItemShimmer() {
+    ShimmerCard {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(AppTheme.dimensions.paddingM),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            ShimmerBox(
+                width = 100.dp,
+                height = 100.dp,
+                shape = RoundedCornerShape(16.dp)
+            )
+
+            Spacer(Modifier.width(16.dp))
+
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                ShimmerTextLine(
+                    width = 180.dp,
+                    height = 22.dp
+                )
+
+                StatRowShimmer(width = 150.dp)
+                StatRowShimmer(width = 120.dp)
+                StatRowShimmer(width = 140.dp)
+            }
+        }
+    }
+}
+
+@PreviewLightDark
+@Composable
+private fun CaseOverviewItemShimmerPreview() {
+    AppTheme {
+        CaseOverviewItemShimmer()
+
     }
 }
 

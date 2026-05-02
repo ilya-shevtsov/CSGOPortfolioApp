@@ -6,9 +6,12 @@ import com.example.csgocaseswatcherapp.features.caseoverview.domain.usecases.Get
 import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewModel
 import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewModelMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import kotlin.coroutines.cancellation.CancellationException
 
@@ -23,13 +26,25 @@ class CaseOverviewViewModel @Inject constructor(
     val uiEvent = MutableSharedFlow<CaseOverviewEvent>()
 
     init {
+        loadCases()
+    }
+
+    private fun loadCases() {
         viewModelScope.launch {
             runCatching {
-                getCaseListUseCase()
-            }.onSuccess { response ->
-                uiState.value = CaseOverviewViewState.Content(
-                    caseOverviewItemList = response.map(CaseOverviewModelMapper::map)
-                )
+                val response = withContext(Dispatchers.IO) {
+                    getCaseListUseCase()
+                }
+
+                withContext(Dispatchers.Default) {
+                    response.map(CaseOverviewModelMapper::map)
+                }
+            }.onSuccess { caseOverviewItemList ->
+                uiState.update {
+                    CaseOverviewViewState.Content(
+                        caseOverviewItemList = caseOverviewItemList
+                    )
+                }
             }.onFailure { throwable ->
                 if (throwable is CancellationException) throw throwable
                 showError()
