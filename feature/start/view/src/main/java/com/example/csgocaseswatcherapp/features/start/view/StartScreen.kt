@@ -10,16 +10,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -30,7 +27,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.csgocaseswatcherapp.core.ui.BackgroundDecorations
@@ -39,6 +35,8 @@ import com.example.csgocaseswatcherapp.core.ui.ErrorScreen
 import com.example.csgocaseswatcherapp.core.ui.LoadingScreen
 import com.example.csgocaseswatcherapp.core.ui.MainMenuButton
 import com.example.csgocaseswatcherapp.core.ui.SmallButton
+import com.example.csgocaseswatcherapp.core.ui.preview.PreviewPortraitLandscapeDarkLight
+import com.example.csgocaseswatcherapp.core.ui.preview.PreviewScreenWithTopBar
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 import com.example.csgocaseswatcherapp.features.start.R
 
@@ -47,13 +45,15 @@ fun StartScreen(
     deviceConfigurationType: DeviceConfigurationType,
     state: StartViewState,
     onAction: (StartAction) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     when (state) {
         is StartViewState.Content -> {
             StartScreenContent(
                 state = state,
                 onAction = onAction,
-                deviceConfigurationType = deviceConfigurationType
+                deviceConfigurationType = deviceConfigurationType,
+                modifier = modifier
             )
         }
 
@@ -66,7 +66,8 @@ fun StartScreen(
 private fun StartScreenContent(
     state: StartViewState.Content,
     onAction: (StartAction) -> Unit,
-    deviceConfigurationType: DeviceConfigurationType
+    deviceConfigurationType: DeviceConfigurationType,
+    modifier: Modifier = Modifier
 ) {
     LaunchedEffect(Unit) {
         onAction(StartAction.OnCreate)
@@ -81,10 +82,9 @@ private fun StartScreenContent(
     }
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(AppTheme.colors.background)
-            .windowInsetsPadding(WindowInsets.safeDrawing),
     ) {
         when (deviceConfigurationType) {
             DeviceConfigurationType.MOBILE_PORTRAIT -> {
@@ -311,68 +311,19 @@ fun LogoAndSlogan(
     }
 }
 
-@Preview(
-    widthDp = 360,
-    heightDp = 800,
-    showBackground = true
-)
-@Composable
-fun StartScreenPortraitLightPreview() {
-    StartScreenPreviewContent(
-        darkTheme = false,
-        deviceConfigurationType = DeviceConfigurationType.MOBILE_PORTRAIT
-    )
-}
 
-@Preview(
-    widthDp = 360,
-    heightDp = 800,
-    showBackground = true
-)
+@PreviewPortraitLandscapeDarkLight
 @Composable
-fun StartScreenPortraitDarkPreview() {
-    StartScreenPreviewContent(
-        darkTheme = true,
-        deviceConfigurationType = DeviceConfigurationType.MOBILE_PORTRAIT
-    )
-}
-
-@Preview(
-    widthDp = 800,
-    heightDp = 360,
-    showBackground = true
-)
-@Composable
-fun StartScreenLandscapeLightPreview() {
-    StartScreenPreviewContent(
-        darkTheme = false,
-        deviceConfigurationType = DeviceConfigurationType.MOBILE_LANDSCAPE
-    )
-}
-
-@Preview(
-    widthDp = 800,
-    heightDp = 360,
-    showBackground = true
-)
-@Composable
-fun StartScreenLandscapeDarkPreview() {
-    StartScreenPreviewContent(
-        darkTheme = true,
-        deviceConfigurationType = DeviceConfigurationType.MOBILE_LANDSCAPE
-    )
-}
-
-@Composable
-private fun StartScreenPreviewContent(
-    darkTheme: Boolean,
-    deviceConfigurationType: DeviceConfigurationType
-) {
-    AppTheme(darkTheme = darkTheme) {
+private fun StartScreenPreview() {
+    PreviewScreenWithTopBar(
+        title = "Welcome",
+        canNavigateBack = false
+    ) { deviceConfigurationType, paddingValues ->
         StartScreen(
             state = StartViewState.Content(currencyButton = "USD"),
             onAction = {},
-            deviceConfigurationType = deviceConfigurationType
+            deviceConfigurationType = deviceConfigurationType,
+            modifier = Modifier.padding(paddingValues)
         )
     }
 }
