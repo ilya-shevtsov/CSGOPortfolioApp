@@ -1,5 +1,7 @@
 package com.example.csgocaseswatcherapp.navigation
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -96,7 +98,19 @@ fun AppNavHost(
             modifier = Modifier
                 .fillMaxSize()
                 .background(AppTheme.colors.background)
-                .padding(paddingValues)
+                .padding(paddingValues),
+            enterTransition = {
+                EnterTransition.None
+            },
+            exitTransition = {
+                ExitTransition.None
+            },
+            popEnterTransition = {
+                EnterTransition.None
+            },
+            popExitTransition = {
+                ExitTransition.None
+            }
         ) {
             composable<Destination.Start> {
                 val viewModel: StartViewModel = hiltViewModel()
@@ -198,9 +212,6 @@ fun AppNavHost(
         }
     }
 }
-
-
-
 
 private fun computeTitle(entry: NavBackStackEntry?): String {
     val route = entry?.destination?.route ?: return ""
