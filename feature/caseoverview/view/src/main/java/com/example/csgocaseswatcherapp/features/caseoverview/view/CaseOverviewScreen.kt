@@ -73,11 +73,7 @@ private fun CaseOverviewContent(
         modifier = Modifier
             .fillMaxSize()
             .background(AppTheme.colors.background)
-//        ,
-//                contentPadding = PaddingValues(
-//                horizontal = AppTheme.dimensions.paddingM,
-//        vertical = AppTheme.dimensions.paddingM
-//    )
+            .padding(AppTheme.dimensions.paddingM)
     ) {
         items(
             items = items,

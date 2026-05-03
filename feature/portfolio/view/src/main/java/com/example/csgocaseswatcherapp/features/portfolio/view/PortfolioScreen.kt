@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.displayCutoutPadding
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -127,14 +126,7 @@ fun PortfolioLandscapeContent(
         modifier = modifier
             .fillMaxSize()
             .background(AppTheme.colors.background)
-            .navigationBarsPadding()
-            .displayCutoutPadding()
-            .padding(
-                start = AppTheme.dimensions.paddingL,
-                end = AppTheme.dimensions.paddingL,
-                top = AppTheme.dimensions.paddingM,
-                bottom = AppTheme.dimensions.paddingM
-            ),
+            .padding(AppTheme.dimensions.paddingM),
         horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
     ) {
         PortfolioLandscapeSummaryPanel(

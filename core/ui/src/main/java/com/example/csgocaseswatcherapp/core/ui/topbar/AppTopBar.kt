@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContent
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.windowInsetsPadding
@@ -64,6 +65,7 @@ private fun CompactAppTopBar(
             .fillMaxWidth()
             .background(AppTheme.colors.background)
             .windowInsetsPadding(WindowInsets.safeContent)
+            .padding(start = AppTheme.dimensions.paddingM)
             .height(AppTheme.dimensions.compactTopBarHeight),
         verticalAlignment = Alignment.CenterVertically
     ) {

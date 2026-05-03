@@ -84,8 +84,7 @@ private fun StartScreenContent(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(AppTheme.colors.background)
-//            .windowInsetsPadding(WindowInsets.safeDrawing)
+            .background(AppTheme.colors.background),
     ) {
         when (deviceConfigurationType) {
             DeviceConfigurationType.MOBILE_PORTRAIT -> {
@@ -294,8 +293,8 @@ fun LogoAndSlogan(
 
         Spacer(
             modifier = Modifier.height(
-                if (compact) AppTheme.dimensions.paddingM
-                else AppTheme.dimensions.paddingM
+                if (compact) AppTheme.dimensions.paddingML
+                else AppTheme.dimensions.paddingML
             )
         )
 
