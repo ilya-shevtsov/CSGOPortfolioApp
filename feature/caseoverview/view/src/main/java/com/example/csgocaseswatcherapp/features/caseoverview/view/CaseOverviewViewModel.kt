@@ -31,21 +31,21 @@ class CaseOverviewViewModel @Inject constructor(
 
     private fun loadCases() {
         viewModelScope.launch {
-            runCatching {
+            try {
                 val response = withContext(Dispatchers.IO) {
                     getCaseListUseCase()
                 }
 
-                withContext(Dispatchers.Default) {
+                val caseOverviewItemList = withContext(Dispatchers.Default) {
                     response.map(CaseOverviewModelMapper::map)
                 }
-            }.onSuccess { caseOverviewItemList ->
+
                 uiState.update {
                     CaseOverviewViewState.Content(
                         caseOverviewItemList = caseOverviewItemList
                     )
                 }
-            }.onFailure { throwable ->
+            } catch (throwable: Throwable) {
                 if (throwable is CancellationException) throw throwable
                 showError()
             }
