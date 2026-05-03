@@ -20,7 +20,7 @@ fun PreviewScreenWithTopBar(
     PreviewWithTopBar(
         title = title,
         canNavigateBack = canNavigateBack,
-        isLandscape = isLandscape
+        isCompact = isLandscape
     ) { paddingValues ->
         content(deviceConfigurationType, paddingValues)
     }

@@ -85,6 +85,7 @@ private fun StartScreenContent(
         modifier = modifier
             .fillMaxSize()
             .background(AppTheme.colors.background)
+//            .windowInsetsPadding(WindowInsets.safeDrawing)
     ) {
         when (deviceConfigurationType) {
             DeviceConfigurationType.MOBILE_PORTRAIT -> {

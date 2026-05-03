@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeContent
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
@@ -12,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDestination.Companion.hasRoute
@@ -25,8 +25,7 @@ import androidx.navigation.toRoute
 import com.example.csgocaseswatcherapp.core.ui.DeviceConfigurationType
 import com.example.csgocaseswatcherapp.core.ui.rememberDeviceConfigurationType
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
-import com.example.csgocaseswatcherapp.core.ui.topbar.CompactLandscapeTopBar
-import com.example.csgocaseswatcherapp.core.ui.topbar.MyAppTopBar
+import com.example.csgocaseswatcherapp.core.ui.topbar.AppTopBar
 import com.example.csgocaseswatcherapp.features.addcase.view.AddCaseRoute
 import com.example.csgocaseswatcherapp.features.addcase.view.AddCaseViewModel
 import com.example.csgocaseswatcherapp.features.caseanalytics.view.CaseAnalyticsRoute
@@ -80,24 +79,17 @@ fun AppNavHost(
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
-            if (deviceConfigurationType == DeviceConfigurationType.MOBILE_LANDSCAPE) {
-                CompactLandscapeTopBar(
-                    title = title,
-                    canNavigateBack = canNavigateBack,
-                    onBack = { navController.popBackStack() }
-                )
-            } else {
-                MyAppTopBar(
-                    title = title,
-                    canNavigateBack = canNavigateBack,
-                    onBack = { navController.popBackStack() },
-                    scrollBehavior = scrollBehavior
-                )
-            }
+            AppTopBar(
+                title = title,
+                canNavigateBack = canNavigateBack,
+                onBack = { navController.popBackStack() },
+                isCompact = deviceConfigurationType == DeviceConfigurationType.MOBILE_LANDSCAPE,
+                scrollBehavior = scrollBehavior
+            )
         },
-        contentWindowInsets = WindowInsets(0.dp)
+        contentWindowInsets = WindowInsets.safeContent,
+        containerColor = AppTheme.colors.background
     ) { paddingValues ->
-
         NavHost(
             navController = navController,
             startDestination = Destination.Start::class,

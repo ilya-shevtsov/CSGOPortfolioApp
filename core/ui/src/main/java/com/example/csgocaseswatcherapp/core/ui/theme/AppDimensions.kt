@@ -10,7 +10,10 @@ data class AppDimensions(
     val paddingM: Dp = 8.dp,
     val paddingML: Dp = 12.dp,
     val paddingL: Dp = 16.dp,
-    val paddingXL: Dp = 24.dp
+    val paddingXL: Dp = 24.dp,
+    val compactTopBarHeight: Dp = 40.dp,
+    val appTopBarHorizontalPadding: Dp = 16.dp,
+    val backIconSize: Dp = 48.dp
 )
 
 internal val LocalDimensions = staticCompositionLocalOf { AppDimensions() }
