@@ -1,10 +1,12 @@
 package com.example.csgocaseswatcherapp.features.caseanalytics.view.entities
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
@@ -25,25 +27,24 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
+import com.example.csgocaseswatcherapp.core.ui.CaseImage
 import com.example.csgocaseswatcherapp.core.ui.DeviceConfigurationType
 import com.example.csgocaseswatcherapp.core.ui.StatRow
+import com.example.csgocaseswatcherapp.core.ui.StatRowShimmer
+import com.example.csgocaseswatcherapp.core.ui.shimmer.ShimmerBox
+import com.example.csgocaseswatcherapp.core.ui.shimmer.ShimmerCard
+import com.example.csgocaseswatcherapp.core.ui.shimmer.ShimmerTextLine
+import com.example.csgocaseswatcherapp.core.ui.shimmer.shimmer
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 import com.example.csgocaseswatcherapp.features.caseanalytics.R
 import com.example.csgocaseswatcherapp.ui.ExpandableStatSection
-import com.example.csgocaseswatcherapp.core.ui.R as UiR
 
 private data class AnalyticsStatUi(
     val icon: ImageVector,
@@ -90,9 +91,11 @@ private fun CaseAnalyticsPortraitContent(
         verticalAlignment = Alignment.CenterVertically
     ) {
         CaseImage(
-            item = item,
+            context = LocalContext.current,
+            caseName = item.caseName,
+            imageUrl = item.imageUrl,
             size = 88.dp,
-            cornerRadius = 16.dp,
+            clipShape = AppTheme.shapes.image,
         )
 
         Spacer(Modifier.width(AppTheme.dimensions.paddingM))
@@ -151,9 +154,11 @@ private fun LandscapeCaseHero(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             CaseImage(
-                item = item,
+                context = LocalContext.current,
+                caseName = item.caseName,
+                imageUrl = item.imageUrl,
                 size = 160.dp,
-                cornerRadius = 24.dp,
+                clipShape = AppTheme.shapes.image,
                 modifier = Modifier.sizeIn(
                     maxWidth = 180.dp,
                     maxHeight = 180.dp
@@ -345,7 +350,7 @@ private fun CompactStatTile(
 ) {
     Surface(
         modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
+        shape = AppTheme.shapes.image,
         color = AppTheme.colors.background.copy(alpha = 0.55f),
         tonalElevation = 1.dp
     ) {
@@ -384,28 +389,6 @@ private fun CompactStatTile(
             }
         }
     }
-}
-
-@Composable
-private fun CaseImage(
-    item: CaseAnalyticsModel,
-    size: Dp,
-    cornerRadius: Dp,
-    modifier: Modifier = Modifier
-) {
-    AsyncImage(
-        model = ImageRequest.Builder(LocalContext.current)
-            .data(item.imageUrl)
-            .crossfade(true)
-            .build(),
-        contentDescription = item.caseName,
-        error = painterResource(UiR.drawable.ic_error),
-        placeholder = painterResource(UiR.drawable.case_placeholder),
-        contentScale = ContentScale.Fit,
-        modifier = modifier
-            .size(size)
-            .clip(RoundedCornerShape(cornerRadius))
-    )
 }
 
 @Composable
@@ -478,6 +461,188 @@ fun SecondaryAnalyticsData(item: CaseAnalyticsModel) {
         )
     }
 
+}
+
+@Composable
+fun CaseAnalyticsItemShimmer(deviceConfigurationType: DeviceConfigurationType) {
+    when (deviceConfigurationType) {
+        DeviceConfigurationType.MOBILE_PORTRAIT -> {
+            ShimmerCard {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(AppTheme.dimensions.paddingM),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    ShimmerBox(
+                        width = 88.dp,
+                        height = 88.dp,
+                        shape = AppTheme.shapes.image
+                    )
+
+                    Spacer(Modifier.width(AppTheme.dimensions.paddingM))
+                    Column(
+                        modifier = Modifier.weight(1f),
+                        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
+                    ) {
+                        ShimmerTextLine(
+                            width = 180.dp,
+                        )
+                        StatRowShimmer()
+                        StatRowShimmer()
+                        StatRowShimmer()
+                        StatRowShimmer()
+
+                        ShimmerTextLine()
+                    }
+                }
+            }
+        }
+
+        DeviceConfigurationType.MOBILE_LANDSCAPE -> {
+            ShimmerCard {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(AppTheme.dimensions.paddingL),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingL)
+                ) {
+                    LandscapeCaseHeroShimmer(
+                        modifier = Modifier.weight(0.38f)
+                    )
+
+                    LandscapeAnalyticsDashboardShimmer(
+                        modifier = Modifier.weight(0.62f)
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun LandscapeCaseHeroShimmer(
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            ShimmerBox(
+                width = 160.dp,
+                height = 160.dp,
+                shape = AppTheme.shapes.image
+            )
+
+            ShimmerTextLine(
+                width = 180.dp,
+                height = 24.dp
+            )
+
+            ShimmerBox(
+                width = 220.dp,
+                height = 42.dp,
+                shape = RoundedCornerShape(100.dp)
+            )
+
+            ShimmerTextLine(
+                width = 140.dp,
+                height = 18.dp
+            )
+        }
+    }
+}
+
+@Composable
+private fun LandscapeAnalyticsDashboardShimmer(
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(14.dp)
+    ) {
+        AnalyticsStatGroupShimmer()
+        AnalyticsStatGroupShimmer()
+    }
+}
+
+@Composable
+private fun AnalyticsStatGroupShimmer(
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
+    ) {
+        ShimmerTextLine(
+            width = 120.dp,
+            height = 18.dp
+        )
+
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
+        ) {
+            AnalyticsStatColumnShimmer(
+                modifier = Modifier.weight(1f)
+            )
+
+            AnalyticsStatColumnShimmer(
+                modifier = Modifier.weight(1f)
+            )
+        }
+    }
+}
+
+@Composable
+private fun AnalyticsStatColumnShimmer(
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
+    ) {
+        CompactStatTileShimmer()
+        CompactStatTileShimmer()
+    }
+}
+
+@Composable
+private fun CompactStatTileShimmer(
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(58.dp)
+            .shimmer(shape = AppTheme.shapes.image)
+    )
+}
+
+
+@PreviewLightDark
+@Composable
+private fun CaseAnalyticsItemShimmerPortraitPreview() {
+    AppTheme {
+        CaseAnalyticsItemShimmer(deviceConfigurationType = DeviceConfigurationType.MOBILE_PORTRAIT)
+    }
+}
+
+@Preview(
+    widthDp = 923,
+    heightDp = 411,
+    showBackground = true,
+)
+@Composable
+private fun CaseAnalyticsItemShimmerLandScapePreview() {
+    AppTheme(darkTheme = true) {
+        CaseAnalyticsItemShimmer(deviceConfigurationType = DeviceConfigurationType.MOBILE_LANDSCAPE)
+    }
 }
 
 

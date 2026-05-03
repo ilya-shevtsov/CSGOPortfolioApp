@@ -11,11 +11,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.example.csgocaseswatcherapp.core.ui.DeviceConfigurationType
 import com.example.csgocaseswatcherapp.core.ui.ErrorScreen
-import com.example.csgocaseswatcherapp.core.ui.LoadingScreen
 import com.example.csgocaseswatcherapp.core.ui.preview.PreviewPortraitLandscapeDarkLight
 import com.example.csgocaseswatcherapp.core.ui.preview.PreviewScreenWithTopBar
+import com.example.csgocaseswatcherapp.core.ui.shimmer.ShimmerList
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 import com.example.csgocaseswatcherapp.features.caseanalytics.view.entities.CaseAnalyticsItem
+import com.example.csgocaseswatcherapp.features.caseanalytics.view.entities.CaseAnalyticsItemShimmer
 import com.example.csgocaseswatcherapp.features.caseanalytics.view.entities.CaseAnalyticsModel
 
 @Composable
@@ -25,7 +26,10 @@ fun CaseAnalyticsScreen(
 ) {
     when (state) {
         is CaseAnalyticsViewState.Error -> ErrorScreen()
-        is CaseAnalyticsViewState.Loading -> LoadingScreen()
+        is CaseAnalyticsViewState.Loading -> CaseAnalyticsScreenShimmer(
+            deviceConfigurationType = deviceConfigurationType
+        )
+
         is CaseAnalyticsViewState.Content -> {
             CaseAnalyticsScreenContent(
                 items = state.caseAnalyticsItemList,
@@ -59,9 +63,18 @@ fun CaseAnalyticsScreenContent(
     }
 }
 
+@Composable
+fun CaseAnalyticsScreenShimmer(deviceConfigurationType: DeviceConfigurationType) {
+    ShimmerList(
+        itemCount = 3
+    ) {
+        CaseAnalyticsItemShimmer(deviceConfigurationType)
+    }
+}
+
 @PreviewPortraitLandscapeDarkLight
 @Composable
-private fun CaseOverviewScreenPreview() {
+private fun CaseAnalyticsScreenPreview() {
     PreviewScreenWithTopBar(
         title = "Case Overview",
         canNavigateBack = true
@@ -76,6 +89,20 @@ private fun CaseOverviewScreenPreview() {
                     mockItem,
                 )
             ),
+            deviceConfigurationType = deviceConfigurationType
+        )
+    }
+}
+
+@PreviewPortraitLandscapeDarkLight
+@Composable
+private fun CaseAnalyticsScreenShimmerPreview() {
+    PreviewScreenWithTopBar(
+        title = "Case Overview",
+        canNavigateBack = true
+    ) { deviceConfigurationType, _ ->
+        CaseAnalyticsScreen(
+            state = CaseAnalyticsViewState.Loading,
             deviceConfigurationType = deviceConfigurationType
         )
     }
