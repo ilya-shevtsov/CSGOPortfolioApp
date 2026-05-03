@@ -7,6 +7,8 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -72,8 +74,9 @@ private fun CaseOverviewContent(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(AppTheme.colors.background)
-            .padding(AppTheme.dimensions.paddingM)
+            .background(AppTheme.colors.background),
+        contentPadding = PaddingValues(AppTheme.dimensions.paddingM),
+        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingML)
     ) {
         items(
             items = items,
@@ -82,7 +85,6 @@ private fun CaseOverviewContent(
             CaseOverviewItem(
                 item = item,
                 onClick = { onCaseClick(item) },
-                modifier = Modifier
             )
         }
     }

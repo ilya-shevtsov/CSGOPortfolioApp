@@ -47,8 +47,8 @@ fun CaseOverviewItem(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .padding(AppTheme.dimensions.paddingML)
             .clickable { onClick() },
+        shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(
             containerColor = AppTheme.colors.surface,
             contentColor = AppTheme.colors.onSurface
@@ -79,7 +79,7 @@ fun CaseOverviewItem(
 
             Column(
                 modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
             ) {
                 Text(
                     text = item.caseName,

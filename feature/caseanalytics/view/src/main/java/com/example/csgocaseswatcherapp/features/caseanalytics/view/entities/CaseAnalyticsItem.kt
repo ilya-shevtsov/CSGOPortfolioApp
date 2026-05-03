@@ -58,9 +58,7 @@ fun CaseAnalyticsItem(
     modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(AppTheme.dimensions.paddingM),
+        modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(
             containerColor = AppTheme.colors.surface,
@@ -93,13 +91,14 @@ private fun CaseAnalyticsPortraitContent(
     ) {
         CaseImage(
             item = item,
-            size = 100.dp,
+            size = 88.dp,
             cornerRadius = 16.dp,
         )
 
-        Spacer(Modifier.width(AppTheme.dimensions.paddingL))
+        Spacer(Modifier.width(AppTheme.dimensions.paddingM))
 
         Column(
+            modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
         ) {
             MainAnalyticsData(item = item)
