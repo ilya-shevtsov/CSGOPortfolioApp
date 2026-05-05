@@ -20,9 +20,9 @@ import com.example.csgocaseswatcherapp.core.ui.preview.PreviewPortraitLandscapeD
 import com.example.csgocaseswatcherapp.core.ui.preview.PreviewScreenWithTopBar
 import com.example.csgocaseswatcherapp.core.ui.shimmer.ShimmerList
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
-import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewItem
-import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewItemShimmer
-import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewModel
+import com.example.csgocaseswatcherapp.features.caseoverview.view.model.CaseOverviewItem
+import com.example.csgocaseswatcherapp.features.caseoverview.view.model.CaseOverviewItemShimmer
+import com.example.csgocaseswatcherapp.features.caseoverview.view.model.CaseOverviewModel
 
 @Composable
 fun CaseOverviewScreen(

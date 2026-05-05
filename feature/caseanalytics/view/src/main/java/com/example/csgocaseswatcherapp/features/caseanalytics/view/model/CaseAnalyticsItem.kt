@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.features.caseanalytics.view.entities
+package com.example.csgocaseswatcherapp.features.caseanalytics.view.model
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -62,7 +62,7 @@ fun CaseAnalyticsItem(
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
-        shape = AppTheme.shapes.card,
+        shape = AppTheme.shapes.cardDefault,
         colors = CardDefaults.cardColors(
             containerColor = AppTheme.colors.surface,
             contentColor = AppTheme.colors.onSurface
@@ -90,7 +90,7 @@ private fun CaseAnalyticsPortraitContent(
         modifier = modifier
             .fillMaxWidth()
             .padding(AppTheme.dimensions.paddingM)
-            .clip(AppTheme.shapes.card),
+            .clip(AppTheme.shapes.cardDefault),
         verticalAlignment = Alignment.CenterVertically
     ) {
         CaseImage(

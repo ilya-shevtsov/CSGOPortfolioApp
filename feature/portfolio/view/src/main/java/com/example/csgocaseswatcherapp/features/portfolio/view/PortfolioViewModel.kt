@@ -4,10 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.csgocaseswatcherapp.features.portfolio.domain.entities.PortfolioItem
 import com.example.csgocaseswatcherapp.features.portfolio.domain.usecases.GetPortfolioDataUseCase
-import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemListArgs
-import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemModel
-import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioValueItem
-import com.example.csgocaseswatcherapp.features.portfolio.view.sortingmodal.entities.SortState
+import com.example.csgocaseswatcherapp.features.portfolio.view.model.PortfolioItemModel
+import com.example.csgocaseswatcherapp.features.portfolio.view.model.PortfolioValueItem
+import com.example.csgocaseswatcherapp.features.portfolio.view.sorting.model.SortState
 import com.github.mikephil.charting.data.BarEntry
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -137,15 +136,10 @@ class PortfolioViewModel @Inject constructor(
 
 
     private fun handleOnPortfolioDetailsClicked() {
-        val currentBusinessState =
-            businessState.value.portfolioItemListResult as PortfolioItemListResult.Success
-        val portfolioItemListArgs = PortfolioItemListArgs(currentBusinessState.portfolioItemList)
+        val currentBusinessState = businessState.value.portfolioItemListResult as PortfolioItemListResult.Success
+
         viewModelScope.launch {
-            uiEvent.emit(
-                PortfolioEvent.NavigateToPortfolioDetails(
-                    portfolioItemListArgs
-                )
-            )
+            uiEvent.emit(PortfolioEvent.NavigateToPortfolioDetails(currentBusinessState.portfolioItemList))
         }
     }
 
@@ -157,9 +151,7 @@ class PortfolioViewModel @Inject constructor(
         businessState.update { state ->
             state.copy(sortState = action.sortState, isSortingSheetVisible = false)
         }
-        viewModelScope.launch {
-            uiEvent.emit(PortfolioEvent.ScrollToTop)
-        }
+        viewModelScope.launch { uiEvent.emit(PortfolioEvent.ScrollToTop) }
     }
 
     private fun handleOnCaseAdded() {

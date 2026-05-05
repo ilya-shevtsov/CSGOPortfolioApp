@@ -1,9 +1,8 @@
 package com.example.csgocaseswatcherapp.features.portfolio.view
 
-import android.view.ViewGroup
-import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -12,51 +11,30 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.List
-import androidx.compose.material.icons.automirrored.filled.Sort
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ElevatedCard
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.pluralStringResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.compose.ui.viewinterop.AndroidView
-import com.example.csgocaseswatcherapp.core.ui.CaseImage
 import com.example.csgocaseswatcherapp.core.ui.DeviceConfigurationType
-import com.example.csgocaseswatcherapp.core.ui.ErrorScreen
 import com.example.csgocaseswatcherapp.core.ui.LoadingScreen
+import com.example.csgocaseswatcherapp.core.ui.preview.PreviewPortraitLandscapeDark
 import com.example.csgocaseswatcherapp.core.ui.preview.PreviewPortraitLandscapeDarkLight
 import com.example.csgocaseswatcherapp.core.ui.preview.PreviewScreenWithTopBar
+import com.example.csgocaseswatcherapp.core.ui.shimmer.ShimmerBox
+import com.example.csgocaseswatcherapp.core.ui.shimmer.ShimmerCard
+import com.example.csgocaseswatcherapp.core.ui.shimmer.ShimmerTextLine
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
-import com.example.csgocaseswatcherapp.features.portfolio.R
-import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemModel
-import com.github.mikephil.charting.animation.Easing
-import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.components.Description
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
+import com.example.csgocaseswatcherapp.features.portfolio.view.components.PortfolioActionRow
+import com.example.csgocaseswatcherapp.features.portfolio.view.components.PortfolioBarChart
+import com.example.csgocaseswatcherapp.features.portfolio.view.components.PortfolioItemCard
+import com.example.csgocaseswatcherapp.features.portfolio.view.components.PortfolioValueHeader
+import com.example.csgocaseswatcherapp.features.portfolio.view.model.PortfolioItemModel
+import com.example.csgocaseswatcherapp.features.portfolio.view.shimmer.PortfolioItemCardShimmer
 import com.github.mikephil.charting.data.BarEntry
 
 
@@ -71,7 +49,7 @@ fun PortfolioScreen(
 
     when (state) {
         is PortfolioViewState.Loading -> LoadingScreen()
-        is PortfolioViewState.Error -> ErrorScreen()
+        is PortfolioViewState.Error -> PortfolioScreenShimmer(deviceConfigurationType = deviceConfigurationType)
         is PortfolioViewState.Content -> PortfolioContent(
             state = state,
             listState = listState,
@@ -114,6 +92,61 @@ fun PortfolioContent(
 }
 
 @Composable
+fun PortfolioPortraitContent(
+    state: PortfolioViewState.Content,
+    onAction: (PortfolioAction) -> Unit,
+    listState: LazyListState,
+    modifier: Modifier
+) {
+    Column(
+        modifier
+            .fillMaxSize()
+            .background(AppTheme.colors.background)
+            .padding(AppTheme.dimensions.paddingM),
+    ) {
+        PortfolioValueHeader(
+            totalPortfolioValue = state.totalPortfolioValue,
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(Modifier.height(AppTheme.dimensions.paddingM))
+
+        BoxWithConstraints(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            val chartHeight = (this.maxWidth * 0.55f).coerceIn(
+                minimumValue = 160.dp,
+                maximumValue = 220.dp
+            )
+
+            PortfolioBarChart(
+                entries = state.portfolioBartEntryList,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(chartHeight)
+            )
+        }
+
+        Spacer(Modifier.height(AppTheme.dimensions.paddingM))
+
+        PortfolioActionRow(
+            onAction = onAction,
+            compact = false,
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(Modifier.height(AppTheme.dimensions.paddingM))
+
+        PortfolioItemList(
+            items = state.portfolioItemModelList,
+            listState = listState,
+            compact = false,
+            modifier = Modifier.fillMaxSize()
+        )
+    }
+}
+
+@Composable
 fun PortfolioLandscapeContent(
     state: PortfolioViewState.Content,
     onAction: (PortfolioAction) -> Unit,
@@ -147,54 +180,6 @@ fun PortfolioLandscapeContent(
 }
 
 @Composable
-fun PortfolioPortraitContent(
-    state: PortfolioViewState.Content,
-    onAction: (PortfolioAction) -> Unit,
-    listState: LazyListState,
-    modifier: Modifier
-) {
-    Column(
-        modifier
-            .fillMaxSize()
-            .background(AppTheme.colors.background)
-            .navigationBarsPadding()
-            .padding(AppTheme.dimensions.paddingM),
-    ) {
-        PortfolioValueHeader(
-            totalPortfolioValue = state.totalPortfolioValue,
-            showDivider = true,
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        Spacer(Modifier.height(AppTheme.dimensions.paddingM))
-
-        PortfolioBarChart(
-            entries = state.portfolioBartEntryList,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(220.dp)
-        )
-
-        Spacer(Modifier.height(AppTheme.dimensions.paddingM))
-
-        PortfolioActionRow(
-            onAction = onAction,
-            compact = false,
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        Spacer(Modifier.height(AppTheme.dimensions.paddingM))
-
-        PortfolioItemList(
-            items = state.portfolioItemModelList,
-            listState = listState,
-            compact = false,
-            modifier = Modifier.fillMaxSize()
-        )
-    }
-}
-
-@Composable
 fun PortfolioLandscapeSummaryPanel(
     state: PortfolioViewState.Content,
     onAction: (PortfolioAction) -> Unit,
@@ -206,7 +191,6 @@ fun PortfolioLandscapeSummaryPanel(
     ) {
         PortfolioValueHeader(
             totalPortfolioValue = state.totalPortfolioValue,
-            showDivider = false,
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -249,308 +233,73 @@ fun PortfolioItemList(
 }
 
 @Composable
-fun PortfolioActionRow(
-    onAction: (PortfolioAction) -> Unit,
-    compact: Boolean,
-    modifier: Modifier
+fun PortfolioScreenShimmer(modifier: Modifier = Modifier, deviceConfigurationType: DeviceConfigurationType) {
+    when (deviceConfigurationType) {
+        DeviceConfigurationType.MOBILE_PORTRAIT -> {
+            LoadingScreen()
+        }
+
+        DeviceConfigurationType.MOBILE_LANDSCAPE -> {
+            PortfolioLandscapeShimmer(modifier = modifier)
+        }
+    }
+}
+
+
+@Composable
+private fun PortfolioLandscapeShimmer(
+    modifier: Modifier = Modifier
 ) {
-    ElevatedCard(
-        modifier = modifier,
-        colors = CardDefaults.cardColors(
-            containerColor = AppTheme.colors.surface,
-            contentColor = AppTheme.colors.onSurface
-        ),
-        shape = MaterialTheme.shapes.large
+    Row(
+        modifier = modifier
+            .fillMaxSize()
+            .background(AppTheme.colors.background)
+            .padding(AppTheme.dimensions.paddingM),
+        horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
     ) {
-        Row(
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(AppTheme.dimensions.paddingM),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
+                .weight(1.1f)
+                .fillMaxHeight(),
+            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
         ) {
-            PortfolioButton(
-                modifier = Modifier.weight(1f),
-                onClick = { onAction(PortfolioAction.OnPortfolioDetailsClicked) },
-                icon = Icons.AutoMirrored.Filled.List,
-                text = stringResource(R.string.details_button),
-                compact = compact
+            ShimmerTextLine(width = AppTheme.dimensions.shimmerTextFieldTitleWidth)
+            ShimmerBox(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f), shape = AppTheme.shapes.cardDefault
             )
 
-            PortfolioButton(
-                modifier = Modifier.weight(1f),
-                onClick = { onAction(PortfolioAction.OnSortClicked) },
-                icon = Icons.AutoMirrored.Filled.Sort,
-                text = stringResource(R.string.sorting_button),
-                compact = compact
-
-            )
-            PortfolioButton(
-                modifier = Modifier.weight(1f),
-                onClick = { onAction(PortfolioAction.OnAddCaseClicked) },
-                icon = Icons.Default.Add,
-                text = stringResource(R.string.add_case_button),
-                compact = compact
-            )
-        }
-    }
-}
-
-@Composable
-fun PortfolioValueHeader(
-    totalPortfolioValue: Double,
-    showDivider: Boolean,
-    modifier: Modifier
-) {
-
-    val totalPortfolioValueText = stringResource(
-        id = R.string.portfolio_total_value,
-        formatUsd(totalPortfolioValue)
-    )
-    Column(modifier = modifier) {
-        Text(
-            text = totalPortfolioValueText,
-            color = AppTheme.colors.onBackground,
-            style = MaterialTheme.typography.titleLarge.copy(
-                fontSize = if (showDivider) 22.sp else 20.sp,
-                fontWeight = FontWeight.Bold
-            ),
-            maxLines = 1,
-        )
-
-        if (showDivider) {
-            Spacer(modifier = Modifier.height(AppTheme.dimensions.paddingM))
-
-            HorizontalDivider(
-                thickness = 1.dp,
-                color = AppTheme.colors.onBackground.copy(alpha = 0.35f)
-            )
-        }
-    }
-}
-
-
-@Composable
-fun PortfolioButton(
-    icon: ImageVector,
-    text: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    compact: Boolean = false
-) {
-    Button(
-        onClick = onClick,
-        modifier = modifier.height(
-            if (compact) 40.dp else 44.dp
-        ),
-        shape = AppTheme.shapes.buttonRounded,
-        colors = ButtonDefaults.buttonColors(
-            containerColor = AppTheme.colors.primary,
-            contentColor = AppTheme.colors.onPrimary
-        ),
-        contentPadding = PaddingValues(
-            horizontal = if (compact) 8.dp else AppTheme.dimensions.paddingML,
-            vertical = 0.dp
-        )
-    ) {
-        Icon(
-            imageVector = icon,
-            contentDescription = null,
-            modifier = Modifier.size(if (compact) 18.dp else 24.dp)
-        )
-
-        Spacer(Modifier.width(if (compact) 4.dp else 6.dp))
-
-        Text(
-            text = text,
-            fontSize = if (compact) 11.sp else 12.sp,
-            maxLines = 1
-        )
-    }
-}
-
-@Composable
-fun PortfolioItemCard(
-    item: PortfolioItemModel,
-    modifier: Modifier = Modifier,
-    compact: Boolean = false
-) {
-    val imageWidth = if (compact) {
-        AppTheme.dimensions.imageCompactNarrowWidth
-    } else {
-        AppTheme.dimensions.imageNarrowWidth
-    }
-
-    val imageHeight = if (compact) {
-        AppTheme.dimensions.imageCompactNarrowHeight
-    } else {
-        AppTheme.dimensions.imageNarrowHeight
-    }
-
-    val cardPadding = if (compact) {
-        AppTheme.dimensions.paddingM
-    } else {
-        AppTheme.dimensions.paddingML
-    }
-    ElevatedCard(
-        modifier = modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(
-            containerColor = AppTheme.colors.surface,
-            contentColor = AppTheme.colors.onSurface
-        ),
-        shape = AppTheme.shapes.narrowCard,
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(cardPadding),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            CaseImage(
-                imageUrl = item.itemImage,
-                width = imageWidth,
-                height = imageHeight,
-                clipShape = AppTheme.shapes.imageClip
-            )
-
-            Spacer(Modifier.width(if (compact) 8.dp else 12.dp))
-
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = item.itemName,
-                    style = if (compact) {
-                        MaterialTheme.typography.bodyLarge.copy(
-                            fontWeight = FontWeight.Bold
+            ShimmerCard(modifier = Modifier.fillMaxWidth()) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(AppTheme.dimensions.paddingM),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
+                ) {
+                    repeat(3) {
+                        ShimmerBox(
+                            modifier = Modifier
+                                .weight(1f)
+                                .height(40.dp),
+                            shape = AppTheme.shapes.buttonRounded
                         )
-                    } else {
-                        MaterialTheme.typography.titleMedium
-                    },
-                    maxLines = if (compact) 1 else 2,
-                    color = AppTheme.colors.onSurface
-                )
-
-                Spacer(modifier = Modifier.height(4.dp))
-
-                Text(
-                    text = stringResource(
-                        id = R.string.portfolio_amount_price,
-                        pluralStringResource(
-                            id = R.plurals.portfolio_cases_count,
-                            count = item.amount,
-                            item.amount
-                        ),
-                        formatUsd(item.price)
-                    ),
-                    style = if (compact) {
-                        MaterialTheme.typography.bodySmall
-                    } else {
-                        MaterialTheme.typography.bodyMedium
-                    },
-                    maxLines = 1,
-                    color = AppTheme.colors.onSurface
-                )
-            }
-
-            Spacer(modifier = Modifier.width(if (compact) 8.dp else 12.dp))
-
-            Column(horizontalAlignment = Alignment.End) {
-                Text(
-                    text = formatUsd(item.totalValue),
-                    style = if (compact) {
-                        MaterialTheme.typography.bodyLarge.copy(
-                            fontWeight = FontWeight.Bold
-                        )
-                    } else {
-                        MaterialTheme.typography.titleMedium.copy(
-                            fontWeight = FontWeight.Bold
-                        )
-                    },
-                    color = AppTheme.colors.onSurface,
-                    maxLines = 1
-                )
-
-                Spacer(Modifier.height(4.dp))
-
-                Text(
-                    text = stringResource(
-                        id = R.string.portfolio_profit_loss,
-                        formatSignedUsd(item.profitLoss),
-                        formatSignedPercent(item.profitLossPercent)
-                    ),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = AppTheme.colors.onSurface,
-                    maxLines = 1
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun PortfolioBarChart(
-    entries: List<BarEntry>,
-    modifier: Modifier = Modifier,
-) {
-    ElevatedCard(
-        modifier = modifier,
-        colors = CardDefaults.cardColors(
-            containerColor = AppTheme.colors.surface,
-            contentColor = AppTheme.colors.onSurface
-        ),
-        shape = MaterialTheme.shapes.large
-    ) {
-        val label = stringResource(R.string.portfolio_value)
-
-        val colors = AppTheme.colors
-        val barColor = colors.primary
-        val backgroundColor = colors.surface
-        val axisColor = colors.onSurface.copy(alpha = 0.75f)
-
-        AndroidView(
-            modifier = modifier,
-            factory = { context ->
-                BarChart(context).apply {
-                    layoutParams = ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT)
-
-                    description = Description().apply { text = "" }
-                    legend.isEnabled = false
-
-                    setDrawGridBackground(false)
-                    setBackgroundColor(backgroundColor.toArgb())
-                    setTouchEnabled(false)
-                    setScaleEnabled(false)
-                    setPinchZoom(false)
-                    isDoubleTapToZoomEnabled = false
-
-                    axisRight.isEnabled = false
-
-                    axisLeft.apply {
-                        axisMinimum = 0f
-                        textColor = axisColor.toArgb()
-                        setDrawAxisLine(false)
-                        setDrawGridLines(false)
-                    }
-
-                    xAxis.apply {
-                        isEnabled = false
-                        textColor = axisColor.toArgb()
                     }
                 }
-            },
-            update = { chart ->
-                val dataSet = BarDataSet(entries, label).apply {
-                    color = barColor.toArgb()
-                    setDrawValues(false)
-                }
-
-                chart.data = BarData(dataSet).apply {
-                    barWidth = 0.6f
-                }
-
-                chart.invalidate()
-                chart.animateY(700, Easing.EaseInOutQuad)
             }
-        )
+        }
+        LazyColumn(
+            modifier = Modifier
+                .weight(0.9f)
+                .fillMaxHeight(),
+            contentPadding = PaddingValues(AppTheme.dimensions.paddingM),
+            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
+        ) {
+            items(6) {
+                PortfolioItemCardShimmer()
+            }
+        }
     }
 }
 
@@ -576,6 +325,20 @@ private fun PortfolioScreenPreview() {
             listState = rememberLazyListState(),
             deviceConfigurationType = deviceConfigurationType,
             modifier = Modifier.padding(paddingValues)
+        )
+    }
+}
+
+@PreviewPortraitLandscapeDark
+@Composable
+private fun PortfolioScreenShimmerPreview() {
+    PreviewScreenWithTopBar(
+        title = "Portfolio",
+        canNavigateBack = true
+    ) { deviceConfigurationType, paddingValues ->
+        PortfolioScreenShimmer(
+            modifier = Modifier.padding(paddingValues),
+            deviceConfigurationType = deviceConfigurationType
         )
     }
 }

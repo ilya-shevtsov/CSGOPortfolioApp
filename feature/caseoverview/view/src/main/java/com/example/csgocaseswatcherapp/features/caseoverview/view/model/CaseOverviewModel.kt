@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.features.caseoverview.view.entities
+package com.example.csgocaseswatcherapp.features.caseoverview.view.model
 
 
 import kotlinx.serialization.Serializable

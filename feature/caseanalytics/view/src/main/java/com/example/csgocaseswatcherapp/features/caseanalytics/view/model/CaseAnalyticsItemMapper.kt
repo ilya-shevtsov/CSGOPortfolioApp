@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.features.caseanalytics.view.entities
+package com.example.csgocaseswatcherapp.features.caseanalytics.view.model
 
 import com.example.csgocaseswatcherapp.features.caseanalytics.domain.entities.CaseAnalytics
 import kotlin.math.pow

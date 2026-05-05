@@ -3,8 +3,8 @@ package com.example.csgocaseswatcherapp.features.caseoverview.view
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.csgocaseswatcherapp.features.caseoverview.domain.usecases.GetCaseOverviewListUseCase
-import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewModel
-import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewModelMapper
+import com.example.csgocaseswatcherapp.features.caseoverview.view.model.CaseOverviewModel
+import com.example.csgocaseswatcherapp.features.caseoverview.view.model.CaseOverviewModelMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow

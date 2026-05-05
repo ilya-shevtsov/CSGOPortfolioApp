@@ -15,11 +15,11 @@ import com.example.csgocaseswatcherapp.core.ui.preview.PreviewPortraitLandscapeD
 import com.example.csgocaseswatcherapp.core.ui.preview.PreviewScreenWithTopBar
 import com.example.csgocaseswatcherapp.core.ui.shimmer.ShimmerList
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
-import com.example.csgocaseswatcherapp.features.caseanalytics.view.entities.CaseAnalyticsDailyModel
-import com.example.csgocaseswatcherapp.features.caseanalytics.view.entities.CaseAnalyticsItem
-import com.example.csgocaseswatcherapp.features.caseanalytics.view.entities.CaseAnalyticsItemShimmer
-import com.example.csgocaseswatcherapp.features.caseanalytics.view.entities.CaseAnalyticsModel
-import com.example.csgocaseswatcherapp.features.caseanalytics.view.entities.CaseAnalyticsMonthlyModel
+import com.example.csgocaseswatcherapp.features.caseanalytics.view.model.CaseAnalyticsDailyModel
+import com.example.csgocaseswatcherapp.features.caseanalytics.view.model.CaseAnalyticsItem
+import com.example.csgocaseswatcherapp.features.caseanalytics.view.model.CaseAnalyticsItemShimmer
+import com.example.csgocaseswatcherapp.features.caseanalytics.view.model.CaseAnalyticsModel
+import com.example.csgocaseswatcherapp.features.caseanalytics.view.model.CaseAnalyticsMonthlyModel
 
 @Composable
 fun CaseAnalyticsScreen(

@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewModel
+import com.example.csgocaseswatcherapp.features.caseoverview.view.model.CaseOverviewModel
 
 @Composable
 fun CaseOverviewDetailsRoute(

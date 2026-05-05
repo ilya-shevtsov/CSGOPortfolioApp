@@ -12,8 +12,8 @@ import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.csgocaseswatcherapp.core.ui.rememberDeviceConfigurationType
 import com.example.csgocaseswatcherapp.features.portfolio.domain.entities.PortfolioItem
-import com.example.csgocaseswatcherapp.features.portfolio.view.sortingmodal.view.SortingBottomModal
-import com.example.csgocaseswatcherapp.features.portfolio.view.sortingmodal.view.SortingModalViewModel
+import com.example.csgocaseswatcherapp.features.portfolio.view.sorting.SortingBottomModal
+import com.example.csgocaseswatcherapp.features.portfolio.view.sorting.SortingModalViewModel
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
@@ -37,7 +37,7 @@ fun PortfolioRoute(
             when (event) {
                 is PortfolioEvent.NavigateToAddCase -> onNavigateToAddCase()
                 is PortfolioEvent.NavigateToPortfolioDetails -> onNavigateToPortfolioDetails(
-                    event.portfolioItemListArgs.portfolioItemList
+                    event.portfolioItemList
                 )
 
                 is PortfolioEvent.ScrollToTop -> {

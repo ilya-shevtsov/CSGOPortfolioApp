@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.features.caseoverview.view.entities
+package com.example.csgocaseswatcherapp.features.caseoverview.view.model
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -39,7 +39,7 @@ fun CaseOverviewItem(
         modifier = modifier
             .fillMaxWidth()
             .clickable { onClick() },
-        shape = AppTheme.shapes.card,
+        shape = AppTheme.shapes.cardDefault,
         colors = CardDefaults.cardColors(
             containerColor = AppTheme.colors.surface,
             contentColor = AppTheme.colors.onSurface

@@ -1,6 +1,6 @@
 package com.example.csgocaseswatcherapp.features.portfolio.view
 
-import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemModel
+import com.example.csgocaseswatcherapp.features.portfolio.view.model.PortfolioItemModel
 import com.github.mikephil.charting.data.BarEntry
 
 sealed class PortfolioViewState {

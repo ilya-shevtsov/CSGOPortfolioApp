@@ -34,7 +34,7 @@ import com.example.csgocaseswatcherapp.features.caseanalytics.view.CaseAnalytics
 import com.example.csgocaseswatcherapp.features.caseanalytics.view.CaseAnalyticsViewModel
 import com.example.csgocaseswatcherapp.features.caseoverview.view.CaseOverViewRoute
 import com.example.csgocaseswatcherapp.features.caseoverview.view.CaseOverviewViewModel
-import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewModel
+import com.example.csgocaseswatcherapp.features.caseoverview.view.model.CaseOverviewModel
 import com.example.csgocaseswatcherapp.features.caseoverviewdetails.view.CaseDetailsViewModel
 import com.example.csgocaseswatcherapp.features.caseoverviewdetails.view.CaseOverviewDetailsRoute
 import com.example.csgocaseswatcherapp.features.currencychange.view.CurrencyChangeRoute
@@ -42,7 +42,7 @@ import com.example.csgocaseswatcherapp.features.currencychange.view.CurrencyChan
 import com.example.csgocaseswatcherapp.features.portfolio.domain.entities.PortfolioItem
 import com.example.csgocaseswatcherapp.features.portfolio.view.PortfolioRoute
 import com.example.csgocaseswatcherapp.features.portfolio.view.PortfolioViewModel
-import com.example.csgocaseswatcherapp.features.portfolio.view.sortingmodal.view.SortingModalViewModel
+import com.example.csgocaseswatcherapp.features.portfolio.view.sorting.SortingModalViewModel
 import com.example.csgocaseswatcherapp.features.portfoliodetails.view.PortfolioDetailsRoute
 import com.example.csgocaseswatcherapp.features.portfoliodetails.view.PortfolioDetailsViewModel
 import com.example.csgocaseswatcherapp.features.start.view.StartRoute

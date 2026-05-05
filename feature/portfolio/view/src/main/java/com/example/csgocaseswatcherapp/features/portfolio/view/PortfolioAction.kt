@@ -1,6 +1,6 @@
 package com.example.csgocaseswatcherapp.features.portfolio.view
 
-import com.example.csgocaseswatcherapp.features.portfolio.view.sortingmodal.entities.SortState
+import com.example.csgocaseswatcherapp.features.portfolio.view.sorting.model.SortState
 
 
 sealed class PortfolioAction {

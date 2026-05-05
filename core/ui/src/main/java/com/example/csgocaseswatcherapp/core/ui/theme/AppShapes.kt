@@ -13,7 +13,7 @@ data class AppShapes(
 
     val imageClip: Shape = RoundedCornerShape(16.dp),
 
-    val card: Shape = RoundedCornerShape(24.dp),
+    val cardDefault: Shape = RoundedCornerShape(16.dp),
 
     val narrowCard: Shape = RoundedCornerShape(20.dp),
 

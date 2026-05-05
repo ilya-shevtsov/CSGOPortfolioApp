@@ -9,8 +9,8 @@ import assertk.assertions.isInstanceOf
 import assertk.assertions.prop
 import com.example.csgocaseswatcherapp.features.portfolio.domain.entities.PortfolioItem
 import com.example.csgocaseswatcherapp.features.portfolio.domain.usecases.GetPortfolioDataUseCase
-import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemModel
-import com.example.csgocaseswatcherapp.features.portfolio.view.sortingmodal.entities.SortState
+import com.example.csgocaseswatcherapp.features.portfolio.view.model.PortfolioItemModel
+import com.example.csgocaseswatcherapp.features.portfolio.view.sorting.model.SortState
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers

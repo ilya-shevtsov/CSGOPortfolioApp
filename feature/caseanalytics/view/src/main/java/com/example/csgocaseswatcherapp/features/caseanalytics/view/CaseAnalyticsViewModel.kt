@@ -3,7 +3,7 @@ package com.example.csgocaseswatcherapp.features.caseanalytics.view
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.csgocaseswatcherapp.features.caseanalytics.domain.usecases.GetCaseAnalyticsListUseCase
-import com.example.csgocaseswatcherapp.features.caseanalytics.view.entities.CaseAnalyticsItemMapper
+import com.example.csgocaseswatcherapp.features.caseanalytics.view.model.CaseAnalyticsItemMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

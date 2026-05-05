@@ -5,7 +5,7 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.example.csgocaseswatcherapp.features.caseoverview.domain.entities.CaseOverview
 import com.example.csgocaseswatcherapp.features.caseoverview.domain.usecases.GetCaseOverviewListUseCase
-import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewModel
+import com.example.csgocaseswatcherapp.features.caseoverview.view.model.CaseOverviewModel
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers

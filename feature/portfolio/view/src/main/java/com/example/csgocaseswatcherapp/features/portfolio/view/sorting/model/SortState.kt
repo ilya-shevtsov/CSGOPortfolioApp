@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.features.portfolio.view.sortingmodal.entities
+package com.example.csgocaseswatcherapp.features.portfolio.view.sorting.model
 
 import androidx.annotation.StringRes
 import com.example.csgocaseswatcherapp.features.portfolio.R

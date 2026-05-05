@@ -1,8 +1,8 @@
 package com.example.csgocaseswatcherapp.features.portfolio.view
 
 import com.example.csgocaseswatcherapp.features.portfolio.domain.entities.PortfolioItem
-import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioValueItem
-import com.example.csgocaseswatcherapp.features.portfolio.view.sortingmodal.entities.SortState
+import com.example.csgocaseswatcherapp.features.portfolio.view.model.PortfolioValueItem
+import com.example.csgocaseswatcherapp.features.portfolio.view.sorting.model.SortState
 import com.github.mikephil.charting.data.BarEntry
 
 data class PortfolioState(
