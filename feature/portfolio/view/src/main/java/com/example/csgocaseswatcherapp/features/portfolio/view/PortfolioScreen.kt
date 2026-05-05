@@ -1,6 +1,5 @@
 package com.example.csgocaseswatcherapp.features.portfolio.view
 
-import android.content.res.Configuration
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import androidx.compose.foundation.background
@@ -38,20 +37,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
+import com.example.csgocaseswatcherapp.core.ui.CaseImage
 import com.example.csgocaseswatcherapp.core.ui.DeviceConfigurationType
 import com.example.csgocaseswatcherapp.core.ui.ErrorScreen
 import com.example.csgocaseswatcherapp.core.ui.LoadingScreen
+import com.example.csgocaseswatcherapp.core.ui.preview.PreviewPortraitLandscapeDarkLight
+import com.example.csgocaseswatcherapp.core.ui.preview.PreviewScreenWithTopBar
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 import com.example.csgocaseswatcherapp.features.portfolio.R
 import com.example.csgocaseswatcherapp.features.portfolio.view.entities.PortfolioItemModel
@@ -61,7 +58,6 @@ import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
-import com.example.csgocaseswatcherapp.core.ui.R as UiR
 
 
 @Composable
@@ -69,7 +65,8 @@ fun PortfolioScreen(
     state: PortfolioViewState,
     onAction: (PortfolioAction) -> Unit,
     listState: LazyListState,
-    deviceConfigurationType: DeviceConfigurationType
+    deviceConfigurationType: DeviceConfigurationType,
+    modifier: Modifier = Modifier
 ) {
 
     when (state) {
@@ -79,7 +76,8 @@ fun PortfolioScreen(
             state = state,
             listState = listState,
             onAction = onAction,
-            deviceConfigurationType = deviceConfigurationType
+            deviceConfigurationType = deviceConfigurationType,
+            modifier = modifier
         )
     }
 }
@@ -133,7 +131,7 @@ fun PortfolioLandscapeContent(
             state = state,
             onAction = onAction,
             modifier = Modifier
-                .weight(0.9f)
+                .weight(1.1f)
                 .fillMaxHeight()
         )
 
@@ -142,7 +140,7 @@ fun PortfolioLandscapeContent(
             listState = listState,
             compact = true,
             modifier = Modifier
-                .weight(1f)
+                .weight(0.9f)
                 .fillMaxHeight()
         )
     }
@@ -236,15 +234,12 @@ fun PortfolioItemList(
     LazyColumn(
         state = listState,
         modifier = modifier,
-        contentPadding = PaddingValues(bottom = AppTheme.dimensions.paddingM),
+        contentPadding = PaddingValues(AppTheme.dimensions.paddingM),
         verticalArrangement = Arrangement.spacedBy(
-            if (compact) 8.dp else 12.dp
+            if (compact) AppTheme.dimensions.paddingM else AppTheme.dimensions.paddingML
         )
     ) {
-        items(
-            items = items,
-            key = { it.itemName }
-        ) { item ->
+        items(items = items, key = { it.itemName }) { item ->
             PortfolioItemCard(
                 item = item,
                 compact = compact
@@ -272,7 +267,7 @@ fun PortfolioActionRow(
                 .fillMaxWidth()
                 .padding(AppTheme.dimensions.paddingM),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
         ) {
             PortfolioButton(
                 modifier = Modifier.weight(1f),
@@ -380,8 +375,17 @@ fun PortfolioItemCard(
     modifier: Modifier = Modifier,
     compact: Boolean = false
 ) {
-    val imageWidth = if (compact) 64.dp else 85.dp
-    val imageHeight = if (compact) 50.dp else 66.dp
+    val imageWidth = if (compact) {
+        AppTheme.dimensions.imageCompactNarrowWidth
+    } else {
+        AppTheme.dimensions.imageNarrowWidth
+    }
+
+    val imageHeight = if (compact) {
+        AppTheme.dimensions.imageCompactNarrowHeight
+    } else {
+        AppTheme.dimensions.imageNarrowHeight
+    }
 
     val cardPadding = if (compact) {
         AppTheme.dimensions.paddingM
@@ -394,7 +398,7 @@ fun PortfolioItemCard(
             containerColor = AppTheme.colors.surface,
             contentColor = AppTheme.colors.onSurface
         ),
-        shape = MaterialTheme.shapes.extraLarge,
+        shape = AppTheme.shapes.narrowCard,
     ) {
         Row(
             modifier = Modifier
@@ -402,15 +406,11 @@ fun PortfolioItemCard(
                 .padding(cardPadding),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(item.itemImage)
-                    .crossfade(true)
-                    .build(),
-                placeholder = painterResource(UiR.drawable.case_placeholder),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(width = imageWidth, height = imageHeight)
+            CaseImage(
+                imageUrl = item.itemImage,
+                width = imageWidth,
+                height = imageHeight,
+                clipShape = AppTheme.shapes.imageClip
             )
 
             Spacer(Modifier.width(if (compact) 8.dp else 12.dp))
@@ -554,25 +554,13 @@ private fun PortfolioBarChart(
     }
 }
 
-@Preview(
-    name = "Portfolio - long preview light",
-    showBackground = true,
-    widthDp = 420,
-    heightDp = 1600,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
-)
-@Preview(
-    name = "Portfolio - long preview dark",
-    showBackground = true,
-    widthDp = 420,
-    heightDp = 1600,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
+@PreviewPortraitLandscapeDarkLight
 @Composable
-fun PortfolioScreenPreview() {
-    AppTheme {
-        val listState = rememberLazyListState()
-
+private fun PortfolioScreenPreview() {
+    PreviewScreenWithTopBar(
+        title = "Portfolio",
+        canNavigateBack = true
+    ) { deviceConfigurationType, paddingValues ->
         PortfolioScreen(
             state = PortfolioViewState.Content(
                 portfolioBartEntryList = listOf(
@@ -582,91 +570,95 @@ fun PortfolioScreenPreview() {
                     BarEntry(4f, 58f),
                 ),
                 totalPortfolioValue = 1_690.65,
-                portfolioItemModelList = listOf(
-                    // Big positive position
-                    PortfolioItemModel(
-                        itemImage = "",
-                        itemName = "Chroma 3 Case",
-                        totalValue = 460.00,
-                        amount = 200,
-                        price = 2.30,
-                        profitLoss = 60.00,
-                        profitLossPercent = 15.00
-                    ),
-
-                    // Single expensive case
-                    PortfolioItemModel(
-                        itemImage = "",
-                        itemName = "eSports 2013 Case",
-                        totalValue = 72.50,
-                        amount = 1,
-                        price = 72.50,
-                        profitLoss = 66.50,
-                        profitLossPercent = 1108.33
-                    ),
-
-                    // Negative profit/loss
-                    PortfolioItemModel(
-                        itemImage = "",
-                        itemName = "Revolution Case",
-                        totalValue = 225.00,
-                        amount = 75,
-                        price = 3.00,
-                        profitLoss = -37.50,
-                        profitLossPercent = -14.29
-                    ),
-
-                    // Zero profit/loss
-                    PortfolioItemModel(
-                        itemImage = "",
-                        itemName = "Chroma Case",
-                        totalValue = 96.00,
-                        amount = 32,
-                        price = 3.00,
-                        profitLoss = 0.00,
-                        profitLossPercent = 0.00
-                    ),
-
-                    // Long name, useful for checking wrapping/maxLines
-                    PortfolioItemModel(
-                        itemImage = "",
-                        itemName = "Dreams & Nightmares Case",
-                        totalValue = 352.50,
-                        amount = 150,
-                        price = 2.35,
-                        profitLoss = 52.50,
-                        profitLossPercent = 17.50
-                    ),
-
-                    // Small cheap stack
-                    PortfolioItemModel(
-                        itemImage = "",
-                        itemName = "Snakebite Case",
-                        totalValue = 84.00,
-                        amount = 300,
-                        price = 0.28,
-                        profitLoss = -21.00,
-                        profitLossPercent = -20.00
-                    ),
-
-                    // Medium rare case
-                    PortfolioItemModel(
-                        itemImage = "",
-                        itemName = "Operation Bravo Case",
-                        totalValue = 400.65,
-                        amount = 3,
-                        price = 133.55,
-                        profitLoss = 340.65,
-                        profitLossPercent = 567.75
-                    )
-                )
+                portfolioItemModelList = mockPortfolioItems
             ),
             onAction = {},
-            listState = listState,
-            deviceConfigurationType = DeviceConfigurationType.MOBILE_PORTRAIT
+            listState = rememberLazyListState(),
+            deviceConfigurationType = deviceConfigurationType,
+            modifier = Modifier.padding(paddingValues)
         )
     }
 }
+
+val mockPortfolioItems = listOf(
+    // Big positive position
+    PortfolioItemModel(
+        itemImage = "",
+        itemName = "Chroma 3 Case",
+        totalValue = 460.00,
+        amount = 200,
+        price = 2.30,
+        profitLoss = 60.00,
+        profitLossPercent = 15.00
+    ),
+
+    // Single expensive case
+    PortfolioItemModel(
+        itemImage = "",
+        itemName = "eSports 2013 Case",
+        totalValue = 72.50,
+        amount = 1,
+        price = 72.50,
+        profitLoss = 66.50,
+        profitLossPercent = 1108.33
+    ),
+
+    // Negative profit/loss
+    PortfolioItemModel(
+        itemImage = "",
+        itemName = "Revolution Case",
+        totalValue = 225.00,
+        amount = 75,
+        price = 3.00,
+        profitLoss = -37.50,
+        profitLossPercent = -14.29
+    ),
+
+    // Zero profit/loss
+    PortfolioItemModel(
+        itemImage = "",
+        itemName = "Chroma Case",
+        totalValue = 96.00,
+        amount = 32,
+        price = 3.00,
+        profitLoss = 0.00,
+        profitLossPercent = 0.00
+    ),
+
+    // Long name, useful for checking wrapping/maxLines
+    PortfolioItemModel(
+        itemImage = "",
+        itemName = "Dreams & Nightmares Case",
+        totalValue = 352.50,
+        amount = 150,
+        price = 2.35,
+        profitLoss = 52.50,
+        profitLossPercent = 17.50
+    ),
+
+    // Small cheap stack
+    PortfolioItemModel(
+        itemImage = "",
+        itemName = "Snakebite Case",
+        totalValue = 84.00,
+        amount = 300,
+        price = 0.28,
+        profitLoss = -21.00,
+        profitLossPercent = -20.00
+    ),
+
+    // Medium rare case
+    PortfolioItemModel(
+        itemImage = "",
+        itemName = "Operation Bravo Case",
+        totalValue = 400.65,
+        amount = 3,
+        price = 133.55,
+        profitLoss = 340.65,
+        profitLossPercent = 567.75
+    )
+)
+
 
 
 

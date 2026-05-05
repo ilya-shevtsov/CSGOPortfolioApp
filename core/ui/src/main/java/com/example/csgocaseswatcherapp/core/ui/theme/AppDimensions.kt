@@ -17,11 +17,19 @@ data class AppDimensions(
 
 
     val backIconSize: Dp = 48.dp,
+
     val iconSmallSize: Dp = 18.dp,
     val iconMediumSize: Dp = 22.dp,
+
     val imageSmallSize: Dp = 88.dp,
     val imageMediumSize: Dp = 100.dp,
     val imageLargeSize: Dp = 160.dp,
+
+    val imageCompactNarrowWidth: Dp = 72.dp,
+    val imageCompactNarrowHeight: Dp = 56.dp,
+
+    val imageNarrowWidth: Dp = 85.dp,
+    val imageNarrowHeight: Dp = 66.dp,
 
     val shimmerTextFieldHeight: Dp = 22.dp,
     val shimmerTextFieldWidth: Dp = 150.dp,

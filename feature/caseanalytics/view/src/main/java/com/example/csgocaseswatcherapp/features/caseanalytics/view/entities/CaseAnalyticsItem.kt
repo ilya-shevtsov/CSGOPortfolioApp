@@ -27,7 +27,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -95,7 +94,6 @@ private fun CaseAnalyticsPortraitContent(
         verticalAlignment = Alignment.CenterVertically
     ) {
         CaseImage(
-            context = LocalContext.current,
             imageUrl = item.imageUrl,
             size = AppTheme.dimensions.imageSmallSize,
             clipShape = AppTheme.shapes.imageClip,
@@ -167,7 +165,6 @@ private fun LandscapeCaseHero(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             CaseImage(
-                context = LocalContext.current,
                 imageUrl = caseImageUrl,
                 size = AppTheme.dimensions.imageLargeSize,
                 clipShape = AppTheme.shapes.imageClip

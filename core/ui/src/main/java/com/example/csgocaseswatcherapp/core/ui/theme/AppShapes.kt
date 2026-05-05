@@ -15,6 +15,8 @@ data class AppShapes(
 
     val card: Shape = RoundedCornerShape(24.dp),
 
+    val narrowCard: Shape = RoundedCornerShape(20.dp),
+
     val statTile: Shape = RoundedCornerShape(16.dp),
 
     val pill: Shape = RoundedCornerShape(100.dp),
