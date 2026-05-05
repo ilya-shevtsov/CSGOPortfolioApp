@@ -9,9 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.TrendingUp
 import androidx.compose.material.icons.outlined.CalendarToday
@@ -27,6 +25,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -46,6 +45,9 @@ import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 import com.example.csgocaseswatcherapp.features.caseanalytics.R
 import com.example.csgocaseswatcherapp.ui.ExpandableStatSection
 
+private const val LANDSCAPE_CASE_HERO_WEIGHT = 0.38f
+private const val LANDSCAPE_ANALYTICS_DASHBOARD_WEIGHT = 0.62f
+private const val STAT_COLUMN_WEIGHT = 1f
 private data class AnalyticsStatUi(
     val icon: ImageVector,
     val label: String,
@@ -60,12 +62,12 @@ fun CaseAnalyticsItem(
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(24.dp),
+        shape = AppTheme.shapes.card,
         colors = CardDefaults.cardColors(
             containerColor = AppTheme.colors.surface,
             contentColor = AppTheme.colors.onSurface
         ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 3.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = AppTheme.dimensions.cardElevation)
     ) {
         when (deviceConfigurationType) {
             DeviceConfigurationType.MOBILE_PORTRAIT -> {
@@ -87,15 +89,16 @@ private fun CaseAnalyticsPortraitContent(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(AppTheme.dimensions.paddingM),
+            .padding(AppTheme.dimensions.paddingM)
+            .clip(AppTheme.shapes.card),
         verticalAlignment = Alignment.CenterVertically
     ) {
         CaseImage(
             context = LocalContext.current,
             caseName = item.caseName,
             imageUrl = item.imageUrl,
-            size = 88.dp,
-            clipShape = AppTheme.shapes.image,
+            size = AppTheme.dimensions.imageNormalSize,
+            clipShape = AppTheme.shapes.imageClip,
         )
 
         Spacer(Modifier.width(AppTheme.dimensions.paddingM))
@@ -129,12 +132,12 @@ private fun CaseAnalyticsLandscapeContent(
     ) {
         LandscapeCaseHero(
             item = item,
-            modifier = Modifier.weight(0.38f)
+            modifier = Modifier.weight(LANDSCAPE_CASE_HERO_WEIGHT)
         )
 
         LandscapeAnalyticsDashboard(
             item = item,
-            modifier = Modifier.weight(0.62f)
+            modifier = Modifier.weight(LANDSCAPE_ANALYTICS_DASHBOARD_WEIGHT)
         )
     }
 }
@@ -157,12 +160,8 @@ private fun LandscapeCaseHero(
                 context = LocalContext.current,
                 caseName = item.caseName,
                 imageUrl = item.imageUrl,
-                size = 160.dp,
-                clipShape = AppTheme.shapes.image,
-                modifier = Modifier.sizeIn(
-                    maxWidth = 180.dp,
-                    maxHeight = 180.dp
-                )
+                size = AppTheme.dimensions.imageLargeSize,
+                clipShape = AppTheme.shapes.imageClip
             )
 
             Text(
@@ -200,7 +199,7 @@ private fun HighlightStatPill(
 ) {
     Surface(
         modifier = modifier,
-        shape = RoundedCornerShape(100.dp),
+        shape = AppTheme.shapes.pill,
         color = AppTheme.colors.primary.copy(alpha = 0.12f)
     ) {
         Row(
@@ -312,11 +311,11 @@ private fun AnalyticsStatGroup(
         ) {
             AnalyticsStatColumn(
                 stats = stats.take(2),
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(STAT_COLUMN_WEIGHT)
             )
             AnalyticsStatColumn(
                 stats = stats.drop(2),
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(STAT_COLUMN_WEIGHT)
             )
         }
     }
@@ -350,9 +349,9 @@ private fun CompactStatTile(
 ) {
     Surface(
         modifier = modifier.fillMaxWidth(),
-        shape = AppTheme.shapes.image,
+        shape = AppTheme.shapes.statTile,
         color = AppTheme.colors.background.copy(alpha = 0.55f),
-        tonalElevation = 1.dp
+        tonalElevation = AppTheme.dimensions.tileElevation
     ) {
         Row(
             modifier = Modifier
@@ -365,11 +364,11 @@ private fun CompactStatTile(
                 imageVector = icon,
                 contentDescription = null,
                 tint = AppTheme.colors.primary,
-                modifier = Modifier.size(20.dp)
+                modifier = Modifier.size(AppTheme.dimensions.iconMediumSize)
             )
 
             Column(
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(STAT_COLUMN_WEIGHT)
             ) {
                 Text(
                     text = label,
@@ -437,7 +436,7 @@ fun MainAnalyticsData(
 @Composable
 fun SecondaryAnalyticsData(item: CaseAnalyticsModel) {
     Column(
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
     ) {
         StatRow(
             icon = Icons.AutoMirrored.Outlined.TrendingUp,
@@ -475,23 +474,22 @@ fun CaseAnalyticsItemShimmer(deviceConfigurationType: DeviceConfigurationType) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     ShimmerBox(
-                        width = 88.dp,
-                        height = 88.dp,
-                        shape = AppTheme.shapes.image
+                        width = AppTheme.dimensions.imageNormalSize,
+                        height = AppTheme.dimensions.imageNormalSize,
+                        shape = AppTheme.shapes.imageClip
                     )
 
                     Spacer(Modifier.width(AppTheme.dimensions.paddingM))
+
                     Column(
                         modifier = Modifier.weight(1f),
                         verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
                     ) {
-                        ShimmerTextLine(
-                            width = 180.dp,
-                        )
-                        StatRowShimmer()
-                        StatRowShimmer()
-                        StatRowShimmer()
-                        StatRowShimmer()
+                        ShimmerTextLine()
+
+                        repeat(4) {
+                            StatRowShimmer()
+                        }
 
                         ShimmerTextLine()
                     }
@@ -509,17 +507,23 @@ fun CaseAnalyticsItemShimmer(deviceConfigurationType: DeviceConfigurationType) {
                     horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingL)
                 ) {
                     LandscapeCaseHeroShimmer(
-                        modifier = Modifier.weight(0.38f)
+                        modifier = Modifier.weight(LANDSCAPE_CASE_HERO_WEIGHT)
                     )
 
-                    LandscapeAnalyticsDashboardShimmer(
-                        modifier = Modifier.weight(0.62f)
-                    )
+                    Column(
+                        modifier = Modifier.weight(LANDSCAPE_ANALYTICS_DASHBOARD_WEIGHT),
+                        verticalArrangement = Arrangement.spacedBy(14.dp)
+                    ) {
+                        repeat(2) {
+                            AnalyticsStatGroupShimmer()
+                        }
+                    }
                 }
             }
         }
     }
 }
+
 
 @Composable
 private fun LandscapeCaseHeroShimmer(
@@ -535,40 +539,19 @@ private fun LandscapeCaseHeroShimmer(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             ShimmerBox(
-                width = 160.dp,
-                height = 160.dp,
-                shape = AppTheme.shapes.image
+                width = AppTheme.dimensions.imageLargeSize,
+                height = AppTheme.dimensions.imageLargeSize,
+                shape = AppTheme.shapes.imageClip
             )
 
-            ShimmerTextLine(
-                width = 180.dp,
-                height = 24.dp
-            )
-
+            ShimmerTextLine()
             ShimmerBox(
                 width = 220.dp,
                 height = 42.dp,
-                shape = RoundedCornerShape(100.dp)
+                shape = AppTheme.shapes.pill
             )
-
-            ShimmerTextLine(
-                width = 140.dp,
-                height = 18.dp
-            )
+            ShimmerTextLine()
         }
-    }
-}
-
-@Composable
-private fun LandscapeAnalyticsDashboardShimmer(
-    modifier: Modifier = Modifier
-) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(14.dp)
-    ) {
-        AnalyticsStatGroupShimmer()
-        AnalyticsStatGroupShimmer()
     }
 }
 
@@ -580,25 +563,15 @@ private fun AnalyticsStatGroupShimmer(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
     ) {
-        ShimmerTextLine(
-            width = 120.dp,
-            height = 18.dp
-        )
+        ShimmerTextLine(width = AppTheme.dimensions.shimmerTextFieldTitleWidth)
 
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
-        ) {
-            AnalyticsStatColumnShimmer(
-                modifier = Modifier.weight(1f)
-            )
-
-            AnalyticsStatColumnShimmer(
-                modifier = Modifier.weight(1f)
-            )
+        Row(horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)) {
+            repeat(2) {
+                AnalyticsStatColumnShimmer(modifier = Modifier.weight(STAT_COLUMN_WEIGHT))
+            }
         }
     }
 }
-
 @Composable
 private fun AnalyticsStatColumnShimmer(
     modifier: Modifier = Modifier
@@ -607,21 +580,15 @@ private fun AnalyticsStatColumnShimmer(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
     ) {
-        CompactStatTileShimmer()
-        CompactStatTileShimmer()
+        repeat(2) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(58.dp)
+                    .shimmer(shape = AppTheme.shapes.imageClip)
+            )
+        }
     }
-}
-
-@Composable
-private fun CompactStatTileShimmer(
-    modifier: Modifier = Modifier
-) {
-    Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(58.dp)
-            .shimmer(shape = AppTheme.shapes.image)
-    )
 }
 
 

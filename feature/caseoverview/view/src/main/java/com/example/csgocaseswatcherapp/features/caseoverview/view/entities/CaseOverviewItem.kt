@@ -61,7 +61,7 @@ fun CaseOverviewItem(
                 caseName = item.caseName,
                 imageUrl = item.imageUrl,
                 size = 100.dp,
-                clipShape = AppTheme.shapes.image
+                clipShape = AppTheme.shapes.imageClip
             )
 
             Spacer(Modifier.width(AppTheme.dimensions.paddingM))
@@ -110,7 +110,7 @@ fun CaseOverviewItemShimmer() {
             ShimmerBox(
                 width = 100.dp,
                 height = 100.dp,
-                shape = AppTheme.shapes.image
+                shape = AppTheme.shapes.imageClip
             )
 
             Spacer(Modifier.width(AppTheme.dimensions.paddingM))

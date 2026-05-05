@@ -29,7 +29,7 @@ fun StatRow(
             imageVector = icon,
             contentDescription = null,
             tint = AppTheme.colors.primary,
-            modifier = Modifier.size(AppTheme.dimensions.smallIcon)
+            modifier = Modifier.size(AppTheme.dimensions.iconSmallSize)
         )
         Text(
             text = "$label: ",
@@ -50,7 +50,7 @@ fun StatRowShimmer() {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
     ) {
-        ShimmerCircle(size = AppTheme.dimensions.smallIcon)
+        ShimmerCircle(size = AppTheme.dimensions.iconSmallSize)
 
         ShimmerTextLine()
     }

@@ -6,11 +6,20 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 
 data class AppShapes(
-    val card: Shape = RoundedCornerShape(12.dp),
     val bottomSheet: Shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
+
     val buttonNormal: Shape = RoundedCornerShape(8.dp),
     val buttonRounded: Shape = RoundedCornerShape(16.dp),
-    val image: Shape = RoundedCornerShape(16.dp)
+
+    val imageClip: Shape = RoundedCornerShape(16.dp),
+
+    val card: Shape = RoundedCornerShape(24.dp),
+
+    val statTile: Shape = RoundedCornerShape(16.dp),
+
+    val pill: Shape = RoundedCornerShape(100.dp),
+
+    val shimmerDefaultBox: Shape = RoundedCornerShape(8.dp)
 )
 
 internal val LocalShapes = staticCompositionLocalOf { AppShapes() }
