@@ -97,7 +97,7 @@ private fun CaseAnalyticsPortraitContent(
         CaseImage(
             context = LocalContext.current,
             imageUrl = item.imageUrl,
-            size = AppTheme.dimensions.imageNormalSize,
+            size = AppTheme.dimensions.imageSmallSize,
             clipShape = AppTheme.shapes.imageClip,
         )
 
@@ -493,8 +493,8 @@ fun CaseAnalyticsItemShimmer(deviceConfigurationType: DeviceConfigurationType) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     ShimmerBox(
-                        width = AppTheme.dimensions.imageNormalSize,
-                        height = AppTheme.dimensions.imageNormalSize,
+                        width = AppTheme.dimensions.imageSmallSize,
+                        height = AppTheme.dimensions.imageSmallSize,
                         shape = AppTheme.shapes.imageClip
                     )
 

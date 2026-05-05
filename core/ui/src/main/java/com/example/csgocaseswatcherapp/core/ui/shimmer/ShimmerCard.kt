@@ -7,7 +7,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 
 @Composable
@@ -23,7 +22,7 @@ fun ShimmerCard(
             containerColor = AppTheme.colors.surface,
             contentColor = AppTheme.colors.onSurface
         ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 3.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = AppTheme.dimensions.cardElevation),
         content = content
     )
 }

@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Inventory2
 import androidx.compose.material.icons.outlined.Leaderboard
@@ -23,7 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import androidx.compose.ui.unit.dp
 import com.example.csgocaseswatcherapp.core.ui.CaseImage
 import com.example.csgocaseswatcherapp.core.ui.StatRow
 import com.example.csgocaseswatcherapp.core.ui.StatRowShimmer
@@ -42,12 +40,12 @@ fun CaseOverviewItem(
         modifier = modifier
             .fillMaxWidth()
             .clickable { onClick() },
-        shape = RoundedCornerShape(24.dp),
+        shape = AppTheme.shapes.card,
         colors = CardDefaults.cardColors(
             containerColor = AppTheme.colors.surface,
             contentColor = AppTheme.colors.onSurface
         ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 3.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = AppTheme.dimensions.cardElevation)
     ) {
         Row(
             modifier = Modifier
@@ -58,9 +56,8 @@ fun CaseOverviewItem(
 
             CaseImage(
                 context = LocalContext.current,
-                caseName = item.caseName,
                 imageUrl = item.imageUrl,
-                size = 100.dp,
+                size = AppTheme.dimensions.imageMediumSize,
                 clipShape = AppTheme.shapes.imageClip
             )
 
@@ -108,8 +105,8 @@ fun CaseOverviewItemShimmer() {
             verticalAlignment = Alignment.CenterVertically
         ) {
             ShimmerBox(
-                width = 100.dp,
-                height = 100.dp,
+                width = AppTheme.dimensions.imageMediumSize,
+                height = AppTheme.dimensions.imageMediumSize,
                 shape = AppTheme.shapes.imageClip
             )
 
@@ -119,10 +116,7 @@ fun CaseOverviewItemShimmer() {
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
             ) {
-                ShimmerTextLine(
-                    width = 180.dp,
-                )
-
+                ShimmerTextLine(width = AppTheme.dimensions.shimmerTextFieldTitleWidth)
                 StatRowShimmer()
                 StatRowShimmer()
                 StatRowShimmer()

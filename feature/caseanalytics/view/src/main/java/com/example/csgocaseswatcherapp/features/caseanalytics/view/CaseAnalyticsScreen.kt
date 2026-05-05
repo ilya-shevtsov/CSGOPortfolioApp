@@ -15,9 +15,11 @@ import com.example.csgocaseswatcherapp.core.ui.preview.PreviewPortraitLandscapeD
 import com.example.csgocaseswatcherapp.core.ui.preview.PreviewScreenWithTopBar
 import com.example.csgocaseswatcherapp.core.ui.shimmer.ShimmerList
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
+import com.example.csgocaseswatcherapp.features.caseanalytics.view.entities.CaseAnalyticsDailyModel
 import com.example.csgocaseswatcherapp.features.caseanalytics.view.entities.CaseAnalyticsItem
 import com.example.csgocaseswatcherapp.features.caseanalytics.view.entities.CaseAnalyticsItemShimmer
 import com.example.csgocaseswatcherapp.features.caseanalytics.view.entities.CaseAnalyticsModel
+import com.example.csgocaseswatcherapp.features.caseanalytics.view.entities.CaseAnalyticsMonthlyModel
 
 @Composable
 fun CaseAnalyticsScreen(
@@ -110,13 +112,17 @@ private fun CaseAnalyticsScreenShimmerPreview() {
 
 val mockItem = CaseAnalyticsModel(
     caseName = "Chroma Case",
-    dailyAvgReturnInPercent = "0.14 %",
-    dailyAvgReturnInRUB = "-0.31",
-    dailyStandardDeviation = "0.06421",
-    dailySharpRatio = "0.03216",
-    monthlyAvgReturnInPercent = "4.11 %",
-    monthlyAvgReturnInRUB = "-3.24",
-    monthlyStandardDeviation = "0.22929",
-    monthlySharpRatio = "0.21576",
-    imageUrl = "https://api.steamapis.com/image/item/730/Chroma%20Case"
+    imageUrl = "https://api.steamapis.com/image/item/730/Chroma%20Case",
+    dailyData = CaseAnalyticsDailyModel(
+        avgReturnInPercent = "0.14 %",
+        avgReturnInRUB = "-0.31",
+        standardDeviation = "0.06421",
+        sharpRatio = "0.03216"
+    ),
+    monthlyData = CaseAnalyticsMonthlyModel(
+        avgReturnInPercent = "4.11 %",
+        avgReturnInRUB = "-3.24",
+        standardDeviation = "0.22929",
+        sharpRatio = "0.21576",
+    )
 )
