@@ -137,8 +137,8 @@ private fun CaseAnalyticsLandscapeContent(
             modifier = Modifier.weight(LANDSCAPE_CASE_HERO_WEIGHT),
             caseName = item.caseName,
             caseImageUrl = item.imageUrl,
-            monthlyAvgReturnInPercent = item.monthlyData.monthlyAvgReturnInPercent,
-            monthlySharpRatio = item.monthlyData.monthlySharpRatio
+            monthlyAvgReturnInPercent = item.monthlyData.avgReturnInPercent,
+            monthlySharpRatio = item.monthlyData.sharpRatio
         )
 
         LandscapeAnalyticsDashboard(
@@ -253,24 +253,24 @@ private fun LandscapeAnalyticsDashboard(
                 AnalyticsStatData(
                     icon = Icons.Outlined.CalendarToday,
                     label = stringResource(R.string.monthly_avg_return),
-                    value = monthlyData.monthlyAvgReturnInPercent
+                    value = monthlyData.avgReturnInPercent
                 ),
                 AnalyticsStatData(
                     icon = Icons.Outlined.QueryStats,
                     label = stringResource(R.string.monthly_volatility_std),
-                    value = monthlyData.monthlyStandardDeviation
+                    value = monthlyData.standardDeviation
                 )
             ),
             rightColumnStats = listOf(
                 AnalyticsStatData(
                     icon = Icons.Outlined.CurrencyRuble,
                     label = stringResource(R.string.monthly_avg_return_rub),
-                    value = monthlyData.monthlyAvgReturnInRUB
+                    value = monthlyData.avgReturnInRUB
                 ),
                 AnalyticsStatData(
                     icon = Icons.Outlined.Scale,
                     label = stringResource(R.string.monthly_sharpe_ratio),
-                    value = monthlyData.monthlySharpRatio
+                    value = monthlyData.sharpRatio
                 )
             )
         )
@@ -281,24 +281,24 @@ private fun LandscapeAnalyticsDashboard(
                 AnalyticsStatData(
                     icon = Icons.AutoMirrored.Outlined.TrendingUp,
                     label = stringResource(R.string.avg_return),
-                    value = dailyData.dailyAvgReturnInPercent
+                    value = dailyData.avgReturnInPercent
                 ),
                 AnalyticsStatData(
                     icon = Icons.Outlined.QueryStats,
                     label = stringResource(R.string.volatility_std),
-                    value = dailyData.dailyStandardDeviation
+                    value = dailyData.standardDeviation
                 )
             ),
             rightColumnStats = listOf(
                 AnalyticsStatData(
                     icon = Icons.Outlined.CurrencyRuble,
                     label = stringResource(R.string.avg_return_rub),
-                    value = dailyData.dailyAvgReturnInRUB
+                    value = dailyData.avgReturnInRUB
                 ),
                 AnalyticsStatData(
                     icon = Icons.Outlined.Scale,
                     label = stringResource(R.string.sharpe_ratio),
-                    value = dailyData.dailySharpRatio
+                    value = dailyData.sharpRatio
                 )
             )
         )
@@ -427,25 +427,25 @@ fun MainAnalyticsData(
         StatRow(
             icon = Icons.Outlined.CalendarToday,
             label = stringResource(R.string.monthly_avg_return),
-            value = monthlyData.monthlyAvgReturnInPercent,
+            value = monthlyData.avgReturnInPercent,
         )
         StatRow(
             icon =
                 Icons.Outlined.CurrencyRuble,
             label = stringResource(R.string.monthly_avg_return_rub),
-            value = monthlyData.monthlyAvgReturnInRUB,
+            value = monthlyData.avgReturnInRUB,
         )
         StatRow(
             icon =
                 Icons.Outlined.QueryStats,
             label = stringResource(R.string.monthly_volatility_std),
-            value = monthlyData.monthlyStandardDeviation
+            value = monthlyData.standardDeviation
         )
         StatRow(
             icon =
                 Icons.Outlined.Scale,
             label = stringResource(R.string.monthly_sharpe_ratio),
-            value = monthlyData.monthlySharpRatio
+            value = monthlyData.sharpRatio
         )
     }
 }
@@ -460,22 +460,22 @@ fun SecondaryAnalyticsData(
         StatRow(
             icon = Icons.AutoMirrored.Outlined.TrendingUp,
             label = stringResource(R.string.avg_return),
-            value = dailyData.dailyAvgReturnInPercent,
+            value = dailyData.avgReturnInPercent,
         )
         StatRow(
             icon = Icons.Outlined.CurrencyRuble,
             label = stringResource(R.string.avg_return_rub),
-            value = dailyData.dailyAvgReturnInRUB,
+            value = dailyData.avgReturnInRUB,
         )
         StatRow(
             icon = Icons.Outlined.QueryStats,
             label = stringResource(R.string.volatility_std),
-            value = dailyData.dailyStandardDeviation
+            value = dailyData.standardDeviation
         )
         StatRow(
             icon = Icons.Outlined.Scale,
             label = stringResource(R.string.sharpe_ratio),
-            value = dailyData.dailySharpRatio
+            value = dailyData.sharpRatio
         )
     }
 
@@ -663,15 +663,15 @@ val mockItem = CaseAnalyticsModel(
     caseName = "Chroma Case",
     imageUrl = "https://api.steamapis.com/image/item/730/Chroma%20Case",
     dailyData = CaseAnalyticsDailyModel(
-        dailyAvgReturnInPercent = "0.14 %",
-        dailyAvgReturnInRUB = "-0.31",
-        dailyStandardDeviation = "0.06421",
-        dailySharpRatio = "0.03216"
+        avgReturnInPercent = "0.14 %",
+        avgReturnInRUB = "-0.31",
+        standardDeviation = "0.06421",
+        sharpRatio = "0.03216"
     ),
     monthlyData = CaseAnalyticsMonthlyModel(
-        monthlyAvgReturnInPercent = "4.11 %",
-        monthlyAvgReturnInRUB = "-3.24",
-        monthlyStandardDeviation = "0.22929",
-        monthlySharpRatio = "0.21576",
+        avgReturnInPercent = "4.11 %",
+        avgReturnInRUB = "-3.24",
+        standardDeviation = "0.22929",
+        sharpRatio = "0.21576",
     )
 )

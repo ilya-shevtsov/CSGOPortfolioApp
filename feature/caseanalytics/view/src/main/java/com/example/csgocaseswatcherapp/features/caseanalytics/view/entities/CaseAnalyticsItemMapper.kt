@@ -11,16 +11,16 @@ object CaseAnalyticsItemMapper {
             caseName = caseAnalytics.caseName,
             imageUrl = getCaseImage(caseAnalytics.caseName),
             dailyData = CaseAnalyticsDailyModel(
-                dailyAvgReturnInPercent = "${caseAnalytics.dailyAvgReturnInPercent} %",
-                dailyAvgReturnInRUB = caseAnalytics.dailyAvgReturnInRUB.toString(),
-                dailyStandardDeviation = caseAnalytics.dailyStandardDeviation.toDoubleWith5Decimals().toString(),
-                dailySharpRatio = caseAnalytics.dailySharpRatio.toDoubleWith5Decimals().toString(),
+                avgReturnInPercent = "${caseAnalytics.dailyAvgReturnInPercent} %",
+                avgReturnInRUB = caseAnalytics.dailyAvgReturnInRUB.toString(),
+                standardDeviation = caseAnalytics.dailyStandardDeviation.toDoubleWith5Decimals().toString(),
+                sharpRatio = caseAnalytics.dailySharpRatio.toDoubleWith5Decimals().toString(),
             ),
             monthlyData = CaseAnalyticsMonthlyModel(
-                monthlyAvgReturnInPercent = "${caseAnalytics.monthlyAvgReturnInPercent} %",
-                monthlyAvgReturnInRUB = caseAnalytics.monthlyAvgReturnInRUB.toString(),
-                monthlyStandardDeviation = caseAnalytics.monthlyStandardDeviation.toDoubleWith5Decimals().toString(),
-                monthlySharpRatio = caseAnalytics.monthlySharpRatio.toDoubleWith5Decimals().toString(),
+                avgReturnInPercent = "${caseAnalytics.monthlyAvgReturnInPercent} %",
+                avgReturnInRUB = caseAnalytics.monthlyAvgReturnInRUB.toString(),
+                standardDeviation = caseAnalytics.monthlyStandardDeviation.toDoubleWith5Decimals().toString(),
+                sharpRatio = caseAnalytics.monthlySharpRatio.toDoubleWith5Decimals().toString(),
             )
         )
     }

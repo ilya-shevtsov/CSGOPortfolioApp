@@ -5,8 +5,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class CaseAnalyticsDailyModel(
-    val dailyAvgReturnInPercent: String,
-    val dailyAvgReturnInRUB: String,
-    val dailyStandardDeviation: String,
-    val dailySharpRatio: String,
+    val avgReturnInPercent: String,
+    val avgReturnInRUB: String,
+    val standardDeviation: String,
+    val sharpRatio: String,
 ) : Parcelable

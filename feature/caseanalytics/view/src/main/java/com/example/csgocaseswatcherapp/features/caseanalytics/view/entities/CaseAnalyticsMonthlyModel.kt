@@ -5,8 +5,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class CaseAnalyticsMonthlyModel(
-    val monthlyAvgReturnInPercent: String,
-    val monthlyAvgReturnInRUB: String,
-    val monthlyStandardDeviation: String,
-    val monthlySharpRatio: String,
+    val avgReturnInPercent: String,
+    val avgReturnInRUB: String,
+    val standardDeviation: String,
+    val sharpRatio: String,
 ) : Parcelable
