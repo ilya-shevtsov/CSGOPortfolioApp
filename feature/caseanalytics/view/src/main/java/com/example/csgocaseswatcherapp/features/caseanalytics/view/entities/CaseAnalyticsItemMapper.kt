@@ -9,15 +9,19 @@ object CaseAnalyticsItemMapper {
     fun map(caseAnalytics: CaseAnalytics): CaseAnalyticsModel {
         return CaseAnalyticsModel(
             caseName = caseAnalytics.caseName,
-            dailyAvgReturnInPercent = "${caseAnalytics.dailyAvgReturnInPercent} %",
-            dailyAvgReturnInRUB = caseAnalytics.dailyAvgReturnInRUB.toString(),
-            dailyStandardDeviation = caseAnalytics.dailyStandardDeviation.toDoubleWith5Decimals().toString(),
-            dailySharpRatio = caseAnalytics.dailySharpRatio.toDoubleWith5Decimals().toString(),
-            monthlyAvgReturnInPercent = "${caseAnalytics.monthlyAvgReturnInPercent} %",
-            monthlyAvgReturnInRUB = caseAnalytics.monthlyAvgReturnInRUB.toString(),
-            monthlyStandardDeviation = caseAnalytics.monthlyStandardDeviation.toDoubleWith5Decimals().toString(),
-            monthlySharpRatio = caseAnalytics.monthlySharpRatio.toDoubleWith5Decimals().toString(),
-            imageUrl = getCaseImage(caseAnalytics.caseName)
+            imageUrl = getCaseImage(caseAnalytics.caseName),
+            dailyData = CaseAnalyticsDailyModel(
+                dailyAvgReturnInPercent = "${caseAnalytics.dailyAvgReturnInPercent} %",
+                dailyAvgReturnInRUB = caseAnalytics.dailyAvgReturnInRUB.toString(),
+                dailyStandardDeviation = caseAnalytics.dailyStandardDeviation.toDoubleWith5Decimals().toString(),
+                dailySharpRatio = caseAnalytics.dailySharpRatio.toDoubleWith5Decimals().toString(),
+            ),
+            monthlyData = CaseAnalyticsMonthlyModel(
+                monthlyAvgReturnInPercent = "${caseAnalytics.monthlyAvgReturnInPercent} %",
+                monthlyAvgReturnInRUB = caseAnalytics.monthlyAvgReturnInRUB.toString(),
+                monthlyStandardDeviation = caseAnalytics.monthlyStandardDeviation.toDoubleWith5Decimals().toString(),
+                monthlySharpRatio = caseAnalytics.monthlySharpRatio.toDoubleWith5Decimals().toString(),
+            )
         )
     }
 

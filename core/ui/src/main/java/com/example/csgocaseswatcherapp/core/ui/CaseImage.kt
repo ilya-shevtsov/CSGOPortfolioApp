@@ -15,7 +15,6 @@ import coil.request.ImageRequest
 @Composable
 fun CaseImage(
     context: Context,
-    caseName: String,
     imageUrl: String,
     size: Dp,
     clipShape: Shape,
@@ -26,7 +25,7 @@ fun CaseImage(
             .data(imageUrl)
             .crossfade(true)
             .build(),
-        contentDescription = caseName,
+        contentDescription = null,
         error = painterResource(R.drawable.ic_error),
         placeholder = painterResource(R.drawable.case_placeholder),
         contentScale = ContentScale.Fit,

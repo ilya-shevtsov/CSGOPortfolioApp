@@ -48,7 +48,8 @@ import com.example.csgocaseswatcherapp.ui.ExpandableStatSection
 private const val LANDSCAPE_CASE_HERO_WEIGHT = 0.38f
 private const val LANDSCAPE_ANALYTICS_DASHBOARD_WEIGHT = 0.62f
 private const val STAT_COLUMN_WEIGHT = 1f
-private data class AnalyticsStatUi(
+
+private data class AnalyticsStatData(
     val icon: ImageVector,
     val label: String,
     val value: String
@@ -95,7 +96,6 @@ private fun CaseAnalyticsPortraitContent(
     ) {
         CaseImage(
             context = LocalContext.current,
-            caseName = item.caseName,
             imageUrl = item.imageUrl,
             size = AppTheme.dimensions.imageNormalSize,
             clipShape = AppTheme.shapes.imageClip,
@@ -107,12 +107,15 @@ private fun CaseAnalyticsPortraitContent(
             modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
         ) {
-            MainAnalyticsData(item = item)
+            MainAnalyticsData(
+                caseName = item.caseName,
+                monthlyData = item.monthlyData,
+            )
 
             ExpandableStatSection(
                 title = stringResource(R.string.expandable_stat_section_title)
             ) {
-                SecondaryAnalyticsData(item = item)
+                SecondaryAnalyticsData(item.dailyData)
             }
         }
     }
@@ -131,12 +134,16 @@ private fun CaseAnalyticsLandscapeContent(
         horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingL)
     ) {
         LandscapeCaseHero(
-            item = item,
-            modifier = Modifier.weight(LANDSCAPE_CASE_HERO_WEIGHT)
+            modifier = Modifier.weight(LANDSCAPE_CASE_HERO_WEIGHT),
+            caseName = item.caseName,
+            caseImageUrl = item.imageUrl,
+            monthlyAvgReturnInPercent = item.monthlyData.monthlyAvgReturnInPercent,
+            monthlySharpRatio = item.monthlyData.monthlySharpRatio
         )
 
         LandscapeAnalyticsDashboard(
-            item = item,
+            dailyData = item.dailyData,
+            monthlyData = item.monthlyData,
             modifier = Modifier.weight(LANDSCAPE_ANALYTICS_DASHBOARD_WEIGHT)
         )
     }
@@ -144,7 +151,10 @@ private fun CaseAnalyticsLandscapeContent(
 
 @Composable
 private fun LandscapeCaseHero(
-    item: CaseAnalyticsModel,
+    caseName: String,
+    caseImageUrl: String,
+    monthlyAvgReturnInPercent: String,
+    monthlySharpRatio: String,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -158,14 +168,13 @@ private fun LandscapeCaseHero(
         ) {
             CaseImage(
                 context = LocalContext.current,
-                caseName = item.caseName,
-                imageUrl = item.imageUrl,
+                imageUrl = caseImageUrl,
                 size = AppTheme.dimensions.imageLargeSize,
                 clipShape = AppTheme.shapes.imageClip
             )
 
             Text(
-                text = item.caseName,
+                text = caseName,
                 style = MaterialTheme.typography.titleLarge,
                 color = AppTheme.colors.onSurface,
                 maxLines = 2,
@@ -174,13 +183,13 @@ private fun LandscapeCaseHero(
 
             HighlightStatPill(
                 label = stringResource(R.string.monthly_avg_return),
-                value = item.monthlyAvgReturnInPercent
+                value = monthlyAvgReturnInPercent
             )
 
             Text(
                 text = stringResource(
                     R.string.monthly_sharpe_value,
-                    item.monthlySharpRatio
+                    monthlySharpRatio
                 ),
                 style = MaterialTheme.typography.bodyMedium,
                 color = AppTheme.colors.onSurface.copy(alpha = 0.72f),
@@ -230,7 +239,8 @@ private fun HighlightStatPill(
 
 @Composable
 private fun LandscapeAnalyticsDashboard(
-    item: CaseAnalyticsModel,
+    monthlyData: CaseAnalyticsMonthlyModel,
+    dailyData: CaseAnalyticsDailyModel,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -239,51 +249,56 @@ private fun LandscapeAnalyticsDashboard(
     ) {
         AnalyticsStatGroup(
             title = stringResource(R.string.analytics_stat_group_title_monthly),
-            stats = listOf(
-                AnalyticsStatUi(
+            leftColumnStats = listOf(
+                AnalyticsStatData(
                     icon = Icons.Outlined.CalendarToday,
                     label = stringResource(R.string.monthly_avg_return),
-                    value = item.monthlyAvgReturnInPercent
+                    value = monthlyData.monthlyAvgReturnInPercent
                 ),
-                AnalyticsStatUi(
+                AnalyticsStatData(
                     icon = Icons.Outlined.QueryStats,
                     label = stringResource(R.string.monthly_volatility_std),
-                    value = item.monthlyStandardDeviation
-                ),
-                AnalyticsStatUi(
+                    value = monthlyData.monthlyStandardDeviation
+                )
+            ),
+            rightColumnStats = listOf(
+                AnalyticsStatData(
                     icon = Icons.Outlined.CurrencyRuble,
                     label = stringResource(R.string.monthly_avg_return_rub),
-                    value = item.monthlyAvgReturnInRUB
+                    value = monthlyData.monthlyAvgReturnInRUB
                 ),
-                AnalyticsStatUi(
+                AnalyticsStatData(
                     icon = Icons.Outlined.Scale,
                     label = stringResource(R.string.monthly_sharpe_ratio),
-                    value = item.monthlySharpRatio
+                    value = monthlyData.monthlySharpRatio
                 )
             )
         )
+
         AnalyticsStatGroup(
             title = stringResource(R.string.analytics_stat_group_title_daily),
-            stats = listOf(
-                AnalyticsStatUi(
+            leftColumnStats = listOf(
+                AnalyticsStatData(
                     icon = Icons.AutoMirrored.Outlined.TrendingUp,
                     label = stringResource(R.string.avg_return),
-                    value = item.dailyAvgReturnInPercent
+                    value = dailyData.dailyAvgReturnInPercent
                 ),
-                AnalyticsStatUi(
+                AnalyticsStatData(
                     icon = Icons.Outlined.QueryStats,
                     label = stringResource(R.string.volatility_std),
-                    value = item.dailyStandardDeviation
-                ),
-                AnalyticsStatUi(
+                    value = dailyData.dailyStandardDeviation
+                )
+            ),
+            rightColumnStats = listOf(
+                AnalyticsStatData(
                     icon = Icons.Outlined.CurrencyRuble,
                     label = stringResource(R.string.avg_return_rub),
-                    value = item.dailyAvgReturnInRUB
+                    value = dailyData.dailyAvgReturnInRUB
                 ),
-                AnalyticsStatUi(
+                AnalyticsStatData(
                     icon = Icons.Outlined.Scale,
                     label = stringResource(R.string.sharpe_ratio),
-                    value = item.dailySharpRatio
+                    value = dailyData.dailySharpRatio
                 )
             )
         )
@@ -293,7 +308,8 @@ private fun LandscapeAnalyticsDashboard(
 @Composable
 private fun AnalyticsStatGroup(
     title: String,
-    stats: List<AnalyticsStatUi>,
+    leftColumnStats: List<AnalyticsStatData>,
+    rightColumnStats: List<AnalyticsStatData>,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -310,11 +326,11 @@ private fun AnalyticsStatGroup(
             horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM),
         ) {
             AnalyticsStatColumn(
-                stats = stats.take(2),
+                stats = leftColumnStats,
                 modifier = Modifier.weight(STAT_COLUMN_WEIGHT)
             )
             AnalyticsStatColumn(
-                stats = stats.drop(2),
+                stats = rightColumnStats,
                 modifier = Modifier.weight(STAT_COLUMN_WEIGHT)
             )
         }
@@ -323,7 +339,7 @@ private fun AnalyticsStatGroup(
 
 @Composable
 private fun AnalyticsStatColumn(
-    stats: List<AnalyticsStatUi>,
+    stats: List<AnalyticsStatData>,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -392,7 +408,8 @@ private fun CompactStatTile(
 
 @Composable
 fun MainAnalyticsData(
-    item: CaseAnalyticsModel,
+    caseName: String,
+    monthlyData: CaseAnalyticsMonthlyModel,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -400,7 +417,7 @@ fun MainAnalyticsData(
         verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
     ) {
         Text(
-            text = item.caseName,
+            text = caseName,
             style = MaterialTheme.typography.titleMedium,
             color = AppTheme.colors.onSurface,
             maxLines = 1,
@@ -410,53 +427,55 @@ fun MainAnalyticsData(
         StatRow(
             icon = Icons.Outlined.CalendarToday,
             label = stringResource(R.string.monthly_avg_return),
-            value = item.monthlyAvgReturnInPercent,
+            value = monthlyData.monthlyAvgReturnInPercent,
         )
         StatRow(
             icon =
                 Icons.Outlined.CurrencyRuble,
             label = stringResource(R.string.monthly_avg_return_rub),
-            value = item.monthlyAvgReturnInRUB,
+            value = monthlyData.monthlyAvgReturnInRUB,
         )
         StatRow(
             icon =
                 Icons.Outlined.QueryStats,
             label = stringResource(R.string.monthly_volatility_std),
-            value = item.monthlyStandardDeviation
+            value = monthlyData.monthlyStandardDeviation
         )
         StatRow(
             icon =
                 Icons.Outlined.Scale,
             label = stringResource(R.string.monthly_sharpe_ratio),
-            value = item.monthlySharpRatio
+            value = monthlyData.monthlySharpRatio
         )
     }
 }
 
 @Composable
-fun SecondaryAnalyticsData(item: CaseAnalyticsModel) {
+fun SecondaryAnalyticsData(
+    dailyData: CaseAnalyticsDailyModel
+) {
     Column(
         verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
     ) {
         StatRow(
             icon = Icons.AutoMirrored.Outlined.TrendingUp,
             label = stringResource(R.string.avg_return),
-            value = item.dailyAvgReturnInPercent,
+            value = dailyData.dailyAvgReturnInPercent,
         )
         StatRow(
             icon = Icons.Outlined.CurrencyRuble,
             label = stringResource(R.string.avg_return_rub),
-            value = item.dailyAvgReturnInRUB,
+            value = dailyData.dailyAvgReturnInRUB,
         )
         StatRow(
             icon = Icons.Outlined.QueryStats,
             label = stringResource(R.string.volatility_std),
-            value = item.dailyStandardDeviation
+            value = dailyData.dailyStandardDeviation
         )
         StatRow(
             icon = Icons.Outlined.Scale,
             label = stringResource(R.string.sharpe_ratio),
-            value = item.dailySharpRatio
+            value = dailyData.dailySharpRatio
         )
     }
 
@@ -572,6 +591,7 @@ private fun AnalyticsStatGroupShimmer(
         }
     }
 }
+
 @Composable
 private fun AnalyticsStatColumnShimmer(
     modifier: Modifier = Modifier
@@ -641,13 +661,17 @@ fun CaseAnalyticsItemLandscapeDarkPreview() {
 
 val mockItem = CaseAnalyticsModel(
     caseName = "Chroma Case",
-    dailyAvgReturnInPercent = "0.14 %",
-    dailyAvgReturnInRUB = "-0.31",
-    dailyStandardDeviation = "0.06421",
-    dailySharpRatio = "0.03216",
-    monthlyAvgReturnInPercent = "4.11 %",
-    monthlyAvgReturnInRUB = "-3.24",
-    monthlyStandardDeviation = "0.22929",
-    monthlySharpRatio = "0.21576",
-    imageUrl = "https://api.steamapis.com/image/item/730/Chroma%20Case"
+    imageUrl = "https://api.steamapis.com/image/item/730/Chroma%20Case",
+    dailyData = CaseAnalyticsDailyModel(
+        dailyAvgReturnInPercent = "0.14 %",
+        dailyAvgReturnInRUB = "-0.31",
+        dailyStandardDeviation = "0.06421",
+        dailySharpRatio = "0.03216"
+    ),
+    monthlyData = CaseAnalyticsMonthlyModel(
+        monthlyAvgReturnInPercent = "4.11 %",
+        monthlyAvgReturnInRUB = "-3.24",
+        monthlyStandardDeviation = "0.22929",
+        monthlySharpRatio = "0.21576",
+    )
 )
