@@ -97,7 +97,8 @@ class AddCaseViewModel @Inject constructor(
             state.copy(
                 amountField = AddCaseFieldData(
                     input = action.amount,
-                    result = validateCaseAmountUseCase(action.amount)
+                    result = validateCaseAmountUseCase(action.amount),
+                    isTouched = true
                 )
             )
         }
@@ -108,7 +109,8 @@ class AddCaseViewModel @Inject constructor(
             state.copy(
                 priceField = AddCaseFieldData(
                     input = action.price,
-                    result = validateCasePriceUseCase(action.price)
+                    result = validateCasePriceUseCase(action.price),
+                    isTouched = true
                 )
             )
         }

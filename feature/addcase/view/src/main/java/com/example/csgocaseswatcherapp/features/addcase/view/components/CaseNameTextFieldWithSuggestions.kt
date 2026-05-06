@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import com.example.csgocaseswatcherapp.core.ui.AppOutlinedTextField
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
@@ -34,8 +35,10 @@ internal fun CaseNameTextFieldWithSuggestions(
     var expanded by remember { mutableStateOf(false) }
     var hasFocus by remember { mutableStateOf(false) }
 
+    val focusManager = LocalFocusManager.current
 
-    LaunchedEffect(hasFocus, value, suggestions.isNotEmpty()) {
+
+    LaunchedEffect(hasFocus, value, suggestions) {
         expanded = hasFocus && value.isNotBlank() && suggestions.isNotEmpty()
     }
 
@@ -71,8 +74,9 @@ internal fun CaseNameTextFieldWithSuggestions(
                 CaseSuggestionItem(
                     suggestion = suggestion,
                     onClick = {
-                        onSuggestionClick(suggestion.name)
                         expanded = false
+                        focusManager.clearFocus()
+                        onSuggestionClick(suggestion.name)
                     }
                 )
 

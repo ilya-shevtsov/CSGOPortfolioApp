@@ -43,8 +43,17 @@ class AddCaseViewStateMapper @Inject constructor(
             allowedNames = allowedNames
         )?.resId
 
-        val amountError = state.amountField.result.toErrorResOrNull()
-        val priceError = state.priceField.result.toErrorResOrNull()
+        val amountError = if (state.amountField.isTouched) {
+            state.amountField.result.toErrorResOrNull()
+        } else {
+            null
+        }
+
+        val priceError = if (state.priceField.isTouched) {
+            state.priceField.result.toErrorResOrNull()
+        } else {
+            null
+        }
 
         val addCaseButtonIsActive = nameError == null && amountError == null && priceError == null
 

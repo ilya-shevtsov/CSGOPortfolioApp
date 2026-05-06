@@ -52,7 +52,7 @@ fun appOutlinedTextFieldColors() = OutlinedTextFieldDefaults.colors(
     focusedLabelColor = AppTheme.colors.primary,
     unfocusedLabelColor = AppTheme.colors.onSurface.copy(alpha = 0.60f),
 
-    errorTextColor = AppTheme.colors.onError,
+    errorTextColor = AppTheme.colors.onSurface,
     errorBorderColor = AppTheme.colors.error,
     errorLabelColor = AppTheme.colors.error,
     errorCursorColor = AppTheme.colors.error,
