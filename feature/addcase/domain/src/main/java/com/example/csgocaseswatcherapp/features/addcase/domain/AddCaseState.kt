@@ -10,7 +10,26 @@ data class AddCaseState(
     val caseNameSearchQuery: String = "",
     val nameSuggestionResult: NameSuggestionResult,
     val originalNameSuggestionList: List<AddCaseSuggestion>
-)
+) {
+    companion object {
+        fun initial(): AddCaseState {
+            return AddCaseState(
+                name = "",
+                caseNameSearchQuery = "",
+                nameSuggestionResult = NameSuggestionResult.Loading,
+                originalNameSuggestionList = emptyList(),
+                amountField = AddCaseFieldData(
+                    input = "",
+                    result = AmountValidationResult.Fail(AddCaseError.AMOUNT_EMPTY)
+                ),
+                priceField = AddCaseFieldData(
+                    input = "",
+                    result = PriceValidationResult.Fail(AddCaseError.PRICE_EMPTY)
+                )
+            )
+        }
+    }
+}
 
 data class AddCaseFieldData<T>(
     val input: String,

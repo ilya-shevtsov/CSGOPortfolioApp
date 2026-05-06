@@ -22,7 +22,7 @@ fun AddCaseRoute(
                 is AddCaseEvent.NavigateToPortfolioWithAddedCase -> navigateToPortfolio()
                 is AddCaseEvent.ShowValidationError -> Toast.makeText(
                     context,
-                    event.message,
+                    event.error.resId,
                     Toast.LENGTH_LONG
                 ).show()
             }

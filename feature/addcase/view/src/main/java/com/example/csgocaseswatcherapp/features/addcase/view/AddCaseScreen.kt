@@ -40,7 +40,7 @@ import com.example.csgocaseswatcherapp.core.ui.ErrorScreen
 import com.example.csgocaseswatcherapp.core.ui.LoadingScreen
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 import com.example.csgocaseswatcherapp.features.addcase.domain.entities.AddCaseSuggestion
-import com.example.csgocaseswatcherapp.features.addcase.view.entities.CaseSuggestionItem
+import com.example.csgocaseswatcherapp.features.addcase.view.components.CaseSuggestionItem
 
 
 @Composable

@@ -11,4 +11,6 @@
     <string name="error_finish_decimal">Finish the number (e.g., 0.0)</string>
     <string name="error_price_number">Price must be a number</string>
     <string name="error_price_positive">Price must be &gt; 0</string>
+
+    <string name="add_case_validation_error">Please fill amount and price correctly</string>
 </resources>

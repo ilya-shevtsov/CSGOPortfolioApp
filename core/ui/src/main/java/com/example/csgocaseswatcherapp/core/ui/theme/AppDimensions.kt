@@ -22,6 +22,7 @@ data class AppDimensions(
     val iconSmallSize: Dp = 18.dp,
     val iconMediumSize: Dp = 22.dp,
 
+    val imageXSSize: Dp = 64.dp,
     val imageSmallSize: Dp = 88.dp,
     val imageMediumSize: Dp = 100.dp,
     val imageLargeSize: Dp = 160.dp,
