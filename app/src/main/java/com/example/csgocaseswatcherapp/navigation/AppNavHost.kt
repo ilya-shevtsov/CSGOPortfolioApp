@@ -24,8 +24,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.example.csgocaseswatcherapp.core.ui.DeviceConfigurationType
-import com.example.csgocaseswatcherapp.core.ui.rememberDeviceConfigurationType
+import com.example.csgocaseswatcherapp.core.ui.adaptive.DeviceConfigurationType
+import com.example.csgocaseswatcherapp.core.ui.adaptive.rememberDeviceConfigurationType
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 import com.example.csgocaseswatcherapp.core.ui.topbar.AppTopBar
 import com.example.csgocaseswatcherapp.features.addcase.view.AddCaseRoute

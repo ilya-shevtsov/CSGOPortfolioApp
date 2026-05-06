@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.core.ui
+package com.example.csgocaseswatcherapp.core.ui.adaptive
 
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable

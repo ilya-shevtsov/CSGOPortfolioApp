@@ -38,7 +38,12 @@ data class AppDimensions(
     val shimmerTextFieldTitleWidth: Dp = 120.dp,
 
     val cardElevation: Dp = 2.dp,
-    val tileElevation: Dp = 1.dp
+    val tileElevation: Dp = 1.dp,
+
+    val dropdownTonalElevation: Dp = 2.dp,
+    val dropdownShadowElevation: Dp = 8.dp,
+
+    val defaultDividerThickness: Dp = 2.dp
 )
 
 internal val LocalDimensions = staticCompositionLocalOf { AppDimensions() }

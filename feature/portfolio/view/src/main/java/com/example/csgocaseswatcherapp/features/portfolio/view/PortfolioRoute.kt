@@ -14,8 +14,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.csgocaseswatcherapp.core.ui.DeviceConfigurationType
-import com.example.csgocaseswatcherapp.core.ui.rememberDeviceConfigurationType
+import com.example.csgocaseswatcherapp.core.ui.adaptive.DeviceConfigurationType
+import com.example.csgocaseswatcherapp.core.ui.adaptive.rememberDeviceConfigurationType
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 import com.example.csgocaseswatcherapp.features.portfolio.domain.entities.PortfolioItem
 import com.example.csgocaseswatcherapp.features.portfolio.view.sorting.ModalSideSheet

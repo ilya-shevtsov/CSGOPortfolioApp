@@ -1,4 +1,4 @@
-package com.example.csgocaseswatcherapp.core.ui
+package com.example.csgocaseswatcherapp.core.ui.adaptive
 
 import androidx.window.core.layout.WindowHeightSizeClass
 import androidx.window.core.layout.WindowSizeClass

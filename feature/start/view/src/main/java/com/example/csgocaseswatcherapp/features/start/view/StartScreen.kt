@@ -30,11 +30,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.csgocaseswatcherapp.core.ui.BackgroundDecorations
-import com.example.csgocaseswatcherapp.core.ui.DeviceConfigurationType
 import com.example.csgocaseswatcherapp.core.ui.ErrorScreen
 import com.example.csgocaseswatcherapp.core.ui.LoadingScreen
 import com.example.csgocaseswatcherapp.core.ui.MainMenuButton
 import com.example.csgocaseswatcherapp.core.ui.SmallButton
+import com.example.csgocaseswatcherapp.core.ui.adaptive.DeviceConfigurationType
 import com.example.csgocaseswatcherapp.core.ui.preview.PreviewPortraitLandscapeDarkLight
 import com.example.csgocaseswatcherapp.core.ui.preview.PreviewScreenWithTopBar
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme

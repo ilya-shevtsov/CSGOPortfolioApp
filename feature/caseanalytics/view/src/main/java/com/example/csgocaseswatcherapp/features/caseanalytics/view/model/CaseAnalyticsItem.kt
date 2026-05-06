@@ -33,9 +33,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.csgocaseswatcherapp.core.ui.CaseImage
-import com.example.csgocaseswatcherapp.core.ui.DeviceConfigurationType
 import com.example.csgocaseswatcherapp.core.ui.StatRow
 import com.example.csgocaseswatcherapp.core.ui.StatRowShimmer
+import com.example.csgocaseswatcherapp.core.ui.adaptive.DeviceConfigurationType
 import com.example.csgocaseswatcherapp.core.ui.shimmer.ShimmerBox
 import com.example.csgocaseswatcherapp.core.ui.shimmer.ShimmerCard
 import com.example.csgocaseswatcherapp.core.ui.shimmer.ShimmerTextLine

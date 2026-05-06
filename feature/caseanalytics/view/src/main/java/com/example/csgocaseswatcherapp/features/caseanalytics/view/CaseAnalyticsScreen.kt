@@ -9,8 +9,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.example.csgocaseswatcherapp.core.ui.DeviceConfigurationType
 import com.example.csgocaseswatcherapp.core.ui.ErrorScreen
+import com.example.csgocaseswatcherapp.core.ui.adaptive.DeviceConfigurationType
 import com.example.csgocaseswatcherapp.core.ui.preview.PreviewPortraitLandscapeDarkLight
 import com.example.csgocaseswatcherapp.core.ui.preview.PreviewScreenWithTopBar
 import com.example.csgocaseswatcherapp.core.ui.shimmer.ShimmerList

@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.csgocaseswatcherapp.core.ui.rememberDeviceConfigurationType
+import com.example.csgocaseswatcherapp.core.ui.adaptive.rememberDeviceConfigurationType
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable

@@ -2,8 +2,8 @@ package com.example.csgocaseswatcherapp.core.ui.preview
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
-import com.example.csgocaseswatcherapp.core.ui.DeviceConfigurationType
-import com.example.csgocaseswatcherapp.core.ui.rememberDeviceConfigurationType
+import com.example.csgocaseswatcherapp.core.ui.adaptive.DeviceConfigurationType
+import com.example.csgocaseswatcherapp.core.ui.adaptive.rememberDeviceConfigurationType
 
 @Composable
 fun PreviewScreenWithTopBar(
