@@ -15,16 +15,23 @@ fun PortfolioItemCardShimmer(
     compact: Boolean = false
 ) {
 
-    val height = if (compact) {
+    val imageHeight = if (compact) {
         AppTheme.dimensions.imageCompactNarrowHeight
     } else {
         AppTheme.dimensions.imageNarrowHeight
     }
 
+
+    val cardPadding = if (compact) {
+        AppTheme.dimensions.paddingM
+    } else {
+        AppTheme.dimensions.paddingML
+    }
+
     ShimmerCard(
         modifier = modifier
             .fillMaxWidth()
-            .height(height),
+            .height(imageHeight + cardPadding * 2),
         shape = AppTheme.shapes.narrowCard
     ) {
         ShimmerBox(

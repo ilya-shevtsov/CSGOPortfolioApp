@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -12,29 +11,23 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.csgocaseswatcherapp.core.ui.DeviceConfigurationType
 import com.example.csgocaseswatcherapp.core.ui.LoadingScreen
-import com.example.csgocaseswatcherapp.core.ui.preview.PreviewPortraitLandscapeDark
 import com.example.csgocaseswatcherapp.core.ui.preview.PreviewPortraitLandscapeDarkLight
 import com.example.csgocaseswatcherapp.core.ui.preview.PreviewScreenWithTopBar
-import com.example.csgocaseswatcherapp.core.ui.shimmer.ShimmerBox
-import com.example.csgocaseswatcherapp.core.ui.shimmer.ShimmerCard
-import com.example.csgocaseswatcherapp.core.ui.shimmer.ShimmerTextLine
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 import com.example.csgocaseswatcherapp.features.portfolio.view.components.PortfolioActionRow
 import com.example.csgocaseswatcherapp.features.portfolio.view.components.PortfolioBarChart
-import com.example.csgocaseswatcherapp.features.portfolio.view.components.PortfolioItemCard
+import com.example.csgocaseswatcherapp.features.portfolio.view.components.PortfolioItemList
+import com.example.csgocaseswatcherapp.features.portfolio.view.components.PortfolioLandscapeSummaryPanel
 import com.example.csgocaseswatcherapp.features.portfolio.view.components.PortfolioValueHeader
 import com.example.csgocaseswatcherapp.features.portfolio.view.model.PortfolioItemModel
-import com.example.csgocaseswatcherapp.features.portfolio.view.shimmer.PortfolioItemCardShimmer
+import com.example.csgocaseswatcherapp.features.portfolio.view.shimmer.PortfolioScreenShimmer
 import com.github.mikephil.charting.data.BarEntry
 
 
@@ -50,13 +43,15 @@ fun PortfolioScreen(
     when (state) {
         is PortfolioViewState.Loading -> LoadingScreen()
         is PortfolioViewState.Error -> PortfolioScreenShimmer(deviceConfigurationType = deviceConfigurationType)
-        is PortfolioViewState.Content -> PortfolioContent(
-            state = state,
-            listState = listState,
-            onAction = onAction,
-            deviceConfigurationType = deviceConfigurationType,
-            modifier = modifier
-        )
+        is PortfolioViewState.Content -> {
+            PortfolioContent(
+                state = state,
+                listState = listState,
+                onAction = onAction,
+                deviceConfigurationType = deviceConfigurationType,
+                modifier = modifier
+            )
+        }
     }
 }
 
@@ -147,7 +142,7 @@ fun PortfolioPortraitContent(
 }
 
 @Composable
-fun PortfolioLandscapeContent(
+private fun PortfolioLandscapeContent(
     state: PortfolioViewState.Content,
     onAction: (PortfolioAction) -> Unit,
     listState: LazyListState,
@@ -179,129 +174,6 @@ fun PortfolioLandscapeContent(
     }
 }
 
-@Composable
-fun PortfolioLandscapeSummaryPanel(
-    state: PortfolioViewState.Content,
-    onAction: (PortfolioAction) -> Unit,
-    modifier: Modifier
-) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
-    ) {
-        PortfolioValueHeader(
-            totalPortfolioValue = state.totalPortfolioValue,
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        PortfolioBarChart(
-            entries = state.portfolioBartEntryList,
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
-        )
-        PortfolioActionRow(
-            onAction = onAction,
-            compact = true,
-            modifier = Modifier.fillMaxWidth()
-        )
-    }
-}
-
-@Composable
-fun PortfolioItemList(
-    items: List<PortfolioItemModel>,
-    listState: LazyListState,
-    compact: Boolean,
-    modifier: Modifier
-) {
-    LazyColumn(
-        state = listState,
-        modifier = modifier,
-        contentPadding = PaddingValues(AppTheme.dimensions.paddingM),
-        verticalArrangement = Arrangement.spacedBy(
-            if (compact) AppTheme.dimensions.paddingM else AppTheme.dimensions.paddingML
-        )
-    ) {
-        items(items = items, key = { it.itemName }) { item ->
-            PortfolioItemCard(
-                item = item,
-                compact = compact
-            )
-        }
-    }
-}
-
-@Composable
-fun PortfolioScreenShimmer(modifier: Modifier = Modifier, deviceConfigurationType: DeviceConfigurationType) {
-    when (deviceConfigurationType) {
-        DeviceConfigurationType.MOBILE_PORTRAIT -> {
-            LoadingScreen()
-        }
-
-        DeviceConfigurationType.MOBILE_LANDSCAPE -> {
-            PortfolioLandscapeShimmer(modifier = modifier)
-        }
-    }
-}
-
-
-@Composable
-private fun PortfolioLandscapeShimmer(
-    modifier: Modifier = Modifier
-) {
-    Row(
-        modifier = modifier
-            .fillMaxSize()
-            .background(AppTheme.colors.background)
-            .padding(AppTheme.dimensions.paddingM),
-        horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
-    ) {
-        Column(
-            modifier = Modifier
-                .weight(1.1f)
-                .fillMaxHeight(),
-            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
-        ) {
-            ShimmerTextLine(width = AppTheme.dimensions.shimmerTextFieldTitleWidth)
-            ShimmerBox(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f), shape = AppTheme.shapes.cardDefault
-            )
-
-            ShimmerCard(modifier = Modifier.fillMaxWidth()) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(AppTheme.dimensions.paddingM),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
-                ) {
-                    repeat(3) {
-                        ShimmerBox(
-                            modifier = Modifier
-                                .weight(1f)
-                                .height(40.dp),
-                            shape = AppTheme.shapes.buttonRounded
-                        )
-                    }
-                }
-            }
-        }
-        LazyColumn(
-            modifier = Modifier
-                .weight(0.9f)
-                .fillMaxHeight(),
-            contentPadding = PaddingValues(AppTheme.dimensions.paddingM),
-            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
-        ) {
-            items(6) {
-                PortfolioItemCardShimmer()
-            }
-        }
-    }
-}
 
 @PreviewPortraitLandscapeDarkLight
 @Composable
@@ -325,20 +197,6 @@ private fun PortfolioScreenPreview() {
             listState = rememberLazyListState(),
             deviceConfigurationType = deviceConfigurationType,
             modifier = Modifier.padding(paddingValues)
-        )
-    }
-}
-
-@PreviewPortraitLandscapeDark
-@Composable
-private fun PortfolioScreenShimmerPreview() {
-    PreviewScreenWithTopBar(
-        title = "Portfolio",
-        canNavigateBack = true
-    ) { deviceConfigurationType, paddingValues ->
-        PortfolioScreenShimmer(
-            modifier = Modifier.padding(paddingValues),
-            deviceConfigurationType = deviceConfigurationType
         )
     }
 }
