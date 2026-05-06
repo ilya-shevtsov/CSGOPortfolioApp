@@ -1,6 +1,6 @@
 package com.example.csgocaseswatcherapp.features.portfolio.view
 
-import com.example.csgocaseswatcherapp.features.portfolio.view.sorting.model.SortState
+import com.example.csgocaseswatcherapp.features.portfolio.domain.model.PortfolioSortType
 
 
 sealed class PortfolioAction {
@@ -11,7 +11,7 @@ sealed class PortfolioAction {
     data object OnCaseAdded : PortfolioAction()
 
     data class OnSortingMethodSelected(
-        val sortState: SortState
+        val sortType: PortfolioSortType
     ) : PortfolioAction()
 
     data object OnAddCaseClicked : PortfolioAction()

@@ -19,12 +19,12 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
-import com.example.csgocaseswatcherapp.features.portfolio.view.sorting.model.SortState
+import com.example.csgocaseswatcherapp.features.portfolio.domain.model.PortfolioSortType
 
 @Composable
 fun SortingScreen(
     state: SortingModalViewState,
-    onClick: (method: SortState) -> Unit
+    onClick: (method: PortfolioSortType) -> Unit
 ) {
 
     Column(
@@ -44,7 +44,7 @@ fun SortingScreen(
         state.sortingEntryList.forEach { entry ->
             Button(
                 onClick = {
-                    onClick(entry.method)
+                    onClick(entry.sortType)
                 },
                 modifier = Modifier
                     .fillMaxWidth()

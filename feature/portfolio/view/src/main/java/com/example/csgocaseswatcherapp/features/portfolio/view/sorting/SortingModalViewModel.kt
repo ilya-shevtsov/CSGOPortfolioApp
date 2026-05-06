@@ -2,8 +2,9 @@ package com.example.csgocaseswatcherapp.features.portfolio.view.sorting
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.csgocaseswatcherapp.features.portfolio.view.sorting.model.SortState
+import com.example.csgocaseswatcherapp.features.portfolio.domain.model.PortfolioSortType
 import com.example.csgocaseswatcherapp.features.portfolio.view.sorting.model.SortingEntry
+import com.example.csgocaseswatcherapp.features.portfolio.view.sorting.model.labelResId
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,8 +18,8 @@ class SortingModalViewModel @Inject constructor() : ViewModel() {
     val uiState: MutableStateFlow<SortingModalViewState> = MutableStateFlow(value = initState())
 
     private fun initState(): SortingModalViewState {
-        return SortingModalViewState(sortingEntryList = SortState.entries.map { sortingMethod ->
-            SortingEntry(resId = sortingMethod.labelResId, method = sortingMethod)
+        return SortingModalViewState(sortingEntryList = PortfolioSortType.entries.map { sortType ->
+            SortingEntry(resId = sortType.labelResId, sortType = sortType)
         })
     }
 
@@ -27,16 +28,16 @@ class SortingModalViewModel @Inject constructor() : ViewModel() {
     fun handleAction(action: SortingModalAction) {
         when (action) {
             is SortingModalAction.OnSortingMethodSelected -> handleOnSortingMethodSelected(
-                action.sortState
+                action.sortType
             )
         }
     }
 
-    private fun handleOnSortingMethodSelected(sortState: SortState) {
+    private fun handleOnSortingMethodSelected(sortType: PortfolioSortType) {
         viewModelScope.launch {
             uiEvent.emit(
                 SortingModalEvent.NavigateToPortfolioWithSelectedSortingMethod(
-                    sortState
+                    sortType
                 )
             )
         }
