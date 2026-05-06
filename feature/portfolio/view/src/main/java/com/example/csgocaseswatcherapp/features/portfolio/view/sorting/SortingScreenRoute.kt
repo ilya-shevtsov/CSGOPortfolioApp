@@ -8,7 +8,7 @@ import com.example.csgocaseswatcherapp.features.portfolio.domain.model.Portfolio
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
-fun SortingBottomModal(
+fun SortingScreenRoute(
     viewModel: SortingModalViewModel,
     onDismissRequest: () -> Unit,
     onSortingSelected: (PortfolioSortType) -> Unit

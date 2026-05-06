@@ -1,12 +1,12 @@
 package com.example.csgocaseswatcherapp.features.portfolio.view.sorting
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -24,40 +24,44 @@ import com.example.csgocaseswatcherapp.features.portfolio.domain.model.Portfolio
 @Composable
 fun SortingScreen(
     state: SortingModalViewState,
-    onClick: (method: PortfolioSortType) -> Unit
+    onClick: (method: PortfolioSortType) -> Unit,
+    modifier: Modifier = Modifier
 ) {
-
-    Column(
-        modifier = Modifier
+    LazyColumn(
+        modifier = modifier
             .fillMaxWidth()
-            .background(AppTheme.colors.background)
-            .padding(AppTheme.dimensions.paddingL)
+            .background(AppTheme.colors.background),
+        contentPadding = PaddingValues(AppTheme.dimensions.paddingL),
+        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
     ) {
-        Text(
-            "Sort",
-            style = MaterialTheme.typography.titleLarge,
-            color = AppTheme.colors.primary
-        )
+        item {
+            Text(
+                text = "Sort",
+                style = MaterialTheme.typography.titleLarge,
+                color = AppTheme.colors.primary
+            )
+        }
 
-        Spacer(modifier = Modifier.height(16.dp))
-
-        state.sortingEntryList.forEach { entry ->
+        items(
+            items = state.sortingEntryList,
+            key = { entry -> entry.sortType }
+        ) { entry ->
             Button(
                 onClick = {
                     onClick(entry.sortType)
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(60.dp)
-                    .padding(
-                        horizontal = AppTheme.dimensions.paddingML,
-                        vertical = AppTheme.dimensions.paddingM
-                    ),
+                    .heightIn(min = 52.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = AppTheme.colors.primary,
                     contentColor = AppTheme.colors.onPrimary,
                 ),
-                shape = RoundedCornerShape(8.dp),
+                shape = AppTheme.shapes.buttonNormal,
+                contentPadding = PaddingValues(
+                    horizontal = AppTheme.dimensions.paddingM,
+                    vertical = AppTheme.dimensions.paddingS
+                )
             ) {
                 Text(
                     text = stringResource(entry.resId),
@@ -73,5 +77,10 @@ fun SortingScreen(
 @PreviewLightDark
 @Composable
 fun SortingScreenPreview() {
-    AppTheme { SortingScreen(state = SortingModalViewState(listOf()), onClick = {}) }
+    AppTheme {
+        SortingScreen(
+            state = SortingModalViewState(listOf()),
+            onClick = {}
+        )
+    }
 }
