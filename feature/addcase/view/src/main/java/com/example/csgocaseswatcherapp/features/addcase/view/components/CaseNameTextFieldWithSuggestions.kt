@@ -63,7 +63,6 @@ internal fun CaseNameTextFieldWithSuggestions(
             expanded = expanded,
             onDismissRequest = { expanded = false },
             modifier = Modifier
-                .exposedDropdownSize(matchTextFieldWidth = true)
                 .heightIn(max = 320.dp),
             containerColor = AppTheme.colors.surface,
             tonalElevation = AppTheme.dimensions.dropdownTonalElevation,
