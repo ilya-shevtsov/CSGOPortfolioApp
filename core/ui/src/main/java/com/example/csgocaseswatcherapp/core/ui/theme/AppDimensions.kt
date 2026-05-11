@@ -14,9 +14,10 @@ data class AppDimensions(
     val paddingXL: Dp = 24.dp,
 
     val appTopBarHorizontalPadding: Dp = 16.dp,
-    val compactTopBarHeight: Dp = 40.dp,
 
-    val backIconSize: Dp = 48.dp,
+    val compactTopBarHeight: Dp = 36.dp,
+
+    val backIconSize: Dp = 36.dp,
 
     val iconSmallSize: Dp = 18.dp,
     val iconMediumSize: Dp = 22.dp,

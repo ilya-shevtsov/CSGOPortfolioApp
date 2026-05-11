@@ -1,12 +1,15 @@
 package com.example.csgocaseswatcherapp.core.ui.topbar
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeContent
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material.icons.Icons
@@ -60,37 +63,46 @@ private fun CompactAppTopBar(
     onBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Row(
+    Column(
         modifier = modifier
             .fillMaxWidth()
             .background(AppTheme.colors.background)
-            .windowInsetsPadding(WindowInsets.safeContent)
-            .padding(start = AppTheme.dimensions.paddingM)
-            .height(AppTheme.dimensions.compactTopBarHeight),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        if (canNavigateBack) {
-            IconButton(
-                onClick = onBack,
-                modifier = Modifier.size(AppTheme.dimensions.backIconSize)
-            ) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "Back",
-                    tint = AppTheme.colors.onBackground
+            .windowInsetsPadding(
+                WindowInsets.safeDrawing.only(
+                    WindowInsetsSides.Top + WindowInsetsSides.Horizontal
                 )
-            }
-        }
-
-        Text(
-            text = title,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            color = AppTheme.colors.onBackground,
-            style = MaterialTheme.typography.titleMedium,
+            )
+    ) {
+        Row(
             modifier = Modifier
-                .weight(1f)
-        )
+                .fillMaxWidth()
+                .height(AppTheme.dimensions.compactTopBarHeight)
+                .padding(horizontal = AppTheme.dimensions.paddingM),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            if (canNavigateBack) {
+                IconButton(
+                    onClick = onBack,
+                    modifier = Modifier.size(AppTheme.dimensions.backIconSize)
+                ) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Back",
+                        tint = AppTheme.colors.onBackground
+                    )
+                }
+            }
+
+            Text(
+                text = title,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                color = AppTheme.colors.onBackground,
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier
+                    .weight(1f)
+            )
+        }
     }
 }
 
