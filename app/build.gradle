@@ -27,8 +27,12 @@ android {
     }
 
     productFlavors {
-        create("remote") { dimension = "data" }
-        create("local") { dimension = "data" }
+        register("remote") {
+            dimension = "data"
+        }
+        register("local") {
+            dimension = "data"
+        }
     }
 
 
