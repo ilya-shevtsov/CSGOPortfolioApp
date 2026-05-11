@@ -17,6 +17,8 @@ plugins {
     id "org.jetbrains.kotlin.plugin.parcelize" version "2.3.21" apply false
 
     id "com.google.dagger.hilt.android" version "2.59.2" apply false
+
+    id "com.github.skydoves.compose.stability.analyzer" version "0.7.4" apply false
 }
 
 allprojects {
