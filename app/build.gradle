@@ -9,14 +9,23 @@ plugins {
     id 'com.google.dagger.hilt.android'
 }
 android {
-    namespace 'com.example.csgocaseswatcherapp'
-    compileSdkVersion 35
-    flavorDimensions += "data"
+    namespace = 'com.example.csgocaseswatcherapp'
+    compileSdk = 35
+    flavorDimensions += ["data"]
 
     buildFeatures {
-        buildConfig true
-        compose true
+        buildConfig = true
+        compose = true
         viewBinding = true
+    }
+
+    defaultConfig {
+        applicationId = "com.example.csgocaseswatcherapp"
+        minSdk = 26
+        targetSdk = 35
+        versionCode = 1
+        versionName = "1.0"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     productFlavors {
@@ -24,27 +33,21 @@ android {
         create("local") { dimension = "data" }
     }
 
-    defaultConfig {
-        applicationId "com.example.csgocaseswatcherapp"
-        minSdkVersion 26
-        targetSdkVersion 35
-        versionCode 1
-        versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-    }
 
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            minifyEnabled = false
+            proguardFiles(
+                    getDefaultProguardFile('proguard-android-optimize.txt'),
+                    'proguard-rules.pro'
+            )
         }
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {

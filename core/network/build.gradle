@@ -5,19 +5,18 @@ plugins {
 }
 
 android {
-    namespace 'com.example.csgocaseswatcherapp.api'
-    compileSdk 35
+    namespace = 'com.example.csgocaseswatcherapp.api'
+    compileSdk = 35
 
     defaultConfig {
-        minSdk 26
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
+        minSdk = 26
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {

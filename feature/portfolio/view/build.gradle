@@ -9,23 +9,23 @@ plugins {
 }
 
 android {
-    namespace 'com.example.csgocaseswatcherapp.features.portfolio'
-    compileSdk 35
+    namespace = 'com.example.csgocaseswatcherapp.features.portfolio'
+    compileSdk = 35
 
     defaultConfig {
-        minSdk 26
+        minSdk = 26
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildFeatures {
-        compose true
+        compose = true
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {
