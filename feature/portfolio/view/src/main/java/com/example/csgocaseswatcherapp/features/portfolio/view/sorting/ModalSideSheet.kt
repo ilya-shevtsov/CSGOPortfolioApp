@@ -11,14 +11,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.only
-import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -33,8 +28,7 @@ fun ModalSideSheet(
     visible: Boolean,
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
-    minSheetWidth: Dp = 280.dp,
-    maxSheetWidth: Dp = 300.dp,
+    sheetWidth: Dp = 340.dp,
     content: @Composable () -> Unit
 ) {
     BackHandler(enabled = visible) {
@@ -63,7 +57,8 @@ fun ModalSideSheet(
 
         AnimatedVisibility(
             visible = visible,
-            modifier = Modifier.align(Alignment.CenterEnd),
+            modifier = Modifier
+                .align(Alignment.CenterEnd),
             enter = slideInHorizontally(
                 animationSpec = tween(250),
                 initialOffsetX = { fullWidth -> fullWidth }
@@ -76,17 +71,7 @@ fun ModalSideSheet(
             Surface(
                 modifier = Modifier
                     .fillMaxHeight()
-                    .widthIn(
-                        min = minSheetWidth,
-                        max = maxSheetWidth
-                    )
-                    .windowInsetsPadding(
-                        WindowInsets.safeDrawing.only(
-                            WindowInsetsSides.Top +
-                                    WindowInsetsSides.End +
-                                    WindowInsetsSides.Bottom
-                        )
-                    ),
+                    .width(sheetWidth),
                 color = AppTheme.colors.background,
                 shape = AppTheme.shapes.cardDefault,
                 tonalElevation = 6.dp,

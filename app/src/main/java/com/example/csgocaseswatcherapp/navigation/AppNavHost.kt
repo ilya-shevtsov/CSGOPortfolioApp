@@ -2,7 +2,6 @@ package com.example.csgocaseswatcherapp.navigation
 
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -97,7 +96,6 @@ fun AppNavHost(
             startDestination = Destination.Start::class,
             modifier = Modifier
                 .fillMaxSize()
-                .background(AppTheme.colors.background)
                 .padding(paddingValues),
             enterTransition = {
                 EnterTransition.None

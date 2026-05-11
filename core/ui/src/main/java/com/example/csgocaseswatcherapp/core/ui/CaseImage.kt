@@ -61,6 +61,9 @@ fun CaseImage(
                 .build(),
             contentDescription = null,
             error = painterResource(R.drawable.ic_error),
+            onError = { result ->
+                println("Coil image error: ${result.result.throwable}")
+            },
             placeholder = painterResource(R.drawable.case_placeholder),
             contentScale = ContentScale.Fit,
             modifier = modifier

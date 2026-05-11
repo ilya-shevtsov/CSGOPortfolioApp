@@ -31,7 +31,7 @@ fun SortingScreen(
         modifier = modifier
             .fillMaxWidth()
             .background(AppTheme.colors.background),
-        contentPadding = PaddingValues(AppTheme.dimensions.paddingL),
+        contentPadding = PaddingValues(AppTheme.dimensions.paddingM),
         verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
     ) {
         item {
@@ -47,12 +47,10 @@ fun SortingScreen(
             key = { entry -> entry.sortType }
         ) { entry ->
             Button(
-                onClick = {
-                    onClick(entry.sortType)
-                },
+                onClick = { onClick(entry.sortType) },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .heightIn(min = 52.dp),
+                    .heightIn(min = 44.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = AppTheme.colors.primary,
                     contentColor = AppTheme.colors.onPrimary,
@@ -65,7 +63,7 @@ fun SortingScreen(
             ) {
                 Text(
                     text = stringResource(entry.resId),
-                    fontSize = 18.sp,
+                    fontSize = 16.sp,
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center
                 )

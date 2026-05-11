@@ -96,8 +96,8 @@ fun PortfolioPortraitContent(
     Column(
         modifier
             .fillMaxSize()
-            .background(AppTheme.colors.background)
-            .padding(AppTheme.dimensions.paddingM),
+            .padding(AppTheme.dimensions.paddingM)
+            .background(AppTheme.colors.background),
     ) {
         PortfolioValueHeader(
             totalPortfolioValue = state.totalPortfolioValue,
