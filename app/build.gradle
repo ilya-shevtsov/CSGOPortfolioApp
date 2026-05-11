@@ -8,7 +8,7 @@ plugins {
 }
 android {
     namespace = 'com.example.csgocaseswatcherapp'
-    compileSdk = 35
+    compileSdk = 37
     flavorDimensions += ["data"]
 
     buildFeatures {

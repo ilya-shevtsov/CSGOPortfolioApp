@@ -10,7 +10,7 @@ plugins {
 
 android {
     namespace = 'com.example.csgocaseswatcherapp.features.caseanalytics.view'
-    compileSdk = 35
+    compileSdk = 37
 
     defaultConfig {
         minSdk = 26
