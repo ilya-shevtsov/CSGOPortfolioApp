@@ -2,7 +2,7 @@ package com.example.csgocaseswatcherapp.features.addcase.domain
 
 import androidx.annotation.StringRes
 
-enum class AddCaseError(@StringRes val resId: Int) {
+enum class AddCaseError(@param:StringRes val resId: Int) {
     NAME_EMPTY(R.string.error_choose_case),
     NAME_UNKNOWN(R.string.error_unknown_case),
 

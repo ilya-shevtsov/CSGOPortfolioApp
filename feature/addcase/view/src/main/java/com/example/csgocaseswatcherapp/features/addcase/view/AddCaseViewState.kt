@@ -11,9 +11,9 @@ sealed class AddCaseViewState {
         val name: String,
         val amount: String,
         val price: String,
-        @StringRes val amountError: Int? = null,
-        @StringRes val priceError: Int? = null,
-        @StringRes val nameError: Int? = null,
+        @param:StringRes val amountError: Int? = null,
+        @param:StringRes val priceError: Int? = null,
+        @param:StringRes val nameError: Int? = null,
         val caseNameSearchQuery: String = "",
         val isAddCaseButtonActive: Boolean = false,
         val caseNameSuggestionList: List<AddCaseSuggestion>
