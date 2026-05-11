@@ -29,7 +29,6 @@ import com.example.csgocaseswatcherapp.features.portfolio.view.components.Portfo
 import com.example.csgocaseswatcherapp.features.portfolio.view.model.PortfolioBarEntryModel
 import com.example.csgocaseswatcherapp.features.portfolio.view.model.PortfolioItemModel
 import com.example.csgocaseswatcherapp.features.portfolio.view.shimmer.PortfolioScreenShimmer
-import com.github.mikephil.charting.data.BarEntry
 import kotlinx.collections.immutable.persistentListOf
 
 @Composable
@@ -115,12 +114,8 @@ fun PortfolioPortraitContent(
                 maximumValue = 220.dp
             )
 
-            val barEntries = state.portfolioBartEntryList.map { entry ->
-                BarEntry(entry.x, entry.y)
-            }
-
             PortfolioBarChart(
-                entries = barEntries,
+                entries = state.portfolioBartEntryList,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(chartHeight)

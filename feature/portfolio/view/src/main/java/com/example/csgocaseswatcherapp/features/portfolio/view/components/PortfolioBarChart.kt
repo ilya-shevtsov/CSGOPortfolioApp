@@ -12,16 +12,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 import com.example.csgocaseswatcherapp.features.portfolio.R
+import com.example.csgocaseswatcherapp.features.portfolio.view.model.PortfolioBarEntryModel
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import kotlinx.collections.immutable.PersistentList
 
 @Composable
 fun PortfolioBarChart(
-    entries: List<BarEntry>,
+    entries: PersistentList<PortfolioBarEntryModel>,
     modifier: Modifier = Modifier,
 ) {
     ElevatedCard(
@@ -71,7 +73,8 @@ fun PortfolioBarChart(
                 }
             },
             update = { chart ->
-                val dataSet = BarDataSet(entries, label).apply {
+                val barEntries = entries.map { BarEntry(it.x, it.y) }
+                val dataSet = BarDataSet(barEntries, label).apply {
                     color = barColor.toArgb()
                     setDrawValues(false)
                 }
