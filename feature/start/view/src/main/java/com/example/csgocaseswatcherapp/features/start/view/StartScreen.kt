@@ -84,8 +84,8 @@ private fun StartScreenContent(
 
     Box(
         modifier = modifier
-            .fillMaxSize()
-            .background(AppTheme.colors.background),
+            .background(AppTheme.colors.background)
+            .fillMaxSize(),
     ) {
         when (deviceConfigurationType) {
             DeviceConfigurationType.MOBILE_PORTRAIT -> {
@@ -151,7 +151,7 @@ private fun StartScreenLandscapeContent(
     Row(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = AppTheme.dimensions.paddingL),
+            .padding(vertical = AppTheme.dimensions.paddingM),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Box(
