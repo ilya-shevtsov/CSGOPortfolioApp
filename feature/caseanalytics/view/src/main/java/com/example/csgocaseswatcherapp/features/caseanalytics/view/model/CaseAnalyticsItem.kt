@@ -41,7 +41,7 @@ import com.example.csgocaseswatcherapp.core.ui.shimmer.ShimmerCard
 import com.example.csgocaseswatcherapp.core.ui.shimmer.ShimmerTextLine
 import com.example.csgocaseswatcherapp.core.ui.shimmer.shimmer
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
-import com.example.csgocaseswatcherapp.features.caseanalytics.R
+import com.example.csgocaseswatcherapp.features.caseanalytics.view.R
 import com.example.csgocaseswatcherapp.ui.ExpandableStatSection
 
 private const val LANDSCAPE_CASE_HERO_WEIGHT = 0.38f
