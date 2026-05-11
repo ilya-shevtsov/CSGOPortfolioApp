@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.csgocaseswatcherapp.features.portfolio.domain.entities.PortfolioItem
 import com.example.csgocaseswatcherapp.features.portfolio.domain.model.PortfolioItemsResult
 import com.example.csgocaseswatcherapp.features.portfolio.domain.model.PortfolioSortType
-import com.example.csgocaseswatcherapp.features.portfolio.domain.model.PortfolioStateNew
+import com.example.csgocaseswatcherapp.features.portfolio.domain.model.PortfolioState
 import com.example.csgocaseswatcherapp.features.portfolio.domain.model.profitLossPercent
 import com.example.csgocaseswatcherapp.features.portfolio.domain.model.sortBy
 import com.example.csgocaseswatcherapp.features.portfolio.domain.usecases.GetPortfolioDataUseCase
@@ -42,8 +42,8 @@ class PortfolioViewModel @Inject constructor(
         createViewStateChain()
     }
 
-    private fun initBusinessState(): PortfolioStateNew {
-        return PortfolioStateNew(
+    private fun initBusinessState(): PortfolioState {
+        return PortfolioState(
             portfolioItemsResult = PortfolioItemsResult.Loading,
             totalPortfolioValue = 0.0,
             sortType = PortfolioSortType.OVERALL_VALUE
