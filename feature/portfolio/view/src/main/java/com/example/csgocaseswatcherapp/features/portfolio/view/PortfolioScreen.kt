@@ -26,10 +26,11 @@ import com.example.csgocaseswatcherapp.features.portfolio.view.components.Portfo
 import com.example.csgocaseswatcherapp.features.portfolio.view.components.PortfolioItemList
 import com.example.csgocaseswatcherapp.features.portfolio.view.components.PortfolioLandscapeSummaryPanel
 import com.example.csgocaseswatcherapp.features.portfolio.view.components.PortfolioValueHeader
+import com.example.csgocaseswatcherapp.features.portfolio.view.model.PortfolioBarEntryModel
 import com.example.csgocaseswatcherapp.features.portfolio.view.model.PortfolioItemModel
 import com.example.csgocaseswatcherapp.features.portfolio.view.shimmer.PortfolioScreenShimmer
 import com.github.mikephil.charting.data.BarEntry
-
+import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 fun PortfolioScreen(
@@ -114,8 +115,12 @@ fun PortfolioPortraitContent(
                 maximumValue = 220.dp
             )
 
+            val barEntries = state.portfolioBartEntryList.map { entry ->
+                BarEntry(entry.x, entry.y)
+            }
+
             PortfolioBarChart(
-                entries = state.portfolioBartEntryList,
+                entries = barEntries,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(chartHeight)
@@ -184,14 +189,15 @@ private fun PortfolioScreenPreview() {
     ) { deviceConfigurationType, paddingValues ->
         PortfolioScreen(
             state = PortfolioViewState.Content(
-                portfolioBartEntryList = listOf(
-                    BarEntry(1f, 20f),
-                    BarEntry(2f, 32f),
-                    BarEntry(3f, 44f),
-                    BarEntry(4f, 58f),
+                portfolioBartEntryList = persistentListOf(
+                    PortfolioBarEntryModel(1f, 20f),
+                    PortfolioBarEntryModel(2f, 32f),
+                    PortfolioBarEntryModel(3f, 44f),
+                    PortfolioBarEntryModel(4f, 58f),
                 ),
                 totalPortfolioValue = 1_690.65,
-                portfolioItemModelList = mockPortfolioItems
+                portfolioItemModelList = mockPortfolioItems,
+                isSortingSheetVisible = false
             ),
             onAction = {},
             listState = rememberLazyListState(),
@@ -201,7 +207,7 @@ private fun PortfolioScreenPreview() {
     }
 }
 
-val mockPortfolioItems = listOf(
+val mockPortfolioItems = persistentListOf(
     // Big positive position
     PortfolioItemModel(
         itemImage = "",

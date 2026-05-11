@@ -1,15 +1,16 @@
 package com.example.csgocaseswatcherapp.features.portfolio.view
 
+import com.example.csgocaseswatcherapp.features.portfolio.view.model.PortfolioBarEntryModel
 import com.example.csgocaseswatcherapp.features.portfolio.view.model.PortfolioItemModel
-import com.github.mikephil.charting.data.BarEntry
+import kotlinx.collections.immutable.PersistentList
 
 sealed class PortfolioViewState {
 
     data class Content(
-        val portfolioBartEntryList: List<BarEntry>,
+        val portfolioBartEntryList: PersistentList<PortfolioBarEntryModel>,
         val totalPortfolioValue: Double,
-        val portfolioItemModelList:List<PortfolioItemModel>,
-        val isSortingSheetVisible: Boolean = false
+        val portfolioItemModelList: PersistentList<PortfolioItemModel>,
+        val isSortingSheetVisible: Boolean
     ) : PortfolioViewState()
 
     data object Loading : PortfolioViewState()

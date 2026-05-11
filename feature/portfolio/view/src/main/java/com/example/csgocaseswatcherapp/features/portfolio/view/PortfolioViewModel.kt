@@ -9,10 +9,12 @@ import com.example.csgocaseswatcherapp.features.portfolio.domain.model.Portfolio
 import com.example.csgocaseswatcherapp.features.portfolio.domain.model.profitLossPercent
 import com.example.csgocaseswatcherapp.features.portfolio.domain.model.sortBy
 import com.example.csgocaseswatcherapp.features.portfolio.domain.usecases.GetPortfolioDataUseCase
+import com.example.csgocaseswatcherapp.features.portfolio.view.model.PortfolioBarEntryModel
 import com.example.csgocaseswatcherapp.features.portfolio.view.model.PortfolioItemModel
 import com.example.csgocaseswatcherapp.features.portfolio.view.model.PortfolioValueItem
 import com.github.mikephil.charting.data.BarEntry
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
@@ -63,8 +65,14 @@ class PortfolioViewModel @Inject constructor(
                     PortfolioViewState.Content(
                         portfolioItemModelList = result.portfolioItemList
                             .sortBy(state.sortType)
-                            .map { it.toModel() },
-                        portfolioBartEntryList = mockBarEntry,
+                            .map { it.toModel() }
+                            .toPersistentList(),
+                        portfolioBartEntryList = mockBarEntry.map { entry ->
+                            PortfolioBarEntryModel(
+                                x = entry.x,
+                                y = entry.y
+                            )
+                        }.toPersistentList(),
                         totalPortfolioValue = state.totalPortfolioValue,
                         isSortingSheetVisible = isSortingSheetVisible
                     )

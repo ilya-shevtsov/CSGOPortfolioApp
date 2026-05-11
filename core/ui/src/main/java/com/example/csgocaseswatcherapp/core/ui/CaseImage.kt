@@ -1,5 +1,6 @@
 package com.example.csgocaseswatcherapp.core.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -7,6 +8,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import coil3.compose.AsyncImage
@@ -40,18 +42,30 @@ fun CaseImage(
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
+    val isPreview = LocalInspectionMode.current
 
-    AsyncImage(
-        model = ImageRequest.Builder(context)
-            .data(imageUrl)
-            .crossfade(true)
-            .build(),
-        contentDescription = null,
-        error = painterResource(R.drawable.ic_error),
-        placeholder = painterResource(R.drawable.case_placeholder),
-        contentScale = ContentScale.Fit,
-        modifier = modifier
-            .size(width = width, height = height)
-            .clip(clipShape)
-    )
+    if (isPreview) {
+        Image(
+            painter = painterResource(R.drawable.case_placeholder),
+            contentDescription = null,
+            contentScale = ContentScale.Fit,
+            modifier = modifier
+                .size(width = width, height = height)
+                .clip(clipShape)
+        )
+    } else {
+        AsyncImage(
+            model = ImageRequest.Builder(context)
+                .data(imageUrl)
+                .crossfade(true)
+                .build(),
+            contentDescription = null,
+            error = painterResource(R.drawable.ic_error),
+            placeholder = painterResource(R.drawable.case_placeholder),
+            contentScale = ContentScale.Fit,
+            modifier = modifier
+                .size(width = width, height = height)
+                .clip(clipShape)
+        )
+    }
 }
