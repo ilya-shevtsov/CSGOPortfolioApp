@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_case_button">Add Case</string>
+    <string name="case_name_label">Case Name</string>
+    <string name="amount_of_cases">Amount of cases</string>
+    <string name="purchase_price">Purchase price</string>
+</resources>

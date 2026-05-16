@@ -8,235 +8,163 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MenuAnchorType
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import com.example.csgocaseswatcherapp.core.ui.AppActionButton
+import com.example.csgocaseswatcherapp.core.ui.AppOutlinedTextField
 import com.example.csgocaseswatcherapp.core.ui.BackgroundDecorations
 import com.example.csgocaseswatcherapp.core.ui.ErrorScreen
 import com.example.csgocaseswatcherapp.core.ui.LoadingScreen
+import com.example.csgocaseswatcherapp.core.ui.adaptive.DeviceConfigurationType
+import com.example.csgocaseswatcherapp.core.ui.preview.PreviewPortraitLandscapeDarkLight
+import com.example.csgocaseswatcherapp.core.ui.preview.PreviewScreenWithTopBar
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
+import com.example.csgocaseswatcherapp.features.addcase.R
 import com.example.csgocaseswatcherapp.features.addcase.domain.entities.AddCaseSuggestion
-import com.example.csgocaseswatcherapp.features.addcase.view.entities.CaseSuggestionItem
-
+import com.example.csgocaseswatcherapp.features.addcase.view.components.CaseNameTextFieldWithSuggestions
 
 @Composable
 fun AddCaseScreen(
     state: AddCaseViewState,
     onAction: (AddCaseAction) -> Unit,
+    deviceConfigurationType: DeviceConfigurationType,
+    modifier: Modifier = Modifier
 ) {
     LaunchedEffect(Unit) { onAction(AddCaseAction.OnCreate) }
 
     when (state) {
+        is AddCaseViewState.Error -> ErrorScreen()
         is AddCaseViewState.Loading -> LoadingScreen()
         is AddCaseViewState.Content -> AddCaseContent(
             state = state,
             onAction = onAction,
+            modifier = modifier,
+            deviceConfigurationType = deviceConfigurationType
         )
-
-        is AddCaseViewState.Error -> ErrorScreen()
     }
 }
 
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddCaseContent(
+    modifier: Modifier = Modifier,
     state: AddCaseViewState.Content,
     onAction: (AddCaseAction) -> Unit,
+    deviceConfigurationType: DeviceConfigurationType
 ) {
-    var expanded by remember { mutableStateOf(false) }
-    var hasFocus by remember { mutableStateOf(false) }
-
-
-    //temporary solution until I know how to move this to AppTheme
-    val outlinedTextFieldColors = OutlinedTextFieldDefaults.colors(
-        focusedTextColor = AppTheme.colors.onSurface,
-        unfocusedTextColor = AppTheme.colors.onSurface,
-
-        cursorColor = AppTheme.colors.primary,
-
-        focusedBorderColor = AppTheme.colors.primary,
-        unfocusedBorderColor = AppTheme.colors.onSurface.copy(alpha = 0.30f),
-
-        focusedLabelColor = AppTheme.colors.primary,
-        unfocusedLabelColor = AppTheme.colors.onSurface.copy(alpha = 0.60f),
-
-        errorTextColor = AppTheme.colors.onError,
-        errorBorderColor = AppTheme.colors.error,
-        errorLabelColor = AppTheme.colors.error,
-        errorCursorColor = AppTheme.colors.error,
-    )
-
-    LaunchedEffect(hasFocus, state.caseNameSearchQuery, state.caseNameSuggestionList) {
-        expanded = hasFocus &&
-                state.caseNameSearchQuery.isNotEmpty() &&
-                state.caseNameSuggestionList.isNotEmpty()
-    }
-
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(AppTheme.colors.background)
             .clickable { }
     ) {
         BackgroundDecorations(modifier = Modifier.matchParentSize())
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(
-                    horizontal = AppTheme.dimensions.paddingML,
-                    vertical = AppTheme.dimensions.paddingL
-                ),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-
-            ExposedDropdownMenuBox(
-                expanded = expanded,
-                onExpandedChange = { willExpand -> expanded = willExpand }
-            ) {
-                OutlinedTextField(
+        when (deviceConfigurationType) {
+            DeviceConfigurationType.MOBILE_PORTRAIT -> {
+                AddCaseForm(
+                    state = state,
+                    onAction = onAction,
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .menuAnchor(MenuAnchorType.PrimaryEditable)
-                        .onFocusChanged { f -> hasFocus = f.isFocused },
-                    value = state.name,
-                    onValueChange = { newValue ->
-                        onAction(AddCaseAction.OnNameChanged(newValue))
-                    },
-                    supportingText = { state.nameError?.let { ShowSupportText(stringResource(it)) } },
-                    label = { Text("Case Name") },
-                    singleLine = true,
-                    colors = outlinedTextFieldColors
-                )
-
-                ExposedDropdownMenu(
-                    expanded = expanded,
-                    onDismissRequest = { expanded = false },
-                    modifier = Modifier
-                        .exposedDropdownSize(matchTextFieldWidth = true)
-                        .heightIn(max = 320.dp),
-                    containerColor = AppTheme.colors.surface,
-                    tonalElevation = 2.dp,
-                    shadowElevation = 8.dp
-                ) {
-
-                    val suggestions = state.caseNameSuggestionList
-
-                    suggestions.forEachIndexed { index, suggestionData ->
-                        CaseSuggestionItem(
-                            suggestion = suggestionData,
-                            onClick = {
-                                onAction(AddCaseAction.OnSuggestionClicked(suggestionData.name))
-                                expanded = false
-                            }
+                        .fillMaxSize()
+                        .padding(
+                            horizontal = AppTheme.dimensions.paddingML,
+                            vertical = AppTheme.dimensions.paddingL
                         )
-
-                        if (index < suggestions.lastIndex) {
-                            HorizontalDivider(
-                                modifier = Modifier.padding(horizontal = AppTheme.dimensions.paddingML),
-                                color = AppTheme.colors.onSurface.copy(alpha = 0.08f),
-                                thickness = 2.dp
-                            )
-                        }
-                    }
-                }
+                )
             }
 
-            OutlinedTextField(
-                value = state.amount,
-                onValueChange = { newValue -> onAction(AddCaseAction.OnAmountChanged(newValue)) },
-                modifier = Modifier.fillMaxWidth(),
-                label = { Text("Amount of cases") },
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Number,
-                    imeAction = ImeAction.Next
-                ),
-                supportingText = { state.amountError?.let { ShowSupportText(stringResource(it)) } },
-                colors = outlinedTextFieldColors
-            )
-
-            OutlinedTextField(
-                value = state.price,
-                onValueChange = { newValue ->
-                    onAction(AddCaseAction.OnPriceChanged(newValue))
-                },
-                modifier = Modifier.fillMaxWidth(),
-                label = { Text("Purchase price") },
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Decimal,
-                    imeAction = ImeAction.Done
-                ),
-                supportingText = { state.priceError?.let { ShowSupportText(stringResource(it)) } },
-                colors = outlinedTextFieldColors
-            )
-
-            Spacer(Modifier.weight(1f))
-
-            Button(
-                colors = ButtonColors(
-                    containerColor = AppTheme.colors.primary,
-                    contentColor = AppTheme.colors.onPrimary,
-                    disabledContainerColor = AppTheme.colors.onSurface.copy(alpha = 0.12f),
-                    disabledContentColor = AppTheme.colors.onSurface.copy(alpha = 0.38f)
-                ),
-                onClick = { onAction(AddCaseAction.OnAddCaseClicked) },
-                enabled = state.isAddCaseButtonActive,
-                shape = RoundedCornerShape(8.dp),
-                modifier = Modifier
-                    .align(Alignment.End)
-                    .padding(AppTheme.dimensions.paddingXS)
-            ) {
-                Text("Add Case")
+            DeviceConfigurationType.MOBILE_LANDSCAPE -> {
+                AddCaseForm(
+                    state = state,
+                    onAction = onAction,
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .fillMaxWidth()
+                        .widthIn(max = 420.dp)
+                        .padding(AppTheme.dimensions.paddingL)
+                )
             }
         }
     }
 }
 
 @Composable
-fun ShowSupportText(
-    error: String?,
+private fun AddCaseForm(
+    state: AddCaseViewState.Content,
+    onAction: (AddCaseAction) -> Unit,
+    modifier: Modifier = Modifier
 ) {
-    error?.let {
-        Text(
-            text = it,
-            color = AppTheme.colors.error,
-            style = AppTheme.typography.m3.bodySmall
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
+    ) {
+        CaseNameTextFieldWithSuggestions(
+            value = state.name,
+            onValueChange = { onAction(AddCaseAction.OnNameChanged(it)) },
+            label = stringResource(R.string.case_name_label),
+            errorText = state.nameError?.let { stringResource(it) },
+            suggestions = state.caseNameSuggestionList,
+            onSuggestionClick = { caseName ->
+                onAction(AddCaseAction.OnSuggestionClicked(caseName))
+            },
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        AppOutlinedTextField(
+            value = state.amount,
+            onValueChange = { onAction(AddCaseAction.OnAmountChanged(it)) },
+            modifier = Modifier.fillMaxWidth(),
+            label = stringResource(R.string.amount_of_cases),
+            error = state.amountError?.let { stringResource(it) },
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Next
+            )
+        )
+
+        AppOutlinedTextField(
+            value = state.price,
+            onValueChange = { onAction(AddCaseAction.OnPriceChanged(it)) },
+            modifier = Modifier.fillMaxWidth(),
+            label = stringResource(R.string.purchase_price),
+            error = state.priceError?.let { stringResource(it) },
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Decimal,
+                imeAction = ImeAction.Done
+            )
+        )
+
+        Spacer(Modifier.weight(1f))
+
+        AppActionButton(
+            text = stringResource(R.string.add_case_button),
+            onClick = { onAction(AddCaseAction.OnAddCaseClicked) },
+            enabled = state.isAddCaseButtonActive,
+            modifier = Modifier
+                .align(Alignment.End)
+                .padding(AppTheme.dimensions.paddingXS)
         )
     }
 }
 
-@PreviewLightDark
+@PreviewPortraitLandscapeDarkLight
 @Composable
-fun AddCaseContentPreview() {
-    AppTheme {
+private fun AddCaseContentPreview() {
+    PreviewScreenWithTopBar(
+        title = "Portfolio",
+        canNavigateBack = true
+    ) { deviceConfigurationType, paddingValues ->
         AddCaseScreen(
+            modifier = Modifier.padding(paddingValues),
             state = AddCaseViewState.Content(
                 name = "Chroma Case", amount = "37", price = "3.14",
                 caseNameSearchQuery = "Chroma",
@@ -253,6 +181,7 @@ fun AddCaseContentPreview() {
                 )
             ),
             onAction = {},
+            deviceConfigurationType = deviceConfigurationType
         )
     }
 }

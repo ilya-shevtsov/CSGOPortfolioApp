@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewModel
+import com.example.csgocaseswatcherapp.features.caseoverview.view.model.CaseOverviewModel
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
@@ -18,9 +18,7 @@ fun CaseOverViewRoute(
     LaunchedEffect(viewModel) {
         viewModel.uiEvent.collectLatest { event ->
             when (event) {
-                is CaseOverviewEvent.NavigateToCaseDetails -> onNavigateToDetails(
-                    event.case
-                )
+                is CaseOverviewEvent.NavigateToCaseDetails -> onNavigateToDetails(event.case)
             }
         }
     }
@@ -29,7 +27,6 @@ fun CaseOverViewRoute(
         state = state,
         onCaseClick = { clicked ->
             viewModel.handleAction(CaseOverviewAction.OnCaseClicked(clicked))
-        }
+        },
     )
-
 }

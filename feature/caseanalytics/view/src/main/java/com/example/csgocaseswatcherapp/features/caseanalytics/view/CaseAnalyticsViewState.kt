@@ -1,6 +1,6 @@
 package com.example.csgocaseswatcherapp.features.caseanalytics.view
 
-import com.example.csgocaseswatcherapp.features.caseanalytics.view.entities.CaseAnalyticsModel
+import com.example.csgocaseswatcherapp.features.caseanalytics.view.model.CaseAnalyticsModel
 
 sealed class CaseAnalyticsViewState {
 

@@ -1,34 +1,35 @@
 plugins {
     id 'com.android.library'
-    id 'org.jetbrains.kotlin.android'
+    
 }
 
 android {
-    namespace 'com.example.csgocaseswatcherapp.features.start.domain'
-    compileSdk 35
+    namespace = 'com.example.csgocaseswatcherapp.features.start.domain'
+    compileSdk = 37
 
     defaultConfig {
-        minSdk 26
+        minSdk = 26
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
-
-    kotlinOptions {
-        jvmTarget = '17'
-        freeCompilerArgs = ['-Xjvm-default=all']
+}
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+        freeCompilerArgs.add("-jvm-default=enable")
     }
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.16.0'
+    implementation 'androidx.core:core-ktx:1.18.0'
 
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0"
 
     implementation "javax.inject:javax.inject:1"
 

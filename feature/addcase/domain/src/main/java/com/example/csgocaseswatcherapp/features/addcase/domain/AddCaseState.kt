@@ -9,12 +9,34 @@ data class AddCaseState(
     val priceField: AddCaseFieldData<PriceValidationResult>,
     val caseNameSearchQuery: String = "",
     val nameSuggestionResult: NameSuggestionResult,
-    val originalNameSuggestionList: List<AddCaseSuggestion>
-)
+    val originalNameSuggestionList: List<AddCaseSuggestion>,
+) {
+    companion object {
+        fun initial(): AddCaseState {
+            return AddCaseState(
+                name = "",
+                caseNameSearchQuery = "",
+                nameSuggestionResult = NameSuggestionResult.Loading,
+                originalNameSuggestionList = emptyList(),
+                amountField = AddCaseFieldData(
+                    input = "",
+                    result = AmountValidationResult.Fail(AddCaseError.AMOUNT_EMPTY),
+                    isTouched = false
+                ),
+                priceField = AddCaseFieldData(
+                    input = "",
+                    result = PriceValidationResult.Fail(AddCaseError.PRICE_EMPTY),
+                    isTouched = false
+                )
+            )
+        }
+    }
+}
 
 data class AddCaseFieldData<T>(
     val input: String,
-    val result: T
+    val result: T,
+    val isTouched: Boolean = false
 )
 
 sealed interface NameSuggestionResult {

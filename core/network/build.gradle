@@ -1,30 +1,31 @@
 plugins {
     id 'com.android.library'
-    id 'org.jetbrains.kotlin.android'
+    
     id 'org.jetbrains.kotlin.plugin.serialization'
 }
 
 android {
-    namespace 'com.example.csgocaseswatcherapp.api'
-    compileSdk 35
+    namespace = 'com.example.csgocaseswatcherapp.api'
+    compileSdk = 37
 
     defaultConfig {
-        minSdk 26
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
+        minSdk = 26
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
-    }
-
-    kotlinOptions {
-        jvmTarget = '17'
-        freeCompilerArgs = ['-Xjvm-default=all']
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+        freeCompilerArgs.add("-jvm-default=enable")
+    }
+}
+
 
 dependencies {
     implementation project(':feature:start:data')
@@ -33,11 +34,11 @@ dependencies {
     implementation project(':feature:portfolio:data')
     implementation project(':feature:addcase:data')
 
-    implementation 'androidx.core:core-ktx:1.16.0'
+    implementation 'androidx.core:core-ktx:1.18.0'
 
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3"
-
-    implementation 'com.squareup.retrofit2:retrofit:2.11.0'
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0"
+    implementation 'com.squareup.retrofit2:retrofit:3.0.0'
+    implementation 'com.squareup.retrofit2:converter-kotlinx-serialization:3.0.0'
 
     testImplementation 'junit:junit:4.13.2'
 

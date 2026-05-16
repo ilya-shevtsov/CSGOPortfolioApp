@@ -3,12 +3,15 @@ package com.example.csgocaseswatcherapp.features.caseoverview.view
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.csgocaseswatcherapp.features.caseoverview.domain.usecases.GetCaseOverviewListUseCase
-import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewModel
-import com.example.csgocaseswatcherapp.features.caseoverview.view.entities.CaseOverviewModelMapper
+import com.example.csgocaseswatcherapp.features.caseoverview.view.model.CaseOverviewModel
+import com.example.csgocaseswatcherapp.features.caseoverview.view.model.CaseOverviewModelMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import kotlin.coroutines.cancellation.CancellationException
 
@@ -23,14 +26,26 @@ class CaseOverviewViewModel @Inject constructor(
     val uiEvent = MutableSharedFlow<CaseOverviewEvent>()
 
     init {
+        loadCases()
+    }
+
+    private fun loadCases() {
         viewModelScope.launch {
-            runCatching {
-                getCaseListUseCase()
-            }.onSuccess { response ->
-                uiState.value = CaseOverviewViewState.Content(
-                    caseOverviewItemList = response.map(CaseOverviewModelMapper::map)
-                )
-            }.onFailure { throwable ->
+            try {
+                val response = withContext(Dispatchers.IO) {
+                    getCaseListUseCase()
+                }
+
+                val caseOverviewItemList = withContext(Dispatchers.Default) {
+                    response.map(CaseOverviewModelMapper::map)
+                }
+
+                uiState.update {
+                    CaseOverviewViewState.Content(
+                        caseOverviewItemList = caseOverviewItemList
+                    )
+                }
+            } catch (throwable: Throwable) {
                 if (throwable is CancellationException) throw throwable
                 showError()
             }

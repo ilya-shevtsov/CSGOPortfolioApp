@@ -2,17 +2,25 @@
 
 package com.example.csgocaseswatcherapp.features.portfolio.view
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.csgocaseswatcherapp.core.ui.adaptive.DeviceConfigurationType
+import com.example.csgocaseswatcherapp.core.ui.adaptive.rememberDeviceConfigurationType
+import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 import com.example.csgocaseswatcherapp.features.portfolio.domain.entities.PortfolioItem
-import com.example.csgocaseswatcherapp.features.portfolio.view.sortingmodal.view.SortingBottomModal
-import com.example.csgocaseswatcherapp.features.portfolio.view.sortingmodal.view.SortingModalViewModel
+import com.example.csgocaseswatcherapp.features.portfolio.view.sorting.ModalSideSheet
+import com.example.csgocaseswatcherapp.features.portfolio.view.sorting.SortingModalViewModel
+import com.example.csgocaseswatcherapp.features.portfolio.view.sorting.SortingScreenRoute
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
@@ -21,10 +29,14 @@ fun PortfolioRoute(
     sortingViewModel: SortingModalViewModel,
     onNavigateToAddCase: () -> Unit,
     onNavigateToPortfolioDetails: (List<PortfolioItem>) -> Unit
-){
+) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+
     val listState = rememberLazyListState()
+
+    val deviceConfigurationType = rememberDeviceConfigurationType()
 
     LaunchedEffect(Unit) {
         viewModel.handleAction(PortfolioAction.OnCreate)
@@ -35,7 +47,7 @@ fun PortfolioRoute(
             when (event) {
                 is PortfolioEvent.NavigateToAddCase -> onNavigateToAddCase()
                 is PortfolioEvent.NavigateToPortfolioDetails -> onNavigateToPortfolioDetails(
-                    event.portfolioItemListArgs.portfolioItemList
+                    event.portfolioItemList
                 )
 
                 is PortfolioEvent.ScrollToTop -> {
@@ -45,27 +57,73 @@ fun PortfolioRoute(
         }
     }
 
-    PortfolioScreen(
-        state = state,
-        onAction = { action -> viewModel.handleAction(action = action) },
-        listState = listState
-    )
+    val isSortingVisible = (state as? PortfolioViewState.Content)?.isSortingSheetVisible == true
 
-    val isVisible = (state as? PortfolioViewState.Content)?.isSortingSheetVisible == true
-    if (isVisible) {
-        ModalBottomSheet(
-            onDismissRequest = { viewModel.handleAction(PortfolioAction.HideSortingModal) },
-            sheetState = sheetState
-        ) {
-            SortingBottomModal(
-                viewModel = sortingViewModel,
-                onDismissRequest = { viewModel.handleAction(PortfolioAction.HideSortingModal) },
-                onSortingSelected = { sortingMethod ->
-                    viewModel.handleAction(
-                        PortfolioAction.OnSortingMethodSelected(sortingMethod)
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        PortfolioScreen(
+            state = state,
+            onAction = { action -> viewModel.handleAction(action = action) },
+            listState = listState,
+            deviceConfigurationType = deviceConfigurationType
+        )
+
+        when (deviceConfigurationType) {
+            DeviceConfigurationType.MOBILE_PORTRAIT -> {
+                if (isSortingVisible) {
+                    ModalBottomSheet(
+                        onDismissRequest = {
+                            viewModel.handleAction(PortfolioAction.HideSortingModal)
+                        },
+                        sheetState = sheetState,
+                        containerColor = AppTheme.colors.background,
+                        contentColor = AppTheme.colors.onBackground,
+                        dragHandle = {
+                            BottomSheetDefaults.DragHandle(
+                                color = AppTheme.colors.onBackground.copy(alpha = 0.4f)
+                            )
+                        }
+                    ) {
+                        SortingContent(
+                            sortingViewModel = sortingViewModel,
+                            viewModel = viewModel
+                        )
+                    }
+                }
+            }
+
+            DeviceConfigurationType.MOBILE_LANDSCAPE -> {
+                ModalSideSheet(
+                    visible = isSortingVisible,
+                    onDismissRequest = {
+                        viewModel.handleAction(PortfolioAction.HideSortingModal)
+                    }
+                ) {
+                    SortingContent(
+                        sortingViewModel = sortingViewModel,
+                        viewModel = viewModel
                     )
                 }
-            )
+            }
         }
     }
+}
+
+@Composable
+private fun SortingContent(
+    sortingViewModel: SortingModalViewModel,
+    viewModel: PortfolioViewModel
+) {
+    SortingScreenRoute(
+        viewModel = sortingViewModel,
+        onDismissRequest = {
+            viewModel.handleAction(PortfolioAction.HideSortingModal)
+        },
+        onSortingSelected = { sortingMethod ->
+            viewModel.handleAction(
+                PortfolioAction.OnSortingMethodSelected(sortingMethod)
+            )
+        }
+    )
 }

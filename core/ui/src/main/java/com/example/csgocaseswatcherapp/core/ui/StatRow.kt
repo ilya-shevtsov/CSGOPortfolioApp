@@ -10,7 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.unit.dp
+import com.example.csgocaseswatcherapp.core.ui.shimmer.ShimmerCircle
+import com.example.csgocaseswatcherapp.core.ui.shimmer.ShimmerTextLine
 import com.example.csgocaseswatcherapp.core.ui.theme.AppTheme
 
 @Composable
@@ -19,15 +20,16 @@ fun StatRow(
     label: String,
     value: String,
 ) {
+
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
     ) {
         Icon(
             imageVector = icon,
             contentDescription = null,
             tint = AppTheme.colors.primary,
-            modifier = Modifier.size(18.dp)
+            modifier = Modifier.size(AppTheme.dimensions.iconSmallSize)
         )
         Text(
             text = "$label: ",
@@ -39,5 +41,17 @@ fun StatRow(
             style = MaterialTheme.typography.bodyMedium,
             color = AppTheme.colors.onSurface
         )
+    }
+}
+
+@Composable
+fun StatRowShimmer() {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.paddingM)
+    ) {
+        ShimmerCircle(size = AppTheme.dimensions.iconSmallSize)
+
+        ShimmerTextLine()
     }
 }

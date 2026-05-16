@@ -6,6 +6,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.csgocaseswatcherapp.core.ui.adaptive.rememberDeviceConfigurationType
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
@@ -14,7 +15,10 @@ fun AddCaseRoute(
     navigateToPortfolio: () -> Unit,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+
     val context = LocalContext.current
+
+    val deviceConfigurationType = rememberDeviceConfigurationType()
 
     LaunchedEffect(viewModel) {
         viewModel.uiEvent.collectLatest { event ->
@@ -22,7 +26,7 @@ fun AddCaseRoute(
                 is AddCaseEvent.NavigateToPortfolioWithAddedCase -> navigateToPortfolio()
                 is AddCaseEvent.ShowValidationError -> Toast.makeText(
                     context,
-                    event.message,
+                    event.error.resId,
                     Toast.LENGTH_LONG
                 ).show()
             }
@@ -30,7 +34,8 @@ fun AddCaseRoute(
     }
 
     AddCaseScreen(
-        state,
+        state = state,
         onAction = { action -> viewModel.handleAction(action) },
+        deviceConfigurationType = deviceConfigurationType
     )
 }
